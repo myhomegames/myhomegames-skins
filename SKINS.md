@@ -85,6 +85,36 @@ Skin ids are **UUIDs** (v4-style folder names).
 3. Zip the two files (root or single top-level folder), or use **`npm run zip`** in **myhomegames-skins** with `skins/<your-id>/`.
 4. Install via Settings, or copy the extracted folder manually into `METADATA_PATH/content/skins/<uuid>/`.
 
+### Live-ish iteration: symlink a repo folder into the server skins directory
+
+You can point the server at a skin folder **inside this repository** so you edit `bundle.css` (and `skin.json`) on disk and only **reload the browser** to see changes—no zip rebuild or re-upload on every save.
+
+**How it works:** the server reads `bundle.css` from disk on each `GET /skins/:id/bundle.css`. If the UUID directory under `content/skins/` is a **symbolic link** to `myhomegames-skins/skins/<your-id>/`, those reads follow the link. The web app fetches that URL when you load or re-select the skin, so a **full page refresh** (or switching away from the skin and back) picks up edits.
+
+**Steps (typical):**
+
+1. **Install once** from Settings (upload a zip built from `skins/<your-id>/`, or any valid starter zip). Note the skin’s **UUID** (folder name under metadata, or the id shown in the API / list).
+2. **Stop** the MyHomeGames server (recommended so nothing holds files open while you replace the folder).
+3. **Remove** the real directory `METADATA_PATH/content/skins/<uuid>/` (back it up if it contains work you care about).
+4. **Create a symlink** whose **name is still `<uuid>`** (the app identifies skins by folder name), pointing at your working copy in this repo:
+
+   ```bash
+   # macOS / Linux — use absolute paths
+   ln -s /absolute/path/to/myhomegames-skins/skins/<your-id> \
+     /absolute/path/to/METADATA_PATH/content/skins/<uuid>
+   ```
+
+   On **Windows** (Developer Mode or admin, NTFS): `mklink /D "...\content\skins\<uuid>" "...\myhomegames-skins\skins\<your-id>"`.
+
+5. **Start** the server again. In the web app, ensure that skin is **selected** (Settings → Appearance).
+6. Edit **`skins/<your-id>/bundle.css`** in **myhomegames-skins**; save, then **reload the page** in the browser to refetch CSS.
+
+**Notes:**
+
+- This is **not** hot module replacement: one refresh (or skin toggle) per edit batch is enough.
+- Do **not** re-upload a zip for the same UUID while the path is a symlink unless you know the server will replace the link with a real directory again.
+- The folder name on disk **must** stay the UUID; your human-readable id stays only under `skins/<your-id>/` in this repo.
+
 ### New built-in skin in the web repository
 
 If the theme should ship inside the web app (no server zip), add another bundled skin in **myhomegames-web**: new folder under `src/skins/`, `bundle.ts`, extend `skinIds.ts`, `skinRuntime.ts`, `SkinContext.tsx`, and `main.tsx`.

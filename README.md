@@ -50,6 +50,10 @@ Every skin ships only:
 
 To add a skin, create `skins/<your-id>/` with those two files, then run **`npm run zip`** or **`npm run build`** from `studio/`.
 
+### Faster local iteration (no new tooling)
+
+If the server’s metadata directory is on your machine, you can **symlink** `METADATA_PATH/content/skins/<uuid>` to `myhomegames-skins/skins/<your-id>/` after a one-time install, then edit `bundle.css` in this repo and **reload the browser**. See **[SKINS.md — symlink a repo folder](SKINS.md#live-ish-iteration-symlink-a-repo-folder-into-the-server-skins-directory)** for step-by-step instructions (macOS, Linux, Windows).
+
 ## How the zip is built
 
 `scripts/build-zips.mjs`:
