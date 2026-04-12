@@ -4,6 +4,7 @@
   "description": "Example UI skins and tooling to build .mhg-skin.zip archives for MyHomeGames Web",
   "scripts": {
     "zip": "node scripts/build-zips.mjs",
+    "refresh-example-bundles": "node scripts/refresh-example-bundles.mjs",
     "build": "npm run build --prefix studio",
     "build:all": "npm run build --prefix studio"
   },

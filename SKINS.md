@@ -1,6 +1,6 @@
 # Themes (skins)
 
-This document lives in **myhomegames-skins** and describes how MyHomeGames **web**, **server**, and **skin archives** fit together. For building example zips from Plex + `tweak.css`, see also the root **[README.md](README.md)** in this repository.
+This document lives in **myhomegames-skins** and describes how MyHomeGames **web**, **server**, and **skin archives** fit together. For building zips and the optional Plex refresh tool, see **[README.md](README.md)**.
 
 The web app applies **one active skin at a time**: a single CSS string is injected into a `<style id="mhg-active-skin-bundle">` element in the document head.
 
@@ -13,7 +13,7 @@ The active skin id is stored in the browser under `localStorage` key `mhg_active
 
 ## Installing a skin (Settings)
 
-1. Build a valid **`.zip`** (or **`.mhg-skin.zip`**) as described below (or use **`npm run zip`** / **`npm run build`** in this repo to produce archives from Plex + `tweak.css`).
+1. Build a valid **`.zip`** (or **`.mhg-skin.zip`**) with **`skin.json`** and a single, complete **`bundle.css`** (see **myhomegames-skins** `npm run zip`, or pack manually).
 2. Open **Settings → Appearance** in the web app.
 3. Optionally set a **display name** (overrides `skin.json` name for the list).
 4. Click **Choose archive** and upload the zip. The server extracts it into `content/skins/<new-uuid>/` and selects the new skin.
@@ -27,7 +27,7 @@ The active skin id is stored in the browser under `localStorage` key `mhg_active
 
 **Removal**: **Remove** next to a server skin calls `DELETE /skins/:id` and deletes that folder. The built-in Plex skin cannot be removed.
 
-**Full replacement**: Active server skin CSS **replaces** the entire Plex bundle (same as before). Your archive should contain a complete theme (usually starting from the Plex `bundle.ts` output, or the merge produced by **`scripts/build-zips.mjs`** in this repo).
+**Full replacement**: An installed skin’s **`bundle.css`** **replaces** the entire built-in Plex stylesheet while that skin is active. It must be a **complete** theme (not a partial override of Plex).
 
 ---
 
@@ -46,8 +46,8 @@ The zip must contain **`skin.json`** in one of these places:
 
 **CSS** (next to `skin.json` in that folder):
 
-- Prefer **`bundle.css`** (single concatenated file), or  
-- Any **`.css`** files in that tree; if `bundle.css` is missing, all `.css` files are concatenated in **sorted relative path** order (deterministic, but order may not match Plex — prefer `bundle.css`).
+- Prefer **`bundle.css`** as one file containing the **entire** theme, or  
+- Any **`.css`** files in that tree; if `bundle.css` is missing, the server concatenates all `.css` files in **sorted relative path** order (still a full replacement — order matters).
 
 After install, the server writes an updated `skin.json` including `id` (UUID) and `installedAt`.
 
@@ -70,20 +70,20 @@ Skin ids are **UUIDs** (v4-style folder names).
 
 **myhomegames-skins** includes:
 
-- **`skins/example-emerald/`** and **`skins/example-amber/`** — each with `skin.json` + `tweak.css` (accents on top of the full Plex bundle).
-- **`scripts/build-zips.mjs`** — reads **`myhomegames-web/src/skins/plex/bundle.ts`** import order, concatenates Plex CSS, appends `tweak.css`, writes **`.mhg-skin.zip`** files.
-- **`studio/`** — small React + Vite app: run **`npm run dev`** or **`npm run build`** from `studio/` (after **`npm install`** at this repo root) to regenerate zips and download them from the studio UI.
-
-Clone **myhomegames-skins** next to **myhomegames-web** so the default path to the Plex tree resolves (or set **`MYHOMEGAMES_WEB`**).
+- **`skins/empty/`** — minimal **`bundle.css`** (no theme rules), same role as the former built-in “Empty” skin.
+- **`skins/example-emerald/`** and **`skins/example-amber/`** — committed **full** `bundle.css` files (demo themes with coloured accents).
+- **`scripts/build-zips.mjs`** — zips `skin.json` + `bundle.css` per folder (no merge with the web app default).
+- **`scripts/refresh-example-bundles.mjs`** — optional: rebuilds the two example `bundle.css` files from **myhomegames-web**’s Plex tree plus fixed accent snippets (run when the Plex baseline changes).
+- **`studio/`** — React + Vite UI: **`npm run dev`** / **`npm run build`** from `studio/` (after **`npm install`** at this repo root) to rebuild zips and download them.
 
 ---
 
 ## Creating a skin
 
-1. **Baseline**: concatenate the Plex skin from **`myhomegames-web`** `src/skins/plex/bundle.ts` (stable import order) into `bundle.css`, or copy the tree from `src/skins/plex/`. Alternatively use **this repo** to merge Plex + `tweak.css` automatically at zip time (`npm run zip`).
+1. Author a **complete** **`bundle.css`** for your theme (replace the whole UI, not a delta on top of Plex unless you inlined Plex yourself).
 2. Add **`skin.json`** with a display `name`.
-3. Zip the folder contents (root contains `skin.json` + `bundle.css`, or one wrapper folder with those files).
-4. Install via Settings, or copy the extracted folder manually into `METADATA_PATH/content/skins/<uuid>/` and ensure `skin.json` + CSS are present (uuid must match the folder name if you want the id to stay stable; the UI lists whatever valid UUID folders exist).
+3. Zip the two files (root or single top-level folder), or use **`npm run zip`** in **myhomegames-skins** with `skins/<your-id>/`.
+4. Install via Settings, or copy the extracted folder manually into `METADATA_PATH/content/skins/<uuid>/`.
 
 ### New built-in skin in the web repository
 
@@ -103,12 +103,12 @@ If the theme should ship inside the web app (no server zip), add another bundled
 | Active id in browser | `myhomegames-web/src/skins/skinStorage.ts` |
 | Built-in / server id helpers | `myhomegames-web/src/skins/skinIds.ts` |
 | Settings UI | `myhomegames-web/src/components/settings/SettingsSkinSection.tsx` |
-| Zip build + examples | **This repo**: `scripts/build-zips.mjs`, `skins/*/` |
+| Zip build + examples | **This repo**: `scripts/build-zips.mjs`, `scripts/refresh-example-bundles.mjs`, `skins/*/` |
 
 ---
 
 ## Troubleshooting
 
-- **Blank UI after selecting a server skin** — `bundle.css` (or merged CSS) is incomplete; switch back to **Plex** in Settings.
+- **Blank UI after selecting a server skin** — `bundle.css` is incomplete; switch back to **Plex** in Settings.
 - **401 / empty list** — log in (or disable Twitch requirement in server settings) so `GET /skins` succeeds.
 - **Upload errors** — ensure `skin.json` exists, paths inside the zip do not use `..`, and you are under the max skin count.

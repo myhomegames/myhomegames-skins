@@ -31,8 +31,8 @@ export default function App() {
       <header className="studio__hero">
         <h1>MyHomeGames skins</h1>
         <p className="studio__lead">
-          Example themes and a small studio app. Archives are built from the live Plex CSS tree in{" "}
-          <code>myhomegames-web</code> plus per-skin <code>tweak.css</code>.
+          Example themes and a small studio app. Each zip contains a full <code>bundle.css</code> plus{" "}
+          <code>skin.json</code> — no merge with the web default at build time.
         </p>
       </header>
 
@@ -66,11 +66,15 @@ export default function App() {
             <code>skins/&lt;id&gt;/skin.json</code> — display name and metadata
           </li>
           <li>
-            <code>skins/&lt;id&gt;/tweak.css</code> — overrides appended after the full Plex bundle
+            <code>skins/&lt;id&gt;/bundle.css</code> — complete theme for that skin (required)
           </li>
           <li>
-            <code>scripts/build-zips.mjs</code> — reads <code>myhomegames-web/src/skins/plex/bundle.ts</code> import
-            order, concatenates CSS, writes zip + <code>skins-built.json</code>
+            <code>scripts/build-zips.mjs</code> — zips <code>skin.json</code> + <code>bundle.css</code>; writes{" "}
+            <code>skins-built.json</code>
+          </li>
+          <li>
+            <code>npm run refresh-example-bundles</code> (repo root) — optional; rebuilds emerald/amber{" "}
+            <code>bundle.css</code> from <code>myhomegames-web</code> Plex + accents
           </li>
         </ul>
       </section>
