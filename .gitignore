@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Root zip script output
+dist/
+
+# Vite / studio build + generated archives (from predev / prebuild)
+studio/dist/
+studio/public/zips/
+studio/public/skins-built.json
+
+# Misc
+*.log
+.DS_Store
+.env
+.env.*.local

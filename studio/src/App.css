@@ -1,0 +1,84 @@
+.studio {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.studio__hero h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 650;
+}
+
+.studio__lead {
+  margin: 0;
+  color: #b8b8c8;
+}
+
+.studio__section {
+  margin-top: 2.5rem;
+}
+
+.studio__section h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.studio__hint {
+  margin: 0 0 1rem;
+  color: #a0a0b0;
+  font-size: 0.95rem;
+}
+
+.studio__error {
+  color: #ff8a8a;
+  margin: 0;
+}
+
+.studio__cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.studio__card {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  border-radius: 10px;
+  background: #1a1a24;
+  border: 1px solid #2a2a38;
+}
+
+.studio__card h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.studio__id {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  color: #8888a0;
+  font-family: ui-monospace, monospace;
+}
+
+.studio__dl {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.studio__dl:hover {
+  text-decoration: underline;
+}
+
+.studio__list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #c8c8d8;
+}
+
+.studio__list li {
+  margin-bottom: 0.5rem;
+}

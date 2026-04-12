@@ -1,0 +1,11 @@
+/* Overrides on top of bundled Plex CSS */
+
+.mhg-header-container {
+  background: linear-gradient(90deg, #0c1812 0%, #0d0d0d 55%);
+  border-bottom: 2px solid #1db954;
+}
+
+.cover-hover-effect:hover,
+*:hover > .cover-hover-effect {
+  outline-color: #1db954;
+}
