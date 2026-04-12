@@ -1,5 +1,5 @@
 {
   "name": "Empty (no theme CSS)",
-  "description": "Minimal bundle.css (no theme rules) — only Tailwind + index.css from the web app. Useful to verify skin switching or debug layout.",
+  "description": "Layout shell and BackgroundManager helpers only — no Plex-style component theme. Tailwind still comes from the web app build.",
   "version": "1.0.0"
 }
