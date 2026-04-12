@@ -1,4 +1,4 @@
-# MyHomeGames skins
+# MyHomeGames Skins
 
 Example UI skins for **[MyHomeGames Web](https://github.com/myhomegames/myhomegames-web)** and tooling to build **`.mhg-skin.zip`** archives. Installed skins are stored on the server under `METADATA_PATH/content/skins/`. Full documentation: **[SKINS.md](SKINS.md)**.
 
