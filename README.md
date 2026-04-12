@@ -1,12 +1,12 @@
 # MyHomeGames Skins
 
-Example UI skins for **[MyHomeGames Web](https://github.com/myhomegames/myhomegames-web)** and tooling to build **`.mhg-skin.zip`** archives. Installed skins are stored on the server under `METADATA_PATH/content/skins/`. Full documentation: **[SKINS.md](SKINS.md)**.
+Example UI skins for **[MyHomeGames Web](https://github.com/myhomegames/myhomegames-web)** and tooling to build **`.mhg-skin.zip`** archives. Installed skins are stored on the server under `METADATA_PATH/skins/`. Full documentation: **[SKINS.md](SKINS.md)**.
 
 ## Requirements
 
 - **Node.js 18+**
-- **`npm run zip`** only needs this repository (each skin already has a committed **`bundle.css`**).
-- To **regenerate** the two Plex-based demo `bundle.css` files after **myhomegames-web** changes, clone **myhomegames-web** next to this repo (or set **`MYHOMEGAMES_WEB`**) and run **`npm run refresh-example-bundles`**.
+- **`npm run zip`** zips every `skins/<id>/` that has **`skin.json`** + **`bundle.css`** (same layout for **Plex** and every other skin).
+- To **regenerate** the example accent themes after you edit **`skins/plex/bundle.css`**, run **`npm run refresh-example-bundles`**.
 
 ## Quick start
 
@@ -39,6 +39,7 @@ npm run dev
 
 | Folder | Description |
 |--------|-------------|
+| `skins/plex/` | **Reference Plex theme** — committed **`bundle.css`** + **`skin.json`**, same as other skins. Shipped as **`plex.mhg-skin.zip`**. |
 | `skins/empty/` | Minimal **`bundle.css`** (no theme rules) — same idea as the old built-in “Empty” skin removed from the web app. |
 | `skins/example-emerald/` | Full **`bundle.css`** (self-contained) with emerald accents on header and cover hover. |
 | `skins/example-amber/` | Full **`bundle.css`** with warm amber accents. |
@@ -52,7 +53,7 @@ To add a skin, create `skins/<your-id>/` with those two files, then run **`npm r
 
 ### Faster local iteration (no new tooling)
 
-If the server’s metadata directory is on your machine, you can **symlink** `METADATA_PATH/content/skins/<uuid>` to `myhomegames-skins/skins/<your-id>/` after a one-time install, then edit `bundle.css` in this repo and **reload the browser**. See **[SKINS.md — symlink a repo folder](SKINS.md#live-ish-iteration-symlink-a-repo-folder-into-the-server-skins-directory)** for step-by-step instructions (macOS, Linux, Windows).
+If the server’s metadata directory is on your machine, you can **symlink** `METADATA_PATH/skins/<uuid>` to `myhomegames-skins/skins/<your-id>/` after a one-time install, then edit `bundle.css` in this repo and **reload the browser**. See **[SKINS.md — symlink a repo folder](SKINS.md#live-ish-iteration-symlink-a-repo-folder-into-the-server-skins-directory)** for step-by-step instructions (macOS, Linux, Windows).
 
 ## How the zip is built
 
@@ -61,14 +62,13 @@ If the server’s metadata directory is on your machine, you can **symlink** `ME
 1. For each `skins/<id>/` with **`skin.json`** and **`bundle.css`**, copies them into `<id>.mhg-skin.zip` (no CSS processing — the archive is a full replacement theme for the web app).
 2. Writes **`skins-built.json`** next to the zips (manifest for the studio UI).
 
-`scripts/refresh-example-bundles.mjs` (maintainers): rebuilds **`skins/example-emerald/bundle.css`** and **`skins/example-amber/bundle.css`** from the current **myhomegames-web** Plex tree plus fixed accent snippets. Run when the Plex baseline changes.
+`scripts/refresh-example-bundles.mjs` (maintainers): rebuilds **`skins/example-emerald/bundle.css`** and **`skins/example-amber/bundle.css`** from **`skins/plex/bundle.css`** plus fixed accent snippets. Run when the Plex baseline changes.
 
 Environment variables:
 
 | Variable | Default | Meaning |
 |----------|---------|---------|
 | `OUT_ZIPS` | `dist/zips` under this repo | Output directory for zips + sibling `skins-built.json` |
-| `MYHOMEGAMES_WEB` | `../myhomegames-web` | Only for **`npm run refresh-example-bundles`** |
 
 ## License
 

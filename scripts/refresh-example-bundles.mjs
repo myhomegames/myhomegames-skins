@@ -1,11 +1,8 @@
 /**
  * Maintainer tool: writes skins/example-emerald/bundle.css and skins/example-amber/bundle.css
- * as a full stylesheet by concatenating the current Plex tree from myhomegames-web plus
- * the example accent blocks (not used at zip time — shipped skins are only bundle.css).
+ * as a full stylesheet from the committed Plex skin (skins/plex/bundle.css) plus accent blocks.
  *
- * Run when the Plex baseline in myhomegames-web changes and you want to refresh the demos.
- *
- *   MYHOMEGAMES_WEB=/path/to/myhomegames-web node scripts/refresh-example-bundles.mjs
+ * Run when skins/plex/bundle.css changes and you want to refresh the demo themes.
  */
 
 import fs from "fs";
@@ -14,13 +11,8 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.join(__dirname, "..");
-const DEFAULT_WEB = path.join(REPO_ROOT, "..", "myhomegames-web");
-const MYHOMEGAMES_WEB = process.env.MYHOMEGAMES_WEB
-  ? path.resolve(process.env.MYHOMEGAMES_WEB)
-  : DEFAULT_WEB;
 
-const BUNDLE_TS = path.join(MYHOMEGAMES_WEB, "src", "skins", "plex", "bundle.ts");
-const PLEX_ROOT = path.join(MYHOMEGAMES_WEB, "src", "skins", "plex");
+const PLEX_BUNDLE = path.join(REPO_ROOT, "skins", "plex", "bundle.css");
 
 const ACCENT = {
   "example-emerald": `/* example-emerald accents */
@@ -47,34 +39,12 @@ const ACCENT = {
 `,
 };
 
-function readPlexCssOrder() {
-  const src = fs.readFileSync(BUNDLE_TS, "utf8");
-  const re = /from\s+"(\.\/[^"]+\.css)\?raw"/g;
-  const files = [];
-  let m;
-  while ((m = re.exec(src)) !== null) {
-    files.push(m[1]);
-  }
-  return files;
-}
-
-function concatPlexBundle() {
-  const rels = readPlexCssOrder();
-  const parts = [];
-  for (const rel of rels) {
-    const abs = path.join(PLEX_ROOT, rel.replace(/^\.\//, ""));
-    parts.push(`/* --- ${rel} --- */\n`);
-    parts.push(fs.readFileSync(abs, "utf8"));
-  }
-  return parts.join("\n\n");
-}
-
 function main() {
-  if (!fs.existsSync(BUNDLE_TS)) {
-    console.error(`Missing ${BUNDLE_TS} — set MYHOMEGAMES_WEB`);
+  if (!fs.existsSync(PLEX_BUNDLE)) {
+    console.error(`Missing ${PLEX_BUNDLE}`);
     process.exit(1);
   }
-  const plex = concatPlexBundle();
+  const plex = fs.readFileSync(PLEX_BUNDLE, "utf8");
   for (const id of ["example-emerald", "example-amber"]) {
     const accent = ACCENT[id];
     if (!accent) continue;
