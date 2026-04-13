@@ -7939,7 +7939,16 @@ fieldset.edit-game-modal-field {
 }
 
 .home-page-content-wrapper.has-toolbar .home-page-scroll-container.table-view {
-  padding-top: 0;
+  padding-top: 16px;
+}
+
+/* List pages: extra space above grid/table body (collections, tags, library, recommended, etc.) */
+.home-page-content-wrapper.home-page-fade-in .home-page-scroll-container {
+  padding-top: 32px;
+}
+
+.home-page-content-wrapper.games-list-page-fade .home-page-scroll-container:not(.table-view) {
+  padding-top: 32px;
 }
 
 .home-page-scroll-container {
