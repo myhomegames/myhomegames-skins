@@ -5739,12 +5739,10 @@ fieldset.edit-game-modal-field {
 /* --- ./components/games/VirtualizedGamesList.css --- */
 
 
+/* Do not force width/display: react-window Grid relies on inline width + absolute cells */
 .virtualized-games-grid {
   overflow-x: hidden !important;
-  width: 100% !important;
   margin: 0 auto !important;
-  display: flex !important;
-  justify-content: center !important;
 }
 
 
@@ -6767,10 +6765,7 @@ fieldset.edit-game-modal-field {
 
 .virtualized-collections-grid {
   overflow-x: hidden !important;
-  width: 100% !important;
   margin: 0 auto !important;
-  display: flex !important;
-  justify-content: center !important;
 }
 
 
@@ -6846,16 +6841,17 @@ fieldset.edit-game-modal-field {
 .search-dropdown {
   position: absolute;
   top: 100%;
-  left: 138px;
+  left: 0;
   margin-top: 0px;
   z-index: 10003;
   pointer-events: auto;
-  max-width: 650px;
-  width: calc(100% - 200px);
+  /* Left edge aligned with search bar; a bit narrower than before */
+  width: min(640px, calc(100vw - 32px));
   max-height: calc(100vh - 150px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* Hide results dropdown while a child modal is open (keeps mount/layout logic in TSX) */
@@ -6934,12 +6930,12 @@ fieldset.edit-game-modal-field {
 .search-no-results {
   position: absolute;
   top: 100%;
-  left: 138px;
+  left: 0;
   margin-top: 0px;
   z-index: 10003;
   pointer-events: auto;
-  max-width: 650px;
-  width: calc(100% - 200px);
+  width: min(640px, calc(100vw - 32px));
+  box-sizing: border-box;
   padding: 20px;
   text-align: center;
   color: rgba(255, 255, 255, 0.6);
