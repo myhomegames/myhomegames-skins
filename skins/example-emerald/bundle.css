@@ -7916,7 +7916,7 @@ fieldset.edit-game-modal-field {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  /* Same net offset as former padding-top: 128px + margin-top: -30px, without negative margin */
   padding-top: 128px;
 }
 
