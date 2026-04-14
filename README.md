@@ -20,7 +20,7 @@ npm install
 # Build archives only → studio/public/zips/*.mhg-skin.zip
 npm run zip
 
-# Studio (React): generates public/zips + skins-built.json, then Vite build → studio/docs/
+# Studio (React): generates public/zips + skins-built.json, then Vite build → docs/ (repo root)
 npm install --prefix studio
 npm run build --prefix studio
 ```
