@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Empty skin snapshot">
+  <rect width="640" height="360" rx="20" fill="#121212" />
+  <rect x="28" y="26" width="584" height="48" rx="10" fill="#1c1c1c" />
+  <rect x="42" y="40" width="140" height="20" rx="6" fill="#2d2d2d" />
+  <rect x="42" y="100" width="556" height="110" rx="12" fill="#181818" />
+  <rect x="42" y="226" width="268" height="96" rx="12" fill="#181818" />
+  <rect x="330" y="226" width="268" height="96" rx="12" fill="#181818" />
+  <text x="42" y="190" fill="#b9b9b9" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="36" font-weight="700">Empty</text>
+</svg>

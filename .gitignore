@@ -3,7 +3,6 @@ node_modules/
 
 # Root zip script output
 dist/
-docs
 
 # Vite / studio build + generated archives (from predev / prebuild)
 studio/dist/
