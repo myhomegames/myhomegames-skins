@@ -1,5 +1,0 @@
-{
-  "name": "Example — Amber accent",
-  "description": "Full self-contained stylesheet (amber header and cover accents). Regenerate from Plex via npm run refresh-example-bundles when the web baseline changes.",
-  "version": "1.0.0"
-}

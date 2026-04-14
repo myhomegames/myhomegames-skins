@@ -1,5 +1,5 @@
 /**
- * Maintainer tool: writes skins/example-emerald/bundle.css and skins/example-amber/bundle.css
+ * Maintainer tool: writes skins/example-emerald/bundle.css
  * as a full stylesheet from the committed Plex skin (skins/plex/bundle.css) plus accent blocks.
  *
  * Run when skins/plex/bundle.css changes and you want to refresh the demo themes.
@@ -26,17 +26,6 @@ const ACCENT = {
   outline-color: #1db954;
 }
 `,
-  "example-amber": `/* example-amber accents */
-.mhg-header-container {
-  background: linear-gradient(90deg, #1a1208 0%, #0d0d0d 55%);
-  border-bottom: 2px solid #e5a00d;
-}
-
-.cover-hover-effect:hover,
-*:hover > .cover-hover-effect {
-  outline-color: #f5b041;
-}
-`,
 };
 
 function main() {
@@ -45,7 +34,7 @@ function main() {
     process.exit(1);
   }
   const plex = fs.readFileSync(PLEX_BUNDLE, "utf8");
-  for (const id of ["example-emerald", "example-amber"]) {
+  for (const id of ["example-emerald"]) {
     const accent = ACCENT[id];
     if (!accent) continue;
     const out = path.join(REPO_ROOT, "skins", id, "bundle.css");

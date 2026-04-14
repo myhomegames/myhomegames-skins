@@ -5,7 +5,7 @@
  * theme (no merge with the web app’s default skin at zip time).
  *
  * Env:
- *   OUT_ZIPS — output directory (default: <repo>/dist/zips)
+ *   OUT_ZIPS — output directory (default: <repo>/studio/public/zips)
  */
 
 import fs from "fs";
@@ -18,7 +18,16 @@ const REPO_ROOT = path.join(__dirname, "..");
 
 const OUT_ZIPS = process.env.OUT_ZIPS
   ? path.resolve(process.env.OUT_ZIPS)
-  : path.join(REPO_ROOT, "dist", "zips");
+  : path.join(REPO_ROOT, "studio", "public", "zips");
+
+function cleanBuildOutputs(outDir) {
+  const parentDir = path.dirname(outDir);
+  const snapshotsDir = path.join(parentDir, "snapshots");
+  const manifestPath = path.join(parentDir, "skins-built.json");
+  fs.rmSync(outDir, { recursive: true, force: true });
+  fs.rmSync(snapshotsDir, { recursive: true, force: true });
+  fs.rmSync(manifestPath, { force: true });
+}
 
 function readSkinTitle(skinJsonPath) {
   try {
@@ -28,6 +37,34 @@ function readSkinTitle(skinJsonPath) {
     /* ignore */
   }
   return null;
+}
+
+function readSkinJson(skinJsonPath) {
+  try {
+    const parsed = JSON.parse(fs.readFileSync(skinJsonPath, "utf8"));
+    if (parsed && typeof parsed === "object") return parsed;
+  } catch {
+    /* ignore */
+  }
+  return {};
+}
+
+function resolveManifestSnapshot(snapshotValue, skinId, skinDir, outDir) {
+  if (typeof snapshotValue !== "string" || !snapshotValue.trim()) return null;
+  const rawValue = snapshotValue.trim();
+  if (/^https?:\/\//i.test(rawValue)) return rawValue;
+  const sourcePath = path.resolve(skinDir, rawValue);
+  if (!fs.existsSync(sourcePath)) {
+    console.warn(`Skip snapshot for ${skinId}: ${rawValue} not found`);
+    return null;
+  }
+  const snapshotsDir = path.join(path.dirname(outDir), "snapshots");
+  fs.mkdirSync(snapshotsDir, { recursive: true });
+  const extension = path.extname(sourcePath) || ".png";
+  const safeExt = extension.replace(/[^a-zA-Z0-9.]/g, "") || ".png";
+  const outName = `${skinId}${safeExt}`;
+  fs.copyFileSync(sourcePath, path.join(snapshotsDir, outName));
+  return `snapshots/${outName}`;
 }
 
 function zipSkinFolder(skinId, skinDir, outDir) {
@@ -48,8 +85,18 @@ function zipSkinFolder(skinId, skinDir, outDir) {
   }
 
   const zip = new AdmZip();
+  const skinJson = readSkinJson(skinJsonPath);
   zip.addFile("skin.json", Buffer.from(fs.readFileSync(skinJsonPath, "utf8"), "utf8"));
   zip.addFile("bundle.css", Buffer.from(bundleCss, "utf8"));
+  if (typeof skinJson.snapshot === "string" && skinJson.snapshot.trim()) {
+    const snapshotPath = path.resolve(skinDir, skinJson.snapshot.trim());
+    if (fs.existsSync(snapshotPath)) {
+      const snapshotZipPath = skinJson.snapshot.trim().replace(/^\.?\//, "");
+      zip.addFile(snapshotZipPath, fs.readFileSync(snapshotPath));
+    } else {
+      console.warn(`Skip zip snapshot for ${skinId}: ${skinJson.snapshot} not found`);
+    }
+  }
 
   fs.mkdirSync(outDir, { recursive: true });
   const zipName = `${skinId}.mhg-skin.zip`;
@@ -58,7 +105,8 @@ function zipSkinFolder(skinId, skinDir, outDir) {
   const kb = (bundleCss.length / 1024).toFixed(1);
   console.log(`Wrote ${outFile} (${kb} KB CSS)`);
   const title = readSkinTitle(skinJsonPath) || skinId;
-  return { id: skinId, name: title, zip: zipName };
+  const snapshot = resolveManifestSnapshot(skinJson.snapshot, skinId, skinDir, outDir);
+  return snapshot ? { id: skinId, name: title, zip: zipName, snapshot } : { id: skinId, name: title, zip: zipName };
 }
 
 function main() {
@@ -68,6 +116,7 @@ function main() {
     console.error("No skins/ directory");
     process.exit(1);
   }
+  cleanBuildOutputs(OUT_ZIPS);
   fs.mkdirSync(OUT_ZIPS, { recursive: true });
   /** @type {{ id: string; name: string; zip: string }[]} */
   const manifest = [];

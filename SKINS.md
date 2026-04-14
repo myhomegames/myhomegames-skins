@@ -72,9 +72,9 @@ Skin ids are **UUIDs** (v4-style folder names).
 
 - **`skins/plex/`** — default **Plex** theme: committed **`bundle.css`** + **`skin.json`**, like any other skin.
 - **`skins/empty/`** — minimal **`bundle.css`** (no theme rules), same role as the former built-in “Empty” skin.
-- **`skins/example-emerald/`** and **`skins/example-amber/`** — committed **full** `bundle.css` files (demo themes with coloured accents).
+- **`skins/example-emerald/`** — committed **full** `bundle.css` file (demo theme with coloured accents).
 - **`scripts/build-zips.mjs`** — zips **`skin.json`** + **`bundle.css`** per folder.
-- **`scripts/refresh-example-bundles.mjs`** — optional: rebuilds the two example `bundle.css` files from **`skins/plex/bundle.css`** plus fixed accent snippets (run when the Plex baseline changes).
+- **`scripts/refresh-example-bundles.mjs`** — optional: rebuilds the example `bundle.css` file from **`skins/plex/bundle.css`** plus fixed accent snippets (run when the Plex baseline changes).
 - **`studio/`** — React + Vite UI: **`npm run dev`** / **`npm run build`** from `studio/` (after **`npm install`** at this repo root) to rebuild zips and download them.
 
 ---

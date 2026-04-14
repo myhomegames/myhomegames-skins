@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 type Manifest = {
-  skins: { id: string; name: string; zip: string }[];
+  skins: { id: string; name: string; zip: string; snapshot?: string }[];
 };
 
 export default function App() {
@@ -48,6 +48,14 @@ export default function App() {
           <ul className="studio__cards">
             {manifest.skins.map((s) => (
               <li key={s.id} className="studio__card">
+                {s.snapshot && (
+                  <img
+                    className="studio__snapshot"
+                    src={/^https?:\/\//i.test(s.snapshot) ? s.snapshot : `${import.meta.env.BASE_URL}${s.snapshot}`}
+                    alt={`${s.name} snapshot`}
+                    loading="lazy"
+                  />
+                )}
                 <h3>{s.name}</h3>
                 <p className="studio__id">{s.id}</p>
                 <a className="studio__dl" href={`${import.meta.env.BASE_URL}zips/${encodeURIComponent(s.zip)}`} download>

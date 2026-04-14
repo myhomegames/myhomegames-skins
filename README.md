@@ -17,7 +17,7 @@ The studio’s `predev` / `prebuild` hooks run `scripts/build-zips.mjs`, which u
 cd myhomegames-skins
 npm install
 
-# Build archives only → dist/zips/*.mhg-skin.zip
+# Build archives only → studio/public/zips/*.mhg-skin.zip
 npm run zip
 
 # Studio (React): generates public/zips + skins-built.json, then Vite build → studio/dist/
@@ -37,12 +37,11 @@ npm run dev
 
 ## Included example skins
 
-| Folder | Description |
-|--------|-------------|
+|Folder|Description|
+|------|-----------|
 | `skins/plex/` | **Reference Plex theme** — committed **`bundle.css`** + **`skin.json`**, same as other skins. Shipped as **`plex.mhg-skin.zip`**. |
 | `skins/empty/` | Minimal **`bundle.css`** (no theme rules) — same idea as the old built-in “Empty” skin removed from the web app. |
 | `skins/example-emerald/` | Full **`bundle.css`** (self-contained) with emerald accents on header and cover hover. |
-| `skins/example-amber/` | Full **`bundle.css`** with warm amber accents. |
 
 Every skin ships only:
 
@@ -62,13 +61,13 @@ If the server’s metadata directory is on your machine, you can **symlink** `ME
 1. For each `skins/<id>/` with **`skin.json`** and **`bundle.css`**, copies them into `<id>.mhg-skin.zip` (no CSS processing — the archive is a full replacement theme for the web app).
 2. Writes **`skins-built.json`** next to the zips (manifest for the studio UI).
 
-`scripts/refresh-example-bundles.mjs` (maintainers): rebuilds **`skins/example-emerald/bundle.css`** and **`skins/example-amber/bundle.css`** from **`skins/plex/bundle.css`** plus fixed accent snippets. Run when the Plex baseline changes.
+`scripts/refresh-example-bundles.mjs` (maintainers): rebuilds **`skins/example-emerald/bundle.css`** from **`skins/plex/bundle.css`** plus fixed accent snippets. Run when the Plex baseline changes.
 
 Environment variables:
 
-| Variable | Default | Meaning |
-|----------|---------|---------|
-| `OUT_ZIPS` | `dist/zips` under this repo | Output directory for zips + sibling `skins-built.json` |
+|Variable|Default|Meaning|
+|--------|-------|-------|
+|`OUT_ZIPS`|`studio/public/zips` under this repo|Output directory for zips + sibling `skins-built.json`|
 
 ## License
 

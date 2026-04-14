@@ -1,5 +1,6 @@
 {
   "name": "Plex",
   "description": "Default MyHomeGames theme (moved from myhomegames-web). The web app uploads this archive when the server has no skins yet.",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "snapshot": "snapshot.svg"
 }
