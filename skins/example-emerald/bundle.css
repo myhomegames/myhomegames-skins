@@ -9140,3 +9140,12 @@ fieldset.edit-game-modal-field {
 *:hover > .cover-hover-effect {
   outline-color: #1db954;
 }
+
+/* Force cover images to fill assigned boxes (stretch if needed) */
+.games-list-cover > img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  object-position: center;
+  display: block;
+}

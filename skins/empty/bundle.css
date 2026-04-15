@@ -84,3 +84,12 @@ body {
   position: relative;
   z-index: 2;
 }
+
+/* Force cover images to fill assigned boxes (stretch if needed) */
+.games-list-cover > img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  object-position: center;
+  display: block;
+}
