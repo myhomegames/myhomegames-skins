@@ -1,0 +1,86 @@
+/**
+ * Empty skin — no Plex theme rules.
+ * Layout shell and BackgroundManager helpers (Tailwind loads from the web app build).
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  min-width: 320px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.background-manager-root {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  z-index: 0;
+}
+
+.background-manager-bg-img {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.background-manager-root--clickable {
+  cursor: pointer;
+}
+
+.background-manager-root--solid {
+  background-color: #1a1a1a;
+  cursor: default;
+}
+
+.background-manager-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  background-color: rgba(26, 26, 26, 0.85);
+  z-index: 1;
+}
+
+.background-manager-foreground {
+  position: relative;
+  z-index: 2;
+}
