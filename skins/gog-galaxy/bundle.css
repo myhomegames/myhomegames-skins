@@ -146,12 +146,60 @@ body {
 .mhg-header-container {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
   max-width: 1920px;
   margin: 0 auto;
   padding: 0 24px;
   height: 100%;
-  background-color: #0d0d0d;
+  background-color: transparent;
+}
+
+/* Flatten header actions so we can reorder with flex `order` (logo → user → settings | search + + …) */
+.mhg-header-actions {
+  display: contents;
+}
+
+/*
+ * Logo must stay first even if `display: contents` on `.mhg-header-actions` is ignored:
+ * otherwise the whole actions block keeps order:0 and wins over logo at order:10.
+ */
+.mhg-header-container > .mhg-logo-button {
+  order: -100;
+}
+
+/* User profile right after logo (when actions are flattened) */
+.mhg-header-container > .profile-dropdown-wrapper {
+  order: 11;
+}
+
+/* Settings = second header Tooltip when no spinner; third child when spinner first */
+.mhg-header-actions:not(:has(.mhg-activity-spinner)) > .tooltip-wrapper:nth-child(2),
+.mhg-header-actions:has(.mhg-activity-spinner) > .tooltip-wrapper:nth-child(3) {
+  order: 12;
+}
+
+/* Add = first Tooltip when no spinner; second when spinner */
+.mhg-header-actions:not(:has(.mhg-activity-spinner)) > .tooltip-wrapper:nth-child(1),
+.mhg-header-actions:has(.mhg-activity-spinner) > .tooltip-wrapper:nth-child(2) {
+  order: 51;
+}
+
+.mhg-header-container > .mhg-activity-spinner {
+  order: 13;
+}
+
+/* When contents is not applied, keep the grouped actions after logo but before search */
+.mhg-header-container > .mhg-header-actions {
+  order: 5;
+}
+
+.mhg-header-container > .mhg-search-container {
+  order: 50;
+  margin-left: auto;
+}
+
+.mhg-header-container > .update-notification-wrapper {
+  order: 52;
 }
 
 .mhg-logo-button {
@@ -172,18 +220,10 @@ body {
 }
 
 .mhg-search-container {
-  flex: 1;
   display: flex;
-  justify-content: center;
-  max-width: 450px;
-}
-
-.mhg-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-  margin-left: auto;
+  flex: 0 1 min(420px, 42vw);
+  max-width: min(420px, 42vw);
+  justify-content: flex-end;
 }
 
 .mhg-header-button {
@@ -9180,8 +9220,9 @@ fieldset.edit-game-modal-field {
   --gog-sidebar-gap: 12px;
 }
 
+/* Full viewport height so the sidebar paint sits under the transparent top bar (header z-index stays above). */
 .mhg-libraries-bar {
-  top: 64px;
+  top: 0;
   left: 0;
   right: auto;
   bottom: 0;
@@ -9197,7 +9238,9 @@ fieldset.edit-game-modal-field {
   height: 100%;
   min-height: 0;
   margin: 0;
-  padding: 16px 12px;
+  box-sizing: border-box;
+  /* Top padding = header height: background still fills the band under the top bar */
+  padding: 64px 12px 16px 12px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
