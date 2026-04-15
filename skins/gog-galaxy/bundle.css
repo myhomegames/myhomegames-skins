@@ -2607,6 +2607,12 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
   border-radius: inherit;
 }
 
+/* Hero: SPA sets this class so object-fit fill wins over the rule above (e.g. showBorder false). */
+.games-list-cover--image-fill > img {
+  object-fit: fill !important;
+  object-position: center !important;
+}
+
 .games-list-cover:not(.cover-hover-effect) > div:first-child {
   width: 100%;
   height: 100%;
