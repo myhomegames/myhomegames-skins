@@ -1,6 +1,6 @@
 {
   "name": "Example — Emerald accent",
-  "description": "Full self-contained stylesheet (emerald header and cover accents). Regenerate from Plex via npm run refresh-example-bundles when the web baseline changes.",
+  "description": "Full self-contained stylesheet (emerald header and cover accents).",
   "version": "1.0.0",
   "snapshot": "snapshot.svg"
 }

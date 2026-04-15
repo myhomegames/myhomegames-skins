@@ -80,10 +80,6 @@ export default function App() {
             <code>scripts/build-zips.mjs</code> — zips <code>skin.json</code> + <code>bundle.css</code>; writes{" "}
             <code>skins-built.json</code>
           </li>
-          <li>
-            <code>npm run refresh-example-bundles</code> (repo root) — optional; rebuilds emerald/amber{" "}
-            <code>bundle.css</code> from <code>myhomegames-web</code> Plex + accents
-          </li>
         </ul>
       </section>
     </div>
