@@ -1,0 +1,12 @@
+{
+  "name": "GOG Galaxy",
+  "description": "Skin for GOG Galaxy",
+  "version": "1.0.0",
+  "snapshot": "snapshot.jpg",
+  "web": {
+    "persistentLibraryShell": true,
+    "collectionsShortcutList": true,
+    "detailLibrariesToolbar": true,
+    "libraryPagesVerticalList": true
+  }
+}
