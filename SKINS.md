@@ -44,6 +44,27 @@ The zip must contain **`skin.json`** in one of these places:
 { "name": "My theme" }
 ```
 
+**`skin.json`** (`web` flags, optional):
+
+```json
+{
+  "name": "My theme",
+  "web": {
+    "persistentLibraryShell": true,
+    "collectionsShortcutList": true,
+    "detailLibrariesToolbar": true,
+    "libraryPagesVerticalList": true
+  }
+}
+```
+
+`web` is optional. All flags default to `false` if missing. Unknown keys are ignored.
+
+- `persistentLibraryShell`: keeps header + libraries bar mounted while main content changes via nested routes.
+- `collectionsShortcutList`: shows collection shortcut buttons in the libraries bar.
+- `detailLibrariesToolbar`: on game/tag/detail pages, renders libraries controls as a compact in-content toolbar.
+- `libraryPagesVerticalList`: forces libraries pages list in vertical mode (no narrow combobox fallback).
+
 **CSS** (next to `skin.json` in that folder):
 
 - Prefer **`bundle.css`** as one file containing the **entire** theme, or  
