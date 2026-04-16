@@ -35,6 +35,20 @@
   --font-body-2-font-family: "IBM Mhg Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   --font-body-2-font-size: 0.875rem;
   --font-body-2-line-height: 1.5;
+
+  /* GOG-like palette (from reference screenshot): amber accents + deep blue/brown glow */
+  --gog-accent: #d6992f;
+  --gog-accent-strong: #efb44b;
+  --gog-text-main: rgba(255, 255, 255, 0.9);
+  --gog-text-muted: rgba(255, 255, 255, 0.68);
+  --gog-header-chip: rgba(6, 10, 18, 0.82);
+  --gog-header-chip-border: rgba(214, 153, 47, 0.28);
+  --gog-sidebar-bg: rgba(18, 13, 12, 0.84);
+  --gog-sidebar-border: rgba(214, 153, 47, 0.16);
+  --gog-bg-main:
+    radial-gradient(62% 66% at 70% 66%, rgba(21, 64, 99, 0.62) 0%, rgba(11, 23, 37, 0.52) 48%, rgba(4, 8, 14, 0.76) 100%),
+    radial-gradient(55% 72% at 8% 52%, rgba(114, 57, 20, 0.32) 0%, rgba(53, 30, 22, 0.22) 48%, rgba(10, 8, 10, 0.0) 72%),
+    linear-gradient(180deg, #080b12 0%, #07090f 100%);
 }
 
 .cover-hover-effect {
@@ -84,8 +98,8 @@ body {
   height: 100%;
   overflow: hidden;
   min-width: 320px;
-  background-color: #1a1a1a;
-  color: #ffffff;
+  background: var(--gog-bg-main);
+  color: var(--gog-text-main);
 }
 
 #root {
@@ -139,8 +153,46 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10004;
+  /* Above .games-list-toolbar (10005) so profile / settings / + / search stay clickable */
+  z-index: 10006;
   box-shadow: none;
+  /*
+   * Let clicks reach fixed controls (toolbar, libraries actions, menu) in gaps between header children.
+   * Interactive header bits opt back in with pointer-events: auto below.
+   */
+  pointer-events: none;
+}
+
+.mhg-header-container > .mhg-logo-button,
+.mhg-header-container > .mhg-search-container,
+.mhg-header-container > .mhg-activity-spinner,
+.mhg-header-container > .tooltip-wrapper,
+.mhg-header-container > .update-notification-wrapper,
+.mhg-header-container > .profile-dropdown-wrapper {
+  pointer-events: auto;
+}
+
+/* If .mhg-header-actions does not flatten (display:contents unsupported), children inherit pointer-events: none */
+.mhg-header-actions > .tooltip-wrapper,
+.mhg-header-actions > .mhg-activity-spinner,
+.mhg-header-actions > .profile-dropdown-wrapper,
+.mhg-header-actions > .update-notification-wrapper {
+  pointer-events: auto;
+}
+
+/* Above .search-bar-wrapper (10002) so + / settings stay clickable after translateX */
+.mhg-header-container > .tooltip-wrapper,
+.mhg-header-actions > .tooltip-wrapper {
+  position: relative;
+  z-index: 10020;
+}
+
+.mhg-header-container > .profile-dropdown-wrapper,
+.mhg-header-container > .update-notification-wrapper,
+.mhg-header-actions > .profile-dropdown-wrapper,
+.mhg-header-actions > .update-notification-wrapper {
+  position: relative;
+  z-index: 10020;
 }
 
 .mhg-header-container {
@@ -181,7 +233,9 @@ body {
 /* Add = first Tooltip when no spinner; second when spinner */
 .mhg-header-actions:not(:has(.mhg-activity-spinner)) > .tooltip-wrapper:nth-child(1),
 .mhg-header-actions:has(.mhg-activity-spinner) > .tooltip-wrapper:nth-child(2) {
-  order: 51;
+  order: 49;
+  margin-left: auto;
+  transform: translateX(360px);
 }
 
 .mhg-header-container > .mhg-activity-spinner {
@@ -235,7 +289,9 @@ body {
   height: 36px;
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--gog-text-muted);
+  background: var(--gog-header-chip);
+  border: 1px solid var(--gog-header-chip-border);
   cursor: pointer;
   border-radius: 4px;
   transition: color 0.2s ease;
@@ -244,7 +300,9 @@ body {
 
 
 .mhg-header-button:hover {
-  color: rgba(255, 255, 255, 1);
+  color: var(--gog-text-main);
+  border-color: rgba(239, 180, 75, 0.45);
+  background: rgba(11, 18, 30, 0.88);
 }
 
 .mhg-header-button:active {
@@ -294,17 +352,17 @@ body:has(.launch-modal-overlay) {
   align-items: center;
   width: 100%;
   height: 36px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: var(--gog-header-chip);
+  border: 1px solid var(--gog-header-chip-border);
   border-radius: 18px;
   transition: all 0.2s ease;
   overflow: hidden;
 }
 
 .mhg-search-container-wrapper:focus-within {
-  background-color: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+  background-color: rgba(10, 18, 30, 0.9);
+  border-color: rgba(239, 180, 75, 0.52);
+  box-shadow: 0 0 0 2px rgba(214, 153, 47, 0.2);
 }
 
 .mhg-search-icon-wrapper {
@@ -335,8 +393,8 @@ body:has(.launch-modal-overlay) {
 
 /* Dropdown */
 .mhg-dropdown {
-  background-color: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(10, 14, 22, 0.92);
+  border: 1px solid rgba(214, 153, 47, 0.24);
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
@@ -423,7 +481,7 @@ body:has(.launch-modal-overlay) {
 }
 
 .mhg-library-active {
-  color: #E5A00D;
+  color: var(--gog-accent);
   border-bottom: none !important;
   font-weight: 600;
   line-height: 1.5;
@@ -441,7 +499,7 @@ body:has(.launch-modal-overlay) {
   left: 0;
   right: 0;
   height: 2px;
-  background-color: #E5A00D;
+  background-color: var(--gog-accent);
   transition: background-color 0.2s ease;
 }
 
@@ -464,6 +522,21 @@ body:has(.launch-modal-overlay) {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background: var(--gog-bg-main);
+}
+
+/* Keep the gradient visible through main app wrappers */
+.home-page-content,
+.home-page-layout,
+.home-page-content-wrapper,
+.home-page-scroll-container,
+.home-page-main-container,
+.game-detail-container,
+.igdb-game-detail-container,
+.library-item-detail-page-shell,
+.library-item-detail-main-inner,
+.library-item-detail-content-wrapper {
+  background: transparent !important;
 }
 
 /* App Content Wrapper */
@@ -5060,11 +5133,15 @@ fieldset.edit-game-modal-field {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0px 48px 8px 64px;
-  background-color: #1a1a1a;
+  padding: 0;
+  background-color: transparent;
   flex-shrink: 0;
-  position: relative;
-  z-index: 200;
+  position: fixed;
+  top: 14px;
+  left: calc(var(--gog-sidebar-width) + 96px);
+  /* Below .mhg-header (10006): header chrome receives clicks first */
+  z-index: 10004;
+  pointer-events: auto;
 }
 
 .games-list-toolbar-left {
@@ -6925,7 +7002,8 @@ fieldset.edit-game-modal-field {
 .search-dropdown {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: auto;
+  right: 0;
   margin-top: 0px;
   z-index: 10003;
   pointer-events: auto;
@@ -7014,7 +7092,8 @@ fieldset.edit-game-modal-field {
 .search-no-results {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: auto;
+  right: 0;
   margin-top: 0px;
   z-index: 10003;
   pointer-events: auto;
@@ -9220,7 +9299,11 @@ fieldset.edit-game-modal-field {
   --gog-sidebar-gap: 12px;
 }
 
-/* Full viewport height so the sidebar paint sits under the transparent top bar (header z-index stays above). */
+/*
+ * z-index: auto — do not create a stacking context, so fixed .mhg-libraries-menu-container /
+ * .mhg-libraries-actions can stack above .games-list-toolbar (10005). Sidebar still does not
+ * overlap main column (margin-left on .home-page-main-container).
+ */
 .mhg-libraries-bar {
   top: 0;
   left: 0;
@@ -9229,7 +9312,7 @@ fieldset.edit-game-modal-field {
   width: var(--gog-sidebar-width);
   min-height: 0;
   padding: 0;
-  z-index: 1001;
+  z-index: auto;
 }
 
 .mhg-libraries-bar-container {
@@ -9246,8 +9329,8 @@ fieldset.edit-game-modal-field {
   align-items: stretch;
   justify-content: flex-start;
   gap: var(--gog-sidebar-gap);
-  background: rgba(10, 12, 18, 0.9);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--gog-sidebar-bg);
+  border-right: 1px solid var(--gog-sidebar-border);
   overflow-y: auto;
 }
 
@@ -9285,22 +9368,30 @@ fieldset.edit-game-modal-field {
 }
 
 .mhg-libraries-actions {
+  position: fixed;
+  top: 5px;
+  left: calc(var(--gog-sidebar-width) + 420px);
   margin-left: 0;
-  width: 100%;
+  width: auto;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-start;
   gap: 8px;
+  /* Above .mhg-header (10006): same top band as search row */
+  z-index: 10008;
+  pointer-events: auto;
 }
 
 .mhg-libraries-menu-container {
-  position: static;
+  position: fixed;
+  top: 22px;
+  left: calc(var(--gog-sidebar-width) + 620px);
   bottom: auto;
-  left: auto;
   padding: 0;
   height: auto;
-  width: 100%;
-  z-index: 3;
+  width: auto;
+  z-index: 10008;
+  pointer-events: auto;
 }
 
 .home-page-main-container {
@@ -9308,8 +9399,41 @@ fieldset.edit-game-modal-field {
   width: calc(100% - var(--gog-sidebar-width));
 }
 
+/*
+ * Main column: start list/detail content at the same vertical band as the first row of the
+ * left sidebar (.mhg-libraries-bar-container uses padding-top: 64px below the fixed header).
+ */
+.home-page-main-container .home-page-content {
+  padding-top: 64px;
+}
+
+.home-page-main-container .home-page-content-wrapper.has-toolbar {
+  margin-top: 0;
+}
+
+.home-page-main-container .home-page-content-wrapper.home-page-fade-in .home-page-scroll-container,
+.home-page-main-container
+  .home-page-content-wrapper.games-list-page-fade
+  .home-page-scroll-container:not(.table-view) {
+  padding-top: 0;
+}
+
+/* Collection/detail hero used Tailwind pt-8 — pull up to align with sidebar row */
+.home-page-main-container .library-item-detail-hero {
+  padding-top: 0;
+}
+
 /* Keep mobile/tablet behavior usable */
 @media (max-width: 1100px) {
+  .games-list-toolbar {
+    position: relative;
+    top: auto;
+    left: auto;
+    padding: 0px 48px 8px 64px;
+    background-color: #1a1a1a;
+    z-index: 200;
+  }
+
   .mhg-libraries-bar {
     top: 64px;
     left: 0;
@@ -9317,6 +9441,7 @@ fieldset.edit-game-modal-field {
     bottom: auto;
     width: auto;
     min-height: 64px;
+    z-index: 1001;
   }
 
   .mhg-libraries-bar-container {
@@ -9359,13 +9484,19 @@ fieldset.edit-game-modal-field {
   }
 
   .mhg-libraries-actions {
+    position: static;
+    top: auto;
+    left: auto;
     margin-left: auto;
     width: auto;
+    flex-wrap: wrap;
     justify-content: flex-end;
+    z-index: auto;
   }
 
   .mhg-libraries-menu-container {
     position: absolute;
+    top: auto;
     bottom: 0;
     left: 0;
     padding: 0 24px;
@@ -9377,6 +9508,22 @@ fieldset.edit-game-modal-field {
   .home-page-main-container {
     margin-left: 0;
     width: 100%;
+  }
+
+  /* Two stacked bars (header + libraries strip): restore breathing room */
+  .home-page-main-container .home-page-content {
+    padding-top: 128px;
+  }
+
+  .home-page-main-container .home-page-content-wrapper.home-page-fade-in .home-page-scroll-container,
+  .home-page-main-container
+    .home-page-content-wrapper.games-list-page-fade
+    .home-page-scroll-container:not(.table-view) {
+    padding-top: 32px;
+  }
+
+  .home-page-main-container .library-item-detail-hero {
+    padding-top: 2rem;
   }
 }
 
@@ -9400,7 +9547,7 @@ fieldset.edit-game-modal-field {
   align-items: center;
   justify-content: flex-start;
   padding: 10px 16px;
-  background: rgba(10, 12, 18, 0.85);
+  background: rgba(14, 15, 20, 0.78);
   border-right: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   overflow: visible;

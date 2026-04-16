@@ -4,8 +4,9 @@
   "description": "Example UI skins and tooling to build .mhg-skin.zip archives for MyHomeGames Web",
   "scripts": {
     "zip": "node scripts/build-zips.mjs",
-    "build": "npm run build --prefix studio",
-    "build:all": "npm run build --prefix studio"
+    "build": "npm run build --prefix studio && node scripts/sync-install-to-metadata.mjs",
+    "build:all": "npm run build --prefix studio",
+    "sync:metadata": "node scripts/sync-install-to-metadata.mjs"
   },
   "devDependencies": {
     "adm-zip": "^0.5.16"
