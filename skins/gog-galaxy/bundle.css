@@ -1398,6 +1398,11 @@ body:has(.launch-modal-overlay) {
   z-index: 10002 !important;
 }
 
+/* Libraries bar ⋮ menu: portaled like games-table (above main column / grid) */
+.dropdown-menu-popup-in-libraries-top {
+  z-index: 10008 !important;
+}
+
 /* Submenus portaled to body (e.g. from table): above the main dropdown popup */
 body > .add-to-collection-dropdown-menu,
 body > .additional-executables-dropdown-menu {
@@ -9407,21 +9412,10 @@ fieldset.edit-game-modal-field {
   pointer-events: auto !important;
 }
 
-/* Desktop hard-fix: render top-band dropdowns in fixed/global layer so nothing clips them */
-.mhg-libraries-menu-container .mhg-libraries-menu-dropdown .dropdown-menu-popup {
-  position: fixed;
-  top: 48px;
-  left: calc(var(--gog-sidebar-width) + 620px);
-  right: auto;
-  z-index: 10090 !important;
-}
+/* View mode + ⋮ menus use React portals (same idea as filter toolbar popups escaping local stacking). */
 
-.mhg-libraries-actions .view-mode-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 24px;
-  left: auto;
-  z-index: 10090 !important;
+.view-mode-dropdown.view-mode-dropdown--portaled {
+  z-index: 10008;
 }
 
 .home-page-main-container {
@@ -9533,14 +9527,6 @@ fieldset.edit-game-modal-field {
     height: 100%;
     width: auto;
     z-index: 200;
-  }
-
-  .mhg-libraries-menu-container .mhg-libraries-menu-dropdown .dropdown-menu-popup,
-  .mhg-libraries-actions .view-mode-dropdown {
-    position: absolute;
-    top: 100%;
-    left: auto;
-    right: 0;
   }
 
   .home-page-main-container {

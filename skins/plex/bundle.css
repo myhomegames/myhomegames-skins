@@ -1250,6 +1250,10 @@ body:has(.launch-modal-overlay) {
   z-index: 10002 !important;
 }
 
+.dropdown-menu-popup-in-libraries-top {
+  z-index: 10008 !important;
+}
+
 /* Submenus portaled to body (e.g. from table): above the main dropdown popup */
 body > .add-to-collection-dropdown-menu,
 body > .additional-executables-dropdown-menu {
