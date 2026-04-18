@@ -9355,6 +9355,9 @@ fieldset.edit-game-modal-field {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  /* Override base .mhg-libraries-container justify-content: center — that centers on the main
+   * axis; with column direction it vertically centers the list instead of starting from the top. */
+  justify-content: flex-start;
   align-items: stretch;
   gap: 4px;
   padding: 0;
