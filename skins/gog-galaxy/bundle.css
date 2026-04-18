@@ -9348,6 +9348,20 @@ fieldset.edit-game-modal-field {
 }
 
 /*
+ * No backdrop / backdrop hidden: the solid #1a1a1a root is still fixed full-viewport and paints
+ * after the persistent LibrariesBar in DOM order, so it would cover the entire left column.
+ * Keep the fallback fill in the main column only (portal + transparent clickable root stay full bleed).
+ */
+.background-manager-root.background-manager-root--solid {
+  left: var(--gog-sidebar-width);
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: auto;
+  max-width: none;
+}
+
+/*
  * Detail/IGDB/game routes mount a second LibrariesBar in-page.
  * With persistentLibraryShell the real column is already in MainAppLayout; the duplicate stacks
  * on top (empty list, ⋮ displaced). Hide in-page hosts — shell keeps list + menu unchanged.
