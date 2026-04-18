@@ -1181,6 +1181,11 @@ body:has(.launch-modal-overlay) {
 .background-manager-foreground {
   position: relative;
   z-index: 2;
+  pointer-events: none;
+}
+
+.background-manager-foreground > * {
+  pointer-events: auto;
 }
 
 

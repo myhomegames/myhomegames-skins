@@ -52,7 +52,6 @@ The zip must contain **`skin.json`** in one of these places:
   "web": {
     "persistentLibraryShell": true,
     "collectionsShortcutList": true,
-    "detailLibrariesToolbar": true,
     "libraryPagesVerticalList": true
   }
 }
@@ -62,7 +61,6 @@ The zip must contain **`skin.json`** in one of these places:
 
 - `persistentLibraryShell`: keeps header + libraries bar mounted while main content changes via nested routes.
 - `collectionsShortcutList`: shows collection shortcut buttons in the libraries bar.
-- `detailLibrariesToolbar`: on game/tag/detail pages, renders libraries controls as a compact in-content toolbar.
 - `libraryPagesVerticalList`: forces libraries pages list in vertical mode (no narrow combobox fallback).
 
 **CSS** (next to `skin.json` in that folder):

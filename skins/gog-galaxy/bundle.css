@@ -1288,9 +1288,20 @@ body:has(.launch-modal-overlay) {
   z-index: 1;
 }
 
+/* GOG detail pages: background full-screen layers must never eat clicks */
+.background-manager-root,
+.background-manager-overlay {
+  pointer-events: none;
+}
+
 .background-manager-foreground {
   position: relative;
   z-index: 2;
+  pointer-events: none;
+}
+
+.background-manager-foreground > * {
+  pointer-events: auto;
 }
 
 .mhg-collections-shortcuts {
@@ -9307,6 +9318,75 @@ fieldset.edit-game-modal-field {
 }
 
 /*
+ * Full-screen backdrop (root + overlay + portal) stacks above the fixed LibrariesBar in paint
+ * order but under .background-manager-foreground. The foreground wrapper is pointer-events
+ * transparent on the sidebar strip, so without this clip the dim layer shows through and the
+ * library list looks greyed-out while still receiving clicks.
+ */
+.background-manager-root,
+.background-manager-overlay {
+  left: var(--gog-sidebar-width);
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: auto;
+  max-width: none;
+}
+
+[data-mhg-background-portal] {
+  left: var(--gog-sidebar-width) !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+/*
+ * Detail/IGDB/game routes mount a second LibrariesBar in-page.
+ * With persistentLibraryShell the real column is already in MainAppLayout; the duplicate stacks
+ * on top (empty list, ⋮ displaced). Hide in-page hosts — shell keeps list + menu unchanged.
+ */
+.library-item-detail-libraries-bar-host,
+.game-detail-libraries-bar-wrapper,
+.igdb-game-detail-libraries-bar-wrapper {
+  display: none !important;
+}
+
+/*
+ * Detail shells default to full viewport width + z-index: 2, so they paint over the persistent
+ * sidebar. Shrink the wrapper to the main column only (same band as .home-page-main-container)
+ * and reset the inner main container margin so we do not double-offset. The sidebar is then
+ * outside this layer and stays clickable.
+ */
+.library-item-detail-page-shell,
+.game-detail-container,
+.igdb-game-detail-container {
+  z-index: auto;
+  margin-left: var(--gog-sidebar-width);
+  width: calc(100% - var(--gog-sidebar-width));
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.library-item-detail-page-shell > .home-page-main-container.library-item-detail-main-inner,
+.game-detail-container > .home-page-main-container.game-detail-main-container,
+.igdb-game-detail-container > .home-page-main-container.igdb-game-detail-main-container {
+  margin-left: 0;
+  width: 100%;
+}
+
+/*
+ * Same shell at every viewport width (no breakpoint that switches to horizontal nav).
+ * Below this width the page scrolls horizontally so the two-column shell does not reflow.
+ */
+.app-main-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  min-width: calc(var(--gog-sidebar-width) + 520px);
+}
+
+/*
  * z-index: auto — do not create a stacking context, so fixed .mhg-libraries-menu-container /
  * .mhg-libraries-actions can stack above .games-list-toolbar (10005). Sidebar still does not
  * overlap main column (margin-left on .home-page-main-container).
@@ -9450,110 +9530,6 @@ fieldset.edit-game-modal-field {
   padding-top: 0;
 }
 
-/* Keep mobile/tablet behavior usable */
-@media (max-width: 1100px) {
-  .games-list-toolbar {
-    position: relative;
-    top: auto;
-    left: auto;
-    padding: 0px 48px 8px 64px;
-    background-color: #1a1a1a;
-    z-index: 200;
-  }
-
-  .mhg-libraries-bar {
-    top: 64px;
-    left: 0;
-    right: 0;
-    bottom: auto;
-    width: auto;
-    min-height: 64px;
-    z-index: 1001;
-  }
-
-  .mhg-libraries-bar-container {
-    height: auto;
-    min-height: 64px;
-    padding: 0 24px;
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
-    background: transparent;
-    border-right: none;
-  }
-
-  .mhg-libraries-container {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: calc(100% - 200px);
-    flex: initial;
-    min-height: initial;
-    overflow-y: visible;
-    overflow-x: auto;
-    flex-direction: row;
-    align-items: center;
-    gap: 0;
-    z-index: auto;
-  }
-
-  .mhg-collections-shortcuts {
-    display: none;
-  }
-
-  .mhg-library-button,
-  .mhg-library-active {
-    width: auto;
-    text-align: center;
-    padding: 16px 24px;
-    border-radius: 0;
-  }
-
-  .mhg-libraries-actions {
-    position: static;
-    top: auto;
-    left: auto;
-    margin-left: auto;
-    width: auto;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    z-index: auto;
-  }
-
-  .mhg-libraries-menu-container {
-    position: absolute;
-    top: auto;
-    bottom: 0;
-    left: 0;
-    padding: 0 24px;
-    height: 100%;
-    width: auto;
-    z-index: 200;
-  }
-
-  .home-page-main-container {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  /* Two stacked bars (header + libraries strip): restore breathing room */
-  .home-page-main-container .home-page-content {
-    padding-top: 128px;
-  }
-
-  .home-page-main-container .home-page-content-wrapper.home-page-fade-in .home-page-scroll-container,
-  .home-page-main-container
-    .home-page-content-wrapper.games-list-page-fade
-    .home-page-scroll-container:not(.table-view) {
-    padding-top: 32px;
-  }
-
-  .home-page-main-container .library-item-detail-hero {
-    padding-top: 2rem;
-  }
-}
-
 /* Secondary libraries bar on detail/tag pages (not a second sidebar) */
 .mhg-libraries-bar.mhg-libraries-bar--toolbar {
   position: relative;
@@ -9592,31 +9568,6 @@ fieldset.edit-game-modal-field {
   width: auto;
   height: auto;
   padding: 0;
-}
-
-@media (max-width: 1100px) {
-  .mhg-libraries-bar.mhg-libraries-bar--toolbar {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    width: 100%;
-  }
-
-  .mhg-libraries-bar.mhg-libraries-bar--toolbar .mhg-libraries-bar-container {
-    flex-direction: row;
-    align-items: center;
-    padding: 8px 16px;
-    background: rgba(10, 12, 18, 0.85);
-    border-right: none;
-  }
-
-  .mhg-libraries-bar.mhg-libraries-bar--toolbar .mhg-libraries-menu-container {
-    position: static;
-    padding: 0;
-    height: auto;
-  }
 }
 
 /* Force cover images to fill assigned boxes (stretch if needed) */

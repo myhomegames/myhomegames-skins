@@ -6,7 +6,6 @@
   "web": {
     "persistentLibraryShell": true,
     "collectionsShortcutList": true,
-    "detailLibrariesToolbar": true,
     "libraryPagesVerticalList": true
   }
 }

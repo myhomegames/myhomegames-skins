@@ -83,6 +83,11 @@ body {
 .background-manager-foreground {
   position: relative;
   z-index: 2;
+  pointer-events: none;
+}
+
+.background-manager-foreground > * {
+  pointer-events: auto;
 }
 
 /* Force cover images to fill assigned boxes (stretch if needed) */
