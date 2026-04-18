@@ -156,10 +156,7 @@ body {
   /* Above .games-list-toolbar (10005) so profile / settings / + / search stay clickable */
   z-index: 10006;
   box-shadow: none;
-  /*
-   * Let clicks reach fixed controls (toolbar, libraries actions, menu) in gaps between header children.
-   * Interactive header bits opt back in with pointer-events: auto below.
-   */
+  /* Do not block clicks outside actual header controls */
   pointer-events: none;
 }
 
@@ -6481,6 +6478,7 @@ fieldset.edit-game-modal-field {
   top: 100%;
   bottom: auto;
   margin-top: 4px;
+  z-index: 10040;
 }
 
 .mhg-libraries-actions {
@@ -6544,6 +6542,7 @@ fieldset.edit-game-modal-field {
   align-items: center;
   position: relative;
   z-index: 998;
+  overflow: visible;
 }
 
 .mhg-libraries-combobox-container {
@@ -6620,7 +6619,8 @@ fieldset.edit-game-modal-field {
 .profile-dropdown-popup {
   position: absolute;
   top: 100%;
-  right: 0;
+  left: 0;
+  right: auto;
   margin-top: 8px;
   background-color: #1a1a1a;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -6628,6 +6628,7 @@ fieldset.edit-game-modal-field {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   z-index: 10005;
   min-width: 240px;
+  max-width: calc(100vw - 24px);
   padding: 4px 0;
 }
 
@@ -7922,7 +7923,8 @@ fieldset.edit-game-modal-field {
 .view-mode-selector {
   position: relative;
   padding-right: 24px;
-  z-index: 1003;
+  z-index: 10035;
+  overflow: visible;
 }
 
 .view-mode-button {
@@ -7990,7 +7992,7 @@ fieldset.edit-game-modal-field {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  z-index: 10000;
+  z-index: 10040;
   min-width: 200px;
   overflow: hidden;
 }
@@ -9331,7 +9333,8 @@ fieldset.edit-game-modal-field {
   gap: var(--gog-sidebar-gap);
   background: var(--gog-sidebar-bg);
   border-right: 1px solid var(--gog-sidebar-border);
-  overflow-y: auto;
+  overflow-y: visible;
+  overflow-x: visible;
 }
 
 .mhg-libraries-container {
@@ -9342,7 +9345,8 @@ fieldset.edit-game-modal-field {
   max-width: none;
   flex: 0 0 auto;
   min-height: auto;
-  overflow-y: visible;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -9377,8 +9381,8 @@ fieldset.edit-game-modal-field {
   flex-wrap: nowrap;
   justify-content: flex-start;
   gap: 8px;
-  /* Above .mhg-header (10006): same top band as search row */
-  z-index: 10008;
+  /* Keep whole actions stack above main content and toolbar */
+  z-index: 10080;
   pointer-events: auto;
 }
 
@@ -9390,8 +9394,34 @@ fieldset.edit-game-modal-field {
   padding: 0;
   height: auto;
   width: auto;
-  z-index: 10008;
-  pointer-events: auto;
+  z-index: 10150 !important;
+  pointer-events: auto !important;
+  isolation: isolate;
+}
+
+.mhg-libraries-menu-container .dropdown-menu-wrapper,
+.mhg-libraries-menu-container .mhg-libraries-menu-dropdown,
+.mhg-libraries-menu-container .dropdown-menu-button {
+  position: relative;
+  z-index: 10151 !important;
+  pointer-events: auto !important;
+}
+
+/* Desktop hard-fix: render top-band dropdowns in fixed/global layer so nothing clips them */
+.mhg-libraries-menu-container .mhg-libraries-menu-dropdown .dropdown-menu-popup {
+  position: fixed;
+  top: 48px;
+  left: calc(var(--gog-sidebar-width) + 620px);
+  right: auto;
+  z-index: 10090 !important;
+}
+
+.mhg-libraries-actions .view-mode-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 24px;
+  left: auto;
+  z-index: 10090 !important;
 }
 
 .home-page-main-container {
@@ -9503,6 +9533,14 @@ fieldset.edit-game-modal-field {
     height: 100%;
     width: auto;
     z-index: 200;
+  }
+
+  .mhg-libraries-menu-container .mhg-libraries-menu-dropdown .dropdown-menu-popup,
+  .mhg-libraries-actions .view-mode-dropdown {
+    position: absolute;
+    top: 100%;
+    left: auto;
+    right: 0;
   }
 
   .home-page-main-container {
