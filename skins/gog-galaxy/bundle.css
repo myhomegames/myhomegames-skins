@@ -9353,6 +9353,11 @@ fieldset.edit-game-modal-field {
   display: none !important;
 }
 
+/* Tag routes: TagGamesPage no longer mounts a second bar in-app; hide any stray duplicate. */
+header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
+  display: none !important;
+}
+
 /*
  * Detail shells default to full viewport width + z-index: 2, so they paint over the persistent
  * sidebar. Shrink the wrapper to the main column only (same band as .home-page-main-container)
