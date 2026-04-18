@@ -235,6 +235,7 @@ body {
   transform: translateX(360px);
 }
 
+/* Spinner: dopo Impostazioni (12), prima del + (49) — solo order, resto invariato */
 .mhg-header-container > .mhg-activity-spinner {
   order: 13;
 }
@@ -284,22 +285,20 @@ body {
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: none;
-  border: none;
   color: var(--gog-text-muted);
-  background: var(--gog-header-chip);
-  border: 1px solid var(--gog-header-chip-border);
+  background: transparent;
+  border: none;
+  box-shadow: none;
   cursor: pointer;
-  border-radius: 4px;
-  transition: color 0.2s ease;
+  border-radius: 50%;
+  transition: color 0.2s ease, background-color 0.2s ease;
   padding: 0;
 }
 
 
 .mhg-header-button:hover {
   color: var(--gog-text-main);
-  border-color: rgba(239, 180, 75, 0.45);
-  background: rgba(11, 18, 30, 0.88);
+  background: rgba(11, 18, 30, 0.55);
 }
 
 .mhg-header-button:active {
@@ -9313,8 +9312,24 @@ fieldset.edit-game-modal-field {
 
 /* --- gog-galaxy: two-column shell (left menu + right content) --- */
 :root {
-  --gog-sidebar-width: 260px;
+  --gog-sidebar-width: 300px;
   --gog-sidebar-gap: 12px;
+  --gog-lib-mask-default: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-library: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%224%22%20y%3D%225.5%22%20width%3D%2212%22%20height%3D%229%22%20rx%3D%221.5%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%228.5%22%20width%3D%2212%22%20height%3D%221.2%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%225.5%22%20width%3D%221.2%22%20height%3D%229%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-recommended: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M10%203.2l1.9%203.85%204.25.62-3.07%203%200.72%204.23L10%2013.35%206.3%2015.9l0.72-4.23-3.07-3%204.25-.62L10%203.2z%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-collections: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M4.2%207.2c0-1.1.9-2%202-2h2.8c.35%200%20.68.14.92.38l1%201c.12.12.28.18.45.18H14.8c.7%200%201.2.55%201.2%201.25v7.3c0%20.9-.75%201.65-1.65%201.65H5.65c-1%200-1.85-.85-1.85-1.85V7.2z%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-categories: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%223.5%22%20y%3D%225%22%20width%3D%225.5%22%20height%3D%225.5%22%20rx%3D%220.8%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%224%22%20width%3D%225.5%22%20height%3D%224.5%22%20rx%3D%220.8%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%225.5%22%20height%3D%224.5%22%20rx%3D%220.8%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%223.5%22%20y%3D%2212%22%20width%3D%225.5%22%20height%3D%223.5%22%20rx%3D%220.8%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-series: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%225%22%20y%3D%225.5%22%20width%3D%2210%22%20height%3D%221.4%22%20rx%3D%220.4%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%229.3%22%20width%3D%2210%22%20height%3D%221.4%22%20rx%3D%220.4%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%2213.1%22%20width%3D%2210%22%20height%3D%221.4%22%20rx%3D%220.4%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-franchise: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M10%203.8l5.4%203.1v6.2L10%2016.2%204.6%2013.1V6.9L10%203.8z%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-platforms: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%224%22%20y%3D%225%22%20width%3D%2212%22%20height%3D%228%22%20rx%3D%221.4%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2216.5%22%20width%3D%224%22%20height%3D%221.2%22%20rx%3D%220.3%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-themes: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Ccircle%20cx%3D%227%22%20cy%3D%228%22%20r%3D%222%22%20fill%3D%22black%22%2F%3E%3Ccircle%20cx%3D%2213%22%20cy%3D%227%22%20r%3D%221.75%22%20fill%3D%22black%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2213%22%20r%3D%222.25%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-developers: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M6.8%206.5L4.5%2010l2.3%203.5h1.4L5.8%2010l2.4-3.5H6.8z%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M13.2%206.5h-1.4l2.4%203.5-2.4%203.5h1.4l2.3-3.5-2.3-3.5z%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-publishers: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M5%2016V8.5L10%205l5%203.5V16H5zm2.5-1.2h2.3v-4h2.4v4h2.3V9.4L10%206.9l-2.5%202.5v5.4z%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-gameEngines: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2210%22%20r%3D%223.2%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%229.2%22%20y%3D%223.2%22%20width%3D%221.6%22%20height%3D%222.2%22%20rx%3D%220.3%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%229.2%22%20y%3D%2214.6%22%20width%3D%221.6%22%20height%3D%222.2%22%20rx%3D%220.3%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%223.2%22%20y%3D%229.2%22%20width%3D%222.2%22%20height%3D%221.6%22%20rx%3D%220.3%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%2214.6%22%20y%3D%229.2%22%20width%3D%222.2%22%20height%3D%221.6%22%20rx%3D%220.3%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-gameModes: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M6.2%208.8c0-1.6%201.4-2.9%203.8-2.9s3.8%201.3%203.8%202.9v4.9H6.2V8.8zm2.2%204.2h3.2v-1H8.4v1z%22%2F%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%226.6%22%20r%3D%221.1%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-playerPerspectives: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cellipse%20cx%3D%2210%22%20cy%3D%2210.5%22%20rx%3D%225.5%22%20ry%3D%223.1%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-keywords: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M7.2%205.2h5.6l2.8%202.8v5.8l-2.8%202.8H7.2l-2.8-2.8V8l2.8-2.8zm1.2%204.5h3.2v1H8.4v-1z%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-collection: var(--gog-lib-mask-collections);
 }
 
 /*
@@ -9449,6 +9464,21 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   z-index: 2;
 }
 
+/* Sidebar GOG: elenco più compatto tra le voci */
+.mhg-libraries-bar .mhg-libraries-container {
+  gap: 2px;
+}
+
+.mhg-libraries-bar .mhg-collections-shortcuts {
+  margin-top: 6px;
+  padding-top: 6px;
+  gap: 2px;
+}
+
+.mhg-libraries-bar .mhg-collections-shortcuts-title {
+  padding-bottom: 2px;
+}
+
 .mhg-library-button,
 .mhg-library-active {
   width: 100%;
@@ -9458,6 +9488,189 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   border-bottom: none !important;
   transform: none;
   pointer-events: auto;
+}
+
+.mhg-libraries-bar .mhg-library-button,
+.mhg-libraries-bar .mhg-library-active {
+  padding: 6px 12px;
+}
+
+/* Sidebar: pagina attiva senza giallo (stesso bianco dell’hover), non --gog-accent */
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key] {
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Sidebar library rows: icons from data-mhg-library-key via ::before mask (no icons in web) */
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key],
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key] {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key]::before {
+  content: "";
+  display: block;
+  width: 1em;
+  height: 1em;
+  min-width: 1em;
+  flex-shrink: 0;
+  background-color: currentColor;
+  opacity: 0.7;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-image: var(--gog-lib-mask-default);
+  mask-image: var(--gog-lib-mask-default);
+}
+
+.mhg-libraries-bar .mhg-library-button:hover::before,
+.mhg-libraries-bar .mhg-library-active::before {
+  opacity: 1;
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="library"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="library"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-library);
+  mask-image: var(--gog-lib-mask-library);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="recommended"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="recommended"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-recommended);
+  mask-image: var(--gog-lib-mask-recommended);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="collections"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="collections"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-collections);
+  mask-image: var(--gog-lib-mask-collections);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="categories"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="categories"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-categories);
+  mask-image: var(--gog-lib-mask-categories);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="series"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="series"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-series);
+  mask-image: var(--gog-lib-mask-series);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="franchise"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="franchise"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-franchise);
+  mask-image: var(--gog-lib-mask-franchise);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="platforms"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="platforms"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-platforms);
+  mask-image: var(--gog-lib-mask-platforms);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="themes"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="themes"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-themes);
+  mask-image: var(--gog-lib-mask-themes);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="developers"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="developers"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-developers);
+  mask-image: var(--gog-lib-mask-developers);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="publishers"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="publishers"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-publishers);
+  mask-image: var(--gog-lib-mask-publishers);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="gameEngines"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="gameEngines"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-gameEngines);
+  mask-image: var(--gog-lib-mask-gameEngines);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="gameModes"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="gameModes"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-gameModes);
+  mask-image: var(--gog-lib-mask-gameModes);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="playerPerspectives"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="playerPerspectives"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-playerPerspectives);
+  mask-image: var(--gog-lib-mask-playerPerspectives);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="keywords"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="keywords"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-keywords);
+  mask-image: var(--gog-lib-mask-keywords);
+}
+
+/* Match library page labels: same type scale as .mhg-library-button in this shell */
+.mhg-collection-shortcut-button {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 10px 12px;
+}
+
+/* Collection shortcuts: folder icon via ::before; stesso grigio delle pagine a riposo */
+.mhg-libraries-bar .mhg-collection-shortcut-button {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 6px 12px;
+}
+
+.mhg-libraries-bar .mhg-collection-shortcut-button::before {
+  content: "";
+  display: block;
+  width: 1em;
+  height: 1em;
+  min-width: 1em;
+  flex-shrink: 0;
+  background-color: currentColor;
+  opacity: 0.7;
+  -webkit-mask-image: var(--gog-lib-mask-collection);
+  mask-image: var(--gog-lib-mask-collection);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.mhg-libraries-bar .mhg-collection-shortcut-button:hover {
+  background: transparent !important;
+  color: #fff;
+}
+
+.mhg-libraries-bar .mhg-collection-shortcut-button:hover::before {
+  opacity: 1;
+}
+
+/* Raccolta corrente: stesso “illuminato” dell’hover (testo + icona) */
+.mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected {
+  background: transparent !important;
+  color: #fff;
+}
+
+.mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected::before {
+  opacity: 1;
 }
 
 .mhg-library-active::after {
