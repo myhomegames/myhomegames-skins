@@ -330,15 +330,13 @@ body {
 }
 
 /* Dim header components when a modal is open */
-body:has(.edit-game-modal-overlay),
-body:has(.edit-collection-modal-overlay),
-body:has(.dropdown-menu-confirm-overlay),
-body:has(.add-game-overlay),
-body:has(.launch-modal-overlay) {
-  .mhg-header {
-    opacity: 0.5;
-    pointer-events: none;
-  }
+body:has(.edit-game-modal-overlay) .mhg-header,
+body:has(.edit-collection-modal-overlay) .mhg-header,
+body:has(.dropdown-menu-confirm-overlay) .mhg-header,
+body:has(.add-game-overlay) .mhg-header,
+body:has(.launch-modal-overlay) .mhg-header {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 /* Search Bar */
@@ -510,7 +508,11 @@ body:has(.launch-modal-overlay) {
   margin-left: auto;
 }
 
-/* App Main Container */
+/* App Main Container
+ * Background lives on html/body (--gog-bg-main). This wrapper must stay transparent so the
+ * full-screen game/collection backdrop (BackgroundManager portal, z-index 0 under #root) shows
+ * through #root in the main column; an opaque layer here hides those images entirely.
+ */
 .app-main-container {
   position: relative;
   width: 100%;
@@ -518,7 +520,7 @@ body:has(.launch-modal-overlay) {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: var(--gog-bg-main);
+  background: transparent;
 }
 
 /* Keep the gradient visible through main app wrappers */
@@ -9333,12 +9335,9 @@ fieldset.edit-game-modal-field {
 }
 
 /*
- * Full-screen backdrop (root + overlay + portal) stacks above the fixed LibrariesBar in paint
- * order but under .background-manager-foreground. The foreground wrapper is pointer-events
- * transparent on the sidebar strip, so without this clip the dim layer shows through and the
- * library list looks greyed-out while still receiving clicks.
+ * Backdrop: portal image stays full-viewport (full bleed). Restrict only the dim overlay to the
+ * main column so the left library/collection lists are not washed out over the artwork.
  */
-.background-manager-root,
 .background-manager-overlay {
   left: var(--gog-sidebar-width);
   right: 0;
@@ -9346,15 +9345,6 @@ fieldset.edit-game-modal-field {
   bottom: 0;
   width: auto;
   max-width: none;
-}
-
-[data-mhg-background-portal] {
-  left: var(--gog-sidebar-width) !important;
-  right: 0 !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  width: auto !important;
-  max-width: none !important;
 }
 
 /*
@@ -9495,9 +9485,13 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   padding: 6px 12px;
 }
 
-/* Sidebar: pagina attiva senza giallo (stesso bianco dell’hover), non --gog-accent */
+/* Sidebar: pagina attiva più luminosa dell’hover (hover più soft sotto) */
 .mhg-libraries-bar .mhg-library-active[data-mhg-library-key] {
   color: rgba(255, 255, 255, 1);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key]:hover:not(.mhg-library-active) {
+  color: rgba(255, 255, 255, 0.82);
 }
 
 /* Sidebar library rows: icons from data-mhg-library-key via ::before mask (no icons in web) */
@@ -9528,7 +9522,10 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   mask-image: var(--gog-lib-mask-default);
 }
 
-.mhg-libraries-bar .mhg-library-button:hover::before,
+.mhg-libraries-bar .mhg-library-button:hover:not(.mhg-library-active)[data-mhg-library-key]::before {
+  opacity: 0.88;
+}
+
 .mhg-libraries-bar .mhg-library-active::before {
   opacity: 1;
 }
@@ -9654,22 +9651,30 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   mask-size: contain;
 }
 
-.mhg-libraries-bar .mhg-collection-shortcut-button:hover {
+.mhg-libraries-bar .mhg-collection-shortcut-button:hover:not(.mhg-collection-shortcut-button--selected) {
   background: transparent !important;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.82);
 }
 
-.mhg-libraries-bar .mhg-collection-shortcut-button:hover::before {
-  opacity: 1;
+.mhg-libraries-bar .mhg-collection-shortcut-button:hover:not(.mhg-collection-shortcut-button--selected)::before {
+  opacity: 0.88;
 }
 
-/* Raccolta corrente: stesso “illuminato” dell’hover (testo + icona) */
+/* Raccolta corrente: più luminosa dell’hover */
 .mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected {
   background: transparent !important;
   color: #fff;
 }
 
 .mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected::before {
+  opacity: 1;
+}
+
+.mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected:hover {
+  color: #fff;
+}
+
+.mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected:hover::before {
   opacity: 1;
 }
 
