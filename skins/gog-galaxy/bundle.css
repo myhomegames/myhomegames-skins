@@ -9481,7 +9481,7 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 }
 
 .mhg-libraries-bar .mhg-collections-shortcuts-title {
-  padding-bottom: 2px;
+  padding-bottom: 15px;
 }
 
 .mhg-library-button,
