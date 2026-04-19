@@ -1322,6 +1322,27 @@ body:has(.launch-modal-overlay) .mhg-header {
   padding: 0 12px 4px;
 }
 
+button.mhg-collections-shortcuts-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  padding: 8px 10px 10px 0;
+}
+
+button.mhg-collections-shortcuts-title:focus-visible {
+  outline: 2px solid rgba(239, 180, 75, 0.55);
+  outline-offset: 2px;
+}
+
 .mhg-collection-shortcut-button {
   width: 100%;
   text-align: left;
@@ -9498,7 +9519,7 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 }
 
 .mhg-libraries-bar .mhg-collections-shortcuts-title {
-  padding-bottom: 15px;
+  padding-bottom: 8px;
 }
 
 .mhg-library-button,
@@ -9581,25 +9602,99 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 }
 
 /*
- * This block is the sidebar “games” list (title overridden to “Giochi” below).
- * With `web.ownedGamesFirstInGamesSidebar`, the web app renders “Owned games” here first.
+ * Sidebar “Giochi” header: full-width toggle (entire row click). Label via ::after on heading span.
+ * With `web.ownedGamesFirstInGamesSidebar`, the web app renders “Owned games” below when expanded.
  */
-.mhg-libraries-bar .mhg-collections-shortcuts-title {
+.mhg-libraries-bar button.mhg-collections-shortcuts-title {
+  justify-content: space-between;
+  padding-left: 0;
+  padding-right: 8px;
+}
+
+.mhg-libraries-bar button.mhg-collections-shortcuts-title:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mhg-libraries-bar .mhg-collections-shortcuts-heading-text {
   position: relative;
+  flex: 1;
+  min-width: 0;
   padding-left: 12px;
   color: transparent !important;
 }
 
-.mhg-libraries-bar .mhg-collections-shortcuts-title::after {
+.mhg-libraries-bar .mhg-collections-shortcuts-heading-text::after {
   content: "Giochi";
   position: absolute;
-  inset: 0 auto auto 12px;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 13px;
-  line-height: inherit;
+  line-height: 1.2;
   font-weight: inherit;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+
+.mhg-libraries-bar button.mhg-collections-shortcuts-title:hover .mhg-collections-shortcuts-heading-text::after {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.mhg-libraries-bar .mhg-collections-shortcuts-chevron {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: rgba(255, 255, 255, 0.82);
+  opacity: 1;
+  transform: rotate(0deg);
+  transition: opacity 0.14s ease, transform 0.18s ease, color 0.15s ease;
+}
+
+.mhg-libraries-bar .mhg-collections-shortcuts-chevron svg {
+  display: block;
+  opacity: 1;
+}
+
+/*
+ * Sezione aperta: la chevron “su” resta nascosta finché il mouse non è sul titolo GIOCHI
+ * né su una delle voci sotto (stesso blocco .mhg-collections-shortcuts).
+ */
+.mhg-libraries-bar
+  .mhg-collections-shortcuts:has(.mhg-collections-shortcuts-title[aria-expanded="true"])
+  .mhg-collections-shortcuts-chevron {
+  opacity: 0;
+}
+
+/*
+ * Stessa catena di specificità della regola sopra + :hover / :focus-within sul blocco,
+ * così vince sul solo opacity:0 (prima la regola generica :hover aveva specificità inferiore).
+ * :hover sul parent vale anche con puntatore sulle voci figlie.
+ */
+.mhg-libraries-bar
+  .mhg-collections-shortcuts:has(.mhg-collections-shortcuts-title[aria-expanded="true"]):hover
+  .mhg-collections-shortcuts-chevron,
+.mhg-libraries-bar
+  .mhg-collections-shortcuts:has(.mhg-collections-shortcuts-title[aria-expanded="true"]):focus-within
+  .mhg-collections-shortcuts-chevron {
+  opacity: 1;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Sezione chiusa: hover sul blocco per enfatizzare la chevron “giù” */
+.mhg-libraries-bar .mhg-collections-shortcuts:hover .mhg-collections-shortcuts-chevron {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Expanded list: chevron points up (^) — click row to collapse */
+.mhg-libraries-bar .mhg-collections-shortcuts-chevron.mhg-collections-shortcuts-chevron--expanded {
+  transform: rotate(180deg);
 }
 
 .mhg-libraries-bar .mhg-library-button[data-mhg-library-key="categories"]::before,
