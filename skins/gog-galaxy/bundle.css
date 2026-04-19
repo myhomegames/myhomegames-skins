@@ -9441,7 +9441,7 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   justify-content: flex-start;
   gap: var(--gog-sidebar-gap);
   background: var(--gog-sidebar-bg);
-  border-right: 1px solid var(--gog-sidebar-border);
+  border-right: none;
   overflow-y: visible;
   overflow-x: visible;
 }
@@ -9474,8 +9474,9 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 }
 
 .mhg-libraries-bar .mhg-collections-shortcuts {
-  margin-top: 6px;
-  padding-top: 6px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: none;
   gap: 2px;
 }
 
@@ -9560,6 +9561,25 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .mhg-libraries-bar .mhg-library-active[data-mhg-library-key="collections"]::before {
   -webkit-mask-image: var(--gog-lib-mask-collections);
   mask-image: var(--gog-lib-mask-collections);
+}
+
+/* Also rename the collections shortcuts section title in this skin */
+.mhg-libraries-bar .mhg-collections-shortcuts-title {
+  position: relative;
+  padding-left: 12px;
+  color: transparent !important;
+}
+
+.mhg-libraries-bar .mhg-collections-shortcuts-title::after {
+  content: "Giochi";
+  position: absolute;
+  inset: 0 auto auto 12px;
+  font-size: 13px;
+  line-height: inherit;
+  font-weight: inherit;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .mhg-libraries-bar .mhg-library-button[data-mhg-library-key="categories"]::before,
