@@ -9580,7 +9580,10 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   mask-image: var(--gog-lib-mask-collections);
 }
 
-/* Also rename the collections shortcuts section title in this skin */
+/*
+ * This block is the sidebar “games” list (title overridden to “Giochi” below).
+ * With `web.ownedGamesFirstInGamesSidebar`, the web app renders “Owned games” here first.
+ */
 .mhg-libraries-bar .mhg-collections-shortcuts-title {
   position: relative;
   padding-left: 12px;
@@ -9663,6 +9666,40 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .mhg-libraries-bar .mhg-library-active[data-mhg-library-key="keywords"]::before {
   -webkit-mask-image: var(--gog-lib-mask-keywords);
   mask-image: var(--gog-lib-mask-keywords);
+}
+
+/* Sidebar search row (web.sidebarSearchPopup): filled loupe mask like other sidebar icons */
+.mhg-libraries-bar .mhg-sidebar-search-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.mhg-libraries-bar .mhg-sidebar-search-trigger::before {
+  content: "";
+  display: block;
+  width: 1em;
+  height: 1em;
+  min-width: 1em;
+  flex-shrink: 0;
+  background-color: currentColor;
+  opacity: 0.72;
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M10%202a8%208%200%20105.29%2013.71l4.58%204.57%201.41-1.41-4.57-4.58A8%208%200%201010%202zm0%202a6%206%200%20110%2012%206%206%200%20010-12z%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M16.32%2016.9l4.24%204.24-1.41%201.41-4.24-4.24%201.41-1.41z%22%2F%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M10%202a8%208%200%20105.29%2013.71l4.58%204.57%201.41-1.41-4.57-4.58A8%208%200%201010%202zm0%202a6%206%200%20110%2012%206%206%200%20010-12z%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M16.32%2016.9l4.24%204.24-1.41%201.41-4.24-4.24%201.41-1.41z%22%2F%3E%3C%2Fsvg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.mhg-libraries-bar .mhg-sidebar-search-trigger--open {
+  color: var(--gog-accent-strong, #efb44b);
+}
+
+.mhg-libraries-bar .mhg-sidebar-search-trigger--open::before {
+  opacity: 1;
 }
 
 /* Match library page labels: same type scale as .mhg-library-button in this shell */

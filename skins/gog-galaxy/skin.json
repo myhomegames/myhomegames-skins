@@ -8,6 +8,8 @@
     "collectionsShortcutList": true,
     "libraryPagesVerticalList": true,
     "headerTitleFilter": true,
-    "disableAlphabetNavigator": true
+    "disableAlphabetNavigator": true,
+    "sidebarSearchPopup": true,
+    "ownedGamesFirstInGamesSidebar": true
   }
 }
