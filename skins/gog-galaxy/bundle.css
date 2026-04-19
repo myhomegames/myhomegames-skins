@@ -8568,8 +8568,16 @@ fieldset.edit-game-modal-field {
   width: 100%;
 }
 
+/* Collection-like detail: item grids align to the start like default lists (no center / no margin auto). */
 .library-item-detail-games-list .games-list-container {
-  justify-content: center !important;
+  justify-content: start !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.library-item-detail-games-list .virtualized-games-grid {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 .library-item-detail-subsection {
@@ -8610,7 +8618,9 @@ fieldset.edit-game-modal-field {
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--lid-cover-size));
   gap: 40px;
-  justify-content: center;
+  justify-content: start;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
   max-width: 100%;
 }
 
