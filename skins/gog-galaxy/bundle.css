@@ -232,7 +232,7 @@ body {
 .mhg-header-actions:has(.mhg-activity-spinner) > .tooltip-wrapper:nth-child(2) {
   order: 49;
   margin-left: auto;
-  transform: translateX(360px);
+  transform: translateX(338px);
 }
 
 /* Spinner: dopo Impostazioni (12), prima del + (49) — solo order, resto invariato */
@@ -4407,8 +4407,8 @@ fieldset.edit-game-modal-field {
   padding: 0 24px;
   /* Allineamento con il body (body un po' più largo, scrollbar in margine) */
   padding-right: 16px;
-  background-color: #1a1a1a;
-  border-bottom: 2px solid #1a1a1a;
+  background-color: var(--gog-list-column-bg);
+  border-bottom: 2px solid var(--gog-list-column-bg);
   box-sizing: border-box;
 }
 
@@ -4429,7 +4429,7 @@ fieldset.edit-game-modal-field {
 }
 
 .games-table-header-table thead {
-  background-color: #1a1a1a;
+  background-color: var(--gog-list-column-bg);
 }
 
 .games-table-header-table th {
@@ -4469,11 +4469,11 @@ fieldset.edit-game-modal-field {
   padding: 12px 4px;
   text-align: left;
   width: 40px;
-  border-right: 2px solid #1a1a1a;
+  border-right: 2px solid var(--gog-list-column-bg);
 }
 
 .games-table-header-table th.has-border-right {
-  border-right: 2px solid #1a1a1a;
+  border-right: 2px solid var(--gog-list-column-bg);
 }
 
 .games-table-header-table .sort-indicator {
@@ -4573,7 +4573,7 @@ fieldset.edit-game-modal-field {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: #1a1a1a;
+  background-color: var(--gog-list-column-bg);
 }
 
 .games-table th {
@@ -4601,11 +4601,11 @@ fieldset.edit-game-modal-field {
   padding: 12px 4px;
   text-align: left;
   width: 40px;
-  border-right: 2px solid #1a1a1a;
+  border-right: 2px solid var(--gog-list-column-bg);
 }
 
 .games-table th.has-border-right {
-  border-right: 2px solid #1a1a1a;
+  border-right: 2px solid var(--gog-list-column-bg);
 }
 
 .games-table .sort-indicator {
@@ -8569,7 +8569,7 @@ fieldset.edit-game-modal-field {
 }
 
 .library-item-detail-games-list .games-list-container {
-  justify-content: flex-start !important;
+  justify-content: center !important;
 }
 
 .library-item-detail-subsection {
@@ -8610,7 +8610,7 @@ fieldset.edit-game-modal-field {
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--lid-cover-size));
   gap: 40px;
-  justify-content: flex-start;
+  justify-content: center;
   max-width: 100%;
 }
 
@@ -9316,6 +9316,11 @@ fieldset.edit-game-modal-field {
 :root {
   --gog-sidebar-width: 300px;
   --gog-sidebar-gap: 12px;
+  /* List/catalog right column: flat app chrome (same as table header strip + default bar). */
+  --gog-list-column-bg: #1a1a1a;
+  /* Detail / backdrop: tinted column over wallpaper */
+  --gog-main-column-overlay-bg: rgba(36, 42, 58, 0.36);
+  --gog-main-column-solid-bg: rgba(36, 42, 58, 0.86);
   --gog-lib-mask-default: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
   --gog-lib-mask-library: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%224%22%20y%3D%225.5%22%20width%3D%2212%22%20height%3D%229%22%20rx%3D%221.5%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%228.5%22%20width%3D%2212%22%20height%3D%221.2%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%225.5%22%20width%3D%221.2%22%20height%3D%229%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
   --gog-lib-mask-recommended: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M10%203.2l1.9%203.85%204.25.62-3.07%203%200.72%204.23L10%2013.35%206.3%2015.9l0.72-4.23-3.07-3%204.25-.62L10%203.2z%22%2F%3E%3C%2Fsvg%3E");
@@ -9345,6 +9350,7 @@ fieldset.edit-game-modal-field {
   bottom: 0;
   width: auto;
   max-width: none;
+  background-color: var(--gog-main-column-overlay-bg);
 }
 
 /*
@@ -9359,6 +9365,7 @@ fieldset.edit-game-modal-field {
   bottom: 0;
   width: auto;
   max-width: none;
+  background-color: var(--gog-main-column-solid-bg) !important;
 }
 
 /*
@@ -9733,7 +9740,7 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 
 .mhg-libraries-menu-container {
   position: fixed;
-  top: 22px;
+  top: 20px;
   left: calc(var(--gog-sidebar-width) + 620px);
   bottom: auto;
   padding: 0;
@@ -9763,6 +9770,37 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   width: calc(100% - var(--gog-sidebar-width));
 }
 
+/* Library / catalog / tag lists: right column = same flat fill as header strip + table chrome */
+.home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+    .igdb-game-detail-main-container
+  ) {
+  background: var(--gog-list-column-bg) !important;
+}
+
+.home-page-main-container.library-item-detail-main-inner,
+.home-page-main-container.game-detail-main-container,
+.home-page-main-container.igdb-game-detail-main-container {
+  background: var(--gog-main-column-solid-bg) !important;
+}
+
+.home-page-main-container .home-page-content-wrapper.home-page-fade-in,
+.home-page-main-container .home-page-content-wrapper.games-list-page-fade,
+.home-page-main-container .home-page-content-wrapper.home-page-fade-in .home-page-scroll-container,
+.home-page-main-container .home-page-content-wrapper.games-list-page-fade .home-page-scroll-container {
+  background: var(--gog-list-column-bg) !important;
+}
+
+.home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+    .igdb-game-detail-main-container
+  )
+  .home-page-content,
+.home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+    .igdb-game-detail-main-container
+  )
+  .home-page-layout {
+  background: var(--gog-list-column-bg) !important;
+}
+
 /*
  * Main column: start list/detail content at the same vertical band as the first row of the
  * left sidebar (.mhg-libraries-bar-container uses padding-top: 64px below the fixed header).
@@ -9773,13 +9811,6 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 
 .home-page-main-container .home-page-content-wrapper.has-toolbar {
   margin-top: 0;
-}
-
-.home-page-main-container .home-page-content-wrapper.home-page-fade-in .home-page-scroll-container,
-.home-page-main-container
-  .home-page-content-wrapper.games-list-page-fade
-  .home-page-scroll-container:not(.table-view) {
-  padding-top: 0;
 }
 
 /* Collection/detail hero used Tailwind pt-8 — pull up to align with sidebar row */
@@ -9807,9 +9838,9 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   align-items: center;
   justify-content: flex-start;
   padding: 10px 16px;
-  background: rgba(14, 15, 20, 0.78);
+  background: var(--gog-main-column-solid-bg);
   border-right: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: none;
   overflow: visible;
 }
 
