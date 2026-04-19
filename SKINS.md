@@ -52,7 +52,9 @@ The zip must contain **`skin.json`** in one of these places:
   "web": {
     "persistentLibraryShell": true,
     "collectionsShortcutList": true,
-    "libraryPagesVerticalList": true
+    "libraryPagesVerticalList": true,
+    "headerTitleFilter": true,
+    "disableAlphabetNavigator": true
   }
 }
 ```
@@ -62,6 +64,8 @@ The zip must contain **`skin.json`** in one of these places:
 - `persistentLibraryShell`: keeps header + libraries bar mounted while main content changes via nested routes.
 - `collectionsShortcutList`: shows collection shortcut buttons in the libraries bar.
 - `libraryPagesVerticalList`: forces libraries pages list in vertical mode (no narrow combobox fallback).
+- `headerTitleFilter`: replaces the header global search with a **title filter** that narrows the current page’s lists as the user types: games (library, tag games, collection/developer/publisher detail, recommended), collection-like grids (collections, developers, publishers, sub/parent sections on detail), and tag index pages (categories, platforms, etc.). When `false`, the normal search box is shown.
+- `disableAlphabetNavigator`: when `true`, hides the A–Z sidebar navigator on library, tag games, collection-like lists, and tag index pages that normally show it.
 
 **CSS** (next to `skin.json` in that folder):
 

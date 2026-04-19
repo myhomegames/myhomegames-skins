@@ -6,6 +6,8 @@
   "web": {
     "persistentLibraryShell": true,
     "collectionsShortcutList": true,
-    "libraryPagesVerticalList": true
+    "libraryPagesVerticalList": true,
+    "headerTitleFilter": true,
+    "disableAlphabetNavigator": true
   }
 }
