@@ -9354,7 +9354,8 @@ fieldset.edit-game-modal-field {
   --gog-main-column-solid-bg: rgba(36, 42, 58, 0.86);
   --gog-lib-mask-default: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
   --gog-lib-mask-library: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%224%22%20y%3D%225.5%22%20width%3D%2212%22%20height%3D%229%22%20rx%3D%221.5%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%228.5%22%20width%3D%2212%22%20height%3D%221.2%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%225.5%22%20width%3D%221.2%22%20height%3D%229%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
-  --gog-lib-mask-recommended: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M10%203.2l1.9%203.85%204.25.62-3.07%203%200.72%204.23L10%2013.35%206.3%2015.9l0.72-4.23-3.07-3%204.25-.62L10%203.2z%22%2F%3E%3C%2Fsvg%3E");
+  /* Recommended page in sidebar: label “Home” + icona casetta (stella sostituita) */
+  --gog-lib-mask-recommended: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M12%203L4%209v12h5v-7h6v7h5V9l-8-6z%22%2F%3E%3C%2Fsvg%3E");
   --gog-lib-mask-collections: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M4.2%207.2c0-1.1.9-2%202-2h2.8c.35%200%20.68.14.92.38l1%201c.12.12.28.18.45.18H14.8c.7%200%201.2.55%201.2%201.25v7.3c0%20.9-.75%201.65-1.65%201.65H5.65c-1%200-1.85-.85-1.85-1.85V7.2z%22%2F%3E%3C%2Fsvg%3E");
   --gog-lib-mask-categories: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%223.5%22%20y%3D%225%22%20width%3D%225.5%22%20height%3D%225.5%22%20rx%3D%220.8%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%224%22%20width%3D%225.5%22%20height%3D%224.5%22%20rx%3D%220.8%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%225.5%22%20height%3D%224.5%22%20rx%3D%220.8%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%223.5%22%20y%3D%2212%22%20width%3D%225.5%22%20height%3D%223.5%22%20rx%3D%220.8%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
   --gog-lib-mask-series: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%225%22%20y%3D%225.5%22%20width%3D%2210%22%20height%3D%221.4%22%20rx%3D%220.4%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%229.3%22%20width%3D%2210%22%20height%3D%221.4%22%20rx%3D%220.4%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%2213.1%22%20width%3D%2210%22%20height%3D%221.4%22%20rx%3D%220.4%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
@@ -9593,6 +9594,36 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .mhg-libraries-bar .mhg-library-active[data-mhg-library-key="recommended"]::before {
   -webkit-mask-image: var(--gog-lib-mask-recommended);
   mask-image: var(--gog-lib-mask-recommended);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="recommended"] .mhg-library-button-label,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="recommended"] .mhg-library-button-label {
+  position: relative;
+  color: transparent !important;
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="recommended"] .mhg-library-button-label::after,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="recommended"] .mhg-library-button-label::after {
+  content: "Home";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="recommended"]:hover:not(.mhg-library-active) .mhg-library-button-label::after {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="recommended"] .mhg-library-button-label::after {
+  color: rgba(255, 255, 255, 1);
 }
 
 .mhg-libraries-bar .mhg-library-button[data-mhg-library-key="collections"]::before,
