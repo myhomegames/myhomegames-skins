@@ -49,6 +49,11 @@
     radial-gradient(62% 66% at 70% 66%, rgba(21, 64, 99, 0.62) 0%, rgba(11, 23, 37, 0.52) 48%, rgba(4, 8, 14, 0.76) 100%),
     radial-gradient(55% 72% at 8% 52%, rgba(114, 57, 20, 0.32) 0%, rgba(53, 30, 22, 0.22) 48%, rgba(10, 8, 10, 0.0) 72%),
     linear-gradient(180deg, #080b12 0%, #07090f 100%);
+
+  /* Denser cover grid: narrower inter-item gap and tighter side gutters
+     so more covers fit per row (GOG-style compact library). */
+  --vgrid-gap-half: 10px;
+  --vgrid-side-gutter: 24px;
 }
 
 .cover-hover-effect {
@@ -232,7 +237,7 @@ body {
 .mhg-header-actions:has(.mhg-activity-spinner) > .tooltip-wrapper:nth-child(2) {
   order: 49;
   margin-left: auto;
-  transform: translateX(338px);
+  transform: translateX(358px);
 }
 
 /* Spinner: dopo Impostazioni (12), prima del + (49) — solo order, resto invariato */
