@@ -50,10 +50,11 @@
     radial-gradient(55% 72% at 8% 52%, rgba(114, 57, 20, 0.32) 0%, rgba(53, 30, 22, 0.22) 48%, rgba(10, 8, 10, 0.0) 72%),
     linear-gradient(180deg, #080b12 0%, #07090f 100%);
 
-  /* Denser cover grid: narrower inter-item gap and tighter side gutters
-     so more covers fit per row (GOG-style compact library). */
-  --vgrid-gap-half: 10px;
-  --vgrid-side-gutter: 24px;
+  /* Denser cover grid: ridotti i margini laterali della pagina per
+     guadagnare spazio, in modo da poter lasciare un gap più generoso
+     tra le cover pur facendone entrare di più per riga. */
+  --vgrid-gap-half: 12px;
+  --vgrid-side-gutter: 16px;
 }
 
 .cover-hover-effect {
