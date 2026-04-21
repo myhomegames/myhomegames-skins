@@ -10,6 +10,7 @@
     "headerTitleFilter": true,
     "disableAlphabetNavigator": true,
     "sidebarSearchPopup": true,
-    "ownedGamesFirstInGamesSidebar": true
+    "ownedGamesFirstInGamesSidebar": true,
+    "compactCollectionLikeDetail": true
   }
 }
