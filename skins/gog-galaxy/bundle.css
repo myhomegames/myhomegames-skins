@@ -233,12 +233,17 @@ body {
   order: 12;
 }
 
-/* Add = first Tooltip when no spinner; second when spinner */
+/*
+ * Add = first Tooltip when no spinner; second when spinner.
+ * Spingiamo il gruppo di destra (+, search, update) con un solo
+ * `margin-left: auto` sul `+`: così l'intera fila di controlli di
+ * destra resta attaccata al bordo e la search bar si comprime/espande
+ * in base alla larghezza della pagina senza sovrapposizioni.
+ */
 .mhg-header-actions:not(:has(.mhg-activity-spinner)) > .tooltip-wrapper:nth-child(1),
 .mhg-header-actions:has(.mhg-activity-spinner) > .tooltip-wrapper:nth-child(2) {
   order: 49;
   margin-left: auto;
-  transform: translateX(358px);
 }
 
 /* Spinner: dopo Impostazioni (12), prima del + (49) — solo order, resto invariato */
@@ -253,7 +258,6 @@ body {
 
 .mhg-header-container > .mhg-search-container {
   order: 50;
-  margin-left: auto;
 }
 
 .mhg-header-container > .update-notification-wrapper {
@@ -280,8 +284,18 @@ body {
 .mhg-search-container {
   display: flex;
   flex: 0 1 min(420px, 42vw);
+  min-width: 0; /* consente allo shrink di scendere sotto la larghezza intrinseca del campo */
   max-width: min(420px, 42vw);
   justify-content: flex-end;
+}
+
+/*
+ * Quando nell'header c'è il title filter (solo "Cerca" della lista corrente)
+ * rendiamo l'input più compatto della search globale.
+ */
+.mhg-header-container:has(.mhg-title-filter-wrapper) > .mhg-search-container {
+  flex: 0 1 min(260px, 28vw);
+  max-width: min(260px, 28vw);
 }
 
 .mhg-header-button {
@@ -9458,9 +9472,14 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 }
 
 /*
- * z-index: auto — do not create a stacking context, so fixed .mhg-libraries-menu-container /
- * .mhg-libraries-actions can stack above .games-list-toolbar (10005). Sidebar still does not
- * overlap main column (margin-left on .home-page-main-container).
+ * z-index: 10005 — position: fixed sempre crea uno stacking context per `.mhg-libraries-bar`,
+ * quindi i figli fissi (.mhg-libraries-actions a 10080, .mhg-libraries-menu-container a 10150)
+ * sono confinati al livello della barra nel contesto radice. Impostando qui 10005 la barra
+ * (e tutti i suoi figli fissi) viene dipinta sopra .games-list-toolbar (10004) e sopra il
+ * .background-manager-root (0)/.background-manager-overlay delle pagine di dettaglio, così
+ * il selettore "viste" e il cursore della dimensione delle cover non risultano oscurati dal
+ * velo scuro sovrapposto. Resta comunque sotto .mhg-header (10006), che continua quindi a
+ * ricevere per primo i clic sui suoi controlli.
  */
 .mhg-libraries-bar {
   top: 0;
@@ -9470,7 +9489,7 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   width: var(--gog-sidebar-width);
   min-height: 0;
   padding: 0;
-  z-index: auto;
+  z-index: 10005;
 }
 
 .mhg-libraries-bar-container {
