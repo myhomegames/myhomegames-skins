@@ -35,6 +35,9 @@
   --font-body-2-font-family: "IBM Mhg Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   --font-body-2-font-size: 0.875rem;
   --font-body-2-line-height: 1.5;
+
+  /* Left column when settings enable persistent library shell */
+  --plex-shell-sidebar-width: 280px;
 }
 
 .cover-hover-effect {
@@ -354,6 +357,8 @@ body:has(.launch-modal-overlay) {
   max-width: calc(100% - 200px);
 }
 
+/* Vertical library tabs for top-strip skins: `LibrariesBar.css` in myhomegames-web (class `.mhg-libraries-bar--vertical-page-tabs`). */
+
 .mhg-libraries-actions {
   display: flex;
   align-items: center;
@@ -431,6 +436,184 @@ body:has(.launch-modal-overlay) {
   width: 100%;
   height: 100%;
   padding-top: 64px;
+}
+
+/*
+ * Persistent library shell (`web.persistentLibraryShell`): header stays mounted; libraries bar
+ * becomes a left sidebar (Plex look). Routing uses MainAppLayout; App sets
+ * data-mhg-persistent-library-shell on .app-main-container.
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  min-width: calc(var(--plex-shell-sidebar-width) + 520px);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header {
+  z-index: 10006;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .library-item-detail-libraries-bar-host,
+.app-main-container[data-mhg-persistent-library-shell="true"] .game-detail-libraries-bar-wrapper,
+.app-main-container[data-mhg-persistent-library-shell="true"] .igdb-game-detail-libraries-bar-wrapper {
+  display: none !important;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
+  display: none !important;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-libraries-bar {
+  top: 0;
+  left: 0;
+  right: auto;
+  bottom: 0;
+  width: var(--plex-shell-sidebar-width);
+  min-height: 0;
+  padding: 0;
+  z-index: 10003;
+  background-color: transparent;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-libraries-bar-container {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 64px 12px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 12px;
+  background: rgba(13, 13, 13, 0.96);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-libraries-menu-container {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  height: auto;
+  padding: 0 0 4px 0;
+  flex-shrink: 0;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-libraries-container {
+  position: static;
+  left: auto;
+  transform: none;
+  width: 100%;
+  max-width: none;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 2px;
+  padding: 0;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-library-button,
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-library-active {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  white-space: normal;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border-bottom: none !important;
+  transform: none;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-library-active {
+  background: rgba(229, 160, 13, 0.14);
+  color: #e5a00d;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-library-active::after {
+  display: none;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-collections-shortcuts {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-collections-shortcuts-title {
+  width: 100%;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-collection-shortcut-button {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-libraries-actions {
+  margin-left: 0;
+  align-self: stretch;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  transform: none;
+  position: relative;
+  z-index: 2;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 8px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .home-page-main-container {
+  margin-left: var(--plex-shell-sidebar-width);
+  width: calc(100% - var(--plex-shell-sidebar-width));
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .home-page-main-container .home-page-content {
+  padding-top: 64px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .library-item-detail-page-shell,
+.app-main-container[data-mhg-persistent-library-shell="true"] .game-detail-container,
+.app-main-container[data-mhg-persistent-library-shell="true"] .igdb-game-detail-container {
+  margin-left: var(--plex-shell-sidebar-width);
+  width: calc(100% - var(--plex-shell-sidebar-width));
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .library-item-detail-page-shell > .home-page-main-container.library-item-detail-main-inner,
+.app-main-container[data-mhg-persistent-library-shell="true"] .game-detail-container > .home-page-main-container.game-detail-main-container,
+.app-main-container[data-mhg-persistent-library-shell="true"] .igdb-game-detail-container > .home-page-main-container.igdb-game-detail-main-container {
+  margin-left: 0;
+  width: 100%;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .background-manager-overlay {
+  left: var(--plex-shell-sidebar-width);
+  right: 0;
+  width: auto;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .background-manager-root.background-manager-root--solid {
+  left: var(--plex-shell-sidebar-width);
+  right: 0;
+  width: auto;
 }
 
 /* --- ./components/common/virtualized-common.css --- */
