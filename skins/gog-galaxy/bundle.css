@@ -6807,15 +6807,16 @@ fieldset.edit-game-modal-field {
 .update-notification-popup {
   position: absolute;
   top: 100%;
-  right: 0;
+  left: 0;
+  right: auto;
   margin-top: 8px;
   background-color: #1a1a1a;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   z-index: 10005;
-  min-width: 280px;
-  max-width: 360px;
+  min-width: min(280px, calc(100vw - 24px));
+  max-width: min(360px, calc(100vw - 24px));
   padding: 12px 0;
 }
 
