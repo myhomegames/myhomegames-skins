@@ -201,7 +201,6 @@ body {
 .mhg-header-container {
   display: flex;
   align-items: center;
-  gap: 12px;
   max-width: 1920px;
   margin: 0 auto;
   padding: 0 24px;
