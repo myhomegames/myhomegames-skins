@@ -4,19 +4,25 @@
       "id": "empty",
       "name": "Empty (no theme CSS)",
       "zip": "empty.mhg-skin.zip",
-      "snapshot": "snapshots/empty.svg"
+      "snapshot": "snapshots/empty.jpg"
     },
     {
-      "id": "example-emerald",
-      "name": "Example — Emerald accent",
-      "zip": "example-emerald.mhg-skin.zip",
-      "snapshot": "snapshots/example-emerald.svg"
+      "id": "gog-galaxy",
+      "name": "GOG Galaxy",
+      "zip": "gog-galaxy.mhg-skin.zip",
+      "snapshot": "snapshots/gog-galaxy.jpg"
     },
     {
       "id": "plex",
       "name": "Plex",
       "zip": "plex.mhg-skin.zip",
-      "snapshot": "snapshots/plex.svg"
+      "snapshot": "snapshots/plex.jpg"
+    },
+    {
+      "id": "ps3",
+      "name": "PS3",
+      "zip": "ps3.mhg-skin.zip",
+      "snapshot": "snapshots/ps3.jpg"
     }
   ]
 }
