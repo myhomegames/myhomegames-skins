@@ -1,0 +1,16 @@
+{
+  "name": "GOG Galaxy",
+  "description": "Skin for GOG Galaxy",
+  "version": "1.0.0",
+  "snapshot": "snapshot.jpg",
+  "web": {
+    "persistentLibraryShell": true,
+    "collectionsShortcutList": true,
+    "libraryPagesVerticalList": true,
+    "headerTitleFilter": true,
+    "disableAlphabetNavigator": true,
+    "sidebarSearchPopup": true,
+    "ownedGamesFirstInGamesSidebar": true,
+    "compactCollectionLikeDetail": true
+  }
+}

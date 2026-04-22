@@ -35,6 +35,26 @@
   --font-body-2-font-family: "IBM Mhg Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   --font-body-2-font-size: 0.875rem;
   --font-body-2-line-height: 1.5;
+
+  /* GOG-like palette (from reference screenshot): amber accents + deep blue/brown glow */
+  --gog-accent: #d6992f;
+  --gog-accent-strong: #efb44b;
+  --gog-text-main: rgba(255, 255, 255, 0.9);
+  --gog-text-muted: rgba(255, 255, 255, 0.68);
+  --gog-header-chip: rgba(6, 10, 18, 0.82);
+  --gog-header-chip-border: rgba(214, 153, 47, 0.28);
+  --gog-sidebar-bg: rgba(18, 13, 12, 0.84);
+  --gog-sidebar-border: rgba(214, 153, 47, 0.16);
+  --gog-bg-main:
+    radial-gradient(62% 66% at 70% 66%, rgba(21, 64, 99, 0.62) 0%, rgba(11, 23, 37, 0.52) 48%, rgba(4, 8, 14, 0.76) 100%),
+    radial-gradient(55% 72% at 8% 52%, rgba(114, 57, 20, 0.32) 0%, rgba(53, 30, 22, 0.22) 48%, rgba(10, 8, 10, 0.0) 72%),
+    linear-gradient(180deg, #080b12 0%, #07090f 100%);
+
+  /* Denser cover grid: ridotti i margini laterali della pagina per
+     guadagnare spazio, in modo da poter lasciare un gap più generoso
+     tra le cover pur facendone entrare di più per riga. */
+  --vgrid-gap-half: 12px;
+  --vgrid-side-gutter: 16px;
 }
 
 .cover-hover-effect {
@@ -84,8 +104,8 @@ body {
   height: 100%;
   overflow: hidden;
   min-width: 320px;
-  background-color: #1a1a1a;
-  color: #ffffff;
+  background: var(--gog-bg-main);
+  color: var(--gog-text-main);
 }
 
 #root {
@@ -139,19 +159,109 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10004;
+  /* Above .games-list-toolbar (10005) so profile / settings / + / search stay clickable */
+  z-index: 10006;
   box-shadow: none;
+  /* Do not block clicks outside actual header controls */
+  pointer-events: none;
+}
+
+.mhg-header-container > .mhg-logo-button,
+.mhg-header-container > .mhg-search-container,
+.mhg-header-container > .mhg-activity-spinner,
+.mhg-header-container > .tooltip-wrapper,
+.mhg-header-container > .update-notification-wrapper,
+.mhg-header-container > .profile-dropdown-wrapper {
+  pointer-events: auto;
+}
+
+/* If .mhg-header-actions does not flatten (display:contents unsupported), children inherit pointer-events: none */
+.mhg-header-actions > .tooltip-wrapper,
+.mhg-header-actions > .mhg-activity-spinner,
+.mhg-header-actions > .profile-dropdown-wrapper,
+.mhg-header-actions > .update-notification-wrapper {
+  pointer-events: auto;
+}
+
+/* Above .search-bar-wrapper (10002) so + / settings stay clickable after translateX */
+.mhg-header-container > .tooltip-wrapper,
+.mhg-header-actions > .tooltip-wrapper {
+  position: relative;
+  z-index: 10020;
+}
+
+.mhg-header-container > .profile-dropdown-wrapper,
+.mhg-header-container > .update-notification-wrapper,
+.mhg-header-actions > .profile-dropdown-wrapper,
+.mhg-header-actions > .update-notification-wrapper {
+  position: relative;
+  z-index: 10020;
 }
 
 .mhg-header-container {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
   max-width: 1920px;
   margin: 0 auto;
   padding: 0 24px;
   height: 100%;
-  background-color: #0d0d0d;
+  background-color: transparent;
+}
+
+/* Flatten header actions so we can reorder with flex `order` (logo → user → settings | search + + …) */
+.mhg-header-actions {
+  display: contents;
+}
+
+/*
+ * Logo must stay first even if `display: contents` on `.mhg-header-actions` is ignored:
+ * otherwise the whole actions block keeps order:0 and wins over logo at order:10.
+ */
+.mhg-header-container > .mhg-logo-button {
+  order: -100;
+}
+
+/* User profile right after logo (when actions are flattened) */
+.mhg-header-container > .profile-dropdown-wrapper {
+  order: 11;
+}
+
+/* Settings = second header Tooltip when no spinner; third child when spinner first */
+.mhg-header-actions:not(:has(.mhg-activity-spinner)) > .tooltip-wrapper:nth-child(2),
+.mhg-header-actions:has(.mhg-activity-spinner) > .tooltip-wrapper:nth-child(3) {
+  order: 12;
+}
+
+/*
+ * Add = first Tooltip when no spinner; second when spinner.
+ * Spingiamo il gruppo di destra (+, search, update) con un solo
+ * `margin-left: auto` sul `+`: così l'intera fila di controlli di
+ * destra resta attaccata al bordo e la search bar si comprime/espande
+ * in base alla larghezza della pagina senza sovrapposizioni.
+ */
+.mhg-header-actions:not(:has(.mhg-activity-spinner)) > .tooltip-wrapper:nth-child(1),
+.mhg-header-actions:has(.mhg-activity-spinner) > .tooltip-wrapper:nth-child(2) {
+  order: 49;
+  margin-left: auto;
+}
+
+/* Spinner: dopo Impostazioni (12), prima del + (49) — solo order, resto invariato */
+.mhg-header-container > .mhg-activity-spinner {
+  order: 13;
+}
+
+/* When contents is not applied, keep the grouped actions after logo but before search */
+.mhg-header-container > .mhg-header-actions {
+  order: 5;
+}
+
+.mhg-header-container > .mhg-search-container {
+  order: 50;
+}
+
+.mhg-header-container > .update-notification-wrapper {
+  order: 52;
 }
 
 .mhg-logo-button {
@@ -172,18 +282,20 @@ body {
 }
 
 .mhg-search-container {
-  flex: 1;
   display: flex;
-  justify-content: center;
-  max-width: 450px;
+  flex: 0 1 min(420px, 42vw);
+  min-width: 0; /* consente allo shrink di scendere sotto la larghezza intrinseca del campo */
+  max-width: min(420px, 42vw);
+  justify-content: flex-end;
 }
 
-.mhg-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-  margin-left: auto;
+/*
+ * Quando nell'header c'è il title filter (solo "Cerca" della lista corrente)
+ * rendiamo l'input più compatto della search globale.
+ */
+.mhg-header-container:has(.mhg-title-filter-wrapper) > .mhg-search-container {
+  flex: 0 1 min(260px, 28vw);
+  max-width: min(260px, 28vw);
 }
 
 .mhg-header-button {
@@ -193,18 +305,20 @@ body {
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: none;
+  color: var(--gog-text-muted);
+  background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.7);
+  box-shadow: none;
   cursor: pointer;
-  border-radius: 4px;
-  transition: color 0.2s ease;
+  border-radius: 50%;
+  transition: color 0.2s ease, background-color 0.2s ease;
   padding: 0;
 }
 
 
 .mhg-header-button:hover {
-  color: rgba(255, 255, 255, 1);
+  color: var(--gog-text-main);
+  background: rgba(11, 18, 30, 0.55);
 }
 
 .mhg-header-button:active {
@@ -236,15 +350,13 @@ body {
 }
 
 /* Dim header components when a modal is open */
-body:has(.edit-game-modal-overlay),
-body:has(.edit-collection-modal-overlay),
-body:has(.dropdown-menu-confirm-overlay),
-body:has(.add-game-overlay),
-body:has(.launch-modal-overlay) {
-  .mhg-header {
-    opacity: 0.5;
-    pointer-events: none;
-  }
+body:has(.edit-game-modal-overlay) .mhg-header,
+body:has(.edit-collection-modal-overlay) .mhg-header,
+body:has(.dropdown-menu-confirm-overlay) .mhg-header,
+body:has(.add-game-overlay) .mhg-header,
+body:has(.launch-modal-overlay) .mhg-header {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 /* Search Bar */
@@ -254,17 +366,17 @@ body:has(.launch-modal-overlay) {
   align-items: center;
   width: 100%;
   height: 36px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: var(--gog-header-chip);
+  border: 1px solid var(--gog-header-chip-border);
   border-radius: 18px;
   transition: all 0.2s ease;
   overflow: hidden;
 }
 
 .mhg-search-container-wrapper:focus-within {
-  background-color: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+  background-color: rgba(10, 18, 30, 0.9);
+  border-color: rgba(239, 180, 75, 0.52);
+  box-shadow: 0 0 0 2px rgba(214, 153, 47, 0.2);
 }
 
 .mhg-search-icon-wrapper {
@@ -295,8 +407,8 @@ body:has(.launch-modal-overlay) {
 
 /* Dropdown */
 .mhg-dropdown {
-  background-color: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(10, 14, 22, 0.92);
+  border: 1px solid rgba(214, 153, 47, 0.24);
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
@@ -383,7 +495,7 @@ body:has(.launch-modal-overlay) {
 }
 
 .mhg-library-active {
-  color: #E5A00D;
+  color: var(--gog-accent);
   border-bottom: none !important;
   font-weight: 600;
   line-height: 1.5;
@@ -401,7 +513,7 @@ body:has(.launch-modal-overlay) {
   left: 0;
   right: 0;
   height: 2px;
-  background-color: #E5A00D;
+  background-color: var(--gog-accent);
   transition: background-color 0.2s ease;
 }
 
@@ -416,7 +528,11 @@ body:has(.launch-modal-overlay) {
   margin-left: auto;
 }
 
-/* App Main Container */
+/* App Main Container
+ * Background lives on html/body (--gog-bg-main). This wrapper must stay transparent so the
+ * full-screen game/collection backdrop (BackgroundManager portal, z-index 0 under #root) shows
+ * through #root in the main column; an opaque layer here hides those images entirely.
+ */
 .app-main-container {
   position: relative;
   width: 100%;
@@ -424,6 +540,21 @@ body:has(.launch-modal-overlay) {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background: transparent;
+}
+
+/* Keep the gradient visible through main app wrappers */
+.home-page-content,
+.home-page-layout,
+.home-page-content-wrapper,
+.home-page-scroll-container,
+.home-page-main-container,
+.game-detail-container,
+.igdb-game-detail-container,
+.library-item-detail-page-shell,
+.library-item-detail-main-inner,
+.library-item-detail-content-wrapper {
+  background: transparent !important;
 }
 
 /* App Content Wrapper */
@@ -1178,9 +1309,79 @@ body:has(.launch-modal-overlay) {
   z-index: 1;
 }
 
+/* GOG detail pages: background full-screen layers must never eat clicks */
+.background-manager-root,
+.background-manager-overlay {
+  pointer-events: none;
+}
+
 .background-manager-foreground {
   position: relative;
   z-index: 2;
+  pointer-events: none;
+}
+
+.background-manager-foreground > * {
+  pointer-events: auto;
+}
+
+.mhg-collections-shortcuts {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mhg-collections-shortcuts-title {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0 12px 4px;
+}
+
+button.mhg-collections-shortcuts-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  padding: 8px 10px 10px 0;
+}
+
+button.mhg-collections-shortcuts-title:focus-visible {
+  outline: 2px solid rgba(239, 180, 75, 0.55);
+  outline-offset: 2px;
+}
+
+.mhg-collection-shortcut-button {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mhg-collection-shortcut-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
 }
 
 
@@ -1248,6 +1449,11 @@ body:has(.launch-modal-overlay) {
 /* Games table (virtualized/normal): popup in portal so it's on top and not clipped */
 .dropdown-menu-popup-in-games-table {
   z-index: 10002 !important;
+}
+
+/* Libraries bar ⋮ menu: portaled like games-table (above main column / grid) */
+.dropdown-menu-popup-in-libraries-top {
+  z-index: 10008 !important;
 }
 
 /* Submenus portaled to body (e.g. from table): above the main dropdown popup */
@@ -2567,6 +2773,12 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
   height: 100%;
   object-fit: cover;
   border-radius: inherit;
+}
+
+/* Hero: SPA sets this class so object-fit fill wins over the rule above (e.g. showBorder false). */
+.games-list-cover--image-fill > img {
+  object-fit: fill !important;
+  object-position: center !important;
 }
 
 .games-list-cover:not(.cover-hover-effect) > div:first-child {
@@ -4236,8 +4448,8 @@ fieldset.edit-game-modal-field {
   padding: 0 24px;
   /* Allineamento con il body (body un po' più largo, scrollbar in margine) */
   padding-right: 16px;
-  background-color: #1a1a1a;
-  border-bottom: 2px solid #1a1a1a;
+  background-color: var(--gog-list-column-bg);
+  border-bottom: 2px solid var(--gog-list-column-bg);
   box-sizing: border-box;
 }
 
@@ -4258,7 +4470,7 @@ fieldset.edit-game-modal-field {
 }
 
 .games-table-header-table thead {
-  background-color: #1a1a1a;
+  background-color: var(--gog-list-column-bg);
 }
 
 .games-table-header-table th {
@@ -4298,11 +4510,11 @@ fieldset.edit-game-modal-field {
   padding: 12px 4px;
   text-align: left;
   width: 40px;
-  border-right: 2px solid #1a1a1a;
+  border-right: 2px solid var(--gog-list-column-bg);
 }
 
 .games-table-header-table th.has-border-right {
-  border-right: 2px solid #1a1a1a;
+  border-right: 2px solid var(--gog-list-column-bg);
 }
 
 .games-table-header-table .sort-indicator {
@@ -4402,7 +4614,7 @@ fieldset.edit-game-modal-field {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: #1a1a1a;
+  background-color: var(--gog-list-column-bg);
 }
 
 .games-table th {
@@ -4430,11 +4642,11 @@ fieldset.edit-game-modal-field {
   padding: 12px 4px;
   text-align: left;
   width: 40px;
-  border-right: 2px solid #1a1a1a;
+  border-right: 2px solid var(--gog-list-column-bg);
 }
 
 .games-table th.has-border-right {
-  border-right: 2px solid #1a1a1a;
+  border-right: 2px solid var(--gog-list-column-bg);
 }
 
 .games-table .sort-indicator {
@@ -4976,11 +5188,15 @@ fieldset.edit-game-modal-field {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0px 48px 8px 64px;
-  background-color: #1a1a1a;
+  padding: 0;
+  background-color: transparent;
   flex-shrink: 0;
-  position: relative;
-  z-index: 200;
+  position: fixed;
+  top: 14px;
+  left: calc(var(--gog-sidebar-width) + 96px);
+  /* Below .mhg-header (10006): header chrome receives clicks first */
+  z-index: 10004;
+  pointer-events: auto;
 }
 
 .games-list-toolbar-left {
@@ -6320,6 +6536,7 @@ fieldset.edit-game-modal-field {
   top: 100%;
   bottom: auto;
   margin-top: 4px;
+  z-index: 10040;
 }
 
 .mhg-libraries-actions {
@@ -6383,6 +6600,7 @@ fieldset.edit-game-modal-field {
   align-items: center;
   position: relative;
   z-index: 998;
+  overflow: visible;
 }
 
 .mhg-libraries-combobox-container {
@@ -6459,7 +6677,8 @@ fieldset.edit-game-modal-field {
 .profile-dropdown-popup {
   position: absolute;
   top: 100%;
-  right: 0;
+  left: 0;
+  right: auto;
   margin-top: 8px;
   background-color: #1a1a1a;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -6467,6 +6686,7 @@ fieldset.edit-game-modal-field {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   z-index: 10005;
   min-width: 240px;
+  max-width: calc(100vw - 24px);
   padding: 4px 0;
 }
 
@@ -6841,7 +7061,8 @@ fieldset.edit-game-modal-field {
 .search-dropdown {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: auto;
+  right: 0;
   margin-top: 0px;
   z-index: 10003;
   pointer-events: auto;
@@ -6930,7 +7151,8 @@ fieldset.edit-game-modal-field {
 .search-no-results {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: auto;
+  right: 0;
   margin-top: 0px;
   z-index: 10003;
   pointer-events: auto;
@@ -7759,7 +7981,8 @@ fieldset.edit-game-modal-field {
 .view-mode-selector {
   position: relative;
   padding-right: 24px;
-  z-index: 1003;
+  z-index: 10035;
+  overflow: visible;
 }
 
 .view-mode-button {
@@ -7827,7 +8050,7 @@ fieldset.edit-game-modal-field {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  z-index: 10000;
+  z-index: 10040;
   min-width: 200px;
   overflow: hidden;
 }
@@ -8386,8 +8609,16 @@ fieldset.edit-game-modal-field {
   width: 100%;
 }
 
+/* Collection-like detail: item grids align to the start like default lists (no center / no margin auto). */
 .library-item-detail-games-list .games-list-container {
-  justify-content: flex-start !important;
+  justify-content: start !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.library-item-detail-games-list .virtualized-games-grid {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 .library-item-detail-subsection {
@@ -8428,7 +8659,9 @@ fieldset.edit-game-modal-field {
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--lid-cover-size));
   gap: 40px;
-  justify-content: flex-start;
+  justify-content: start;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
   max-width: 100%;
 }
 
@@ -9130,13 +9363,747 @@ fieldset.edit-game-modal-field {
   background: rgba(248, 113, 113, 0.12);
 }
 
-/* example-emerald accents */
-.mhg-header-container {
-  background: linear-gradient(90deg, #0c1812 0%, #0d0d0d 55%);
-  border-bottom: 2px solid #1db954;
+/* --- gog-galaxy: two-column shell (left menu + right content) --- */
+:root {
+  --gog-sidebar-width: 300px;
+  --gog-sidebar-gap: 12px;
+  /* List/catalog right column: flat app chrome (same as table header strip + default bar). */
+  --gog-list-column-bg: #1a1a1a;
+  /* Detail / backdrop: tinted column over wallpaper */
+  --gog-main-column-overlay-bg: rgba(36, 42, 58, 0.36);
+  --gog-main-column-solid-bg: rgba(36, 42, 58, 0.86);
+  --gog-lib-mask-default: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%225%22%20y%3D%225%22%20width%3D%2210%22%20height%3D%2210%22%20rx%3D%221.5%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-library: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%224%22%20y%3D%225.5%22%20width%3D%2212%22%20height%3D%229%22%20rx%3D%221.5%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%228.5%22%20width%3D%2212%22%20height%3D%221.2%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%225.5%22%20width%3D%221.2%22%20height%3D%229%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  /* Installed games: freccia che scende in un vassoio (download/installato) */
+  --gog-lib-mask-library-installed: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M9.3%203h1.4v6.2l1.9-1.9%201%201-3.6%203.6L6.4%208.3l1-1%201.9%201.9V3z%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2214.2%22%20width%3D%2212%22%20height%3D%221.8%22%20rx%3D%220.4%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  /* Recommended page in sidebar: label “Home” + icona casetta (stella sostituita) */
+  --gog-lib-mask-recommended: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M12%203L4%209v12h5v-7h6v7h5V9l-8-6z%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-collections: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M4.2%207.2c0-1.1.9-2%202-2h2.8c.35%200%20.68.14.92.38l1%201c.12.12.28.18.45.18H14.8c.7%200%201.2.55%201.2%201.25v7.3c0%20.9-.75%201.65-1.65%201.65H5.65c-1%200-1.85-.85-1.85-1.85V7.2z%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-categories: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%223.5%22%20y%3D%225%22%20width%3D%225.5%22%20height%3D%225.5%22%20rx%3D%220.8%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%224%22%20width%3D%225.5%22%20height%3D%224.5%22%20rx%3D%220.8%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%2211%22%20y%3D%2211%22%20width%3D%225.5%22%20height%3D%224.5%22%20rx%3D%220.8%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%223.5%22%20y%3D%2212%22%20width%3D%225.5%22%20height%3D%223.5%22%20rx%3D%220.8%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-series: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%225%22%20y%3D%225.5%22%20width%3D%2210%22%20height%3D%221.4%22%20rx%3D%220.4%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%229.3%22%20width%3D%2210%22%20height%3D%221.4%22%20rx%3D%220.4%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%225%22%20y%3D%2213.1%22%20width%3D%2210%22%20height%3D%221.4%22%20rx%3D%220.4%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-franchise: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M10%203.8l5.4%203.1v6.2L10%2016.2%204.6%2013.1V6.9L10%203.8z%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-platforms: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Crect%20x%3D%224%22%20y%3D%225%22%20width%3D%2212%22%20height%3D%228%22%20rx%3D%221.4%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%228%22%20y%3D%2216.5%22%20width%3D%224%22%20height%3D%221.2%22%20rx%3D%220.3%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-themes: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Ccircle%20cx%3D%227%22%20cy%3D%228%22%20r%3D%222%22%20fill%3D%22black%22%2F%3E%3Ccircle%20cx%3D%2213%22%20cy%3D%227%22%20r%3D%221.75%22%20fill%3D%22black%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2213%22%20r%3D%222.25%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-developers: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M6.8%206.5L4.5%2010l2.3%203.5h1.4L5.8%2010l2.4-3.5H6.8z%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M13.2%206.5h-1.4l2.4%203.5-2.4%203.5h1.4l2.3-3.5-2.3-3.5z%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-publishers: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M5%2016V8.5L10%205l5%203.5V16H5zm2.5-1.2h2.3v-4h2.4v4h2.3V9.4L10%206.9l-2.5%202.5v5.4z%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-gameEngines: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2210%22%20r%3D%223.2%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%229.2%22%20y%3D%223.2%22%20width%3D%221.6%22%20height%3D%222.2%22%20rx%3D%220.3%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%229.2%22%20y%3D%2214.6%22%20width%3D%221.6%22%20height%3D%222.2%22%20rx%3D%220.3%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%223.2%22%20y%3D%229.2%22%20width%3D%222.2%22%20height%3D%221.6%22%20rx%3D%220.3%22%20fill%3D%22black%22%2F%3E%3Crect%20x%3D%2214.6%22%20y%3D%229.2%22%20width%3D%222.2%22%20height%3D%221.6%22%20rx%3D%220.3%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-gameModes: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M6.2%208.8c0-1.6%201.4-2.9%203.8-2.9s3.8%201.3%203.8%202.9v4.9H6.2V8.8zm2.2%204.2h3.2v-1H8.4v1z%22%2F%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%226.6%22%20r%3D%221.1%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-playerPerspectives: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cellipse%20cx%3D%2210%22%20cy%3D%2210.5%22%20rx%3D%225.5%22%20ry%3D%223.1%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-keywords: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M7.2%205.2h5.6l2.8%202.8v5.8l-2.8%202.8H7.2l-2.8-2.8V8l2.8-2.8zm1.2%204.5h3.2v1H8.4v-1z%22%2F%3E%3C%2Fsvg%3E");
+  --gog-lib-mask-collection: var(--gog-lib-mask-collections);
 }
 
-.cover-hover-effect:hover,
-*:hover > .cover-hover-effect {
-  outline-color: #1db954;
+/*
+ * Backdrop: portal image stays full-viewport (full bleed). Restrict only the dim overlay to the
+ * main column so the left library/collection lists are not washed out over the artwork.
+ */
+.background-manager-overlay {
+  left: var(--gog-sidebar-width);
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: auto;
+  max-width: none;
+  background-color: var(--gog-main-column-overlay-bg);
+}
+
+/*
+ * No backdrop / backdrop hidden: the solid #1a1a1a root is still fixed full-viewport and paints
+ * after the persistent LibrariesBar in DOM order, so it would cover the entire left column.
+ * Keep the fallback fill in the main column only (portal + transparent clickable root stay full bleed).
+ */
+.background-manager-root.background-manager-root--solid {
+  left: var(--gog-sidebar-width);
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: auto;
+  max-width: none;
+  background-color: var(--gog-main-column-solid-bg) !important;
+}
+
+/*
+ * Detail/IGDB/game routes mount a second LibrariesBar in-page.
+ * With persistentLibraryShell the real column is already in MainAppLayout; the duplicate stacks
+ * on top (empty list, ⋮ displaced). Hide in-page hosts — shell keeps list + menu unchanged.
+ */
+.library-item-detail-libraries-bar-host,
+.game-detail-libraries-bar-wrapper,
+.igdb-game-detail-libraries-bar-wrapper {
+  display: none !important;
+}
+
+/* Tag routes: TagGamesPage no longer mounts a second bar in-app; hide any stray duplicate. */
+header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
+  display: none !important;
+}
+
+/*
+ * Detail shells default to full viewport width + z-index: 2, so they paint over the persistent
+ * sidebar. Shrink the wrapper to the main column only (same band as .home-page-main-container)
+ * and reset the inner main container margin so we do not double-offset. The sidebar is then
+ * outside this layer and stays clickable.
+ */
+.library-item-detail-page-shell,
+.game-detail-container,
+.igdb-game-detail-container {
+  z-index: auto;
+  margin-left: var(--gog-sidebar-width);
+  width: calc(100% - var(--gog-sidebar-width));
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.library-item-detail-page-shell > .home-page-main-container.library-item-detail-main-inner,
+.game-detail-container > .home-page-main-container.game-detail-main-container,
+.igdb-game-detail-container > .home-page-main-container.igdb-game-detail-main-container {
+  margin-left: 0;
+  width: 100%;
+}
+
+/*
+ * Same shell at every viewport width (no breakpoint that switches to horizontal nav).
+ * Below this width the page scrolls horizontally so the two-column shell does not reflow.
+ */
+.app-main-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  min-width: calc(var(--gog-sidebar-width) + 520px);
+}
+
+/*
+ * z-index: 10005 — position: fixed sempre crea uno stacking context per `.mhg-libraries-bar`,
+ * quindi i figli fissi (.mhg-libraries-actions a 10080, .mhg-libraries-menu-container a 10150)
+ * sono confinati al livello della barra nel contesto radice. Impostando qui 10005 la barra
+ * (e tutti i suoi figli fissi) viene dipinta sopra .games-list-toolbar (10004) e sopra il
+ * .background-manager-root (0)/.background-manager-overlay delle pagine di dettaglio, così
+ * il selettore "viste" e il cursore della dimensione delle cover non risultano oscurati dal
+ * velo scuro sovrapposto. Resta comunque sotto .mhg-header (10006), che continua quindi a
+ * ricevere per primo i clic sui suoi controlli.
+ */
+.mhg-libraries-bar {
+  top: 0;
+  left: 0;
+  right: auto;
+  bottom: 0;
+  width: var(--gog-sidebar-width);
+  min-height: 0;
+  padding: 0;
+  z-index: 10005;
+}
+
+.mhg-libraries-bar-container {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* Top padding = header height: background still fills the band under the top bar */
+  padding: 64px 12px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: var(--gog-sidebar-gap);
+  background: var(--gog-sidebar-bg);
+  border-right: none;
+  overflow-y: visible;
+  overflow-x: visible;
+}
+
+.mhg-libraries-container {
+  position: static;
+  left: auto;
+  transform: none;
+  width: 100%;
+  max-width: none;
+  flex: 0 0 auto;
+  min-height: auto;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Override base .mhg-libraries-container justify-content: center — that centers on the main
+   * axis; with column direction it vertically centers the list instead of starting from the top. */
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 4px;
+  padding: 0;
+  z-index: 2;
+}
+
+/* Sidebar GOG: elenco più compatto tra le voci */
+.mhg-libraries-bar .mhg-libraries-container {
+  gap: 2px;
+}
+
+.mhg-libraries-bar .mhg-collections-shortcuts {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: none;
+  gap: 2px;
+}
+
+.mhg-libraries-bar .mhg-collections-shortcuts-title {
+  padding-bottom: 8px;
+}
+
+.mhg-library-button,
+.mhg-library-active {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border-bottom: none !important;
+  transform: none;
+  pointer-events: auto;
+}
+
+.mhg-libraries-bar .mhg-library-button,
+.mhg-libraries-bar .mhg-library-active {
+  padding: 6px 12px;
+}
+
+/* Sidebar: pagina attiva più luminosa dell’hover (hover più soft sotto) */
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key] {
+  color: rgba(255, 255, 255, 1);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key]:hover:not(.mhg-library-active) {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* Sidebar library rows: icons from data-mhg-library-key via ::before mask (no icons in web) */
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key],
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key] {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key]::before {
+  content: "";
+  display: block;
+  width: 1em;
+  height: 1em;
+  min-width: 1em;
+  flex-shrink: 0;
+  background-color: currentColor;
+  opacity: 0.7;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-image: var(--gog-lib-mask-default);
+  mask-image: var(--gog-lib-mask-default);
+}
+
+.mhg-libraries-bar .mhg-library-button:hover:not(.mhg-library-active)[data-mhg-library-key]::before {
+  opacity: 0.88;
+}
+
+.mhg-libraries-bar .mhg-library-active::before {
+  opacity: 1;
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="library"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="library"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-library);
+  mask-image: var(--gog-lib-mask-library);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="library-installed"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="library-installed"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-library-installed);
+  mask-image: var(--gog-lib-mask-library-installed);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="recommended"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="recommended"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-recommended);
+  mask-image: var(--gog-lib-mask-recommended);
+}
+
+/*
+ * Sidebar “I miei giochi” counter — pill/badge: rettangolino arrotondato con sfondo soft
+ * e numero centrato, allineato a destra della riga del pulsante.
+ */
+.mhg-libraries-bar .mhg-library-button-count {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 18px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: #7a7a7a;
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key]:hover:not(.mhg-library-active) .mhg-library-button-count {
+  background: #8a8a8a;
+  color: #000;
+}
+
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key] .mhg-library-button-count {
+  background: #9a9a9a;
+  color: #000;
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="recommended"] .mhg-library-button-label,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="recommended"] .mhg-library-button-label {
+  position: relative;
+  color: transparent !important;
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="recommended"] .mhg-library-button-label::after,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="recommended"] .mhg-library-button-label::after {
+  content: "Home";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="recommended"]:hover:not(.mhg-library-active) .mhg-library-button-label::after {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="recommended"] .mhg-library-button-label::after {
+  color: rgba(255, 255, 255, 1);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="collections"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="collections"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-collections);
+  mask-image: var(--gog-lib-mask-collections);
+}
+
+/*
+ * Sidebar “Giochi” header: full-width toggle (entire row click). Label via ::after on heading span.
+ * With `web.ownedGamesFirstInGamesSidebar`, the web app renders “Owned games” below when expanded.
+ */
+.mhg-libraries-bar button.mhg-collections-shortcuts-title {
+  justify-content: space-between;
+  padding-left: 0;
+  padding-right: 8px;
+}
+
+.mhg-libraries-bar button.mhg-collections-shortcuts-title:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mhg-libraries-bar .mhg-collections-shortcuts-heading-text {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding-left: 12px;
+  color: transparent !important;
+}
+
+.mhg-libraries-bar .mhg-collections-shortcuts-heading-text::after {
+  content: "Giochi";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: inherit;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+
+.mhg-libraries-bar button.mhg-collections-shortcuts-title:hover .mhg-collections-shortcuts-heading-text::after {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.mhg-libraries-bar .mhg-collections-shortcuts-chevron {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: rgba(255, 255, 255, 0.82);
+  opacity: 1;
+  transform: rotate(0deg);
+  transition: opacity 0.14s ease, transform 0.18s ease, color 0.15s ease;
+}
+
+.mhg-libraries-bar .mhg-collections-shortcuts-chevron svg {
+  display: block;
+  opacity: 1;
+}
+
+/*
+ * Sezione aperta: la chevron “su” resta nascosta finché il mouse non è sul titolo GIOCHI
+ * né su una delle voci sotto (stesso blocco .mhg-collections-shortcuts).
+ */
+.mhg-libraries-bar
+  .mhg-collections-shortcuts:has(.mhg-collections-shortcuts-title[aria-expanded="true"])
+  .mhg-collections-shortcuts-chevron {
+  opacity: 0;
+}
+
+/*
+ * Stessa catena di specificità della regola sopra + :hover / :focus-within sul blocco,
+ * così vince sul solo opacity:0 (prima la regola generica :hover aveva specificità inferiore).
+ * :hover sul parent vale anche con puntatore sulle voci figlie.
+ */
+.mhg-libraries-bar
+  .mhg-collections-shortcuts:has(.mhg-collections-shortcuts-title[aria-expanded="true"]):hover
+  .mhg-collections-shortcuts-chevron,
+.mhg-libraries-bar
+  .mhg-collections-shortcuts:has(.mhg-collections-shortcuts-title[aria-expanded="true"]):focus-within
+  .mhg-collections-shortcuts-chevron {
+  opacity: 1;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Sezione chiusa: hover sul blocco per enfatizzare la chevron “giù” */
+.mhg-libraries-bar .mhg-collections-shortcuts:hover .mhg-collections-shortcuts-chevron {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Expanded list: chevron points up (^) — click row to collapse */
+.mhg-libraries-bar .mhg-collections-shortcuts-chevron.mhg-collections-shortcuts-chevron--expanded {
+  transform: rotate(180deg);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="categories"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="categories"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-categories);
+  mask-image: var(--gog-lib-mask-categories);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="series"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="series"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-series);
+  mask-image: var(--gog-lib-mask-series);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="franchise"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="franchise"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-franchise);
+  mask-image: var(--gog-lib-mask-franchise);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="platforms"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="platforms"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-platforms);
+  mask-image: var(--gog-lib-mask-platforms);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="themes"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="themes"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-themes);
+  mask-image: var(--gog-lib-mask-themes);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="developers"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="developers"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-developers);
+  mask-image: var(--gog-lib-mask-developers);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="publishers"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="publishers"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-publishers);
+  mask-image: var(--gog-lib-mask-publishers);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="gameEngines"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="gameEngines"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-gameEngines);
+  mask-image: var(--gog-lib-mask-gameEngines);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="gameModes"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="gameModes"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-gameModes);
+  mask-image: var(--gog-lib-mask-gameModes);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="playerPerspectives"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="playerPerspectives"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-playerPerspectives);
+  mask-image: var(--gog-lib-mask-playerPerspectives);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="keywords"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="keywords"]::before {
+  -webkit-mask-image: var(--gog-lib-mask-keywords);
+  mask-image: var(--gog-lib-mask-keywords);
+}
+
+/* Sidebar search row (web.sidebarSearchPopup): filled loupe mask like other sidebar icons */
+.mhg-libraries-bar .mhg-sidebar-search-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.mhg-libraries-bar .mhg-sidebar-search-trigger::before {
+  content: "";
+  display: block;
+  width: 1em;
+  height: 1em;
+  min-width: 1em;
+  flex-shrink: 0;
+  background-color: currentColor;
+  opacity: 0.72;
+  -webkit-mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M10%202a8%208%200%20105.29%2013.71l4.58%204.57%201.41-1.41-4.57-4.58A8%208%200%201010%202zm0%202a6%206%200%20110%2012%206%206%200%20010-12z%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M16.32%2016.9l4.24%204.24-1.41%201.41-4.24-4.24%201.41-1.41z%22%2F%3E%3C%2Fsvg%3E");
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M10%202a8%208%200%20105.29%2013.71l4.58%204.57%201.41-1.41-4.57-4.58A8%208%200%201010%202zm0%202a6%206%200%20110%2012%206%206%200%20010-12z%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M16.32%2016.9l4.24%204.24-1.41%201.41-4.24-4.24%201.41-1.41z%22%2F%3E%3C%2Fsvg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.mhg-libraries-bar .mhg-sidebar-search-trigger--open {
+  color: var(--gog-accent-strong, #efb44b);
+}
+
+.mhg-libraries-bar .mhg-sidebar-search-trigger--open::before {
+  opacity: 1;
+}
+
+/* Match library page labels: same type scale as .mhg-library-button in this shell */
+.mhg-collection-shortcut-button {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 10px 12px;
+}
+
+/* Collection shortcuts: folder icon via ::before; stesso grigio delle pagine a riposo */
+.mhg-libraries-bar .mhg-collection-shortcut-button {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 6px 12px;
+}
+
+.mhg-libraries-bar .mhg-collection-shortcut-button::before {
+  content: "";
+  display: block;
+  width: 1em;
+  height: 1em;
+  min-width: 1em;
+  flex-shrink: 0;
+  background-color: currentColor;
+  opacity: 0.7;
+  -webkit-mask-image: var(--gog-lib-mask-collection);
+  mask-image: var(--gog-lib-mask-collection);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.mhg-libraries-bar .mhg-collection-shortcut-button:hover:not(.mhg-collection-shortcut-button--selected) {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.mhg-libraries-bar .mhg-collection-shortcut-button:hover:not(.mhg-collection-shortcut-button--selected)::before {
+  opacity: 0.88;
+}
+
+/* Raccolta corrente: più luminosa dell’hover */
+.mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected {
+  background: transparent !important;
+  color: #fff;
+}
+
+.mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected::before {
+  opacity: 1;
+}
+
+.mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected:hover {
+  color: #fff;
+}
+
+.mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected:hover::before {
+  opacity: 1;
+}
+
+.mhg-library-active::after {
+  content: none;
+}
+
+.mhg-libraries-actions {
+  position: fixed;
+  top: 5px;
+  left: calc(var(--gog-sidebar-width) + 420px);
+  margin-left: 0;
+  width: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 8px;
+  /* Keep whole actions stack above main content and toolbar */
+  z-index: 10080;
+  pointer-events: auto;
+}
+
+.mhg-libraries-menu-container {
+  position: fixed;
+  top: 20px;
+  left: calc(var(--gog-sidebar-width) + 620px);
+  bottom: auto;
+  padding: 0;
+  height: auto;
+  width: auto;
+  z-index: 10150 !important;
+  pointer-events: auto !important;
+  isolation: isolate;
+}
+
+.mhg-libraries-menu-container .dropdown-menu-wrapper,
+.mhg-libraries-menu-container .mhg-libraries-menu-dropdown,
+.mhg-libraries-menu-container .dropdown-menu-button {
+  position: relative;
+  z-index: 10151 !important;
+  pointer-events: auto !important;
+}
+
+/* View mode + ⋮ menus use React portals (same idea as filter toolbar popups escaping local stacking). */
+
+.view-mode-dropdown.view-mode-dropdown--portaled {
+  z-index: 10008;
+}
+
+.home-page-main-container {
+  margin-left: var(--gog-sidebar-width);
+  width: calc(100% - var(--gog-sidebar-width));
+}
+
+/* Library / catalog / tag lists: right column = same flat fill as header strip + table chrome */
+.home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+    .igdb-game-detail-main-container
+  ) {
+  background: var(--gog-list-column-bg) !important;
+}
+
+.home-page-main-container.library-item-detail-main-inner,
+.home-page-main-container.game-detail-main-container,
+.home-page-main-container.igdb-game-detail-main-container {
+  background: var(--gog-main-column-solid-bg) !important;
+}
+
+.home-page-main-container .home-page-content-wrapper.home-page-fade-in,
+.home-page-main-container .home-page-content-wrapper.games-list-page-fade,
+.home-page-main-container .home-page-content-wrapper.home-page-fade-in .home-page-scroll-container,
+.home-page-main-container .home-page-content-wrapper.games-list-page-fade .home-page-scroll-container {
+  background: var(--gog-list-column-bg) !important;
+}
+
+.home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+    .igdb-game-detail-main-container
+  )
+  .home-page-content,
+.home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+    .igdb-game-detail-main-container
+  )
+  .home-page-layout {
+  background: var(--gog-list-column-bg) !important;
+}
+
+/*
+ * Main column: start list/detail content at the same vertical band as the first row of the
+ * left sidebar (.mhg-libraries-bar-container uses padding-top: 64px below the fixed header).
+ */
+.home-page-main-container .home-page-content {
+  padding-top: 64px;
+}
+
+.home-page-main-container .home-page-content-wrapper.has-toolbar {
+  margin-top: 0;
+}
+
+/* Collection/detail hero used Tailwind pt-8 — pull up to align with sidebar row */
+.home-page-main-container .library-item-detail-hero {
+  padding-top: 0;
+}
+
+/* Secondary libraries bar on detail/tag pages (not a second sidebar) */
+.mhg-libraries-bar.mhg-libraries-bar--toolbar {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  width: 100%;
+  min-height: 0;
+  z-index: 2;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--toolbar .mhg-libraries-bar-container {
+  height: auto;
+  min-height: 56px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 16px;
+  background: var(--gog-main-column-solid-bg);
+  border-right: none;
+  border-bottom: none;
+  overflow: visible;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--toolbar .mhg-libraries-actions {
+  margin-left: auto;
+  width: auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--toolbar .mhg-libraries-menu-container {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+}
+
+/* Force cover images to fill assigned boxes (stretch if needed) */
+.games-list-cover > img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  object-position: center;
+  display: block;
 }
