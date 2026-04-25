@@ -8677,6 +8677,12 @@ fieldset.edit-game-modal-field {
   opacity: 1 !important;
 }
 
+/* Compact collection detail (Plex): open "Add to" submenu to the left so it stays inside viewport. */
+.library-item-detail-dropdown-menu .dropdown-menu-collectionlike-submenu {
+  left: auto;
+  right: calc(100% - 1px);
+}
+
 .game-detail-collections-section {
   width: 100%;
   margin-top: 48px;
