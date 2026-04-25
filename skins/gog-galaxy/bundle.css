@@ -10100,9 +10100,15 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   padding: 0;
 }
 
-/* Compact collection-like detail actions in top-right: align to GOG toolbar controls. */
-.mhg-libraries-actions-right-extra .library-item-detail-compact-top-action {
+/* Compact collection-like detail actions in top bar: align to GOG toolbar controls. */
+.mhg-libraries-actions-right-extra .library-item-detail-compact-top-action,
+.mhg-libraries-actions-before-main-games .library-item-detail-compact-top-action {
   transform: translateY(2px);
+}
+
+/* In compact collection detail, raise only the background toggle in GOG by 4px. */
+.mhg-libraries-actions-before-main-games .library-item-detail-compact-top-action .background-toggle-button {
+  transform: translateY(1px);
 }
 
 /* Force cover images to fill assigned boxes (stretch if needed) */

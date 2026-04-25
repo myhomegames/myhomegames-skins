@@ -1,5 +1,6 @@
-/* Compact collection-like detail actions in top-right: align with toolbar controls. */
-.mhg-libraries-actions-right-extra .library-item-detail-compact-top-action {
+/* Compact collection-like detail actions in top bar: align with toolbar controls. */
+.mhg-libraries-actions-right-extra .library-item-detail-compact-top-action,
+.mhg-libraries-actions-before-main-games .library-item-detail-compact-top-action {
   transform: translateY(2px);
 }
 /* --- ./base/globals.css --- */
