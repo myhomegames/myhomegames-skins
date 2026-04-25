@@ -10100,6 +10100,11 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   padding: 0;
 }
 
+/* Compact collection-like detail actions in top-right: align to GOG toolbar controls. */
+.mhg-libraries-actions-right-extra .library-item-detail-compact-top-action {
+  transform: translateY(2px);
+}
+
 /* Force cover images to fill assigned boxes (stretch if needed) */
 .games-list-cover > img {
   width: 100%;

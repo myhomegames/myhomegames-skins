@@ -1,3 +1,7 @@
+/* Compact collection-like detail actions in top-right: align with toolbar controls. */
+.mhg-libraries-actions-right-extra .library-item-detail-compact-top-action {
+  transform: translateY(2px);
+}
 /* --- ./base/globals.css --- */
 
 
