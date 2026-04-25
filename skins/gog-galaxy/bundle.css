@@ -10106,6 +10106,19 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   transform: translateY(2px);
 }
 
+/* Keep injected compact-detail toggles on one horizontal row in GOG top bar. */
+.mhg-libraries-actions-before-main-games {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* In GOG tag detail top bar, lift new/main-games toggles by 2px. */
+.mhg-libraries-actions-before-main-games .new-games-toggle-button,
+.mhg-libraries-actions-before-main-games .main-games-toggle-button {
+  transform: translateY(1px);
+}
+
 /* In compact collection detail, raise only the background toggle in GOG by 4px. */
 .mhg-libraries-actions-before-main-games .library-item-detail-compact-top-action .background-toggle-button {
   transform: translateY(1px);
