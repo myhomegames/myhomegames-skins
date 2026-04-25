@@ -9982,7 +9982,8 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .mhg-libraries-menu-container {
   position: fixed;
   top: 20px;
-  left: calc(var(--gog-sidebar-width) + 620px);
+  /* Keep the top three-dots menu inside the left GOG sidebar column. */
+  left: calc(var(--gog-sidebar-width) - 56px);
   bottom: auto;
   padding: 0;
   height: auto;
