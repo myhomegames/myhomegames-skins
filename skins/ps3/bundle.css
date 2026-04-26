@@ -165,43 +165,9 @@ body {
   display: none;
 }
 
-/* Selected item: show label under the icon (pseudo-element, independent from inner text markup). */
-.mhg-library-active::after {
-  content: "";
-  position: absolute;
-  top: 62px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 0 6px rgba(120, 180, 255, 0.45);
-  pointer-events: none;
-  z-index: 5;
-}
-.mhg-library-active[data-mhg-library-key="library"]::after { content: "Games"; }
-.mhg-library-active[data-mhg-library-key="library-installed"]::after { content: "Installed"; }
-.mhg-library-active[data-mhg-library-key="recommended"]::after { content: "Recommended"; }
-.mhg-library-active[data-mhg-library-key="collections"]::after { content: "Collections"; }
-.mhg-library-active[data-mhg-library-key="categories"]::after { content: "Categories"; }
-.mhg-library-active[data-mhg-library-key="series"]::after { content: "Series"; }
-.mhg-library-active[data-mhg-library-key="franchise"]::after { content: "Franchise"; }
-.mhg-library-active[data-mhg-library-key="platforms"]::after { content: "Platforms"; }
-.mhg-library-active[data-mhg-library-key="themes"]::after { content: "Themes"; }
-.mhg-library-active[data-mhg-library-key="developers"]::after { content: "Developers"; }
-.mhg-library-active[data-mhg-library-key="publishers"]::after { content: "Publishers"; }
-.mhg-library-active[data-mhg-library-key="gameEngines"]::after { content: "Engines"; }
-.mhg-library-active[data-mhg-library-key="gameModes"]::after { content: "Modes"; }
-.mhg-library-active[data-mhg-library-key="playerPerspectives"]::after { content: "Perspectives"; }
-.mhg-library-active[data-mhg-library-key="keywords"]::after { content: "Keywords"; }
-.mhg-library-active[data-mhg-library-key="mhg-header-settings"]::after { content: "Settings"; }
-.mhg-library-active[data-mhg-library-key="mhg-header-profile"]::after { content: "Profile"; }
-
-.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover::after,
-.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover::after {
+/* Selected item: show translated label under the icon. */
+.mhg-library-active .mhg-library-button-label {
+  display: block;
   position: absolute;
   top: 62px;
   left: 50%;
@@ -217,8 +183,23 @@ body {
   z-index: 5;
 }
 
-.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover::after { content: "Settings"; }
-.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover::after { content: "Profile"; }
+.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover .mhg-library-button-label,
+.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover .mhg-library-button-label {
+  display: block;
+  position: absolute;
+  top: 62px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 0 6px rgba(120, 180, 255, 0.45);
+  pointer-events: none;
+  z-index: 5;
+}
 
 /* While hovering Settings/Profile, visually mute previously-active library entry. */
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover)
@@ -238,10 +219,10 @@ body {
 }
 
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover)
-  .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"])::after,
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"]) .mhg-library-button-label,
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover)
-  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"])::after {
-  content: "";
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"]) .mhg-library-button-label {
+  display: none;
 }
 
 /* Generic icon fallback + per-page icon hints. */
