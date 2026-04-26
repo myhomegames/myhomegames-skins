@@ -9346,3 +9346,84 @@ fieldset.edit-game-modal-field {
   object-position: center;
   display: block;
 }
+
+/*
+ * libraryBarHeaderActions: show Settings/Profile as extra library rows in the
+ * left sidebar (same visual language as Library/Collections/Publishers rows).
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions {
+  margin-left: 0;
+  align-self: stretch;
+  width: 100%;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .mhg-libraries-shell-action-button,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .profile-dropdown-button {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  position: relative;
+  gap: 0.45em;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .mhg-libraries-shell-action-button:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .profile-dropdown-button:hover {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .mhg-libraries-shell-action-button::after {
+  content: "Settings";
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .profile-dropdown-button::after {
+  content: "Profile";
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .profile-dropdown-arrow {
+  display: none;
+}

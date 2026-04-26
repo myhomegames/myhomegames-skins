@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "snapshot": "snapshot.jpg",
   "web": {
-    "libraryHoverSelect": true
+    "libraryHoverSelect": true,
+    "libraryBarHeaderActions": true
   }
 }

@@ -197,6 +197,52 @@ body {
 .mhg-library-active[data-mhg-library-key="gameModes"]::after { content: "Modes"; }
 .mhg-library-active[data-mhg-library-key="playerPerspectives"]::after { content: "Perspectives"; }
 .mhg-library-active[data-mhg-library-key="keywords"]::after { content: "Keywords"; }
+.mhg-library-active[data-mhg-library-key="mhg-header-settings"]::after { content: "Settings"; }
+.mhg-library-active[data-mhg-library-key="mhg-header-profile"]::after { content: "Profile"; }
+
+.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover::after,
+.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover::after {
+  position: absolute;
+  top: 62px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 0 6px rgba(120, 180, 255, 0.45);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover::after { content: "Settings"; }
+.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover::after { content: "Profile"; }
+
+/* While hovering Settings/Profile, visually mute previously-active library entry. */
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover)
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"]),
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover)
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"]) {
+  color: rgba(255, 255, 255, 0.78);
+  background: transparent;
+}
+
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover)
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"])::before,
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover)
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"])::before {
+  color: rgba(255, 255, 255, 0.78);
+  text-shadow: none;
+}
+
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover)
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"])::after,
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover)
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"])::after {
+  content: "";
+}
 
 /* Generic icon fallback + per-page icon hints. */
 .mhg-library-button::before,
@@ -244,6 +290,14 @@ body {
 .mhg-library-active[data-mhg-library-key="platforms"]::before {
   content: "◈";
 }
+.mhg-library-button[data-mhg-library-key="mhg-header-settings"]::before,
+.mhg-library-active[data-mhg-library-key="mhg-header-settings"]::before {
+  content: "⚙";
+}
+.mhg-library-button[data-mhg-library-key="mhg-header-profile"]::before,
+.mhg-library-active[data-mhg-library-key="mhg-header-profile"]::before {
+  content: "◉";
+}
 
 /* Force cover images to fill assigned boxes (stretch if needed) */
 .games-list-cover > img {
@@ -252,4 +306,56 @@ body {
   object-fit: fill;
   object-position: center;
   display: block;
+}
+
+/*
+ * libraryBarHeaderActions: in PS3 keep Settings/Profile as icons appended to
+ * the horizontal strip (no labels, same visual tone as library icons).
+ */
+.mhg-libraries-bar[data-mhg-library-bar-header-actions="true"] .mhg-libraries-actions {
+  margin-left: 0;
+  align-self: center;
+  display: flex;
+  align-items: center;
+}
+
+.mhg-libraries-bar[data-mhg-library-bar-header-actions="true"] .mhg-libraries-actions-right-extra {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .mhg-libraries-shell-action-button,
+.mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .profile-dropdown-button {
+  width: 96px;
+  height: 96px;
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.78);
+  transition: transform 140ms ease, filter 140ms ease, color 140ms ease;
+}
+
+.mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .mhg-libraries-shell-action-button:hover,
+.mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .profile-dropdown-button:hover {
+  transform: scale(1.08);
+  filter: brightness(1.15);
+  color: rgba(255, 255, 255, 1);
+}
+
+.mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .profile-dropdown-arrow {
+  display: none;
 }
