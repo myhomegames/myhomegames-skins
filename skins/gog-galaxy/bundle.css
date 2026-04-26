@@ -39,6 +39,8 @@
   /* GOG-like palette (from reference screenshot): amber accents + deep blue/brown glow */
   --gog-accent: #d6992f;
   --gog-accent-strong: #efb44b;
+  --gog-icon-accent: #c4b5fd;
+  --gog-icon-accent-strong: #ddd6fe;
   --gog-text-main: rgba(255, 255, 255, 0.9);
   --gog-text-muted: rgba(255, 255, 255, 0.68);
   --gog-header-chip: rgba(6, 10, 18, 0.82);
@@ -6793,11 +6795,11 @@ fieldset.edit-game-modal-field {
 }
 
 .update-notification-bell {
-  color: #e5a00d;
+  color: var(--gog-icon-accent);
 }
 
 .update-notification-button:hover .update-notification-bell {
-  color: #f5b041;
+  color: var(--gog-icon-accent-strong);
 }
 
 .update-notification-dot {
@@ -7806,7 +7808,7 @@ fieldset.edit-game-modal-field {
   background: transparent;
   border: none;
   border-radius: 6px;
-  color: #E5A00D;
+  color: var(--gog-icon-accent);
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
@@ -7819,7 +7821,7 @@ fieldset.edit-game-modal-field {
 }
 
 .background-toggle-button:hover:not(:disabled) {
-  color: #F5B041;
+  color: var(--gog-icon-accent-strong);
   opacity: 1;
 }
 
@@ -7893,7 +7895,7 @@ fieldset.edit-game-modal-field {
   background: transparent;
   border: none;
   border-radius: 6px;
-  color: #e5a00d;
+  color: var(--gog-icon-accent);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -7903,7 +7905,7 @@ fieldset.edit-game-modal-field {
 }
 
 .main-games-toggle-button:hover:not(:disabled) {
-  color: #f5b041;
+  color: var(--gog-icon-accent-strong);
 }
 
 .main-games-toggle-button:disabled {
@@ -7932,7 +7934,7 @@ fieldset.edit-game-modal-field {
   background: transparent;
   border: none;
   border-radius: 6px;
-  color: #E5A00D;
+  color: var(--gog-icon-accent);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -7942,7 +7944,7 @@ fieldset.edit-game-modal-field {
 }
 
 .new-games-toggle-button:hover:not(:disabled) {
-  color: #F5B041;
+  color: var(--gog-icon-accent-strong);
 }
 
 .new-games-toggle-button:disabled {
@@ -9901,7 +9903,7 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 }
 
 .mhg-libraries-bar .mhg-sidebar-search-trigger--open {
-  color: var(--gog-accent-strong, #efb44b);
+  color: var(--gog-icon-accent-strong);
 }
 
 .mhg-libraries-bar .mhg-sidebar-search-trigger--open::before {
@@ -10217,4 +10219,54 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
   .mhg-libraries-actions-right-extra
   .profile-dropdown-arrow {
   display: none;
+}
+
+/* --- gog-galaxy: purple accent for buttons/actions --- */
+:root {
+  --gog-accent: #c4b5fd;
+  --gog-accent-strong: #ddd6fe;
+}
+
+/* Filled primary actions */
+.add-game-create-btn,
+.add-to-collection-modal-create-button,
+.edit-game-modal-add-btn,
+.edit-game-modal-media-add-btn,
+.game-detail-play-button,
+.game-detail-link-executable-button,
+.search-view-all-button,
+.search-result-play-button,
+.igdb-game-detail-mark-owned-button,
+.library-item-detail-play-btn,
+.login-page-settings-cta,
+.settings-button,
+.settings-button-active:not(:disabled),
+.update-notification-download-primary {
+  background-color: var(--gog-icon-accent) !important;
+  border-color: var(--gog-icon-accent) !important;
+  color: #000000 !important;
+}
+
+.add-game-create-btn:hover:not(:disabled),
+.add-to-collection-modal-create-button:hover:not(:disabled),
+.edit-game-modal-add-btn:hover:not(:disabled),
+.edit-game-modal-media-add-btn:hover:not(:disabled),
+.game-detail-play-button:hover,
+.game-detail-link-executable-button:hover:not(:disabled),
+.search-view-all-button:hover,
+.search-result-play-button:hover,
+.igdb-game-detail-mark-owned-button:hover:not(:disabled),
+.library-item-detail-play-btn:hover,
+.login-page-settings-cta:hover,
+.settings-button:hover:not(:disabled),
+.update-notification-download-primary:hover {
+  background-color: var(--gog-icon-accent-strong) !important;
+  border-color: var(--gog-icon-accent-strong) !important;
+}
+
+/* Accent links / icon-text actions */
+.login-page-settings-link,
+.manage-installation-add-button,
+.mark-as-owned-button:hover:not(:disabled) {
+  color: var(--gog-icon-accent) !important;
 }
