@@ -3069,7 +3069,7 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
 
 .games-list-edit-button-bottom-right {
   left: auto;
-  right: 8px;
+  right: 20px;
 }
 
 .games-list-cover:hover .games-list-edit-button {
@@ -3101,7 +3101,7 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
 
 .games-list-dropdown-wrapper-bottom-right {
   left: auto;
-  right: 8px;
+  right: 20px;
 }
 
 .games-list-cover:hover .games-list-dropdown-wrapper .dropdown-menu-button {
@@ -4339,7 +4339,7 @@ fieldset.edit-game-modal-field {
 .games-list-detail-actions {
   position: absolute;
   top: 50%;
-  right: 16px;
+  right: 32px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -6942,6 +6942,20 @@ fieldset.edit-game-modal-field {
 .collections-list-item--sized {
   width: var(--collections-list-cover-size, 150px);
   min-width: var(--collections-list-cover-size, 150px);
+}
+
+/* Collections cards: move edit and three-dots slightly left */
+.collections-list-item .games-list-edit-button-bottom-right {
+  right: 20px;
+}
+
+.collections-list-item .games-list-dropdown-wrapper-bottom-right {
+  right: 20px;
+}
+
+/* Collections in detail rows: keep edit + three-dots cluster more left */
+.collections-list-item .games-list-detail-actions {
+  right: 28px;
 }
 
 .collections-list-empty {
@@ -9982,7 +9996,7 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .mhg-libraries-actions {
   position: fixed;
   top: 5px;
-  left: calc(var(--gog-sidebar-width) + 420px);
+  left: calc(var(--gog-sidebar-width) + 450px);
   margin-left: 0;
   width: auto;
   display: flex;
@@ -10103,6 +10117,7 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 
 .mhg-libraries-bar.mhg-libraries-bar--toolbar .mhg-libraries-actions {
   margin-left: auto;
+  margin-right: -10px;
   width: auto;
   flex-wrap: wrap;
   justify-content: flex-end;
