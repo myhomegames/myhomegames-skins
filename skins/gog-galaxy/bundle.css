@@ -2869,22 +2869,22 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
 }
 
 .games-list-play-button-detail:hover {
-  background-color: rgba(229, 160, 13, 0.9) !important;
+  background-color: rgba(196, 181, 253, 0.9) !important;
 }
 
 /* play-only mode (no detail): invisible button that becomes yellow on hover */
 .games-list-play-button-play-only {
-  background-color: rgba(229, 160, 13, 0.9);
+  background-color: rgba(196, 181, 253, 0.9);
   opacity: 0;
 }
 
 .games-list-cover-play:hover .games-list-play-button-play-only {
   opacity: 1;
-  background-color: rgba(229, 160, 13, 0.9);
+  background-color: rgba(196, 181, 253, 0.9);
 }
 
 .games-list-play-button-play-only:hover {
-  background-color: rgba(229, 160, 13, 0.9);
+  background-color: rgba(196, 181, 253, 0.9);
 }
 
 /* Override global cover-hover-effect rule - disable parent hover effect */
@@ -4869,8 +4869,8 @@ fieldset.edit-game-modal-field {
 }
 
 .first-cell-play-button:hover {
-  background-color: rgba(229, 160, 13, 0.9);
-  border-color: rgba(229, 160, 13, 0.9);
+  background-color: rgba(196, 181, 253, 0.9);
+  border-color: rgba(196, 181, 253, 0.9);
 }
 
 .games-table tbody tr:hover .first-cell-play-button {
@@ -7398,8 +7398,8 @@ fieldset.edit-game-modal-field {
 .search-result-play-button {
   flex-shrink: 0;
   background: none;
-  border: 2px solid #E5A00D;
-  color: #E5A00D;
+  border: 2px solid var(--gog-icon-accent);
+  color: var(--gog-icon-accent);
   cursor: pointer;
   padding: 8px;
   display: flex;
@@ -9252,7 +9252,7 @@ fieldset.edit-game-modal-field {
 }
 
 .settings-checkbox {
-  accent-color: #E5A00D;
+  accent-color: var(--gog-icon-accent);
 }
 
 .settings-actions {
@@ -9318,6 +9318,7 @@ fieldset.edit-game-modal-field {
 
 .settings-skin-list {
   margin-top: 8px;
+  --mhg-primary: #87CEEB;
 }
 
 .settings-skin-installed {
@@ -10269,4 +10270,33 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .manage-installation-add-button,
 .mark-as-owned-button:hover:not(:disabled) {
   color: var(--gog-icon-accent) !important;
+}
+
+/* Keep Installed skins controls in original dark style */
+.settings-skin-list .settings-button[style*="1px solid"],
+.settings-skin-installed .settings-button[style*="1px solid"],
+.settings-skin-installed-item .settings-button[style*="1px solid"] {
+  background-color: #242424 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.settings-skin-list .settings-button[style*="1px solid"]:hover:not(:disabled),
+.settings-skin-installed .settings-button[style*="1px solid"]:hover:not(:disabled),
+.settings-skin-installed-item .settings-button[style*="1px solid"]:hover:not(:disabled) {
+  background-color: #2e2e2e !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Active installed skin keeps Plex-like blue border */
+.settings-skin-list .settings-button[style*="2px solid"],
+.settings-skin-installed .settings-button[style*="2px solid"],
+.settings-skin-installed-item .settings-button[style*="2px solid"] {
+  background-color: #242424 !important;
+  border-color: #87CEEB !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
 }
