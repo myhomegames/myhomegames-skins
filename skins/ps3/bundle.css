@@ -26,6 +26,11 @@ body {
   color: #ffffff;
 }
 
+:root {
+  /* Force LibrariesBar inline list (disable combobox fallback) for PS3 icon strip. */
+  --mhg-libraries-force-list: 1;
+}
+
 #root {
   position: relative;
   z-index: 1;
@@ -93,6 +98,151 @@ body {
 
 .background-manager-foreground > * {
   pointer-events: auto;
+}
+
+/* PS3 shell: centered libraries strip with horizontal icon menu. */
+.mhg-libraries-bar {
+  background: transparent;
+  border: 0;
+  min-height: 84px;
+  overflow: visible;
+}
+
+.mhg-libraries-bar-container {
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  overflow: visible;
+}
+
+.mhg-libraries-container {
+  position: relative;
+  left: auto;
+  transform: none;
+  width: min(86vw, 1180px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: thin;
+  padding: 4px 8px;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+}
+
+.mhg-library-button,
+.mhg-library-active {
+  min-width: 96px;
+  width: 96px;
+  height: 96px;
+  border-radius: 0;
+  padding: 0;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  transition: transform 140ms ease, filter 140ms ease;
+}
+
+.mhg-library-active {
+  background: transparent;
+}
+
+/* Hide text/count by default (icons-only navigation). */
+.mhg-library-button .mhg-library-button-label,
+.mhg-library-button .mhg-library-button-count,
+.mhg-library-active .mhg-library-button-label,
+.mhg-library-active .mhg-library-button-count {
+  display: none;
+}
+
+/* Selected item: show label under the icon (pseudo-element, independent from inner text markup). */
+.mhg-library-active::after {
+  content: "";
+  position: absolute;
+  top: 62px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 0 6px rgba(120, 180, 255, 0.45);
+  pointer-events: none;
+  z-index: 5;
+}
+.mhg-library-active[data-mhg-library-key="library"]::after { content: "Games"; }
+.mhg-library-active[data-mhg-library-key="library-installed"]::after { content: "Installed"; }
+.mhg-library-active[data-mhg-library-key="recommended"]::after { content: "Recommended"; }
+.mhg-library-active[data-mhg-library-key="collections"]::after { content: "Collections"; }
+.mhg-library-active[data-mhg-library-key="categories"]::after { content: "Categories"; }
+.mhg-library-active[data-mhg-library-key="series"]::after { content: "Series"; }
+.mhg-library-active[data-mhg-library-key="franchise"]::after { content: "Franchise"; }
+.mhg-library-active[data-mhg-library-key="platforms"]::after { content: "Platforms"; }
+.mhg-library-active[data-mhg-library-key="themes"]::after { content: "Themes"; }
+.mhg-library-active[data-mhg-library-key="developers"]::after { content: "Developers"; }
+.mhg-library-active[data-mhg-library-key="publishers"]::after { content: "Publishers"; }
+.mhg-library-active[data-mhg-library-key="gameEngines"]::after { content: "Engines"; }
+.mhg-library-active[data-mhg-library-key="gameModes"]::after { content: "Modes"; }
+.mhg-library-active[data-mhg-library-key="playerPerspectives"]::after { content: "Perspectives"; }
+.mhg-library-active[data-mhg-library-key="keywords"]::after { content: "Keywords"; }
+
+/* Generic icon fallback + per-page icon hints. */
+.mhg-library-button::before,
+.mhg-library-active::before {
+  content: "•";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 52px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.78);
+  text-shadow: none;
+}
+
+.mhg-library-button:hover::before,
+.mhg-library-active:hover::before,
+.mhg-library-active::before {
+  color: rgba(255, 255, 255, 1);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.55), 0 0 20px rgba(120, 180, 255, 0.45);
+}
+
+.mhg-library-button:hover,
+.mhg-library-active:hover {
+  transform: scale(1.08);
+  filter: brightness(1.15);
+}
+.mhg-library-button[data-mhg-library-key="library"]::before,
+.mhg-library-active[data-mhg-library-key="library"]::before {
+  content: "◼";
+}
+.mhg-library-button[data-mhg-library-key="collections"]::before,
+.mhg-library-active[data-mhg-library-key="collections"]::before {
+  content: "⌘";
+}
+.mhg-library-button[data-mhg-library-key="categories"]::before,
+.mhg-library-active[data-mhg-library-key="categories"]::before {
+  content: "✦";
+}
+.mhg-library-button[data-mhg-library-key="series"]::before,
+.mhg-library-active[data-mhg-library-key="series"]::before {
+  content: "∞";
+}
+.mhg-library-button[data-mhg-library-key="platforms"]::before,
+.mhg-library-active[data-mhg-library-key="platforms"]::before {
+  content: "◈";
 }
 
 /* Force cover images to fill assigned boxes (stretch if needed) */
