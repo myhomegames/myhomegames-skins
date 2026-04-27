@@ -57,6 +57,8 @@
      tra le cover pur facendone entrare di più per riga. */
   --vgrid-gap-half: 12px;
   --vgrid-side-gutter: 16px;
+  --vgrid-side-gutter-left: 8px;
+  --vgrid-side-gutter-right: 12px;
 }
 
 .cover-hover-effect {
@@ -6926,7 +6928,10 @@ fieldset.edit-game-modal-field {
   margin: 0 auto;
   display: grid;
   gap: 40px;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: var(--vgrid-side-gutter-left, var(--vgrid-side-gutter, 16px));
+  padding-right: var(--vgrid-side-gutter-right, var(--vgrid-side-gutter, 16px));
+  box-sizing: border-box;
   grid-template-columns: repeat(auto-fill, var(--collections-list-cover-size, 150px));
 }
 
@@ -6976,7 +6981,10 @@ fieldset.edit-game-modal-field {
   margin: 0 auto;
   display: grid;
   gap: 40px;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: var(--vgrid-side-gutter-left, var(--vgrid-side-gutter, 16px));
+  padding-right: var(--vgrid-side-gutter-right, var(--vgrid-side-gutter, 16px));
+  box-sizing: border-box;
   grid-template-columns: repeat(auto-fill, var(--tag-list-cover-size, 150px));
 }
 
@@ -8548,7 +8556,25 @@ fieldset.edit-game-modal-field {
 .library-item-detail-scroll {
   --lid-cover-size: 150px;
   --lid-cover-h: 360px;
-  padding: 5px 64px 16px;
+  padding-top: 5px;
+  padding-bottom: 16px;
+  /* Align collection-like content with GOG libraries column horizontal inset (12px). */
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Collection-like detail: align inner carousels to the same left/right gutters used by libraries. */
+.library-item-detail-scroll .scrollable-section > .scrollable-section-nav {
+  margin-right: 0;
+}
+
+.library-item-detail-scroll .scrollable-section-header {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.library-item-detail-scroll .scrollable-section-scroll {
+  padding-right: 0;
 }
 
 .library-item-detail-hero {
@@ -8630,6 +8656,7 @@ fieldset.edit-game-modal-field {
   justify-content: start !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
+  gap: calc(var(--vgrid-gap-half, 20px) * 2) !important;
 }
 
 .library-item-detail-games-list .virtualized-games-grid {
@@ -8674,11 +8701,18 @@ fieldset.edit-game-modal-field {
 .library-item-detail-subcollections-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--lid-cover-size));
-  gap: 40px;
+  gap: calc(var(--vgrid-gap-half, 20px) * 2);
   justify-content: start;
   margin-left: 0 !important;
   margin-right: 0 !important;
   max-width: 100%;
+}
+
+/* Collection-like rows: keep same inter-cover spacing as libraries grid. */
+.library-item-detail-scroll .scrollable-section-scroll .games-list-container {
+  gap: calc(var(--vgrid-gap-half, 20px) * 2);
+  padding-left: 12px;
+  box-sizing: border-box;
 }
 
 .library-item-detail-subcollection-cell {
@@ -10152,6 +10186,41 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 /* In compact collection detail, raise only the background toggle in GOG by 4px. */
 .mhg-libraries-actions-before-main-games .library-item-detail-compact-top-action .background-toggle-button {
   transform: translateY(1px);
+}
+
+/*
+ * Library-item collection-like carousels:
+ * keep a small inset so the first cover aligns like libraries (not flush-left).
+ */
+.library-item-detail-page-shell .game-detail-collection-group .scrollable-section-scroll:not(.restoring) {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  transform: none;
+}
+
+/* Ensure every collection-like covers block in detail has the same horizontal inset as libraries. */
+.library-item-detail-page-shell .library-item-detail-subcollections-grid,
+.library-item-detail-page-shell .library-item-detail-games-list .games-list-container,
+.library-item-detail-page-shell .library-item-detail-games-list .virtualized-list-fade {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+  transform: none;
+  box-sizing: border-box !important;
+}
+
+/* Keep collection-like rows centered while increasing density (>=5 covers more easily). */
+.library-item-detail-page-shell .library-item-detail-games-list .games-list-container {
+  justify-content: center !important;
+  padding-left: 0 !important;
+  gap: calc(var(--vgrid-gap-half, 20px) * 2) !important;
+  --games-list-cover-size: 132px;
+}
+
+.library-item-detail-page-shell .library-item-detail-subcollections-grid {
+  justify-content: center !important;
+  gap: calc(var(--vgrid-gap-half, 20px) * 2) !important;
+  --lid-cover-size: 132px;
 }
 
 /* Force cover images to fill assigned boxes (stretch if needed) */
