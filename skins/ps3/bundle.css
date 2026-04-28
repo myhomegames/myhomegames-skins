@@ -36,6 +36,8 @@ body {
   --mhg-vertical-covers-all-pages: 1;
   --mhg-vertical-column-width: 360px;
   --mhg-vertical-column-shift-x: 72px;
+  /* Recommended rail should stay centered on the Recommended icon line. */
+  --mhg-recommended-column-shift-x: 72px;
 }
 
 #root {
@@ -455,19 +457,42 @@ body {
   align-items: flex-start !important;
   justify-content: flex-start !important;
   grid-template-columns: none !important;
+  margin-top: -64px !important;
+  gap: 20px !important;
+  padding-bottom: 8px !important;
+  padding-left: 0 !important;
+}
+
+/* Recommended (virtualized path): align the rail to the Recommended icon line too. */
+:root[data-mhg-vertical-cover-alignment="true"]
+  .recommended-page-scroll
+  .scrollable-section-scroll
+  .games-list-container--virtualized
+  .virtualized-list-fade {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-top: -64px !important;
+  min-height: calc(100% + 64px) !important;
+  opacity: 1 !important;
+  transition: none !important;
+  animation: none !important;
+  will-change: auto !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+  .recommended-page-scroll
+  .scrollable-section-scroll
+  .games-list-container--virtualized
+  .virtualized-games-grid {
   margin-left: max(
     0px,
     calc(
       var(--mhg-active-library-icon-center-x, 180px) -
         (var(--mhg-vertical-column-width) / 2) +
-        var(--mhg-vertical-column-shift-x, 0px)
+        var(--mhg-recommended-column-shift-x, 0px)
     )
   ) !important;
   margin-right: auto !important;
-  margin-top: -64px !important;
-  gap: 20px !important;
-  padding-bottom: 8px !important;
-  padding-left: 0 !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-item--cover-sized {
