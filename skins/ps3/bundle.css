@@ -451,7 +451,10 @@ body {
   display: none !important;
 }
 
-:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-container {
+:root[data-mhg-vertical-cover-alignment="true"]
+  .recommended-page-scroll
+  .scrollable-section-scroll
+  .games-list-container:not(.games-list-container--virtualized) {
   display: flex !important;
   flex-direction: column !important;
   align-items: flex-start !important;
@@ -471,8 +474,8 @@ body {
   .virtualized-list-fade {
   padding-left: 0 !important;
   padding-right: 0 !important;
-  margin-top: -64px !important;
-  min-height: calc(100% + 64px) !important;
+  margin-top: 0 !important;
+  min-height: 100% !important;
   opacity: 1 !important;
   transition: none !important;
   animation: none !important;
