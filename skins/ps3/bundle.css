@@ -29,6 +29,13 @@ body {
 :root {
   /* Force LibrariesBar inline list (disable combobox fallback) for PS3 icon strip. */
   --mhg-libraries-force-list: 1;
+  --mhg-primary: #22c55e;
+/* Enable single-row cover rail in Library page (read by web app + CSS). */
+  --mhg-library-vertical-covers: 1;
+  /* Apply vertical covers layout to all games-list pages. */
+  --mhg-vertical-covers-all-pages: 1;
+  --mhg-vertical-column-width: 360px;
+  --mhg-vertical-column-shift-x: 72px;
 }
 
 #root {
@@ -339,4 +346,476 @@ body {
   .mhg-libraries-actions-right-extra
   .profile-dropdown-arrow {
   display: none;
+}
+
+/*
+ * PS3 - Library games view:
+ * when "Library" is active, stack covers vertically (one under another),
+ * top-aligned, and let the page scroll vertically.
+ */
+/* In Library (PS3), keep the covers rail on one horizontal line and scrollable. */
+.mhg-library-vertical-covers .games-list-container--virtualized .virtualized-list-fade {
+  padding-top: 0 !important;
+}
+
+/* All games-list pages in PS3: vertical rail under the active icon line. */
+.mhg-vertical-covers-page .home-page-scroll-container:not(.table-view) {
+  margin-top: -64px !important;
+  height: calc(100% + 64px) !important;
+  padding-top: 0 !important;
+}
+
+.mhg-vertical-covers-page .games-list-container--virtualized .virtualized-list-fade {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-top: -64px !important;
+  min-height: calc(100% + 64px) !important;
+}
+
+.mhg-vertical-covers-page .games-list-container--virtualized .virtualized-games-grid {
+  margin-left: max(
+    0px,
+    calc(
+      var(--mhg-active-library-icon-center-x, 180px) -
+        (var(--mhg-vertical-column-width) / 2) +
+        var(--mhg-vertical-column-shift-x, 0px)
+    )
+  ) !important;
+  margin-right: auto !important;
+}
+
+/* Tag index + collection-like pages: same vertical rail behavior/alignment. */
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .tag-list-container,
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container:not(.collections-list-container--virtualized),
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .library-item-detail-subcollections-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  grid-template-columns: none !important;
+  margin-left: max(
+    0px,
+    calc(
+      var(--mhg-active-library-icon-center-x, 180px) -
+        (var(--mhg-vertical-column-width) / 2) +
+        var(--mhg-vertical-column-shift-x, 0px)
+    )
+  ) !important;
+  margin-right: auto !important;
+  margin-top: -64px !important;
+  gap: 20px !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .tag-list-item,
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-item--sized,
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .library-item-detail-subcollection-cell {
+  width: min(var(--mhg-vertical-column-width), calc(100vw - 140px)) !important;
+  min-width: min(var(--mhg-vertical-column-width), calc(100vw - 140px)) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .virtualized-list-fade {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-top: -64px !important;
+  min-height: calc(100% + 64px) !important;
+  opacity: 1 !important;
+  transition: none !important;
+  animation: none !important;
+  will-change: auto !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .virtualized-collections-grid {
+  margin-left: max(
+    0px,
+    calc(
+      var(--mhg-active-library-icon-center-x, 180px) -
+        (var(--mhg-vertical-column-width) / 2) +
+        var(--mhg-vertical-column-shift-x, 0px)
+    )
+  ) !important;
+  margin-right: auto !important;
+}
+
+/* Recommended page (ScrollableGamesSection): force vertical rail and align to active icon line. */
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll {
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-nav {
+  display: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  grid-template-columns: none !important;
+  margin-left: max(
+    0px,
+    calc(
+      var(--mhg-active-library-icon-center-x, 180px) -
+        (var(--mhg-vertical-column-width) / 2) +
+        var(--mhg-vertical-column-shift-x, 0px)
+    )
+  ) !important;
+  margin-right: auto !important;
+  margin-top: -64px !important;
+  gap: 20px !important;
+  padding-bottom: 8px !important;
+  padding-left: 0 !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-item--cover-sized {
+  width: min(var(--mhg-vertical-column-width), calc(100vw - 140px)) !important;
+  min-width: min(var(--mhg-vertical-column-width), calc(100vw - 140px)) !important;
+}
+
+/* Ensure vertical scrolling is enabled on tag/recommended/collection-like containers. */
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll,
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.tag-list-container),
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.collections-list-container),
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.library-item-detail-subcollections-grid) {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mhg-library-vertical-covers .home-page-content-wrapper.has-toolbar .home-page-scroll-container:not(.table-view),
+.mhg-library-vertical-covers .home-page-content-wrapper.games-list-page-fade .home-page-scroll-container:not(.table-view) {
+  padding-top: 0 !important;
+}
+
+/* PS3 vertical Library rail: keep it left-aligned under the Libraries bar. */
+.mhg-library-vertical-covers .games-list-container--virtualized .virtualized-list-fade {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  opacity: 1 !important;
+  transition: none !important;
+  animation: none !important;
+  will-change: auto !important;
+}
+
+.mhg-library-vertical-covers .games-list-container--virtualized .virtualized-games-grid {
+  margin-left: max(
+    0px,
+    calc(
+      var(--mhg-active-library-icon-center-x, 180px) -
+        (var(--mhg-vertical-column-width) / 2) +
+        var(--mhg-vertical-column-shift-x, 0px)
+    )
+  ) !important;
+  margin-right: auto !important;
+}
+
+/* Start the vertical covers rail from the very top of the page area. */
+.mhg-library-vertical-covers.home-page-content {
+  padding-top: 0 !important;
+}
+
+.mhg-library-vertical-covers .home-page-layout,
+.mhg-library-vertical-covers .home-page-content-wrapper,
+.mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/*
+ * User request: start the vertical rail at logo/header height (top of page),
+ * not below the default content band.
+ */
+.mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) {
+  margin-top: -64px !important;
+  height: calc(100% + 64px) !important;
+}
+
+/* Hard override on the actual covers rail container (virtualized path). */
+.mhg-library-vertical-covers .games-list-container--virtualized .virtualized-list-fade {
+  margin-top: -64px !important;
+  min-height: calc(100% + 64px) !important;
+  opacity: 1 !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Fallback when virtualization is not active. */
+.mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) .games-list-container:not(.games-list-container--virtualized) {
+  margin-top: -64px !important;
+}
+
+/* Settings page: Plex-like structure with PS3 green accents. */
+.settings-page {
+  width: 100%;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: 64px;
+  position: relative;
+  z-index: 1;
+}
+
+.settings-container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 48px 48px;
+}
+
+.settings-card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.settings-card-header {
+  padding: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.settings-card-content {
+  padding: 32px;
+}
+
+.settings-input {
+  width: 100%;
+  background-color: #1f2937;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.settings-input:focus {
+  border-color: #22c55e;
+}
+
+.settings-select {
+  width: 150px;
+  background-color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  padding: 6px 16px;
+  color: #000000;
+  outline: none;
+  transition: border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.settings-select:focus {
+  border-color: #22c55e;
+}
+
+.settings-checkbox {
+  accent-color: #22c55e;
+}
+
+.settings-button {
+  padding: 10px 24px;
+  background-color: #22c55e;
+  border: none;
+  border-radius: 6px;
+  color: #06230f;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+}
+
+.settings-button:hover:not(:disabled) {
+  background-color: #4ade80;
+  transform: translateY(-1px);
+}
+
+.settings-button:disabled {
+  background-color: #22c55e;
+  color: #06230f;
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.settings-header {
+  margin-bottom: 32px;
+}
+
+.settings-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.settings-subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.settings-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.settings-field {
+  margin-bottom: 40px;
+}
+
+.settings-field-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+.settings-field-small {
+  margin-bottom: 32px;
+}
+
+.settings-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.settings-field-row .settings-label {
+  margin-bottom: 0;
+}
+
+.settings-help-text {
+  margin-top: 8px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.settings-help-text--error {
+  color: #f87171;
+  margin-bottom: 12px;
+}
+
+.settings-help-text--twitch-intro {
+  margin-bottom: 24px;
+}
+
+.settings-card--spaced-top {
+  margin-top: 24px;
+}
+
+.settings-input--tight-top {
+  margin-top: 8px;
+}
+
+.settings-library-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.settings-library-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  cursor: pointer;
+}
+
+.settings-library-option-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.settings-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.settings-button-active:not(:disabled) {
+  background-color: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+}
+
+.settings-select--skin {
+  min-width: 220px;
+  flex: 1;
+  max-width: 420px;
+}
+
+.settings-skin-upload-block {
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.settings-skin-upload-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.settings-skin-file-btn {
+  flex-shrink: 0;
+}
+
+.settings-skin-list {
+  margin-top: 8px;
+}
+
+.settings-skin-installed {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settings-skin-installed-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 14px;
+  background-color: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+}
+
+.settings-skin-installed-name {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.settings-skin-remove {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid rgba(248, 113, 113, 0.5);
+  border-radius: 6px;
+  color: #f87171;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.settings-skin-remove:hover {
+  background: rgba(248, 113, 113, 0.12);
 }

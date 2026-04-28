@@ -5,6 +5,8 @@
   "snapshot": "snapshot.jpg",
   "web": {
     "libraryHoverSelect": true,
-    "libraryBarHeaderActions": true
+    "libraryBarHeaderActions": true,
+    "disableAlphabetNavigator": true,
+    "verticalCoverAlignment": true
   }
 }
