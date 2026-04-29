@@ -6,6 +6,8 @@
   "web": {
     "libraryHoverSelect": true,
     "libraryBarHeaderActions": true,
+    "sidebarSearchPopup": true,
+    "hideAddGame": true,
     "disableAlphabetNavigator": true,
     "verticalCoverAlignment": true
   }

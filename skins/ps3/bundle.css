@@ -288,6 +288,14 @@ body {
 .mhg-library-active[data-mhg-library-key="mhg-header-profile"]::before {
   content: "◉";
 }
+.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]::before,
+.mhg-library-active[data-mhg-library-key="mhg-header-add-game"]::before {
+  content: "+";
+}
+.mhg-library-button[data-mhg-library-key="mhg-header-search"]::before,
+.mhg-library-active[data-mhg-library-key="mhg-header-search"]::before {
+  content: "⌕";
+}
 
 /* Force cover images to fill assigned boxes (stretch if needed) */
 .games-list-cover > img {
