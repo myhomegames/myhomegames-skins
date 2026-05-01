@@ -6981,7 +6981,7 @@ fieldset.edit-game-modal-field {
   margin: 0 auto;
   display: grid;
   gap: 40px;
-  justify-content: flex-start;
+  justify-content: center;
   padding-left: var(--vgrid-side-gutter-left, var(--vgrid-side-gutter, 16px));
   padding-right: var(--vgrid-side-gutter-right, var(--vgrid-side-gutter, 16px));
   box-sizing: border-box;
