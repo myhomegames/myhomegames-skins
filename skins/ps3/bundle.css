@@ -374,7 +374,9 @@ body {
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
   .mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover .mhg-library-button-label,
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
-  .mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover .mhg-library-button-label {
+  .mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover .mhg-library-button-label,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:hover .mhg-library-button-label {
   top: 54px;
 }
 
@@ -424,10 +426,16 @@ body {
   text-shadow: 0 0 6px rgba(120, 180, 255, 0.45);
   pointer-events: none;
   z-index: 5;
+  /* Tailwind `truncate` / `min-w-0` on the span would clip the caption under the PS3 tile. */
+  max-width: none;
+  min-width: 0;
+  overflow: visible;
+  text-overflow: clip;
 }
 
 .mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover .mhg-library-button-label,
-.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover .mhg-library-button-label {
+.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover .mhg-library-button-label,
+.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:hover .mhg-library-button-label {
   display: block;
   position: absolute;
   top: 62px;
@@ -442,13 +450,18 @@ body {
   text-shadow: 0 0 6px rgba(120, 180, 255, 0.45);
   pointer-events: none;
   z-index: 5;
+  max-width: none;
+  overflow: visible;
+  text-overflow: clip;
 }
 
-/* While hovering Settings/Profile, visually mute previously-active library entry. */
+/* While hovering Settings/Profile/Add game, visually mute previously-active library entry. */
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover)
   .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"]),
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover)
-  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"]) {
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"]),
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:hover)
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-add-game"]) {
   color: rgba(255, 255, 255, 0.78);
   background: transparent;
 }
@@ -456,7 +469,9 @@ body {
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover)
   .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"])::before,
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover)
-  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"])::before {
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"])::before,
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:hover)
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-add-game"])::before {
   color: rgba(255, 255, 255, 0.78);
   text-shadow: none;
 }
@@ -464,7 +479,9 @@ body {
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover)
   .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"]) .mhg-library-button-label,
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover)
-  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"]) .mhg-library-button-label {
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"]) .mhg-library-button-label,
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:hover)
+  .mhg-library-active:not([data-mhg-library-key="mhg-header-add-game"]) .mhg-library-button-label {
   display: none;
 }
 
