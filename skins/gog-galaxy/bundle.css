@@ -6735,6 +6735,15 @@ fieldset.edit-game-modal-field {
   margin-left: auto;
 }
 
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-inner
+  .games-list-toolbar {
+  position: static;
+  top: auto;
+  left: auto;
+  z-index: auto;
+}
+
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo {
   display: flex;
   align-items: center;
