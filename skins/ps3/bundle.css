@@ -38,6 +38,8 @@ body {
   --mhg-vertical-column-shift-x: 72px;
   /* Recommended rail should stay centered on the Recommended icon line. */
   --mhg-recommended-column-shift-x: 72px;
+  /* In-flow layout: extra gap under header so the icon strip sits lower (XMB-style). */
+  --mhg-ps3-library-bar-margin-top: 64px;
 }
 
 #root {
@@ -115,6 +117,189 @@ body {
   border: 0;
   min-height: 84px;
   overflow: visible;
+  margin-top: var(--mhg-ps3-library-bar-margin-top, 64px);
+}
+
+/* Vertical library tabs (`libraryPagesVerticalList` && !`persistentLibraryShell`). */
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs {
+  min-height: auto;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-libraries-bar-container {
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 16px;
+  min-height: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 72px;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-libraries-container {
+  position: relative;
+  left: auto;
+  transform: none;
+  flex: 0 1 auto;
+  width: auto;
+  min-width: 200px;
+  max-width: min(340px, 38vw);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 2px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: min(360px, 45vh, calc(100vh - 120px));
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-library-button,
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-library-active {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  white-space: normal;
+  border-bottom: none !important;
+  transform: none;
+  padding: 10px 16px;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-library-active::after {
+  display: none;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-collections-shortcuts {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-collections-shortcuts-title {
+  width: 100%;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-collection-shortcut-button {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-libraries-actions {
+  margin-left: auto;
+  flex-shrink: 0;
+  align-self: flex-start;
+  padding-top: 2px;
+}
+
+.mhg-libraries-actions-right-extra {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* `web.topRightToolDock`: tool row above strip; band height + gap used by vertical-cover compensation. */
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) {
+  --mhg-top-tool-dock-band-height: 56px;
+  /* Space between tool dock and icon strip (margin on strip). */
+  --mhg-ps3-tool-dock-to-strip-gap: 80px;
+  --mhg-ps3-top-tool-dock-stack: calc(
+    var(--mhg-top-tool-dock-band-height) + var(--mhg-ps3-tool-dock-to-strip-gap)
+  );
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-bar-container {
+  display: flex;
+  /* Do not grow: strip + icons stay tight under the dock (no vertical drift). */
+  flex: 0 0 auto;
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-height: 0;
+  margin-top: var(--mhg-ps3-tool-dock-to-strip-gap, 80px);
+  /* Strip content flush to the top of the row (no extra vertical inset). */
+  align-items: flex-start;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-container {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock {
+  position: relative;
+  top: auto;
+  right: auto;
+  flex: 0 0 var(--mhg-top-tool-dock-band-height);
+  height: var(--mhg-top-tool-dock-band-height);
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 0 10px 0 12px;
+  z-index: 10050;
+  pointer-events: none;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock > * {
+  pointer-events: auto;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-height: 44px;
+  padding: 0 4px;
+  margin: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo:hover {
+  opacity: 0.88;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo svg {
+  max-height: 32px;
+  width: auto;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-menu-dropdown
+  .dropdown-menu-popup {
+  top: 100%;
+  bottom: auto;
+  left: auto;
+  right: 0;
+  margin-top: 6px;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-slider {
+  display: flex;
+  align-items: center;
 }
 
 .mhg-libraries-bar-container {
@@ -142,6 +327,41 @@ body {
   background: transparent;
   border: 0;
   backdrop-filter: none;
+}
+
+/*
+ * topRightToolDock: placed after generic bar rules + beats Tailwind `items-center` on buttons.
+ * Lifts the icon rail and right-side actions to the top of the strip row.
+ */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-bar-container {
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-container {
+  align-items: flex-start !important;
+  padding: 0 8px !important;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-library-button,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-library-active {
+  align-items: flex-start !important;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-library-button::before,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-library-active::before {
+  top: 0;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-library-active .mhg-library-button-label {
+  top: 54px;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover .mhg-library-button-label,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover .mhg-library-button-label {
+  top: 54px;
 }
 
 .mhg-library-button,
@@ -317,10 +537,39 @@ body {
   align-items: center;
 }
 
+/* `topRightToolDock`: keep strip actions top-aligned with icons (overrides align-self above). */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-actions {
+  align-self: flex-start;
+  align-items: flex-start !important;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-actions-icon-cluster {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start !important;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-actions-background-toggle-container,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-actions-new-games-container,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-actions-main-games-container,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-actions-before-main-games {
+  display: flex;
+  align-items: flex-start !important;
+}
+
 .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"] .mhg-libraries-actions-right-extra {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-actions-right-extra {
+  align-items: flex-start !important;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"][data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra {
+  align-items: flex-start !important;
 }
 
 .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
@@ -370,16 +619,16 @@ body {
 
 /* All games-list pages in PS3: vertical rail under the active icon line. */
 .mhg-vertical-covers-page .home-page-scroll-container:not(.table-view) {
-  margin-top: -64px !important;
-  height: calc(100% + 64px) !important;
+  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
   padding-top: 0 !important;
 }
 
 .mhg-vertical-covers-page .games-list-container--virtualized .virtualized-list-fade {
   padding-left: 0 !important;
   padding-right: 0 !important;
-  margin-top: -64px !important;
-  min-height: calc(100% + 64px) !important;
+  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  min-height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
 }
 
 .mhg-vertical-covers-page .games-list-container--virtualized .virtualized-games-grid {
@@ -412,7 +661,7 @@ body {
     )
   ) !important;
   margin-right: auto !important;
-  margin-top: -64px !important;
+  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
   gap: 20px !important;
 }
 
@@ -426,8 +675,8 @@ body {
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .virtualized-list-fade {
   padding-left: 0 !important;
   padding-right: 0 !important;
-  margin-top: -64px !important;
-  min-height: calc(100% + 64px) !important;
+  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  min-height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
   opacity: 1 !important;
   transition: none !important;
   animation: none !important;
@@ -468,7 +717,7 @@ body {
   align-items: flex-start !important;
   justify-content: flex-start !important;
   grid-template-columns: none !important;
-  margin-top: -64px !important;
+  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
   gap: 20px !important;
   padding-bottom: 8px !important;
   padding-left: 0 !important;
@@ -547,6 +796,7 @@ body {
     )
   ) !important;
   margin-right: auto !important;
+  margin-top: 165px;
 }
 
 /* Start the vertical covers rail from the very top of the page area. */
@@ -566,14 +816,14 @@ body {
  * not below the default content band.
  */
 .mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) {
-  margin-top: -64px !important;
-  height: calc(100% + 64px) !important;
+  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
 }
 
 /* Hard override on the actual covers rail container (virtualized path). */
 .mhg-library-vertical-covers .games-list-container--virtualized .virtualized-list-fade {
-  margin-top: -64px !important;
-  min-height: calc(100% + 64px) !important;
+  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  min-height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
   opacity: 1 !important;
   transition: none !important;
   animation: none !important;
@@ -581,7 +831,7 @@ body {
 
 /* Fallback when virtualization is not active. */
 .mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) .games-list-container:not(.games-list-container--virtualized) {
-  margin-top: -64px !important;
+  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
 }
 
 /* Settings page: Plex-like structure with PS3 green accents. */
@@ -855,4 +1105,113 @@ body {
 
 .settings-skin-remove:hover {
   background: rgba(248, 113, 113, 0.12);
+}
+
+/*
+ * Plex uses a fixed libraries bar + `padding-top` on `.home-page-content` to clear it.
+ * PS3 uses an in-flow bar under the header: that padding would push Tag / Recommended / Collections
+ * (mains without `.mhg-library-vertical-covers`) down by ~260px — keep inset at 0; rail pull is via
+ * negative margins on scroll/list containers only.
+ */
+body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-content {
+  padding-top: 0 !important;
+}
+
+/* Pull vertical rails up by the extra dock band so alignment stays under the icon row. */
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-vertical-covers-page
+  .home-page-scroll-container:not(.table-view),
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-library-vertical-covers
+  .home-page-scroll-container:not(.table-view) {
+  margin-top: calc(
+    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+  ) !important;
+  height: calc(
+    100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)
+  ) !important;
+}
+
+/*
+ * Library `GamesListPageContent` adds `.mhg-vertical-covers-page` on the inner wrapper, so the rule
+ * above matches this scroll box too — but Tag / Collections have no such wrapper: their dock pull is
+ * only on the inner rail, not on `home-page-scroll-container`. The generic dock rule also matches
+ * `.mhg-library-vertical-covers .home-page-scroll-container` (2-class path) — cancel both: use
+ * `margin-top: 0` on this scroll like Tag, and keep the full `-64 - dock - strip` pull on
+ * `.virtualized-list-fade` / non-virtual `.games-list-container` via `.mhg-vertical-covers-page` rules below.
+ */
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
+  .mhg-library-vertical-covers
+  .mhg-vertical-covers-page
+  .home-page-scroll-container:not(.table-view) {
+  margin-top: 0 !important;
+  height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+}
+
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-vertical-covers-page
+  .games-list-container--virtualized
+  .virtualized-list-fade {
+  margin-top: calc(
+    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+  ) !important;
+  min-height: calc(
+    100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)
+  ) !important;
+}
+
+/* Non-virtualized grid on Library + dock: same inner rail pull as Tag (scroll uses override above). */
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
+  .mhg-library-vertical-covers
+  .home-page-scroll-container:not(.table-view)
+  .games-list-container:not(.games-list-container--virtualized) {
+  margin-top: calc(
+    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+  ) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])]
+  .home-page-scroll-container:not(.table-view)
+  .tag-list-container,
+:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])]
+  .home-page-scroll-container:not(.table-view)
+  .collections-list-container:not(.collections-list-container--virtualized),
+:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])]
+  .home-page-scroll-container:not(.table-view)
+  .library-item-detail-subcollections-grid {
+  margin-top: calc(
+    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+  ) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])]
+  .home-page-scroll-container:not(.table-view)
+  .collections-list-container--virtualized
+  .virtualized-list-fade {
+  margin-top: calc(
+    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+  ) !important;
+  min-height: calc(
+    100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)
+  ) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])]
+  .recommended-page-scroll
+  .scrollable-section-scroll
+  .games-list-container:not(.games-list-container--virtualized) {
+  margin-top: calc(
+    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+  ) !important;
+}
+
+/* Recommended (virtualized): base used margin-top: 0; pull up by dock + strip gap like Library. */
+:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])]
+  .recommended-page-scroll
+  .scrollable-section-scroll
+  .games-list-container--virtualized
+  .virtualized-list-fade {
+  margin-top: calc(
+    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+  ) !important;
+  min-height: calc(
+    100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)
+  ) !important;
 }
