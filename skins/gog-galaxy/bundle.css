@@ -6619,7 +6619,23 @@ fieldset.edit-game-modal-field {
   min-height: 64px;
 }
 
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]:not(.mhg-libraries-bar--vertical-page-tabs)
+/* GOG shell: dock row + sidebar body — container must fill below the dock (same as Plex shell). */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-libraries-bar-container {
+  flex: 1 1 auto;
+  flex-shrink: 1;
+  min-height: 0;
+  height: auto;
+  overflow-y: auto;
+}
+
+/*
+ * Horizontal top strip only: with persistent shell, GOG keeps a left column — do not apply
+ * max-width/center rules meant for the full-width bar (would halve/cover the page list).
+ */
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]:not(.mhg-libraries-bar--vertical-page-tabs)
   .mhg-libraries-container {
   position: relative;
   left: auto;
@@ -9808,6 +9824,15 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 /* Sidebar GOG: elenco più compatto tra le voci */
 .mhg-libraries-bar .mhg-libraries-container {
   gap: 2px;
+}
+
+/* Tool dock steals vertical space; let the page list use the remaining column below it. */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-libraries-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
 }
 
 .mhg-libraries-bar .mhg-collections-shortcuts {

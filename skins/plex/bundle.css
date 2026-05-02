@@ -6614,11 +6614,10 @@ fieldset.edit-game-modal-field {
 }
 
 /*
- * Horizontal strip: `.mhg-libraries-container` is `position:absolute` by default — it does not
- * contribute to `.mhg-libraries-bar-container` height and can end up with no layout box with dock.
- * Put tabs back in normal flow when using the top tool dock (vertical tabs keep their own rules).
+ * Horizontal top strip only (no persistent shell). Shell sidebars use their own `.mhg-libraries-container` rules.
  */
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]:not(.mhg-libraries-bar--vertical-page-tabs)
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]:not(.mhg-libraries-bar--vertical-page-tabs)
   .mhg-libraries-container {
   position: relative;
   left: auto;
