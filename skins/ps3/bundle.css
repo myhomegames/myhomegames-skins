@@ -531,6 +531,22 @@ body {
 .mhg-library-active[data-mhg-library-key="platforms"]::before {
   content: "◈";
 }
+.mhg-library-button[data-mhg-library-key="recommended"]::before,
+.mhg-library-active[data-mhg-library-key="recommended"]::before {
+  content: "★";
+}
+.mhg-library-button[data-mhg-library-key="franchise"]::before,
+.mhg-library-active[data-mhg-library-key="franchise"]::before {
+  content: "◇";
+}
+.mhg-library-button[data-mhg-library-key="developers"]::before,
+.mhg-library-active[data-mhg-library-key="developers"]::before {
+  content: "λ";
+}
+.mhg-library-button[data-mhg-library-key="publishers"]::before,
+.mhg-library-active[data-mhg-library-key="publishers"]::before {
+  content: "¶";
+}
 .mhg-library-button[data-mhg-library-key="mhg-header-settings"]::before,
 .mhg-library-active[data-mhg-library-key="mhg-header-settings"]::before {
   content: "⚙";
