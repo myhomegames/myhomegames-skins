@@ -6589,13 +6589,46 @@ fieldset.edit-game-modal-field {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  min-height: 0;
+  /* Ensure dock row + strip row always reserve space (horizontal strip uses absolute children otherwise). */
+  min-height: calc(var(--mhg-top-tool-dock-band-height, 52px) + 64px);
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-bar-container {
   display: flex;
+  /* Strip sizes to tabs; in-flow min-height so the row never collapses to 0. */
+  flex: 0 0 auto;
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-height: 64px;
+}
+
+/* Persistent shell: sidebar has a defined height — grow below the tool dock; avoid min-height:0-only (collapses strip). */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-libraries-bar-container {
   flex: 1 1 auto;
-  min-height: 0;
+  flex-shrink: 1;
+  min-height: 120px;
+  height: auto;
+  overflow-y: auto;
+}
+
+/*
+ * Horizontal strip: `.mhg-libraries-container` is `position:absolute` by default — it does not
+ * contribute to `.mhg-libraries-bar-container` height and can end up with no layout box with dock.
+ * Put tabs back in normal flow when using the top tool dock (vertical tabs keep their own rules).
+ */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-container {
+  position: relative;
+  left: auto;
+  transform: none;
+  width: auto;
+  max-width: min(86vw, 1180px);
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0 auto;
+  justify-content: center;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock {
@@ -6611,13 +6644,20 @@ fieldset.edit-game-modal-field {
   flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 0;
   padding: 0 10px 0 12px;
   z-index: 10050;
   pointer-events: none;
 }
 
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock > * {
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-inner {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  max-width: 100%;
   pointer-events: auto;
 }
 
@@ -8275,6 +8315,22 @@ fieldset.edit-game-modal-field {
   flex-direction: column;
   /* Same net offset as former padding-top: 128px + margin-top: -30px, without negative margin */
   padding-top: 128px;
+}
+
+/* Fixed libraries bar is taller when the tool dock sits above the strip — keep content from sliding under it. */
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
+  .app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .home-page-main-container
+  .home-page-content {
+  padding-top: calc(128px + var(--mhg-top-tool-dock-band-height, 52px));
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(
+    .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  )
+  .home-page-main-container
+  .home-page-content {
+  padding-top: calc(64px + var(--mhg-top-tool-dock-band-height, 52px));
 }
 
 .home-page-layout {

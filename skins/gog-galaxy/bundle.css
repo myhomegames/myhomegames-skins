@@ -6608,13 +6608,28 @@ fieldset.edit-game-modal-field {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  min-height: 0;
+  min-height: calc(var(--mhg-top-tool-dock-band-height, 52px) + 64px);
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-bar-container {
   display: flex;
+  flex: 0 0 auto;
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-height: 64px;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-container {
+  position: relative;
+  left: auto;
+  transform: none;
+  width: auto;
+  max-width: min(86vw, 1180px);
   flex: 1 1 auto;
-  min-height: 0;
+  min-width: 0;
+  margin: 0 auto;
+  justify-content: center;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock {
@@ -6629,14 +6644,21 @@ fieldset.edit-game-modal-field {
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
+  justify-content: flex-end;
+  gap: 0;
   padding: 0 10px 0 12px;
   z-index: 10050;
   pointer-events: none;
 }
 
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock > * {
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-inner {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  max-width: 100%;
   pointer-events: auto;
 }
 
@@ -8352,6 +8374,13 @@ fieldset.edit-game-modal-field {
   flex-direction: column;
   /* Same net offset as former padding-top: 128px + margin-top: -30px, without negative margin */
   padding-top: 128px;
+}
+
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
+  .app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .home-page-main-container
+  .home-page-content {
+  padding-top: calc(128px + var(--mhg-top-tool-dock-band-height, 52px));
 }
 
 .home-page-layout {
