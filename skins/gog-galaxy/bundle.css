@@ -6604,6 +6604,15 @@ fieldset.edit-game-modal-field {
   --mhg-top-tool-dock-band-height: 52px;
 }
 
+/*
+ * GOG orders profile/settings before the search cluster on the left of the header row.
+ * The dock lives in the same top band as the sidebar — inset header content so those controls
+ * do not stack over the dock.
+ */
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-header-container {
+  padding-left: calc(var(--gog-sidebar-width) + 24px);
+}
+
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] {
   display: flex;
   flex-direction: column;
@@ -6628,6 +6637,24 @@ fieldset.edit-game-modal-field {
   min-height: 0;
   height: auto;
   overflow-y: auto;
+}
+
+/* GOG sidebar: dock controls sit on the right edge of the column so they do not crowd the list. */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock {
+  justify-content: flex-end;
+  padding-left: 8px;
+  padding-right: 10px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-inner {
+  margin-left: auto;
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 100%;
 }
 
 /*
