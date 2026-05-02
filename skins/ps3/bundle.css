@@ -518,6 +518,7 @@ body {
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.library-item-detail-subcollections-grid) {
   overflow-y: auto !important;
   overflow-x: hidden !important;
+  height: 700px;
   -webkit-overflow-scrolling: touch;
 }
 
