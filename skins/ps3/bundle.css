@@ -150,8 +150,8 @@ body {
   justify-content: flex-start;
   gap: 2px;
   overflow-x: hidden;
-  overflow-y: auto;
-  max-height: min(360px, 45vh, calc(100vh - 120px));
+  overflow-y: visible;
+  max-height: none;
 }
 
 .mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-library-button,
@@ -216,7 +216,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  min-height: 0;
+  min-height: auto;
+  overflow-x: visible;
+  overflow-y: visible;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-bar-container {
@@ -225,7 +227,7 @@ body {
   flex: 0 0 auto;
   flex-grow: 0;
   flex-shrink: 0;
-  min-height: 0;
+  min-height: auto;
   margin-top: var(--mhg-ps3-tool-dock-to-strip-gap, 80px);
   /* Strip content flush to the top of the row (no extra vertical inset). */
   align-items: flex-start;
@@ -233,11 +235,6 @@ body {
   padding-bottom: 0;
   padding-left: 20px;
   padding-right: 20px;
-}
-
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-container {
-  padding-top: 0;
-  padding-bottom: 0;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock {
@@ -334,10 +331,12 @@ body {
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
+  /* `overflow-x: auto` + `overflow-y: visible` computes to `auto` on both axes — vertical scrollbar on hover. */
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden;
   scrollbar-width: thin;
-  padding: 4px 8px;
+  /* Room for `transform: scale(1.08)` on tiles without clipping or scrolling vertically. */
+  padding: 10px 8px 14px;
   border-radius: 0;
   background: transparent;
   border: 0;
@@ -355,7 +354,8 @@ body {
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-container {
   align-items: flex-start !important;
-  padding: 0 8px !important;
+  overflow-y: hidden;
+  padding: 10px 8px 14px !important;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-library-button,
