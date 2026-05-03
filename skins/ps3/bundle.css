@@ -709,7 +709,6 @@ body {
     )
   ) !important;
   margin-right: auto !important;
-  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
   gap: 20px !important;
 }
 
@@ -723,7 +722,6 @@ body {
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .virtualized-list-fade {
   padding-left: 0 !important;
   padding-right: 0 !important;
-  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
   min-height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
   opacity: 1 !important;
   transition: none !important;
