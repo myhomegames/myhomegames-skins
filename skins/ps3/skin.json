@@ -8,7 +8,6 @@
     "libraryBarHeaderActions": true,
     "topRightToolDock": true,
     "sidebarSearchPopup": true,
-    "hideAddGame": true,
     "disableAlphabetNavigator": true,
     "verticalCoverAlignment": true
   }
