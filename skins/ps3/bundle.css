@@ -274,6 +274,42 @@ body {
   pointer-events: auto;
 }
 
+/*
+ * Page toolbar portal slot inside the top-right tool dock.
+ * `flex: 0 1 auto` keeps the slot collapsed when no page portals its toolbar in
+ * (so the icon row stays compact, as if the slot did not exist) and lets it
+ * grow to the toolbar's natural width when the portal is populated.
+ */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-page-toolbar-slot {
+  flex: 0 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-page-toolbar-inner {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-inner
+  .games-list-toolbar {
+  position: static;
+  top: auto;
+  left: auto;
+  z-index: auto;
+}
+
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo {
   display: flex;
   align-items: center;
@@ -845,25 +881,33 @@ body {
   margin-top: 165px;
 }
 
-/* Start the vertical covers rail from the very top of the page area. */
+/*
+ * Library page: tag/category/collection pages render a secondary `LibrariesBar`
+ * inside their own JSX (≈ 84px min-height + 64px margin-top from
+ * `--mhg-ps3-library-bar-margin-top`), so their games list naturally starts
+ * ~148px below the global libraries bar. The Library page does NOT render
+ * such a secondary bar — without compensation its rail sits ~148px higher
+ * and is visibly misaligned with every other library.
+ *
+ * Mirror that secondary-bar footprint as `padding-top` on the Library
+ * content so the rail aligns with the other libraries' rails, and drop the
+ * legacy negative `margin-top` pull that previously slammed the rail under
+ * the header logo.
+ */
 .mhg-library-vertical-covers.home-page-content {
-  padding-top: 0 !important;
+  padding-top: calc(var(--mhg-ps3-library-bar-margin-top, 64px) + 84px) !important;
 }
 
 .mhg-library-vertical-covers .home-page-layout,
-.mhg-library-vertical-covers .home-page-content-wrapper,
-.mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) {
+.mhg-library-vertical-covers .home-page-content-wrapper {
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
 
-/*
- * User request: start the vertical rail at logo/header height (top of page),
- * not below the default content band.
- */
 .mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) {
-  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
-  height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  height: 100% !important;
 }
 
 /* Hard override on the actual covers rail container (virtualized path). */
@@ -1169,7 +1213,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
 :root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-library-vertical-covers
   .home-page-scroll-container:not(.table-view) {
   margin-top: calc(
-    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
   ) !important;
   height: calc(
     100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)
@@ -1196,7 +1240,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   .games-list-container--virtualized
   .virtualized-list-fade {
   margin-top: calc(
-    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
   ) !important;
   min-height: calc(
     100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)
@@ -1209,7 +1253,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   .home-page-scroll-container:not(.table-view)
   .games-list-container:not(.games-list-container--virtualized) {
   margin-top: calc(
-    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
   ) !important;
 }
 
@@ -1223,7 +1267,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   .home-page-scroll-container:not(.table-view)
   .library-item-detail-subcollections-grid {
   margin-top: calc(
-    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
   ) !important;
 }
 
@@ -1232,7 +1276,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   .collections-list-container--virtualized
   .virtualized-list-fade {
   margin-top: calc(
-    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
   ) !important;
   min-height: calc(
     100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)
@@ -1244,7 +1288,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   .scrollable-section-scroll
   .games-list-container:not(.games-list-container--virtualized) {
   margin-top: calc(
-    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
   ) !important;
 }
 
@@ -1255,7 +1299,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   .games-list-container--virtualized
   .virtualized-list-fade {
   margin-top: calc(
-    -64px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
   ) !important;
   min-height: calc(
     100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)

@@ -6660,6 +6660,42 @@ fieldset.edit-game-modal-field {
   pointer-events: auto;
 }
 
+/*
+ * Page toolbar portal slot inside the top-right tool dock.
+ * `flex: 0 1 auto` keeps the slot collapsed when no page portals its toolbar in
+ * (so the icon row stays compact, as if the slot did not exist) and lets it
+ * grow to the toolbar's natural width when the portal is populated.
+ */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-page-toolbar-slot {
+  flex: 0 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-page-toolbar-inner {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-inner
+  .games-list-toolbar {
+  position: static;
+  top: auto;
+  left: auto;
+  z-index: auto;
+}
+
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo {
   display: flex;
   align-items: center;
