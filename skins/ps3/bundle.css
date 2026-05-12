@@ -940,7 +940,12 @@ body {
 .mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) {
   margin-top: 0 !important;
   padding-top: 0 !important;
-  height: 100% !important;
+  /* `100%` chains up through `.home-page-content-wrapper` and `flex-1` main,
+   * which in practice collapses to `auto` and makes `VirtualizedGamesList`
+   * fall back to its `window.innerHeight - 200` (~700px) heuristic. Pin the
+   * scroll container to the viewport height so the games column reaches the
+   * bottom of the page. */
+  height: 100vh !important;
 }
 
 /* Hard override on the actual covers rail container (virtualized path). */
@@ -1263,7 +1268,12 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   .mhg-vertical-covers-page
   .home-page-scroll-container:not(.table-view) {
   margin-top: 0 !important;
-  height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  /* The previous `calc(100% + 64px + bar_margin_top)` resolved to ~0 when the
+   * `flex-1` ancestor chain didn't propagate a height down here, so the inner
+   * `VirtualizedGamesList` fell back to its ~700px heuristic and the games
+   * column stopped well before the bottom of the page. Pin to the viewport
+   * so the column extends to the end of the page. */
+  height: 100vh !important;
 }
 
 :root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-vertical-covers-page
