@@ -14,6 +14,38 @@
   box-sizing: border-box;
 }
 
+/*
+ * Virtualized list fade-in: hide the rail until the component has restored
+ * its scroll position, then fade it in. Prevents the visible flash where
+ * the unscrolled state shows for a frame before scroll restoration kicks in.
+ * Applies to both games (VirtualizedGamesList) and collection-like lists
+ * (VirtualizedCollectionsList used by Collections, Publishers, Developers).
+ */
+.virtualized-list-fade {
+  opacity: 0;
+  transition: none;
+}
+
+.virtualized-list-fade--ready {
+  opacity: 1;
+  transition: opacity 0.1s ease;
+}
+
+/*
+ * Page-level fade-in for non-virtualized list pages (Tags, Collections,
+ * Publishers, Developers, Recommended, …). The `--ready` class is added by
+ * the page only after data is loaded AND scroll position has been restored,
+ * so the user never sees the unscrolled state.
+ */
+.home-page-content-wrapper.home-page-fade-in {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.home-page-content-wrapper.home-page-fade-in.home-page-fade-in--ready {
+  opacity: 1;
+}
+
 html,
 body {
   margin: 0;
@@ -759,10 +791,6 @@ body {
   padding-left: 0 !important;
   padding-right: 0 !important;
   min-height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
-  opacity: 1 !important;
-  transition: none !important;
-  animation: none !important;
-  will-change: auto !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .virtualized-collections-grid {
@@ -815,10 +843,6 @@ body {
   padding-right: 0 !important;
   margin-top: 0 !important;
   min-height: 100% !important;
-  opacity: 1 !important;
-  transition: none !important;
-  animation: none !important;
-  will-change: auto !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -862,10 +886,6 @@ body {
 .mhg-library-vertical-covers .games-list-container--virtualized .virtualized-list-fade {
   padding-left: 0 !important;
   padding-right: 0 !important;
-  opacity: 1 !important;
-  transition: none !important;
-  animation: none !important;
-  will-change: auto !important;
 }
 
 .mhg-library-vertical-covers .games-list-container--virtualized .virtualized-games-grid {
@@ -914,9 +934,6 @@ body {
 .mhg-library-vertical-covers .games-list-container--virtualized .virtualized-list-fade {
   margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
   min-height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
-  opacity: 1 !important;
-  transition: none !important;
-  animation: none !important;
 }
 
 /* Fallback when virtualization is not active. */
