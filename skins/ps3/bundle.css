@@ -2473,8 +2473,10 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
 }
 
 /* Pull the libraries bar out of normal flow so the content area underneath
- * starts at y=0 of the page. A solid background prevents items scrolling
- * behind from showing through.
+ * starts at y=0 of the page. The bar stays on top (z-index 50) so its
+ * icons remain clickable, but its background is transparent: the cover
+ * columns scrolling through the same band become VISIBLE behind the bar
+ * (they "pass over" it) instead of being clipped by an opaque overlay.
  */
 .mhg-libraries-bar {
   position: absolute;
@@ -2482,14 +2484,14 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   left: 0;
   right: 0;
   z-index: 50;
-  background: #1a1a1a;
+  background: transparent;
 }
 
 /* When the top-right tool dock is enabled the bar is taller (dock + strip);
- * the overlay still anchors to the top.
+ * the overlay still anchors to the top and stays transparent.
  */
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] {
-  background: #1a1a1a;
+  background: transparent;
 }
 
 /* Drop the legacy padding-top that mirrored the secondary library bar on the
@@ -2569,9 +2571,17 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  * Skins that don't ship the React hook simply have no variable set; the
  * fallback `var(--mhg-cell-scale, 1)` keeps covers at full size.
  * ========================================================================= */
+/*
+ * Anchor the scale at the TOP of the cell (transform-origin: 50% 0%): when a
+ * cover sits in/above the libraries bar at SCALE_MIN, the shrunk cover keeps
+ * its TOP edge glued to the cell's top, so the cells closest to the page top
+ * (above the bar) don't leave a "black" empty strip between the page edge and
+ * the cover. With `50% 50%` (center origin) the scaled cover would float in
+ * the middle of its cell and leave the bar's margin-top area visibly empty.
+ */
 .virtualized-grid-cell-pad {
   transform: scale(var(--mhg-cell-scale, 1));
-  transform-origin: 50% 50%;
+  transform-origin: 50% 0%;
 }
 
 /* Non-virtualized cover items (tag list, non-virtualized collections rail,
@@ -2584,5 +2594,5 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
 .library-item-detail-subcollection-cell,
 .games-list-item--cover-sized {
   transform: scale(var(--mhg-cell-scale, 1));
-  transform-origin: 50% 50%;
+  transform-origin: 50% 0%;
 }
