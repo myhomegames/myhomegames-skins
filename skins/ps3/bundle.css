@@ -1305,3 +1305,37 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
     100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)
   ) !important;
 }
+
+/*
+ * Library / games-list scrollbars: keep them fully hidden in PS3.
+ *
+ * PS3 previously left these unstyled, so the browser default (light) showed
+ * up — and on a dark UI it looked plainly white. The actual scroller
+ * depends on the view: non-virtualized scrolls on `.home-page-scroll-container`,
+ * while the virtualized grid/list scrolls on an inner `<div>` that
+ * react-window renders with inline `overflow` and no class. Suppress the
+ * scrollbar on both so the rail stays scrollable (no `overflow: hidden`!)
+ * but the bar itself never paints.
+ */
+.home-page-scroll-container,
+.home-page-scroll-container *[style*="overflow"] {
+  scrollbar-width: none; /* Firefox + standards-compliant */
+  -ms-overflow-style: none; /* legacy IE / Edge */
+}
+
+.home-page-scroll-container::-webkit-scrollbar,
+.home-page-scroll-container *[style*="overflow"]::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none;
+  background: transparent;
+}
+
+.home-page-scroll-container::-webkit-scrollbar-track,
+.home-page-scroll-container *[style*="overflow"]::-webkit-scrollbar-track,
+.home-page-scroll-container::-webkit-scrollbar-thumb,
+.home-page-scroll-container *[style*="overflow"]::-webkit-scrollbar-thumb,
+.home-page-scroll-container::-webkit-scrollbar-corner,
+.home-page-scroll-container *[style*="overflow"]::-webkit-scrollbar-corner {
+  background: transparent;
+}
