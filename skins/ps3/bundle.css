@@ -72,6 +72,47 @@ body {
   --mhg-recommended-column-shift-x: 72px;
   /* In-flow layout: extra gap under header so the icon strip sits lower (XMB-style). */
   --mhg-ps3-library-bar-margin-top: 64px;
+  /*
+   * Effective bottom edge of the libraries bar (margin-top + bar body), used
+   * as the TOP INSET inside the virtualized grid so the first cover lands
+   * JUST BELOW the bar at scroll=0, while the grid itself still extends
+   * from y=0 of the page — covers can then RISE over the bar as the user
+   * scrolls down ("non partono più in basso" + "devono poter salire").
+   *
+   * Bar height = container padding (14px top + 14px bottom) wrapped around
+   * the 96px icon buttons (see `.mhg-libraries-bar-container` +
+   * `.mhg-library-button` / `.mhg-library-active` above), so the strip
+   * body is 124px tall. `+16px` is a tiny breathing room between the bar's
+   * bottom edge and the first cover so the cover doesn't appear glued to
+   * the strip.
+   */
+  --mhg-ps3-library-bar-effective-bottom: calc(
+    var(--mhg-ps3-library-bar-margin-top, 64px) + 124px + 16px
+  );
+  /*
+   * Empty leading row injected at the top of `VirtualizedGamesList` /
+   * `VirtualizedCollectionsList`. Different from `padding-top` on the
+   * scroll container: the grid keeps overflowing into the bar area, so
+   * scrolled-up covers stay visually present (transparent bar lets them
+   * "passare sopra"). Skins that don't want the effect leave it at 0.
+   *
+   * The default value here is the inset for TAG pages (user reported
+   * "i tag iniziano al punto giusto"). Page-specific overrides further
+   * down move Library / virtualized collection-like grids DOWN and
+   * Recommended UP — toggle each per-page var (`--mhg-grid-top-inset-*`)
+   * to nudge a single page type without touching the others.
+   */
+  --mhg-grid-top-inset-tag: calc(var(--mhg-ps3-library-bar-effective-bottom) + 220px);
+  --mhg-grid-top-inset-games: calc(var(--mhg-ps3-library-bar-effective-bottom) + 420px);
+  --mhg-grid-top-inset-collections: calc(var(--mhg-ps3-library-bar-effective-bottom) + 420px);
+  --mhg-grid-top-inset-recommended: var(--mhg-ps3-library-bar-effective-bottom);
+  --mhg-grid-top-inset: var(--mhg-grid-top-inset-tag);
+  /*
+   * Opt-in for the PS3 XMB-style discrete scroll: read by useStepScrollAroundBar
+   * to convert each wheel/trackpad gesture into a one-cover step, snapped so
+   * the first cover below the libraries bar is the focal reference.
+   */
+  --mhg-step-scroll-rows: 1;
 }
 
 #root {
@@ -241,6 +282,19 @@ body {
   --mhg-ps3-tool-dock-to-strip-gap: 80px;
   --mhg-ps3-top-tool-dock-stack: calc(
     var(--mhg-top-tool-dock-band-height) + var(--mhg-ps3-tool-dock-to-strip-gap)
+  );
+  /*
+   * Bar grows by `dock band + strip gap` when the top-right tool dock is on,
+   * so the rails' top inset (used to push the first cover BELOW the bar)
+   * must include that stack. With the dock on, the icon strip container
+   * uses `padding-top/-bottom: 0` (see `.mhg-libraries-bar-container`
+   * override above), so the bar body height drops from 124px (14+96+14) to
+   * just the 96px icon. Override the non-dock value defined at `:root`.
+   * `+16px` matches the breathing room used in the non-dock case.
+   */
+  --mhg-ps3-library-bar-effective-bottom: calc(
+    var(--mhg-ps3-library-bar-margin-top, 64px) +
+    var(--mhg-ps3-top-tool-dock-stack, 136px) + 96px + 16px
   );
 }
 
@@ -733,18 +787,21 @@ body {
   padding-top: 0 !important;
 }
 
-/* All games-list pages in PS3: vertical rail under the active icon line. */
+/* All games-list pages in PS3: vertical rail under the active icon line.
+ * The negative `margin-top` that used to drag the rail UNDER the bar was
+ * removed so the rail flows naturally below the bar (see comment block
+ * "Keep the first cover row BELOW the libraries bar" further down). */
 .mhg-vertical-covers-page .home-page-scroll-container:not(.table-view) {
-  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
-  height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  margin-top: 0 !important;
+  height: 100% !important;
   padding-top: 0 !important;
 }
 
 .mhg-vertical-covers-page .games-list-container--virtualized .virtualized-list-fade {
   padding-left: 0 !important;
   padding-right: 0 !important;
-  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
-  min-height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  margin-top: 0 !important;
+  min-height: 100% !important;
 }
 
 .mhg-vertical-covers-page .games-list-container--virtualized .virtualized-games-grid {
@@ -790,7 +847,7 @@ body {
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .virtualized-list-fade {
   padding-left: 0 !important;
   padding-right: 0 !important;
-  min-height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  min-height: 100% !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .virtualized-collections-grid {
@@ -827,7 +884,7 @@ body {
   align-items: flex-start !important;
   justify-content: flex-start !important;
   grid-template-columns: none !important;
-  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  margin-top: 0 !important;
   gap: 20px !important;
   padding-bottom: 8px !important;
   padding-left: 0 !important;
@@ -892,6 +949,9 @@ body {
 
 .mhg-library-vertical-covers .home-page-content-wrapper.has-toolbar .home-page-scroll-container:not(.table-view),
 .mhg-library-vertical-covers .home-page-content-wrapper.games-list-page-fade .home-page-scroll-container:not(.table-view) {
+  /* Library page itself never renders a secondary in-JSX library bar; the
+   * compensating offset comes from `.mhg-library-vertical-covers.home-page-content`
+   * via its own `padding-top` above. */
   padding-top: 0 !important;
 }
 
@@ -950,13 +1010,13 @@ body {
 
 /* Hard override on the actual covers rail container (virtualized path). */
 .mhg-library-vertical-covers .games-list-container--virtualized .virtualized-list-fade {
-  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
-  min-height: calc(100% + 64px + var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  margin-top: 0 !important;
+  min-height: 100% !important;
 }
 
 /* Fallback when virtualization is not active. */
 .mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) .games-list-container:not(.games-list-container--virtualized) {
-  margin-top: calc(-64px - var(--mhg-ps3-library-bar-margin-top, 0px)) !important;
+  margin-top: 0 !important;
 }
 
 /* Settings page: Plex-like structure with PS3 green accents. */
@@ -2494,24 +2554,75 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   background: transparent;
 }
 
-/* Drop the legacy padding-top that mirrored the secondary library bar on the
- * Library page: the bar is now an overlay, so its space no longer pushes the
- * content down. Items start at y=0 of the scroll container, which is y=0 of
- * the page.
+/* Library page: the outer `<main>` no longer needs the legacy padding that
+ * mirrored a secondary in-JSX bar — the top inset that places the first
+ * cover BELOW the (overlay) libraries bar is now applied to the scroll
+ * container directly (see rule below). Keep the main flush at y=0 so the
+ * scroll container can host the full viewport height.
  */
 .mhg-library-vertical-covers.home-page-content {
   padding-top: 0 !important;
 }
 
-/* Tag/collection-like/Recommended pages used a negative margin-top to pull the
- * scroll container up under the bar. With the bar out of flow that pull is no
- * longer needed: scroll container fills the full page height starting at y=0.
+/* Pin the page-level scroll container to the viewport height so the games
+ * column reaches the page bottom (`height: 100%` chains up to `flex-1
+ * main` which collapses to `auto` without a fixed height somewhere in the
+ * chain). NO padding-top here — pushing the scroll container down would
+ * clip the virtualized grid at its top edge and prevent covers from
+ * rising INTO the bar area as the user scrolls. The "first cover below
+ * the bar" offset is instead injected INSIDE the grid as an empty leading
+ * row (`--mhg-grid-top-inset` consumed by `VirtualizedGamesList` /
+ * `VirtualizedCollectionsList`) so the grid still extends from y=0 of
+ * the page and scrolled-up covers remain visible behind the transparent
+ * bar overlay.
  */
 .mhg-vertical-covers-page .home-page-scroll-container:not(.table-view),
 :root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-vertical-covers-page .home-page-scroll-container:not(.table-view),
-:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) {
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-library-vertical-covers .home-page-scroll-container:not(.table-view),
+.mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) {
   margin-top: 0 !important;
-  height: 100% !important;
+  height: 100vh !important;
+}
+
+/* Per-page `--mhg-grid-top-inset` overrides. The variable is read from the
+ * scroll container's computed style by `VirtualizedGamesList` /
+ * `VirtualizedCollectionsList` (see `readGridTopInset` in those files),
+ * so setting it here cascades down the React tree but is ALSO inherited
+ * via CSS for the non-virtualized padding rule below. */
+.mhg-library-vertical-covers .home-page-scroll-container,
+.mhg-library-vertical-covers.home-page-content,
+.mhg-vertical-covers-page .home-page-scroll-container {
+  --mhg-grid-top-inset: var(--mhg-grid-top-inset-games);
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+  .home-page-scroll-container:has(.collections-list-container) {
+  --mhg-grid-top-inset: var(--mhg-grid-top-inset-collections);
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll {
+  --mhg-grid-top-inset: var(--mhg-grid-top-inset-recommended);
+}
+
+/* Tag/collection-like/Recommended pages scroll the page-level container
+ * (not a virtualized grid). Push their content down via `padding-top` by
+ * the SAME `--mhg-grid-top-inset` used in the virtualized grid so the
+ * first item lines up with the virtualized rail. The variable is the
+ * per-page value above (or the `:root` default for tag pages). Since this
+ * container is the actual scroller, the padding becomes part of the
+ * scroll content and the items remain visible behind the bar as they
+ * scroll up. */
+:root[data-mhg-vertical-cover-alignment="true"]
+  .home-page-scroll-container:not(.table-view):has(.tag-list-container),
+:root[data-mhg-vertical-cover-alignment="true"]
+  .home-page-scroll-container:not(.table-view):has(.collections-list-container:not(.collections-list-container--virtualized)),
+:root[data-mhg-vertical-cover-alignment="true"]
+  .home-page-scroll-container:not(.table-view):has(.library-item-detail-subcollections-grid) {
+  padding-top: var(--mhg-grid-top-inset) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll {
+  padding-top: var(--mhg-grid-top-inset) !important;
 }
 
 /* Inner virtualized rail: reset the legacy compensations so the rail starts
@@ -2546,6 +2657,24 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .library-item-detail-subcollections-grid {
   margin-top: 0 !important;
 }
+
+/* =============================================================================
+ * Keep the first cover row BELOW the libraries bar.
+ *
+ * Earlier iterations pulled the rail UP with `margin-top: calc(-64px - bar
+ * margin-top)` plus a matching `height: calc(100% + ...)` so the scaled rows
+ * could sit above and behind the libraries bar. That conflicted with the
+ * current direction ("i primi elementi delle colonne devono poter arrivare
+ * sotto la library bar"), so we now keep `margin-top: 0` on those
+ * containers and let the in-flow `.home-page-content` padding (Library
+ * page) and the secondary in-JSX library bar (tag / collection-like /
+ * recommended pages) provide the natural offset that places each rail's
+ * first element just below the global bar.
+ *
+ * The `--mhg-ps3-library-bar-effective-bottom` custom property is preserved
+ * so downstream rules (and `useStepScrollAroundBar`, if wired up later) can
+ * still read the bar's effective height in a single place.
+ * ========================================================================== */
 
 /* ============================================================================
  * Depth-style cover scaling around the libraries bar.
@@ -2582,6 +2711,14 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
 .virtualized-grid-cell-pad {
   transform: scale(var(--mhg-cell-scale, 1));
   transform-origin: 50% 0%;
+}
+
+/* GameListItem always carries `games-list-item--cover-sized`; inside virtualized
+ * cells the pad above already applies bar-relative scale. A second transform here
+ * would compound and (worse) still not shrink react-window row height — only skip
+ * the pad hook would leave inner items shrunk with giant gaps. */
+.virtualized-grid-cell-pad .games-list-item--cover-sized {
+  transform: none;
 }
 
 /* Non-virtualized cover items (tag list, non-virtualized collections rail,
