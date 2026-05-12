@@ -873,8 +873,21 @@ body {
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.library-item-detail-subcollections-grid) {
   overflow-y: auto !important;
   overflow-x: hidden !important;
-  height: 700px;
   -webkit-overflow-scrolling: touch;
+}
+
+/* Collection-like scroll viewports (Recommended, Collections, Library item detail
+ * subcollections) share a taller viewport that accommodates two full-size rows
+ * plus the scaled-down rows above. */
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll,
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.collections-list-container),
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.library-item-detail-subcollections-grid) {
+  height: 1080px;
+}
+
+/* Tag pages: shorter scroll viewport. */
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.tag-list-container) {
+  height: 880px;
 }
 
 .mhg-library-vertical-covers .home-page-content-wrapper.has-toolbar .home-page-scroll-container:not(.table-view),
@@ -1274,13 +1287,13 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   ) !important;
 }
 
-:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])]
+:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
   .home-page-scroll-container:not(.table-view)
   .tag-list-container,
-:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])]
+:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
   .home-page-scroll-container:not(.table-view)
   .collections-list-container:not(.collections-list-container--virtualized),
-:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])]
+:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
   .home-page-scroll-container:not(.table-view)
   .library-item-detail-subcollections-grid {
   margin-top: calc(
@@ -1288,7 +1301,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   ) !important;
 }
 
-:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])]
+:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
   .home-page-scroll-container:not(.table-view)
   .collections-list-container--virtualized
   .virtualized-list-fade {
@@ -1300,7 +1313,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   ) !important;
 }
 
-:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])]
+:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
   .recommended-page-scroll
   .scrollable-section-scroll
   .games-list-container:not(.games-list-container--virtualized) {
@@ -1310,7 +1323,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
 }
 
 /* Recommended (virtualized): base used margin-top: 0; pull up by dock + strip gap like Library. */
-:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])]
+:root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
   .recommended-page-scroll
   .scrollable-section-scroll
   .games-list-container--virtualized
@@ -2433,4 +2446,133 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ============================================================================
+ * Page lists flow from the very top of the page; the libraries bar overlays
+ * them as a fixed-position band so items can occupy the area above and below
+ * the bar (visually "splitting" around it). The bar gets a solid background
+ * so items passing behind it are hidden — this is what the user requested:
+ *   "gli elenchi devono partire dall'alto della pagina e scomporsi per non
+ *    coprire la library bar".
+ * ========================================================================= */
+
+/* Anchor for the absolute libraries bar. */
+.home-page-main-container {
+  position: relative;
+}
+
+/* Pull the libraries bar out of normal flow so the content area underneath
+ * starts at y=0 of the page. A solid background prevents items scrolling
+ * behind from showing through.
+ */
+.mhg-libraries-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: #1a1a1a;
+}
+
+/* When the top-right tool dock is enabled the bar is taller (dock + strip);
+ * the overlay still anchors to the top.
+ */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] {
+  background: #1a1a1a;
+}
+
+/* Drop the legacy padding-top that mirrored the secondary library bar on the
+ * Library page: the bar is now an overlay, so its space no longer pushes the
+ * content down. Items start at y=0 of the scroll container, which is y=0 of
+ * the page.
+ */
+.mhg-library-vertical-covers.home-page-content {
+  padding-top: 0 !important;
+}
+
+/* Tag/collection-like/Recommended pages used a negative margin-top to pull the
+ * scroll container up under the bar. With the bar out of flow that pull is no
+ * longer needed: scroll container fills the full page height starting at y=0.
+ */
+.mhg-vertical-covers-page .home-page-scroll-container:not(.table-view),
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-vertical-covers-page .home-page-scroll-container:not(.table-view),
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) {
+  margin-top: 0 !important;
+  height: 100% !important;
+}
+
+/* Inner virtualized rail: reset the legacy compensations so the rail starts
+ * at y=0 inside the scroll container.
+ */
+.mhg-library-vertical-covers .games-list-container--virtualized .virtualized-list-fade,
+.mhg-vertical-covers-page .games-list-container--virtualized .virtualized-list-fade,
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-vertical-covers-page .games-list-container--virtualized .virtualized-list-fade,
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .virtualized-list-fade,
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-container--virtualized .virtualized-list-fade {
+  margin-top: 0 !important;
+  min-height: 100% !important;
+}
+
+/* Inner grid: no extra top spacing — first item sits at y=0 of the rail. */
+.mhg-library-vertical-covers .games-list-container--virtualized .virtualized-games-grid,
+.mhg-vertical-covers-page .games-list-container--virtualized .virtualized-games-grid,
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-container--virtualized .virtualized-games-grid {
+  margin-top: 0 !important;
+}
+
+/* Non-virtualized fallback grids: no negative pull, no extra top margin. */
+.mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) .games-list-container:not(.games-list-container--virtualized),
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) .games-list-container:not(.games-list-container--virtualized),
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-container:not(.games-list-container--virtualized) {
+  margin-top: 0 !important;
+}
+
+/* Non-virtualized tag/collection-like containers: align flush with the top. */
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .tag-list-container,
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container:not(.collections-list-container--virtualized),
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .library-item-detail-subcollections-grid {
+  margin-top: 0 !important;
+}
+
+/* ============================================================================
+ * Depth-style cover scaling around the libraries bar.
+ *
+ * Goal: covers shrink continuously to a fraction of their normal size as they
+ * scroll up "behind" the (overlay) libraries bar, and stay at 100% while
+ * sitting fully below it — exactly the dynamic effect the user wants.
+ *
+ * The per-cell visual position cannot be tracked from pure CSS while
+ * react-window 2.x positions cells via `transform: translate(...)` (CSS
+ * `view()` timelines read the layout box, which is the same for every cell).
+ * Instead, the React-side hook `useCoverScaleAroundBar` measures each pad's
+ * `getBoundingClientRect()` against the bar's bottom edge on every scroll
+ * (rAF-throttled, capture-phase so ancestor scrolls also count) and writes
+ * a `--mhg-cell-scale` CSS variable per pad — `1` when fully below the bar,
+ * the configured floor (`SCALE_MIN` in the hook) when fully above,
+ * interpolated linearly in between while crossing.
+ *
+ * Transform target: `.virtualized-grid-cell-pad` (the inner pad div), never
+ * the cell wrapper — the wrapper carries `transform: translate(...)` for
+ * positioning and a `scale` on the same element would overwrite it.
+ *
+ * Skins that don't ship the React hook simply have no variable set; the
+ * fallback `var(--mhg-cell-scale, 1)` keeps covers at full size.
+ * ========================================================================= */
+.virtualized-grid-cell-pad {
+  transform: scale(var(--mhg-cell-scale, 1));
+  transform-origin: 50% 50%;
+}
+
+/* Non-virtualized cover items (tag list, non-virtualized collections rail,
+ * library item detail subcollection cells, non-virtualized games-list items).
+ * `useGlobalCoverScaleAroundBar` writes `--mhg-cell-scale` on each as it
+ * crosses the bar; without the variable set the fallback keeps them at 1.
+ */
+.tag-list-item,
+.collections-list-item--sized,
+.library-item-detail-subcollection-cell,
+.games-list-item--cover-sized {
+  transform: scale(var(--mhg-cell-scale, 1));
+  transform-origin: 50% 50%;
 }
