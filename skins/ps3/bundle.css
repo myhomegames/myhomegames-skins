@@ -1339,3 +1339,1081 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
 .home-page-scroll-container *[style*="overflow"]::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+/* =========================================================================
+ * GOG Galaxy-derived styles ported into PS3.
+ *
+ * The PS3 skin previously had no styling for the login page, the global
+ * search bar (header), and the Add Game modal/page, so those surfaces
+ * rendered with raw browser defaults. Reuse the GOG Galaxy look-and-feel
+ * verbatim — including the small set of `--gog-*` design tokens it relies
+ * on — so the three surfaces match the rest of the dark theme.
+ *
+ * Only the tokens actually consumed by the rules below are mirrored; the
+ * rest of the GOG palette is intentionally not copied to keep the PS3
+ * surface unaffected elsewhere.
+ * ========================================================================= */
+:root {
+  --gog-icon-accent: #c4b5fd;
+  --gog-icon-accent-strong: #ddd6fe;
+  --gog-text-main: rgba(255, 255, 255, 0.9);
+  --gog-text-muted: rgba(255, 255, 255, 0.68);
+  --gog-header-chip: rgba(6, 10, 18, 0.82);
+  --gog-header-chip-border: rgba(214, 153, 47, 0.28);
+}
+
+/* ---------- Search bar (header) ---------- */
+.mhg-search-container {
+  display: flex;
+  flex: 0 1 min(420px, 42vw);
+  min-width: 0;
+  max-width: min(420px, 42vw);
+  justify-content: flex-end;
+}
+
+.mhg-header-container:has(.mhg-title-filter-wrapper) > .mhg-search-container {
+  flex: 0 1 min(260px, 28vw);
+  max-width: min(260px, 28vw);
+}
+
+.mhg-search-container-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 36px;
+  background-color: var(--gog-header-chip);
+  border: 1px solid var(--gog-header-chip-border);
+  border-radius: 18px;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.mhg-search-container-wrapper:focus-within {
+  background-color: rgba(10, 18, 30, 0.9);
+  border-color: rgba(239, 180, 75, 0.52);
+  box-shadow: 0 0 0 2px rgba(214, 153, 47, 0.2);
+}
+
+.mhg-search-icon-wrapper {
+  flex-shrink: 0;
+  pointer-events: none;
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+  border-radius: 20px 0 0 20px;
+}
+
+.mhg-search-input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-weight: 400;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.mhg-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.mhg-dropdown {
+  background-color: rgba(10, 14, 22, 0.92);
+  border: 1px solid rgba(214, 153, 47, 0.24);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.mhg-dropdown-item {
+  padding: 12px 16px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mhg-dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.search-bar-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-bar-wrapper {
+  position: relative;
+  z-index: 10002;
+}
+
+.search-bar-wrapper.search-focused {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.search-bar-wrapper.search-focused .mhg-search-input {
+  color: #000000 !important;
+}
+
+.search-bar-wrapper.search-focused .mhg-search-input::placeholder {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.search-icon-focused {
+  color: #000000 !important;
+}
+
+.search-input-with-padding {
+  position: relative;
+  z-index: 101;
+}
+
+.search-input-with-padding.has-query {
+  padding-right: 36px;
+}
+
+.search-clear-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 102;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.2s ease;
+}
+
+.search-clear-button:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.search-bar-wrapper.search-focused .search-clear-button {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.search-bar-wrapper.search-focused .search-clear-button:hover {
+  color: rgba(0, 0, 0, 1);
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: auto;
+  right: 0;
+  margin-top: 0px;
+  z-index: 10003;
+  pointer-events: auto;
+  width: min(640px, calc(100vw - 32px));
+  max-height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.search-dropdown.search-dropdown--modal-hidden {
+  display: none;
+}
+
+.search-dropdown-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.search-recent-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  cursor: pointer;
+}
+
+.search-recent-icon {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.6);
+  width: 20px;
+  height: 20px;
+}
+
+.search-recent-remove {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  margin-left: auto;
+}
+
+.search-recent-remove:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.search-dropdown-footer {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #1a1a1a;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.search-view-all-button {
+  padding: 10px 20px;
+  background-color: #e5a00d;
+  border: 1px solid #e5a00d;
+  border-radius: 6px;
+  color: #000000;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.search-view-all-button:hover {
+  background-color: #f5b041;
+  border-color: #f5b041;
+}
+
+.search-no-results {
+  position: absolute;
+  top: 100%;
+  left: auto;
+  right: 0;
+  margin-top: 0px;
+  z-index: 10003;
+  pointer-events: auto;
+  width: min(640px, calc(100vw - 32px));
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+}
+
+.search-dropdown-header {
+  padding: 16px 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #1a1a1a;
+  flex-shrink: 0;
+}
+
+.search-dropdown-item,
+.search-results-list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.search-dropdown-item {
+  padding: 16px 20px;
+  align-content: flex-start;
+  gap: 16px;
+  text-align: left;
+  width: calc(100% - 40px);
+  margin-left: 20px;
+  margin-right: 20px;
+  box-sizing: border-box;
+}
+
+.search-dropdown-item.has-border {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search-results-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.search-result-thumbnail {
+  width: 60px;
+  height: 90px;
+  min-width: 60px;
+  min-height: 90px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.search-result-content,
+.search-results-list-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.search-result-title,
+.search-results-list-title {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 600;
+  color: #f8f8f8;
+  cursor: pointer;
+}
+
+.search-dropdown-item .games-list-title-clickable:hover,
+.search-results-list-item .games-list-title-clickable:hover {
+  text-decoration: none;
+}
+
+.search-result-title {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.search-results-list-title {
+  font-size: 1.2rem;
+}
+
+.search-result-game-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  align-self: center;
+}
+
+.search-result-game-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.search-result-type-label {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.72rem;
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.08);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  flex-shrink: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-date,
+.search-results-list-date {
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+.search-result-summary {
+  font-weight: 400;
+}
+
+.search-result-game-summary {
+  margin: 0;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.65);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.search-result-right-actions {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.search-result-actions {
+  display: flex;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+  position: relative;
+  z-index: 10005;
+}
+
+.search-result-dropdown-menu {
+  position: relative;
+  z-index: 10005;
+}
+
+.search-result-actions .dropdown-menu-button {
+  opacity: 1 !important;
+}
+
+.search-result-actions .dropdown-menu-wrapper,
+.search-dropdown-item .dropdown-menu-wrapper {
+  position: relative;
+  z-index: 10005;
+}
+
+.search-dropdown-item .dropdown-menu-popup {
+  z-index: 10005 !important;
+}
+
+.search-result-actions .additional-executables-dropdown-menu,
+.search-dropdown-item .additional-executables-dropdown-menu {
+  z-index: 10006 !important;
+}
+
+.search-result-play-button {
+  flex-shrink: 0;
+  background: none;
+  border: 2px solid var(--gog-icon-accent);
+  color: var(--gog-icon-accent);
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  width: 40px;
+  height: 40px;
+}
+
+.search-result-play-button:hover {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.search-result-play-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---------- Add Game (modal + page) ---------- */
+.add-game-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+@keyframes ps3-add-game-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.add-game-container {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  width: 100%;
+  max-width: 900px;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  animation: ps3-add-game-slide-up 0.3s ease-out;
+}
+
+@keyframes ps3-add-game-slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.add-game-header {
+  padding: 24px 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+}
+
+.add-game-title {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.add-game-content {
+  padding: 24px 32px;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #1a1a1a;
+}
+
+.add-game-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.add-game-create-from-scratch {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.add-game-create-label {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 10px;
+}
+
+.add-game-create-row {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.add-game-create-input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.add-game-create-btn {
+  flex-shrink: 0;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #ffb300 0%, #e6a000 100%);
+  border: none;
+  border-radius: 12px;
+  color: #0f0f0f;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-game-create-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ffc233 0%, #ffb300 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 179, 0, 0.35);
+}
+
+.add-game-create-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.add-game-create-error {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.add-game-search-container {
+  margin-bottom: 24px;
+}
+
+.add-game-search-input {
+  width: 100%;
+  background: rgba(42, 42, 42, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transition: all 0.2s ease;
+}
+
+.add-game-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.add-game-search-input:focus {
+  outline: none;
+  border-color: #ffb300;
+  background: rgba(42, 42, 42, 1);
+  box-shadow: 0 0 0 3px rgba(255, 179, 0, 0.1);
+}
+
+.add-game-error {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  color: #fca5a5;
+  font-size: 0.875rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.add-game-results {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.add-game-results::-webkit-scrollbar {
+  width: 8px;
+}
+
+.add-game-results::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.add-game-results::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.add-game-results::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 179, 0, 0.5);
+}
+
+.add-game-empty-state {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 48px 24px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1rem;
+}
+
+.add-game-loading {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 48px 24px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.add-game-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #ffb300;
+  border-radius: 50%;
+  animation: ps3-add-game-spin 0.8s linear infinite;
+}
+
+@keyframes ps3-add-game-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.add-game-results-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.add-game-result-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(42, 42, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-game-result-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 179, 0, 0.05) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.add-game-result-item:hover {
+  background: rgba(42, 42, 42, 0.9);
+  border-color: rgba(255, 179, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 179, 0, 0.2);
+}
+
+.add-game-result-item:hover::before {
+  opacity: 1;
+}
+
+.add-game-result-cover-wrap {
+  flex-shrink: 0;
+}
+
+.add-game-result-cover-wrap .games-list-cover {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.add-game-result-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.add-game-result-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.add-game-result-title {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.add-game-result-type-label {
+  display: inline-block;
+  padding: 4px 8px;
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.45);
+  border-radius: 4px;
+  color: #fb923c;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  flex-shrink: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.add-game-result-new-label {
+  display: inline-block;
+  padding: 4px 8px;
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 4px;
+  color: #4ade80;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  flex-shrink: 0;
+}
+
+.add-game-result-date {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.add-game-result-summary {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.add-game-page-root {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.add-game-page-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.add-game-page-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #ffb300;
+  border-radius: 50%;
+  animation: ps3-add-game-spin 0.8s linear infinite;
+  margin-bottom: 16px;
+}
+
+.add-game-page-loading-text {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- Login page ---------- */
+.login-page-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.login-page-title {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.login-page-lead {
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.login-page-twitch-btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background-color: #9146ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.login-page-twitch-btn:hover {
+  background-color: #772ce8;
+}
+
+.login-page-settings-hint {
+  margin-top: 1.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.login-page-settings-link {
+  color: #e5a00d;
+  text-decoration: none;
+}
+
+.login-page-missing-primary {
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  max-width: 400px;
+}
+
+.login-page-missing-secondary {
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  max-width: 400px;
+  font-size: 0.9rem;
+}
+
+.login-page-settings-cta {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background-color: #e5a00d;
+  color: #000000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  display: inline-block;
+}
+
+.login-page-settings-cta:hover {
+  background-color: #f5b041;
+}
+
+/* ---------- Sidebar search popup (GameSearchModal) ----------
+ * Triggered by `web.sidebarSearchPopup`. The skin previously had no styling
+ * for `.game-search-modal*`, so the popup rendered with no chrome at all.
+ * Mirror the GOG Galaxy modal so the popup is visible and usable in PS3.
+ */
+.game-search-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10002;
+  pointer-events: auto;
+}
+
+.game-search-modal {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  height: 500px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.game-search-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-search-modal-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.game-search-modal-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.2s ease;
+}
+
+.game-search-modal-close:hover {
+  color: #ffffff;
+}
+
+.game-search-modal-search {
+  position: relative;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-search-modal-search input {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.game-search-modal-search input:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.game-search-modal-search input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.game-search-modal-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+  min-height: 200px;
+}
+
+.game-search-modal-empty {
+  padding: 40px 24px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+}
+
+.game-search-modal-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
