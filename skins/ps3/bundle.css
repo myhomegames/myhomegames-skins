@@ -103,8 +103,24 @@ body {
    * to nudge a single page type without touching the others.
    */
   --mhg-grid-top-inset-tag: calc(var(--mhg-ps3-library-bar-effective-bottom) + 220px);
-  --mhg-grid-top-inset-games: calc(var(--mhg-ps3-library-bar-effective-bottom) + 420px);
-  --mhg-grid-top-inset-collections: calc(var(--mhg-ps3-library-bar-effective-bottom) + 420px);
+  /* Extra start spacer for virtualized rails (games + collection-like). */
+  --mhg-grid-top-inset-virtualized-extra: 220px;
+  --mhg-grid-top-inset-games: calc(
+    var(--mhg-ps3-library-bar-effective-bottom) + 420px + var(--mhg-grid-top-inset-virtualized-extra)
+  );
+  /*
+   * Additional spacer INSIDE react-window scrollers (no negative margins):
+   * this is what gives the first virtualized cover extra travel under the bar.
+   */
+  --mhg-ps3-virtualized-scroll-top-spacer-games: calc(
+    var(--mhg-ps3-library-bar-effective-bottom) + 20px
+  );
+  --mhg-ps3-virtualized-scroll-top-spacer-collections: calc(
+    var(--mhg-ps3-library-bar-effective-bottom) + 185px
+  );
+  --mhg-grid-top-inset-collections: calc(
+    var(--mhg-ps3-library-bar-effective-bottom) + 420px + var(--mhg-grid-top-inset-virtualized-extra)
+  );
   --mhg-grid-top-inset-recommended: var(--mhg-ps3-library-bar-effective-bottom);
   --mhg-grid-top-inset: var(--mhg-grid-top-inset-tag);
   /*
@@ -971,7 +987,7 @@ body {
     )
   ) !important;
   margin-right: auto !important;
-  margin-top: 165px;
+  margin-top: 0 !important;
 }
 
 /*
@@ -2642,6 +2658,16 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
 .mhg-vertical-covers-page .games-list-container--virtualized .virtualized-games-grid,
 :root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-container--virtualized .virtualized-games-grid {
   margin-top: 0 !important;
+  padding-top: var(--mhg-ps3-virtualized-scroll-top-spacer-games) !important;
+  box-sizing: border-box;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+  .home-page-scroll-container:not(.table-view)
+  .collections-list-container--virtualized
+  .virtualized-collections-grid {
+  padding-top: var(--mhg-ps3-virtualized-scroll-top-spacer-collections) !important;
+  box-sizing: border-box;
 }
 
 /* Non-virtualized fallback grids: no negative pull, no extra top margin. */
