@@ -6694,6 +6694,11 @@ fieldset.edit-game-modal-field {
   top: auto;
   left: auto;
   z-index: auto;
+  /* Inline page toolbar uses top 0 / bottom 8px — in the 52px dock row that reads visually high vs
+     logo, spinner, and view mode (all `align-items: center`). Use balanced vertical padding; less
+     left inset than the in-page bar (no library strip beside this slot). */
+  padding: 6px 36px 6px 10px;
+  box-sizing: border-box;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo {
