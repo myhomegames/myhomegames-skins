@@ -6639,22 +6639,55 @@ fieldset.edit-game-modal-field {
   overflow-y: auto;
 }
 
-/* GOG sidebar: dock controls sit on the right edge of the column so they do not crowd the list. */
+/*
+ * GOG persistent shell: the sidebar is ~300px wide. An in-flow top dock cannot fit the page
+ * toolbar (filter / sort / count) next to logo, spinner, views, slider, and menu — the toolbar
+ * slot shrinks to zero (`flex-shrink`, `min-width: 0`). Pin the dock to the main column below
+ * the header and reserve the same vertical band in the sidebar with a flex spacer (::before).
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]::before {
+  content: "";
+  display: block;
+  flex: 0 0 var(--mhg-top-tool-dock-band-height, 52px);
+  height: var(--mhg-top-tool-dock-band-height, 52px);
+  width: 100%;
+  flex-shrink: 0;
+}
+
 .app-main-container[data-mhg-persistent-library-shell="true"]
   .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
   .mhg-top-right-tool-dock {
+  position: fixed;
+  left: var(--gog-sidebar-width);
+  right: 0;
+  top: 64px;
+  width: auto !important;
+  height: var(--mhg-top-tool-dock-band-height, 52px);
+  box-sizing: border-box;
+  z-index: 10005;
+  background: var(--gog-list-column-bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   justify-content: flex-end;
-  padding-left: 8px;
+  padding-left: 12px;
   padding-right: 10px;
 }
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
   .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
   .mhg-top-right-tool-dock-inner {
-  margin-left: auto;
-  flex: 0 0 auto;
-  width: auto;
-  max-width: 100%;
+  margin-left: 0;
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-slot {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 /*
@@ -6739,6 +6772,15 @@ fieldset.edit-game-modal-field {
   top: auto;
   left: auto;
   z-index: auto;
+}
+
+/* GOG shell + dock: toolbar is no longer `position: fixed` in the main column — balance padding
+   in the dock row (see Plex skin dock toolbar). */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-inner
+  .games-list-toolbar {
+  padding: 6px 24px 6px 8px;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo {
@@ -10391,6 +10433,17 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
  */
 .home-page-main-container .home-page-content {
   padding-top: 64px;
+}
+
+/* Fixed top tool dock in the main column — keep list content below the band. */
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(
+    .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  )
+  .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+    .igdb-game-detail-main-container
+  )
+  .home-page-content {
+  padding-top: calc(64px + var(--mhg-top-tool-dock-band-height, 52px));
 }
 
 .home-page-main-container .home-page-content-wrapper.has-toolbar {
