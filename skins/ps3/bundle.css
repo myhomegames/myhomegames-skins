@@ -346,6 +346,7 @@ body {
   flex: 0 0 var(--mhg-top-tool-dock-band-height);
   height: var(--mhg-top-tool-dock-band-height);
   width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -370,17 +371,21 @@ body {
   min-height: var(--mhg-top-tool-dock-band-height);
   height: var(--mhg-top-tool-dock-band-height);
   max-width: 100%;
+  min-width: 0;
   padding: 0 10px;
   border: 1px solid #fff;
   border-radius: 0;
   pointer-events: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  font-size: 0.8125rem;
+  line-height: 1.25;
 }
 
 /*
- * Page toolbar portal slot inside the top-right tool dock.
- * `flex: 0 1 auto` keeps the slot collapsed when no page portals its toolbar in
- * (so the icon row stays compact, as if the slot did not exist) and lets it
- * grow to the toolbar's natural width when the portal is populated.
+ * Page toolbar portal slot: center the portaled toolbar horizontally. When a toolbar is present,
+ * the slot grows (`:has(.games-list-toolbar)`) so filter/sort/count sit in the middle of the
+ * white chrome between spinner and view controls; when absent the slot stays compact.
  */
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-page-toolbar-slot {
   flex: 0 1 auto;
@@ -388,19 +393,28 @@ body {
   min-height: 0;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   overflow-x: auto;
   overflow-y: visible;
-  padding: 0;
+  padding: 0 2px;
   box-sizing: border-box;
+}
+
+/* Grow the middle band only when the page portals a toolbar — keeps the strip compact otherwise. */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-inner:has(.games-list-toolbar)
+  .mhg-top-right-tool-dock-page-toolbar-slot {
+  flex: 1 1 auto;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-page-toolbar-inner {
   display: flex;
   align-items: center;
-  flex: 0 0 auto;
+  justify-content: center;
+  flex: 0 1 auto;
   min-width: 0;
   max-width: 100%;
+  width: 100%;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
@@ -410,6 +424,75 @@ body {
   top: auto;
   left: auto;
   z-index: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0 2px;
+  margin: 0;
+  flex-wrap: nowrap;
+  gap: 2px;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+/* Skin base (Plex-like) uses wide padding / negative item overlap — keep filter/sort/count inside the PS3 white chrome. */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-inner
+  .games-list-toolbar-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 2px;
+  min-width: 0;
+  width: 100%;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-inner
+  .games-list-toolbar-item:not(:first-child) {
+  margin-left: -20px;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-inner
+  .games-list-toolbar-button {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px 2px 22px;
+  gap: 4px;
+  font-size: inherit;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-inner
+  .games-list-toolbar-value {
+  white-space: nowrap;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-inner
+  .games-list-toolbar-arrow {
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-inner
+  .games-list-toolbar-count {
+  font-size: 0.6875rem;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-inner
+  .games-list-toolbar-clear-button {
+  left: 4px;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo {
@@ -450,6 +533,22 @@ body {
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games {
   display: flex;
   align-items: center;
+  font-size: inherit;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view .view-mode-button {
+  font-size: 0.8125rem;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view .view-mode-arrow {
+  flex-shrink: 0;
+  align-self: center;
 }
 
 .mhg-libraries-bar-container {
