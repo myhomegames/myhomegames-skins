@@ -113,6 +113,13 @@ body {
    * the first cover below the libraries bar is the focal reference.
    */
   --mhg-step-scroll-rows: 1;
+  /*
+   * `useGlobalCoverScaleAroundBar`: tag index tiles (`.tag-list-item`) only —
+   * shifts the shrink reference line upward by this many CSS pixels so
+   * rimpicciolimento starts slightly later while scrolling up. 0 = same as
+   * other lists. Read at runtime from :root.
+   */
+  --mhg-tag-scale-bar-lift-px: 56;
 }
 
 #root {
