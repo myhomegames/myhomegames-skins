@@ -102,9 +102,9 @@ body {
    * Recommended UP — toggle each per-page var (`--mhg-grid-top-inset-*`)
    * to nudge a single page type without touching the others.
    */
-  --mhg-grid-top-inset-tag: calc(var(--mhg-ps3-library-bar-effective-bottom) + 220px);
-  --mhg-grid-top-inset-games: calc(var(--mhg-ps3-library-bar-effective-bottom) + 420px);
-  --mhg-grid-top-inset-collections: calc(var(--mhg-ps3-library-bar-effective-bottom) + 420px);
+  --mhg-grid-top-inset-tag: calc(var(--mhg-ps3-library-bar-effective-bottom) + 160px);
+  --mhg-grid-top-inset-games: calc(var(--mhg-ps3-library-bar-effective-bottom) + 2px);
+  --mhg-grid-top-inset-collections: calc(var(--mhg-ps3-library-bar-effective-bottom) + 170px);
   --mhg-grid-top-inset-recommended: var(--mhg-ps3-library-bar-effective-bottom);
   --mhg-grid-top-inset: var(--mhg-grid-top-inset-tag);
   /*
