@@ -1240,7 +1240,7 @@ body {
   padding-left: 0 !important;
   padding-right: 0 !important;
   margin-top: 0 !important;
-  min-height: 100% !important;
+  min-height: max(100%, 100dvh) !important;
   overflow-x: hidden !important;
 }
 
@@ -1801,9 +1801,12 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   margin-top: calc(
     35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
   ) !important;
-  min-height: calc(
-    100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)
-  ) !important;
+  /*
+   * Rail height is owned by `VirtualizedCollectionsList` (react-window). It adds
+   * the resolved negative margin-top to the measured scroll height so the grid
+   * still reaches the bottom of the screen; wrapper `min-height` does not affect
+   * that measurement.
+   */
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
@@ -3468,7 +3471,6 @@ body > .additional-executables-dropdown-menu {
 .mhg-library-vertical-covers .games-list-container--virtualized .virtualized-list-fade,
 .mhg-vertical-covers-page .games-list-container--virtualized .virtualized-list-fade,
 :root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-vertical-covers-page .games-list-container--virtualized .virtualized-list-fade,
-:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .virtualized-list-fade,
 :root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-container--virtualized .virtualized-list-fade {
   margin-top: 0 !important;
   min-height: 100% !important;
