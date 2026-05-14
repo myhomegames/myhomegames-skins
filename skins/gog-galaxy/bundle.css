@@ -8080,6 +8080,27 @@ fieldset.edit-game-modal-field {
   margin-left: 8px;
 }
 
+/*
+ * Top dock (`web.topRightToolDock`): when `GamesListToolbar` uses
+ * `dockToolbarPopups`, it sets `data-mhg-toolbar-popup-fixed` and
+ * `--mhg-toolbar-popup-*` on the filter/sort row; these rules pin panels to
+ * the viewport under that row.
+ */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+  .filter-popup,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+  .sort-popup {
+  position: fixed;
+  top: var(--mhg-toolbar-popup-top);
+  left: var(--mhg-toolbar-popup-left);
+  margin-top: 0;
+  right: auto;
+  bottom: auto;
+  z-index: 10020;
+}
+
 
 
 /* --- ./components/ui/AlphabetNavigator.css --- */
