@@ -1208,6 +1208,8 @@ body {
   flex-direction: column !important;
   align-items: flex-start !important;
   justify-content: flex-start !important;
+  overflow-x: hidden !important;
+  min-width: 0 !important;
   grid-template-columns: none !important;
   margin-left: max(
     0px,
@@ -1228,10 +1230,30 @@ body {
   min-width: min(var(--mhg-vertical-column-width), calc(100vw - 140px)) !important;
 }
 
+/* Collection-like list (non-virtualized): a bit more horizontal budget than tag rows. */
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-item--sized {
+  width: min(var(--mhg-vertical-column-width), calc(100vw - 72px)) !important;
+  min-width: min(var(--mhg-vertical-column-width), calc(100vw - 72px)) !important;
+}
+
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .virtualized-list-fade {
   padding-left: 0 !important;
   padding-right: 0 !important;
+  margin-top: 0 !important;
   min-height: 100% !important;
+  overflow-x: hidden !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized {
+  overflow-x: hidden !important;
+}
+
+/* Virtualized row cells own width; avoid a fixed `min(360px, 100vw-140px)` wider than the cell (clips covers). */
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .collections-list-item--sized {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+  box-sizing: border-box !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .virtualized-collections-grid {
@@ -1244,6 +1266,9 @@ body {
     )
   ) !important;
   margin-right: auto !important;
+  /* react-window sets inline `overflow: auto`; split axes so the vertical rail never shows a horizontal scrollbar. */
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
 }
 
 /* Recommended page (ScrollableGamesSection): force vertical rail and align to active icon line. */
@@ -1329,6 +1354,20 @@ body {
 /* Tag pages: shorter scroll viewport. */
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.tag-list-container) {
   height: 880px;
+}
+
+/* Virtualized collection-like (Collections / Developers / Publishers): same scroll
+ * chrome as Library games — `.mhg-library-vertical-covers .home-page-scroll-container`
+ * (see ~L1384) — bounded viewport, no outer vertical scroller; wheel hits react-window
+ * so VirtualizedCollectionsList session scroll matches what the user moves. */
+:root[data-mhg-vertical-cover-alignment="true"]
+  .home-page-scroll-container:not(.table-view):has(.collections-list-container--virtualized) {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  height: 100vh !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mhg-library-vertical-covers .home-page-content-wrapper.has-toolbar .home-page-scroll-container:not(.table-view),
