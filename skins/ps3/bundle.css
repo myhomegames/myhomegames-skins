@@ -104,7 +104,8 @@ body {
    */
   --mhg-grid-top-inset-tag: calc(var(--mhg-ps3-library-bar-effective-bottom) + 160px);
   --mhg-grid-top-inset-games: calc(var(--mhg-ps3-library-bar-effective-bottom) + 2px);
-  --mhg-grid-top-inset-collections: calc(var(--mhg-ps3-library-bar-effective-bottom) + 210px);
+  /* First cover on collection-like pages (last cover uses --mhg-grid-last-cover-raise-*). */
+  --mhg-grid-top-inset-collections: calc(var(--mhg-ps3-library-bar-effective-bottom) + 2px);
   --mhg-grid-top-inset-recommended: var(--mhg-ps3-library-bar-effective-bottom);
   --mhg-grid-top-inset: var(--mhg-grid-top-inset-tag);
   /*
@@ -115,7 +116,11 @@ body {
    */
   --mhg-grid-bottom-inset-tag: calc(100dvh - var(--mhg-ps3-library-bar-effective-bottom));
   --mhg-grid-bottom-inset-games: calc(100dvh - var(--mhg-ps3-library-bar-effective-bottom));
-  --mhg-grid-bottom-inset-collections: calc(100dvh - var(--mhg-ps3-library-bar-effective-bottom));
+  /* Collection-like: scroll cap is enforced in JS (VirtualizedCollectionsList), not bottom pad. */
+  --mhg-grid-bottom-inset-collections: 0px;
+  /* How far the last cover may rise above the first-cover line (VirtualizedCollectionsList). */
+  --mhg-grid-last-cover-raise-collections: 20px;
+  --mhg-grid-last-cover-raise: 0px;
   --mhg-grid-bottom-inset-recommended: calc(100dvh - var(--mhg-ps3-library-bar-effective-bottom));
   --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-tag);
   /*
@@ -1805,19 +1810,13 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   ) !important;
 }
 
+/* Collection-like virtualized: alignment via `--mhg-grid-top-inset-collections`
+ * (read in VirtualizedCollectionsList), not legacy negative margin-top. */
 :root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
   .home-page-scroll-container:not(.table-view)
   .collections-list-container--virtualized
   .virtualized-list-fade {
-  margin-top: calc(
-    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
-  ) !important;
-  /*
-   * Rail height is owned by `VirtualizedCollectionsList` (react-window). It adds
-   * the resolved negative margin-top to the measured scroll height so the grid
-   * still reaches the bottom of the screen; wrapper `min-height` does not affect
-   * that measurement.
-   */
+  margin-top: 0 !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
@@ -3451,6 +3450,7 @@ body > .additional-executables-dropdown-menu {
   .home-page-scroll-container:has(.collections-list-container) {
   --mhg-grid-top-inset: var(--mhg-grid-top-inset-collections);
   --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-collections);
+  --mhg-grid-last-cover-raise: var(--mhg-grid-last-cover-raise-collections);
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll {
@@ -3487,7 +3487,11 @@ body > .additional-executables-dropdown-menu {
 .mhg-library-vertical-covers .games-list-container--virtualized .virtualized-list-fade,
 .mhg-vertical-covers-page .games-list-container--virtualized .virtualized-list-fade,
 :root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-vertical-covers-page .games-list-container--virtualized .virtualized-list-fade,
-:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-container--virtualized .virtualized-list-fade {
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-container--virtualized .virtualized-list-fade,
+:root[data-mhg-vertical-cover-alignment="true"]
+  .home-page-scroll-container:not(.table-view)
+  .collections-list-container--virtualized
+  .virtualized-list-fade {
   margin-top: 0 !important;
   min-height: 100% !important;
 }
