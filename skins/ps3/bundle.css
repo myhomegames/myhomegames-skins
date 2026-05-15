@@ -104,9 +104,20 @@ body {
    */
   --mhg-grid-top-inset-tag: calc(var(--mhg-ps3-library-bar-effective-bottom) + 160px);
   --mhg-grid-top-inset-games: calc(var(--mhg-ps3-library-bar-effective-bottom) + 2px);
-  --mhg-grid-top-inset-collections: calc(var(--mhg-ps3-library-bar-effective-bottom) + 170px);
+  --mhg-grid-top-inset-collections: calc(var(--mhg-ps3-library-bar-effective-bottom) + 210px);
   --mhg-grid-top-inset-recommended: var(--mhg-ps3-library-bar-effective-bottom);
   --mhg-grid-top-inset: var(--mhg-grid-top-inset-tag);
+  /*
+   * Extra scroll range after the last cover so it can scroll further up
+   * (toward the libraries bar), mirroring `--mhg-grid-top-inset` at the top.
+   * Read by `readGridBottomInsetPx` / virtualized grids; non-virtualized pages
+   * use `padding-bottom` with the same per-page `--mhg-grid-bottom-inset`.
+   */
+  --mhg-grid-bottom-inset-tag: calc(100dvh - var(--mhg-ps3-library-bar-effective-bottom));
+  --mhg-grid-bottom-inset-games: calc(100dvh - var(--mhg-ps3-library-bar-effective-bottom));
+  --mhg-grid-bottom-inset-collections: calc(100dvh - var(--mhg-ps3-library-bar-effective-bottom));
+  --mhg-grid-bottom-inset-recommended: calc(100dvh - var(--mhg-ps3-library-bar-effective-bottom));
+  --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-tag);
   /*
    * Opt-in for the PS3 XMB-style discrete scroll: read by useStepScrollAroundBar
    * to convert each wheel/trackpad gesture into a one-cover step, snapped so
@@ -3433,15 +3444,18 @@ body > .additional-executables-dropdown-menu {
 .mhg-library-vertical-covers.home-page-content,
 .mhg-vertical-covers-page .home-page-scroll-container {
   --mhg-grid-top-inset: var(--mhg-grid-top-inset-games);
+  --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-games);
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
   .home-page-scroll-container:has(.collections-list-container) {
   --mhg-grid-top-inset: var(--mhg-grid-top-inset-collections);
+  --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-collections);
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll {
   --mhg-grid-top-inset: var(--mhg-grid-top-inset-recommended);
+  --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-recommended);
 }
 
 /* Tag/collection-like/Recommended pages scroll the page-level container
@@ -3459,10 +3473,12 @@ body > .additional-executables-dropdown-menu {
 :root[data-mhg-vertical-cover-alignment="true"]
   .home-page-scroll-container:not(.table-view):has(.library-item-detail-subcollections-grid) {
   padding-top: var(--mhg-grid-top-inset) !important;
+  padding-bottom: var(--mhg-grid-bottom-inset) !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll {
   padding-top: var(--mhg-grid-top-inset) !important;
+  padding-bottom: var(--mhg-grid-bottom-inset) !important;
 }
 
 /* Inner virtualized rail: reset the legacy compensations so the rail starts
