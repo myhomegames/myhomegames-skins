@@ -9,6 +9,7 @@
     "topRightToolDock": true,
     "sidebarSearchPopup": true,
     "disableAlphabetNavigator": true,
-    "verticalCoverAlignment": true
+    "verticalCoverAlignment": true,
+    "compactCollectionLikeDetail": true
   }
 }
