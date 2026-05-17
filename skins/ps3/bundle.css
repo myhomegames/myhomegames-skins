@@ -423,7 +423,9 @@ body *::-webkit-scrollbar-corner {
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
  .mhg-top-right-tool-dock-inner:has(.filter-popup),
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- .mhg-top-right-tool-dock-inner:has(.sort-popup) {
+ .mhg-top-right-tool-dock-inner:has(.sort-popup),
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner:has(.dropdown-menu-popup) {
  /*With `overflow-x: auto`, `overflow-y: visible` is treated as `auto` and clips
  absolutely positioned dropdowns. Allow overflow on both axes while open.*/
  overflow: visible;
@@ -2318,6 +2320,31 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  opacity: 1 !important;
 }
 
+/* Dock / detail / libraries strip: ⋮ always visible (not cover hover-only). */
+.mhg-libraries-menu-dropdown .dropdown-menu-button,
+.mhg-top-right-tool-dock-menu .dropdown-menu-button,
+.mhg-top-right-tool-dock-menu-dropdown .dropdown-menu-button,
+.library-item-detail-dropdown-menu .dropdown-menu-button,
+.library-item-detail-libraries-bar-host--dock-only .dropdown-menu-button,
+.tag-games-libraries-bar-host--dock-only .dropdown-menu-button {
+ opacity: 1 !important;
+}
+
+.mhg-libraries-menu-dropdown .dropdown-menu-button svg,
+.mhg-top-right-tool-dock-menu .dropdown-menu-button svg,
+.mhg-top-right-tool-dock-menu-dropdown .dropdown-menu-button svg,
+.library-item-detail-dropdown-menu .dropdown-menu-button svg,
+.library-item-detail-libraries-bar-host--dock-only .dropdown-menu-button svg,
+.tag-games-libraries-bar-host--dock-only .dropdown-menu-button svg {
+ color: rgba(255, 255, 255, 0.75);
+}
+
+.mhg-libraries-menu-dropdown .dropdown-menu-button:hover svg,
+.mhg-top-right-tool-dock-menu .dropdown-menu-button:hover svg,
+.library-item-detail-dropdown-menu .dropdown-menu-button:hover svg {
+ color: #ffffff;
+}
+
 .search-result-actions .dropdown-menu-wrapper,
 .search-dropdown-item .dropdown-menu-wrapper {
  position: relative;
@@ -3586,22 +3613,19 @@ body > .additional-executables-dropdown-menu {
  display: none !important;
 }
 
-/*Dock band + detail actions on one row (no absolute overlap).*/
+/* Dock band only: page actions live inside `.mhg-top-right-tool-dock-inner`. */
 .library-item-detail-libraries-bar-host--dock-only
+ > .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"],
+.tag-games-libraries-bar-host--dock-only
  > .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] {
- display: grid !important;
- grid-template-columns: minmax(0, 1fr) auto;
- grid-template-rows: auto;
- align-items: center;
- column-gap: 12px;
- row-gap: 0;
+ display: block !important;
  margin-bottom: 0 !important;
 }
 
-.library-item-detail-libraries-bar-host--dock-only .mhg-top-right-tool-dock {
- grid-column: 1;
- grid-row: 1;
+.library-item-detail-libraries-bar-host--dock-only .mhg-top-right-tool-dock,
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock {
  min-width: 0;
+ width: 100%;
 }
 
 .library-item-detail-libraries-bar-host--dock-only .mhg-top-right-tool-dock-inner {
@@ -3620,15 +3644,67 @@ body > .additional-executables-dropdown-menu {
 
 .library-item-detail-libraries-bar-host--dock-only
  .mhg-top-right-tool-dock-before-main-games
+ .library-item-detail-compact-top-action,
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-new-games
+ .library-item-detail-compact-top-action,
+.tag-games-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-new-games
  .library-item-detail-compact-top-action {
  display: inline-flex;
  align-items: center;
  justify-content: center;
+ flex-shrink: 0;
  width: 40px;
  height: 40px;
  margin: 0;
  padding: 0;
  transform: none;
+}
+
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-before-main-games
+ .library-item-detail-edit-button,
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-before-main-games
+ .library-item-detail-dropdown-menu {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ width: 40px;
+ height: 40px;
+ min-width: 40px;
+ min-height: 40px;
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+
+.library-item-detail-libraries-bar-host--dock-only .mhg-top-right-tool-dock-new-games,
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-new-games {
+ display: flex !important;
+ align-items: center !important;
+ align-self: center !important;
+ flex-shrink: 0;
+}
+
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-new-games
+ .new-games-toggle-button,
+.tag-games-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-new-games
+ .new-games-toggle-button {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ width: 40px;
+ height: 40px;
+ min-width: 40px;
+ min-height: 40px;
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
 }
 
 .library-item-detail-libraries-bar-host--dock-only
@@ -3651,22 +3727,9 @@ body > .additional-executables-dropdown-menu {
  display: none !important;
 }
 
-.library-item-detail-libraries-bar-host--dock-only
- .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- .mhg-libraries-bar-container {
- grid-column: 2;
- grid-row: 1;
- flex: 0 0 auto !important;
- flex-grow: 0 !important;
- min-height: 0 !important;
- height: var(--mhg-top-tool-dock-band-height, 56px) !important;
- margin-top: 0 !important;
- padding: 0 12px 0 0 !important;
- overflow: visible !important;
- display: flex !important;
- align-items: center !important;
- justify-content: flex-end !important;
- width: auto !important;
+.library-item-detail-libraries-bar-host--dock-only .mhg-libraries-bar-container,
+.tag-games-libraries-bar-host--dock-only .mhg-libraries-bar-container {
+ display: none !important;
 }
 
 .library-item-detail-libraries-bar-host--dock-only .mhg-libraries-actions {
@@ -3971,19 +4034,18 @@ body > .additional-executables-dropdown-menu {
  display: none !important;
 }
 
-.tag-games-libraries-bar-host--dock-only
- .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- .mhg-libraries-bar-container {
- flex: 0 0 0 !important;
- min-height: 0 !important;
- height: 0 !important;
- margin-top: 0 !important;
- padding: 0 !important;
- overflow: visible !important;
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-inner {
+ gap: 12px;
+ padding: 0 12px;
 }
 
-.tag-games-libraries-bar-host--dock-only .mhg-libraries-bar {
- margin-bottom: 0 !important;
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-view,
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-slider {
+ display: none !important;
+}
+
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-main-games {
+ flex-shrink: 0;
 }
 
 .tag-games-page-shell--context-rail .home-page-content,
