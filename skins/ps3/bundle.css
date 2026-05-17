@@ -3599,20 +3599,23 @@ body > .additional-executables-dropdown-menu {
  * ============================================================================= */
 .library-item-detail-page-shell--ps3-context-rail {
   /*
-   * Content starts below the dock; column 1 aligns with the first cover line on
-   * collection-like pages (`--mhg-grid-top-inset-collections`), i.e. below the
-   * full icon strip (gap + 96px tile + breathing room), not just under the dock.
+   * Decoupled layout:
+   * - `--mhg-ps3-detail-dock-stack`: pull the shell under the bar host (column 2 = full viewport).
+   * - `--mhg-ps3-detail-rail-top`: column 1 only (first-cover line on collection-like pages).
    */
   --mhg-ps3-detail-dock-stack: calc(
     var(--mhg-ps3-library-bar-margin-top, 64px) + var(--mhg-top-tool-dock-band-height, 56px)
   );
-  --mhg-ps3-detail-rail-icon-offset: calc(
-    var(--mhg-ps3-library-bar-effective-bottom, 204px) - var(--mhg-ps3-detail-dock-stack) + 2px
-  );
+  --mhg-ps3-detail-rail-top: calc(var(--mhg-ps3-library-bar-effective-bottom, 204px) + 2px);
   --mhg-ps3-detail-rail-icon-cover-gap: 12px;
-  height: calc(100vh - var(--mhg-ps3-detail-dock-stack)) !important;
-  max-height: calc(100vh - var(--mhg-ps3-detail-dock-stack)) !important;
+  margin-top: calc(-1 * var(--mhg-ps3-detail-dock-stack)) !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100vh !important;
+  max-height: 100dvh !important;
   overflow: hidden !important;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .library-item-detail-libraries-bar-host--ps3-dock-only {
@@ -3681,11 +3684,11 @@ body > .additional-executables-dropdown-menu {
 .library-item-detail-ps3-layout {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  min-height: 0;
+  min-height: 100%;
   box-sizing: border-box;
   /* Match `.mhg-libraries-bar-container` (20px) + strip padding (8px). */
   padding-left: calc(20px + 8px);
@@ -3699,8 +3702,7 @@ body > .additional-executables-dropdown-menu {
   align-items: flex-start;
   align-self: flex-start;
   flex-shrink: 0;
-  /* Same vertical slot as the icon strip on /collections (gap under the dock). */
-  padding-top: var(--mhg-ps3-detail-rail-icon-offset, 80px);
+  padding-top: var(--mhg-ps3-detail-rail-top, 204px);
   gap: var(--mhg-ps3-detail-rail-icon-cover-gap, 12px);
   z-index: 2;
 }
@@ -3716,22 +3718,24 @@ body > .additional-executables-dropdown-menu {
   flex: 1 1 auto;
   min-width: 0;
   min-height: 0;
+  height: 100%;
+  max-height: 100%;
   overflow-y: auto !important;
   overflow-x: hidden !important;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   align-self: stretch;
-  padding-top: 0;
-  /*
-   * Column 2 from the top; zero every inset var so VirtualizedGamesList does not
-   * fall through to `--mhg-grid-top-inset-games` (~bar height) for row 0.
-   */
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
   --mhg-grid-top-inset: 0px;
   --mhg-grid-top-inset-games: 0px;
   --mhg-grid-top-inset-collections: 0px;
   --mhg-grid-top-inset-tag: 0px;
   --mhg-grid-bottom-inset: 0px;
   --mhg-grid-bottom-inset-games: 0px;
+  --mhg-grid-bottom-inset-collections: 0px;
+  --mhg-grid-bottom-inset-tag: 0px;
 }
 
 .library-item-detail-scroll--ps3-context-rail
