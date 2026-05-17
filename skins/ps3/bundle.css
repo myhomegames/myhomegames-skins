@@ -3592,3 +3592,219 @@ body > .additional-executables-dropdown-menu {
   transform: scale(var(--mhg-cell-scale, 1));
   transform-origin: 50% 0%;
 }
+
+/* =============================================================================
+ * Collection-like detail (compact + vertical covers): dock on top; column 1 =
+ * library tab icon + opened cover (left); column 2 = scrollable games list.
+ * ============================================================================= */
+.library-item-detail-page-shell--ps3-context-rail {
+  /*
+   * Content starts below the dock; column 1 aligns with the first cover line on
+   * collection-like pages (`--mhg-grid-top-inset-collections`), i.e. below the
+   * full icon strip (gap + 96px tile + breathing room), not just under the dock.
+   */
+  --mhg-ps3-detail-dock-stack: calc(
+    var(--mhg-ps3-library-bar-margin-top, 64px) + var(--mhg-top-tool-dock-band-height, 56px)
+  );
+  --mhg-ps3-detail-rail-icon-offset: calc(
+    var(--mhg-ps3-library-bar-effective-bottom, 204px) - var(--mhg-ps3-detail-dock-stack) + 2px
+  );
+  --mhg-ps3-detail-rail-icon-cover-gap: 12px;
+  height: calc(100vh - var(--mhg-ps3-detail-dock-stack)) !important;
+  max-height: calc(100vh - var(--mhg-ps3-detail-dock-stack)) !important;
+  overflow: hidden !important;
+}
+
+.library-item-detail-libraries-bar-host--ps3-dock-only {
+  position: relative;
+}
+
+.library-item-detail-libraries-bar-host--ps3-dock-only .mhg-libraries-container,
+.library-item-detail-libraries-bar-host--ps3-dock-only .mhg-collections-shortcuts {
+  display: none !important;
+}
+
+.library-item-detail-libraries-bar-host--ps3-dock-only
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-libraries-bar-container {
+  flex: 0 0 0 !important;
+  min-height: 0 !important;
+  height: 0 !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.library-item-detail-libraries-bar-host--ps3-dock-only .mhg-libraries-bar {
+  margin-bottom: 0 !important;
+}
+
+/* Compact edit/delete actions: keep in the top dock row (toolbar is hidden on detail). */
+.library-item-detail-libraries-bar-host--ps3-dock-only .mhg-libraries-actions {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 12;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.library-item-detail-page-shell--ps3-context-rail .library-item-detail-main-inner,
+.library-item-detail-page-shell--ps3-context-rail .library-item-detail-layout-min-h,
+.library-item-detail-page-shell--ps3-context-rail .library-item-detail-content-wrapper,
+.library-item-detail-page-shell--ps3-context-rail .library-item-detail-main-min-h {
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: 100vh !important;
+}
+
+.library-item-detail-page-shell--ps3-context-rail .library-item-detail-scroll {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  height: 100% !important;
+  max-height: 100vh !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+.library-item-detail-scroll--ps3-context-rail {
+  overflow: hidden !important;
+}
+
+.library-item-detail-scroll--ps3-context-rail .library-item-detail-section-full.library-item-detail-ps3-layout {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
+.library-item-detail-ps3-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+  /* Match `.mhg-libraries-bar-container` (20px) + strip padding (8px). */
+  padding-left: calc(20px + 8px);
+  gap: 24px;
+}
+
+.library-item-detail-ps3-rail {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: flex-start;
+  flex-shrink: 0;
+  /* Same vertical slot as the icon strip on /collections (gap under the dock). */
+  padding-top: var(--mhg-ps3-detail-rail-icon-offset, 80px);
+  gap: var(--mhg-ps3-detail-rail-icon-cover-gap, 12px);
+  z-index: 2;
+}
+
+.library-item-detail-ps3-rail-library.mhg-library-button,
+.library-item-detail-ps3-rail-library.mhg-library-active {
+  width: 96px;
+  min-width: 96px;
+  height: 96px;
+}
+
+.library-item-detail-ps3-games {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  align-self: stretch;
+  padding-top: 0;
+  /*
+   * Column 2 from the top; zero every inset var so VirtualizedGamesList does not
+   * fall through to `--mhg-grid-top-inset-games` (~bar height) for row 0.
+   */
+  --mhg-grid-top-inset: 0px;
+  --mhg-grid-top-inset-games: 0px;
+  --mhg-grid-top-inset-collections: 0px;
+  --mhg-grid-top-inset-tag: 0px;
+  --mhg-grid-bottom-inset: 0px;
+  --mhg-grid-bottom-inset-games: 0px;
+}
+
+.library-item-detail-scroll--ps3-context-rail
+  .library-item-detail-ps3-games
+  .virtualized-grid-cell-pad,
+.library-item-detail-scroll--ps3-context-rail
+  .library-item-detail-ps3-games
+  .games-list-item--cover-sized {
+  --mhg-cell-scale: 1 !important;
+  transform: scale(1) !important;
+}
+
+.library-item-detail-scroll--ps3-context-rail
+  .library-item-detail-ps3-games
+  .virtualized-grid-cell-pad
+  .games-list-item--cover-sized {
+  width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.library-item-detail-ps3-rail-library.mhg-library-active .mhg-library-button-label {
+  display: block;
+}
+
+.library-item-detail-ps3-rail-cover {
+  width: var(--lid-cover-size, 150px);
+  max-width: min(var(--lid-cover-size, 150px), 40vw);
+}
+
+.library-item-detail-ps3-rail-cover .cover-container,
+.library-item-detail-ps3-rail-cover img {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Detail games column: left-aligned rail; no global icon-center margin shift. */
+.library-item-detail-scroll--ps3-context-rail .library-item-detail-ps3-games .library-item-detail-games-list,
+.library-item-detail-scroll--ps3-context-rail .library-item-detail-ps3-games .games-list-container,
+.library-item-detail-scroll--ps3-context-rail .library-item-detail-ps3-games .games-list-container--virtualized,
+.library-item-detail-scroll--ps3-context-rail .library-item-detail-ps3-games .virtualized-games-grid,
+.library-item-detail-scroll--ps3-context-rail .library-item-detail-ps3-games .virtualized-list-fade,
+:root[data-mhg-vertical-cover-alignment="true"]
+  .library-item-detail-scroll--ps3-context-rail
+  .library-item-detail-ps3-games
+  .virtualized-games-grid,
+:root[data-mhg-vertical-cover-alignment="true"]
+  .library-item-detail-scroll--ps3-context-rail
+  .library-item-detail-ps3-games
+  .games-list-container:not(.games-list-container--virtualized),
+:root[data-mhg-vertical-cover-alignment="true"]
+  .mhg-vertical-covers-page
+  .library-item-detail-scroll--ps3-context-rail
+  .library-item-detail-ps3-games
+  .virtualized-games-grid {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  align-items: flex-start !important;
+}
+
+.library-item-detail-scroll--ps3-context-rail .library-item-detail-ps3-games .games-list-container,
+.library-item-detail-scroll--ps3-context-rail .library-item-detail-ps3-games .games-list-container--virtualized,
+.library-item-detail-scroll--ps3-context-rail .library-item-detail-ps3-games .games-list-container--virtualized .virtualized-list-fade {
+  width: 100% !important;
+  min-height: 100% !important;
+  height: auto !important;
+}
+
+.library-item-detail-scroll--ps3-context-rail
+  .library-item-detail-ps3-games
+  .games-list-container--virtualized
+  .virtualized-list-fade {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
