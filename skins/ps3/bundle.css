@@ -1,6 +1,5 @@
 /* Compact collection-like detail actions in top bar: align with toolbar controls. */
-.mhg-libraries-actions-right-extra .library-item-detail-compact-top-action,
-.mhg-libraries-actions-before-main-games .library-item-detail-compact-top-action {
+.mhg-libraries-actions-right-extra .library-item-detail-compact-top-action {
   transform: translateY(2px);
 }
 /**
@@ -1125,6 +1124,14 @@ body {
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-actions-before-main-games {
   display: flex;
   align-items: flex-start !important;
+}
+
+/* In the top dock row, center background / pre–main-games actions with other controls. */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-before-main-games {
+  display: flex;
+  align-items: center !important;
+  align-self: center;
+  flex-shrink: 0;
 }
 
 .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"] .mhg-libraries-actions-right-extra {
@@ -3623,29 +3630,132 @@ body > .additional-executables-dropdown-menu {
   display: none !important;
 }
 
+/* Dock band + detail actions on one row (no absolute overlap). */
 .library-item-detail-libraries-bar-host--ps3-dock-only
-  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
-  .mhg-libraries-bar-container {
-  flex: 0 0 0 !important;
-  min-height: 0 !important;
-  height: 0 !important;
-  margin-top: 0 !important;
-  padding: 0 !important;
-  overflow: visible !important;
-}
-
-.library-item-detail-libraries-bar-host--ps3-dock-only .mhg-libraries-bar {
+  > .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto;
+  align-items: center;
+  column-gap: 12px;
+  row-gap: 0;
   margin-bottom: 0 !important;
 }
 
-/* Compact edit/delete actions: keep in the top dock row (toolbar is hidden on detail). */
+.library-item-detail-libraries-bar-host--ps3-dock-only .mhg-top-right-tool-dock {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.library-item-detail-libraries-bar-host--ps3-dock-only .mhg-top-right-tool-dock-inner {
+  gap: 12px;
+  padding: 0 12px;
+}
+
+.library-item-detail-libraries-bar-host--ps3-dock-only .mhg-top-right-tool-dock-before-main-games,
+.library-item-detail-libraries-bar-host--ps3-dock-only
+  .mhg-top-right-tool-dock-before-main-games.mhg-libraries-actions-before-main-games {
+  display: flex !important;
+  align-items: center !important;
+  align-self: center !important;
+  flex-shrink: 0;
+}
+
+.library-item-detail-libraries-bar-host--ps3-dock-only
+  .mhg-top-right-tool-dock-before-main-games
+  .library-item-detail-compact-top-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  transform: none;
+}
+
+.library-item-detail-libraries-bar-host--ps3-dock-only
+  .mhg-top-right-tool-dock-before-main-games
+  .background-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* View mode is a no-op on collection detail; hide the dead control. */
+.library-item-detail-libraries-bar-host--ps3-dock-only .mhg-top-right-tool-dock-view {
+  display: none !important;
+}
+
+.library-item-detail-libraries-bar-host--ps3-dock-only
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-libraries-bar-container {
+  grid-column: 2;
+  grid-row: 1;
+  flex: 0 0 auto !important;
+  flex-grow: 0 !important;
+  min-height: 0 !important;
+  height: var(--mhg-top-tool-dock-band-height, 56px) !important;
+  margin-top: 0 !important;
+  padding: 0 12px 0 0 !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  width: auto !important;
+}
+
 .library-item-detail-libraries-bar-host--ps3-dock-only .mhg-libraries-actions {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 12;
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  z-index: auto;
   margin: 0 !important;
   padding: 0 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  align-self: center !important;
+  gap: 10px !important;
+}
+
+.library-item-detail-libraries-bar-host--ps3-dock-only .mhg-libraries-actions-right-extra {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.library-item-detail-libraries-bar-host--ps3-dock-only
+  .mhg-libraries-actions-right-extra
+  .library-item-detail-compact-top-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  transform: none;
+}
+
+.library-item-detail-libraries-bar-host--ps3-dock-only
+  .mhg-top-right-tool-dock-slider
+  .cover-size-slider,
+.library-item-detail-libraries-bar-host--ps3-dock-only
+  .mhg-top-right-tool-dock-main-games {
+  flex-shrink: 0;
 }
 
 .library-item-detail-page-shell--ps3-context-rail .library-item-detail-main-inner,
@@ -3669,6 +3779,13 @@ body > .additional-executables-dropdown-menu {
 
 .library-item-detail-scroll--ps3-context-rail {
   overflow: hidden !important;
+}
+
+.library-item-detail-scroll--ps3-context-rail.home-page-scroll-container:focus,
+.library-item-detail-scroll--ps3-context-rail.home-page-scroll-container:focus-visible {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .library-item-detail-scroll--ps3-context-rail .library-item-detail-section-full.library-item-detail-ps3-layout {
@@ -3724,6 +3841,11 @@ body > .additional-executables-dropdown-menu {
   margin: 0 !important;
   padding: 0 !important;
   box-sizing: border-box;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   --mhg-grid-top-inset: 0px;
   --mhg-grid-top-inset-games: 0px;
   --mhg-grid-top-inset-collections: 0px;
@@ -3732,6 +3854,36 @@ body > .additional-executables-dropdown-menu {
   --mhg-grid-bottom-inset-games: 0px;
   --mhg-grid-bottom-inset-collections: 0px;
   --mhg-grid-bottom-inset-tag: 0px;
+}
+
+.library-item-detail-ps3-games:focus,
+.library-item-detail-ps3-games:focus-visible,
+.library-item-detail-ps3-games:focus-within {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.library-item-detail-ps3-games::-webkit-scrollbar,
+.library-item-detail-ps3-games *[style*="overflow"]::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none;
+  background: transparent;
+}
+
+.library-item-detail-scroll--ps3-context-rail
+  .library-item-detail-ps3-games
+  .virtualized-games-grid,
+.library-item-detail-scroll--ps3-context-rail
+  .library-item-detail-ps3-games
+  .virtualized-games-grid:focus,
+.library-item-detail-scroll--ps3-context-rail
+  .library-item-detail-ps3-games
+  .virtualized-games-grid:focus-visible {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .library-item-detail-scroll--ps3-context-rail
@@ -3875,7 +4027,7 @@ body > .additional-executables-dropdown-menu {
   min-height: 100%;
   box-sizing: border-box;
   padding-left: calc(20px + 8px);
-  gap: 24px;
+  gap: 12px;
 }
 
 .tag-games-ps3-rail {
@@ -3897,15 +4049,15 @@ body > .additional-executables-dropdown-menu {
   height: 96px;
 }
 
-.tag-games-ps3-rail-cover--tag {
-  width: min(var(--mhg-vertical-column-width, 360px), 40vw);
+/* Match tag list tile: 16:9 at --tag-list-cover-size, not collection portrait width. */
+.tag-games-ps3-rail .tag-games-ps3-rail-cover.tag-list-item {
+  width: fit-content;
   max-width: 100%;
 }
 
-.tag-games-ps3-rail-cover--tag .cover-container,
-.tag-games-ps3-rail-cover--tag img {
-  width: 100% !important;
-  max-width: 100% !important;
+.tag-games-ps3-rail .tag-games-ps3-rail-cover.tag-list-item .games-list-cover {
+  width: var(--tag-list-cover-size, var(--lid-cover-size, 150px)) !important;
+  max-width: 100%;
 }
 
 .tag-games-ps3-games {
@@ -3953,6 +4105,15 @@ body > .additional-executables-dropdown-menu {
 .tag-games-page-shell--ps3-context-rail .tag-games-ps3-games .games-list-container--virtualized,
 .tag-games-page-shell--ps3-context-rail .tag-games-ps3-games .virtualized-games-grid,
 .tag-games-page-shell--ps3-context-rail .tag-games-ps3-games .virtualized-list-fade,
+.tag-games-page-shell--ps3-context-rail
+  .tag-games-ps3-games
+  .mhg-vertical-covers-page
+  .games-list-container--virtualized
+  .virtualized-games-grid,
+.tag-games-page-shell--ps3-context-rail
+  .tag-games-ps3-games
+  .mhg-vertical-covers-page
+  .games-list-container:not(.games-list-container--virtualized),
 :root[data-mhg-vertical-cover-alignment="true"]
   .tag-games-page-shell--ps3-context-rail
   .tag-games-ps3-games
