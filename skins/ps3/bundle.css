@@ -57,6 +57,39 @@ body {
  color: #ffffff;
 }
 
+/*
+ * Hide every scrollbar in this skin (wheel / touch / keyboard scroll still works).
+ * Covers page scroll containers, react-window grids, detail/tag context columns, popups.
+ */
+html,
+body,
+body * {
+ scrollbar-width: none !important;
+ -ms-overflow-style: none !important;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+body *::-webkit-scrollbar {
+ width: 0 !important;
+ height: 0 !important;
+ display: none !important;
+ background: transparent !important;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+body *::-webkit-scrollbar-track,
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+body *::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner,
+body *::-webkit-scrollbar-corner {
+ display: none !important;
+ background: transparent !important;
+}
+
 :root {
  /*Force LibrariesBar inline list (disable combobox fallback) for icon strip.*/
  --mhg-libraries-force-list: 1;
@@ -629,24 +662,6 @@ body {
  overflow-x: hidden;
 }
 
-.games-list-toolbar-popup-scrollable::-webkit-scrollbar {
- width: 8px;
-}
-
-.games-list-toolbar-popup-scrollable::-webkit-scrollbar-track {
- background: #1a1a1a;
- border-radius: 4px;
-}
-
-.games-list-toolbar-popup-scrollable::-webkit-scrollbar-thumb {
- background: rgba(255, 255, 255, 0.2);
- border-radius: 4px;
-}
-
-.games-list-toolbar-popup-scrollable::-webkit-scrollbar-thumb:hover {
- background: rgba(255, 255, 255, 0.3);
-}
-
 .games-list-toolbar-popup-item {
  display: flex;
  align-items: center;
@@ -855,7 +870,6 @@ body {
  /*`overflow-x: auto` + `overflow-y: visible` computes to `auto` on both axes — vertical scrollbar on hover.*/
  overflow-x: auto;
  overflow-y: hidden;
- scrollbar-width: thin;
  /*Room for `transform: scale(1.08)` on tiles without clipping or scrolling vertically.*/
  padding: 10px 8px 14px;
  border-radius: 0;
@@ -1860,27 +1874,13 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
 * scrollbar on both so the rail stays scrollable (no `overflow: hidden`!)
 * but the bar itself never paints.
 */
+/* Redundant with global scrollbar-hide at top; kept as hook for page scroll containers. */
 .home-page-scroll-container,
-.home-page-scroll-container*[style*="overflow"] {
- scrollbar-width: none; /*Firefox + standards-compliant*/
- -ms-overflow-style: none; /*legacy IE / Edge*/
-}
-
-.home-page-scroll-container::-webkit-scrollbar,
-.home-page-scroll-container*[style*="overflow"]::-webkit-scrollbar {
- width: 0 !important;
- height: 0 !important;
- display: none;
- background: transparent;
-}
-
-.home-page-scroll-container::-webkit-scrollbar-track,
-.home-page-scroll-container*[style*="overflow"]::-webkit-scrollbar-track,
-.home-page-scroll-container::-webkit-scrollbar-thumb,
-.home-page-scroll-container*[style*="overflow"]::-webkit-scrollbar-thumb,
-.home-page-scroll-container::-webkit-scrollbar-corner,
-.home-page-scroll-container*[style*="overflow"]::-webkit-scrollbar-corner {
- background: transparent;
+.home-page-scroll-container [style*="overflow"],
+.virtualized-games-grid,
+.virtualized-collections-grid {
+ scrollbar-width: none !important;
+ -ms-overflow-style: none !important;
 }
 
 /*=========================================================================
@@ -2540,24 +2540,6 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  padding-right: 8px;
 }
 
-.add-game-results::-webkit-scrollbar {
- width: 8px;
-}
-
-.add-game-results::-webkit-scrollbar-track {
- background: rgba(255, 255, 255, 0.05);
- border-radius: 4px;
-}
-
-.add-game-results::-webkit-scrollbar-thumb {
- background: rgba(255, 255, 255, 0.2);
- border-radius: 4px;
-}
-
-.add-game-results::-webkit-scrollbar-thumb:hover {
- background: rgba(34, 197, 94, 0.5);
-}
-
 .add-game-empty-state {
  text-align: center;
  color: rgba(255, 255, 255, 0.5);
@@ -2922,24 +2904,6 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  max-height: 400px;
  overflow-y: auto;
  overflow-x: hidden;
-}
-
-.filter-popup-scrollable::-webkit-scrollbar {
- width: 8px;
-}
-
-.filter-popup-scrollable::-webkit-scrollbar-track {
- background: #1a1a1a;
- border-radius: 4px;
-}
-
-.filter-popup-scrollable::-webkit-scrollbar-thumb {
- background: rgba(255, 255, 255, 0.2);
- border-radius: 4px;
-}
-
-.filter-popup-scrollable::-webkit-scrollbar-thumb:hover {
- background: rgba(255, 255, 255, 0.3);
 }
 
 .filter-popup-item {
@@ -3857,11 +3821,15 @@ body > .additional-executables-dropdown-menu {
 }
 
 .library-item-detail-context-games::-webkit-scrollbar,
-.library-item-detail-context-games*[style*="overflow"]::-webkit-scrollbar {
+.library-item-detail-context-games *::-webkit-scrollbar,
+.tag-games-context-games::-webkit-scrollbar,
+.tag-games-context-games *::-webkit-scrollbar,
+.virtualized-games-grid::-webkit-scrollbar,
+.virtualized-collections-grid::-webkit-scrollbar {
  width: 0 !important;
  height: 0 !important;
- display: none;
- background: transparent;
+ display: none !important;
+ background: transparent !important;
 }
 
 .library-item-detail-scroll--context-rail
