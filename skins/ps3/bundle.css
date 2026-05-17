@@ -70,7 +70,7 @@ body {
   /* Recommended rail should stay centered on the Recommended icon line. */
   --mhg-recommended-column-shift-x: 72px;
   /* In-flow layout: extra gap under header so the icon strip sits lower (XMB-style). */
-  --mhg-ps3-library-bar-margin-top: 64px;
+  --mhg-library-bar-margin-top: 64px;
   /*
    * Effective bottom edge of the libraries bar (margin-top + bar body), used
    * as the TOP INSET inside the virtualized grid so the first cover lands
@@ -85,8 +85,8 @@ body {
    * bottom edge and the first cover so the cover doesn't appear glued to
    * the strip.
    */
-  --mhg-ps3-library-bar-effective-bottom: calc(
-    var(--mhg-ps3-library-bar-margin-top, 64px) + 124px + 16px
+  --mhg-library-bar-effective-bottom: calc(
+    var(--mhg-library-bar-margin-top, 64px) + 124px + 16px
   );
   /*
    * Empty leading row injected at the top of `VirtualizedGamesList` /
@@ -101,11 +101,11 @@ body {
    * Recommended UP — toggle each per-page var (`--mhg-grid-top-inset-*`)
    * to nudge a single page type without touching the others.
    */
-  --mhg-grid-top-inset-tag: calc(var(--mhg-ps3-library-bar-effective-bottom) + 160px);
-  --mhg-grid-top-inset-games: calc(var(--mhg-ps3-library-bar-effective-bottom) + 2px);
+  --mhg-grid-top-inset-tag: calc(var(--mhg-library-bar-effective-bottom) + 160px);
+  --mhg-grid-top-inset-games: calc(var(--mhg-library-bar-effective-bottom) + 2px);
   /* First cover on collection-like pages (last cover uses --mhg-grid-last-cover-raise-*). */
-  --mhg-grid-top-inset-collections: calc(var(--mhg-ps3-library-bar-effective-bottom) + 2px);
-  --mhg-grid-top-inset-recommended: var(--mhg-ps3-library-bar-effective-bottom);
+  --mhg-grid-top-inset-collections: calc(var(--mhg-library-bar-effective-bottom) + 2px);
+  --mhg-grid-top-inset-recommended: var(--mhg-library-bar-effective-bottom);
   --mhg-grid-top-inset: var(--mhg-grid-top-inset-tag);
   /*
    * Extra scroll range after the last cover so it can scroll further up
@@ -113,14 +113,14 @@ body {
    * Read by `readGridBottomInsetPx` / virtualized grids; non-virtualized pages
    * use `padding-bottom` with the same per-page `--mhg-grid-bottom-inset`.
    */
-  --mhg-grid-bottom-inset-tag: calc(100dvh - var(--mhg-ps3-library-bar-effective-bottom));
-  --mhg-grid-bottom-inset-games: calc(100dvh - var(--mhg-ps3-library-bar-effective-bottom));
+  --mhg-grid-bottom-inset-tag: calc(100dvh - var(--mhg-library-bar-effective-bottom));
+  --mhg-grid-bottom-inset-games: calc(100dvh - var(--mhg-library-bar-effective-bottom));
   /* Collection-like: scroll cap is enforced in JS (VirtualizedCollectionsList), not bottom pad. */
   --mhg-grid-bottom-inset-collections: 0px;
   /* How far the last cover may rise above the first-cover line (VirtualizedCollectionsList). */
   --mhg-grid-last-cover-raise-collections: 20px;
   --mhg-grid-last-cover-raise: 0px;
-  --mhg-grid-bottom-inset-recommended: calc(100dvh - var(--mhg-ps3-library-bar-effective-bottom));
+  --mhg-grid-bottom-inset-recommended: calc(100dvh - var(--mhg-library-bar-effective-bottom));
   --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-tag);
   /*
    * Opt-in for the PS3 XMB-style discrete scroll: read by useStepScrollAroundBar
@@ -212,7 +212,7 @@ body {
   border: 0;
   min-height: 84px;
   overflow: visible;
-  margin-top: var(--mhg-ps3-library-bar-margin-top, 64px);
+  margin-top: var(--mhg-library-bar-margin-top, 64px);
 }
 
 /* Vertical library tabs (`libraryPagesVerticalList` && !`persistentLibraryShell`). */
@@ -301,9 +301,9 @@ body {
 :root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) {
   --mhg-top-tool-dock-band-height: 56px;
   /* Space between tool dock and icon strip (margin on strip). */
-  --mhg-ps3-tool-dock-to-strip-gap: 80px;
-  --mhg-ps3-top-tool-dock-stack: calc(
-    var(--mhg-top-tool-dock-band-height) + var(--mhg-ps3-tool-dock-to-strip-gap)
+  --mhg-tool-dock-to-strip-gap: 80px;
+  --mhg-top-tool-dock-stack: calc(
+    var(--mhg-top-tool-dock-band-height) + var(--mhg-tool-dock-to-strip-gap)
   );
   /*
    * Bar grows by `dock band + strip gap` when the top-right tool dock is on,
@@ -314,9 +314,9 @@ body {
    * just the 96px icon. Override the non-dock value defined at `:root`.
    * `+16px` matches the breathing room used in the non-dock case.
    */
-  --mhg-ps3-library-bar-effective-bottom: calc(
-    var(--mhg-ps3-library-bar-margin-top, 64px) +
-    var(--mhg-ps3-top-tool-dock-stack, 136px) + 96px + 16px
+  --mhg-library-bar-effective-bottom: calc(
+    var(--mhg-library-bar-margin-top, 64px) +
+    var(--mhg-top-tool-dock-stack, 136px) + 96px + 16px
   );
 }
 
@@ -336,7 +336,7 @@ body {
   flex-grow: 0;
   flex-shrink: 0;
   min-height: auto;
-  margin-top: var(--mhg-ps3-tool-dock-to-strip-gap, 80px);
+  margin-top: var(--mhg-tool-dock-to-strip-gap, 80px);
   /* Strip content flush to the top of the row (no extra vertical inset). */
   align-items: flex-start;
   padding-top: 0;
@@ -1423,7 +1423,7 @@ body {
 /*
  * Library page: tag/category/collection pages render a secondary `LibrariesBar`
  * inside their own JSX (≈ 84px min-height + 64px margin-top from
- * `--mhg-ps3-library-bar-margin-top`), so their games list naturally starts
+ * `--mhg-library-bar-margin-top`), so their games list naturally starts
  * ~148px below the global libraries bar. The Library page does NOT render
  * such a secondary bar — without compensation its rail sits ~148px higher
  * and is visibly misaligned with every other library.
@@ -1434,7 +1434,7 @@ body {
  * the header logo.
  */
 .mhg-library-vertical-covers.home-page-content {
-  padding-top: calc(var(--mhg-ps3-library-bar-margin-top, 64px) + 84px) !important;
+  padding-top: calc(var(--mhg-library-bar-margin-top, 64px) + 84px) !important;
 }
 
 .mhg-library-vertical-covers .home-page-layout,
@@ -1754,10 +1754,10 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
 :root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-library-vertical-covers
   .home-page-scroll-container:not(.table-view) {
   margin-top: calc(
-    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-top-tool-dock-stack, 136px) - var(--mhg-library-bar-margin-top, 0px)
   ) !important;
   height: calc(
-    100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)
+    100% + 64px + var(--mhg-top-tool-dock-stack, 136px) + var(--mhg-library-bar-margin-top, 0px)
   ) !important;
 }
 
@@ -1786,10 +1786,10 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   .games-list-container--virtualized
   .virtualized-list-fade {
   margin-top: calc(
-    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-top-tool-dock-stack, 136px) - var(--mhg-library-bar-margin-top, 0px)
   ) !important;
   min-height: calc(
-    100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)
+    100% + 64px + var(--mhg-top-tool-dock-stack, 136px) + var(--mhg-library-bar-margin-top, 0px)
   ) !important;
 }
 
@@ -1799,7 +1799,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   .home-page-scroll-container:not(.table-view)
   .games-list-container:not(.games-list-container--virtualized) {
   margin-top: calc(
-    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-top-tool-dock-stack, 136px) - var(--mhg-library-bar-margin-top, 0px)
   ) !important;
 }
 
@@ -1813,7 +1813,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   .home-page-scroll-container:not(.table-view)
   .library-item-detail-subcollections-grid {
   margin-top: calc(
-    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-top-tool-dock-stack, 136px) - var(--mhg-library-bar-margin-top, 0px)
   ) !important;
 }
 
@@ -1831,7 +1831,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   .scrollable-section-scroll
   .games-list-container:not(.games-list-container--virtualized) {
   margin-top: calc(
-    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-top-tool-dock-stack, 136px) - var(--mhg-library-bar-margin-top, 0px)
   ) !important;
 }
 
@@ -1842,10 +1842,10 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   .games-list-container--virtualized
   .virtualized-list-fade {
   margin-top: calc(
-    35px - var(--mhg-ps3-top-tool-dock-stack, 136px) - var(--mhg-ps3-library-bar-margin-top, 0px)
+    35px - var(--mhg-top-tool-dock-stack, 136px) - var(--mhg-library-bar-margin-top, 0px)
   ) !important;
   min-height: calc(
-    100% + 64px + var(--mhg-ps3-top-tool-dock-stack, 136px) + var(--mhg-ps3-library-bar-margin-top, 0px)
+    100% + 64px + var(--mhg-top-tool-dock-stack, 136px) + var(--mhg-library-bar-margin-top, 0px)
   ) !important;
 }
 
@@ -3537,7 +3537,7 @@ body > .additional-executables-dropdown-menu {
  * recommended pages) provide the natural offset that places each rail's
  * first element just below the global bar.
  *
- * The `--mhg-ps3-library-bar-effective-bottom` custom property is preserved
+ * The `--mhg-library-bar-effective-bottom` custom property is preserved
  * so downstream rules (and `useStepScrollAroundBar`, if wired up later) can
  * still read the bar's effective height in a single place.
  * ========================================================================== */
@@ -3607,11 +3607,11 @@ body > .additional-executables-dropdown-menu {
 .library-item-detail-page-shell--ps3-context-rail {
   /*
    * Decoupled layout:
-   * - `--mhg-ps3-detail-dock-stack`: pull the shell under the bar host (column 2 = full viewport).
-   * - `--mhg-ps3-detail-rail-top`: column 1 only (first-cover line on collection-like pages).
+   * - `--mhg-detail-dock-stack`: pull the shell under the bar host (column 2 = full viewport).
+   * - `--mhg-detail-rail-top`: column 1 only (first-cover line on collection-like pages).
    */
-  --mhg-ps3-detail-rail-icon-cover-gap: 12px;
-  margin-top: calc(-1 * var(--mhg-ps3-detail-dock-stack)) !important;
+  --mhg-detail-rail-icon-cover-gap: 12px;
+  margin-top: calc(-1 * var(--mhg-detail-dock-stack)) !important;
   height: 100vh !important;
   height: 100dvh !important;
   max-height: 100vh !important;
@@ -3815,8 +3815,8 @@ body > .additional-executables-dropdown-menu {
   align-items: flex-start;
   align-self: flex-start;
   flex-shrink: 0;
-  padding-top: var(--mhg-ps3-detail-rail-top, 204px);
-  gap: var(--mhg-ps3-detail-rail-icon-cover-gap, 12px);
+  padding-top: var(--mhg-detail-rail-top, 204px);
+  gap: var(--mhg-detail-rail-icon-cover-gap, 12px);
   z-index: 2;
 }
 
@@ -3949,7 +3949,7 @@ body > .additional-executables-dropdown-menu {
 .library-item-detail-scroll--ps3-context-rail .library-item-detail-ps3-games .games-list-container--virtualized,
 .library-item-detail-scroll--ps3-context-rail .library-item-detail-ps3-games .games-list-container--virtualized .virtualized-list-fade {
   width: 100% !important;
-  min-height: 100% !important;
+  min-height: 0 !important;
   height: auto !important;
 }
 
@@ -3961,12 +3961,38 @@ body > .additional-executables-dropdown-menu {
   padding-right: 0 !important;
 }
 
+/* Detail/tag column 2: no Library vertical-covers bottom pad / min-height bleed. */
+.library-item-detail-scroll--ps3-context-rail .library-item-detail-ps3-games .mhg-vertical-covers-page,
+.library-item-detail-scroll--ps3-context-rail .library-item-detail-ps3-games .mhg-vertical-covers-page .home-page-scroll-container,
+.tag-games-page-shell--ps3-context-rail .tag-games-ps3-games .mhg-vertical-covers-page,
+.tag-games-page-shell--ps3-context-rail .tag-games-ps3-games .mhg-vertical-covers-page .home-page-scroll-container {
+  --mhg-grid-top-inset: 0px !important;
+  --mhg-grid-bottom-inset: 0px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.library-item-detail-scroll--ps3-context-rail
+  .library-item-detail-ps3-games
+  .mhg-vertical-covers-page
+  .games-list-container--virtualized
+  .virtualized-list-fade,
+.tag-games-page-shell--ps3-context-rail
+  .tag-games-ps3-games
+  .mhg-vertical-covers-page
+  .games-list-container--virtualized
+  .virtualized-list-fade {
+  min-height: 0 !important;
+}
+
 /* =============================================================================
  * Tag detail PS3 layout (tag-games-* only — do not reuse library-item-detail-*).
  * ============================================================================= */
 .tag-games-page-shell--ps3-context-rail {
-  --mhg-ps3-tag-rail-icon-cover-gap: 12px;
-  margin-top: calc(-1 * var(--mhg-ps3-tag-dock-stack)) !important;
+  --mhg-tag-rail-icon-cover-gap: 12px;
+  margin-top: calc(-1 * var(--mhg-tag-dock-stack)) !important;
   height: 100vh !important;
   height: 100dvh !important;
   max-height: 100vh !important;
@@ -4037,8 +4063,8 @@ body > .additional-executables-dropdown-menu {
   align-items: flex-start;
   align-self: flex-start;
   flex-shrink: 0;
-  padding-top: var(--mhg-ps3-tag-rail-top, 204px);
-  gap: var(--mhg-ps3-tag-rail-icon-cover-gap, 12px);
+  padding-top: var(--mhg-tag-rail-top, 204px);
+  gap: var(--mhg-tag-rail-icon-cover-gap, 12px);
   z-index: 2;
 }
 
@@ -4139,7 +4165,7 @@ body > .additional-executables-dropdown-menu {
   .games-list-container--virtualized
   .virtualized-list-fade {
   width: 100% !important;
-  min-height: 100% !important;
+  min-height: 0 !important;
   height: auto !important;
 }
 
