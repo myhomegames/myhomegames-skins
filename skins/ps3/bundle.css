@@ -3869,6 +3869,10 @@ body > .additional-executables-dropdown-menu {
  box-shadow: none !important;
  scrollbar-width: none;
  -ms-overflow-style: none;
+ --mhg-context-rail-cover-top: calc(
+  var(--mhg-detail-rail-top, 204px) + 96px + var(--mhg-detail-rail-icon-cover-gap, 12px)
+ );
+ /*Collection-like detail often disables virtualization (drag); pad the list wrapper.*/
  --mhg-grid-top-inset: 0px;
  --mhg-grid-top-inset-games: 0px;
  --mhg-grid-top-inset-collections: 0px;
@@ -3877,6 +3881,13 @@ body > .additional-executables-dropdown-menu {
  --mhg-grid-bottom-inset-games: 0px;
  --mhg-grid-bottom-inset-collections: 0px;
  --mhg-grid-bottom-inset-tag: 0px;
+}
+
+.library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ > .library-item-detail-games-list {
+ padding-top: var(--mhg-context-rail-cover-top);
+ box-sizing: border-box;
 }
 
 /*Arrow between context cover (col 1) and scrollable games (col 2).*/
@@ -4019,7 +4030,6 @@ body > .additional-executables-dropdown-menu {
 .library-item-detail-scroll--context-rail .library-item-detail-context-games .mhg-vertical-covers-page .home-page-scroll-container,
 .tag-games-page-shell--context-rail .tag-games-context-games .mhg-vertical-covers-page,
 .tag-games-page-shell--context-rail .tag-games-context-games .mhg-vertical-covers-page .home-page-scroll-container {
- --mhg-grid-top-inset: 0px !important;
  --mhg-grid-bottom-inset: 0px !important;
  padding-top: 0 !important;
  padding-bottom: 0 !important;
@@ -4155,8 +4165,8 @@ body > .additional-executables-dropdown-menu {
  margin: 0 !important;
  padding: 0 !important;
  box-sizing: border-box;
- --mhg-grid-top-inset: 0px;
- --mhg-grid-top-inset-games: 0px;
+ --mhg-grid-top-inset: var(--mhg-context-rail-cover-top);
+ --mhg-grid-top-inset-games: var(--mhg-context-rail-cover-top);
  --mhg-grid-top-inset-collections: 0px;
  --mhg-grid-top-inset-tag: 0px;
  --mhg-grid-bottom-inset: 0px;
