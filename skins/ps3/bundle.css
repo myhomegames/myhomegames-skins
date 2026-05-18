@@ -3872,15 +3872,19 @@ body > .additional-executables-dropdown-menu {
  --mhg-context-rail-cover-top: calc(
   var(--mhg-detail-rail-top, 204px) + 96px + var(--mhg-detail-rail-icon-cover-gap, 12px)
  );
- /*Collection-like detail often disables virtualization (drag); pad the list wrapper.*/
+ /*
+ * Leading space via list wrapper padding (virtualized grid scrolls inside).
+ * Tag column uses grid top inset instead — see `.tag-games-context-games`.
+ */
  --mhg-grid-top-inset: 0px;
  --mhg-grid-top-inset-games: 0px;
  --mhg-grid-top-inset-collections: 0px;
  --mhg-grid-top-inset-tag: 0px;
- --mhg-grid-bottom-inset: 0px;
- --mhg-grid-bottom-inset-games: 0px;
+ --mhg-grid-bottom-inset: calc(100dvh - var(--mhg-context-rail-cover-top));
+ --mhg-grid-bottom-inset-games: var(--mhg-grid-bottom-inset);
  --mhg-grid-bottom-inset-collections: 0px;
  --mhg-grid-bottom-inset-tag: 0px;
+ --mhg-step-scroll-rows: 1;
 }
 
 .library-item-detail-scroll--context-rail
@@ -4169,10 +4173,11 @@ body > .additional-executables-dropdown-menu {
  --mhg-grid-top-inset-games: var(--mhg-context-rail-cover-top);
  --mhg-grid-top-inset-collections: 0px;
  --mhg-grid-top-inset-tag: 0px;
- --mhg-grid-bottom-inset: 0px;
- --mhg-grid-bottom-inset-games: 0px;
+ --mhg-grid-bottom-inset: calc(100dvh - var(--mhg-context-rail-cover-top));
+ --mhg-grid-bottom-inset-games: var(--mhg-grid-bottom-inset);
  --mhg-grid-bottom-inset-collections: 0px;
  --mhg-grid-bottom-inset-tag: 0px;
+ --mhg-step-scroll-rows: 1;
 }
 
 .tag-games-context-games .virtualized-grid-cell-pad,
