@@ -827,12 +827,12 @@ body:has(.launch-modal-overlay) .mhg-header {
 }
 
 .edit-collection-modal-save {
- background-color: #E5A00D;
+ background-color: var(--mhg-icon-accent);
  color: #000000;
 }
 
 .edit-collection-modal-save:hover:not(:disabled) {
- background-color: #F5B041;
+ background-color: var(--mhg-icon-accent-strong);
 }
 
 .edit-collection-modal-cancel:disabled,
@@ -865,8 +865,8 @@ body:has(.launch-modal-overlay) .mhg-header {
 }
 
 .edit-collection-modal-tab.active {
- color: #E5A00D;
- border-bottom-color: #E5A00D;
+ color: var(--mhg-icon-accent);
+ border-bottom-color: var(--mhg-icon-accent);
 }
 
 .edit-collection-modal-tab:disabled {
@@ -905,7 +905,7 @@ body:has(.launch-modal-overlay) .mhg-header {
 .edit-collection-modal-media-checkbox-label input[type="checkbox"] {
  width: 16px;
  height: 16px;
- accent-color: #E5A00D;
+ accent-color: var(--mhg-icon-accent);
  cursor: pointer;
 }
 
@@ -1748,12 +1748,12 @@ body > .additional-executables-dropdown-menu {
 }
 
 .dropdown-menu-confirm-reload {
- background-color: rgba(229, 160, 13, 0.9);
- color: #ffffff;
+ background-color: rgba(196, 181, 253, 0.9);
+ color: #000000;
 }
 
 .dropdown-menu-confirm-reload:hover:not(:disabled) {
- background-color: rgba(229, 160, 13, 1);
+ background-color: rgba(221, 214, 254, 1);
 }
 
 .dropdown-menu-confirm-cancel:disabled,
@@ -1895,7 +1895,7 @@ body > .additional-executables-dropdown-menu {
  width: 48px;
  height: 48px;
  border: 4px solid #2a2a2a;
- border-top: 4px solid #E5A00D;
+ border-top: 4px solid var(--mhg-icon-accent);
  border-radius: 50%;
  animation: spin 1s linear infinite;
 }
@@ -2725,7 +2725,7 @@ body > .additional-executables-dropdown-menu {
 
 .add-to-collection-modal-create-button {
  padding: 10px 20px;
- background-color: #E5A00D;
+ background-color: var(--mhg-icon-accent);
  border: none;
  border-radius: 4px;
  color: #000000;
@@ -2736,7 +2736,7 @@ body > .additional-executables-dropdown-menu {
 }
 
 .add-to-collection-modal-create-button:hover:not(:disabled) {
- background-color: #F5B041;
+ background-color: var(--mhg-icon-accent-strong);
 }
 
 .add-to-collection-modal-create-button:disabled {
@@ -3485,12 +3485,12 @@ fieldset.edit-game-modal-field {
 }
 
 .edit-game-modal-save {
- background-color: #E5A00D;
+ background-color: var(--mhg-icon-accent);
  color: #000000;
 }
 
 .edit-game-modal-save:hover:not(:disabled) {
- background-color: #F5B041;
+ background-color: var(--mhg-icon-accent-strong);
 }
 
 .edit-game-modal-cancel:disabled,
@@ -3524,8 +3524,8 @@ fieldset.edit-game-modal-field {
 }
 
 .edit-game-modal-tab.active {
- color: #E5A00D;
- border-bottom-color: #E5A00D;
+ color: var(--mhg-icon-accent);
+ border-bottom-color: var(--mhg-icon-accent);
 }
 
 .edit-game-modal-tab:disabled {
@@ -3615,7 +3615,7 @@ fieldset.edit-game-modal-field {
  font-size: 0.875rem;
  font-weight: 500;
  color: #000;
- background: #E5A00D;
+ background: var(--mhg-icon-accent);
  border: none;
  border-radius: 4px;
  cursor: pointer;
@@ -3623,7 +3623,7 @@ fieldset.edit-game-modal-field {
 }
 
 .edit-game-modal-add-btn:hover:not(:disabled) {
- background: #F5B041;
+ background: var(--mhg-icon-accent-strong);
 }
 
 .edit-game-modal-add-btn:disabled {
@@ -5822,12 +5822,12 @@ fieldset.edit-game-modal-field {
 }
 
 .manage-installation-modal-save {
- background-color: #E5A00D;
+ background-color: var(--mhg-icon-accent);
  color: #000000;
 }
 
 .manage-installation-modal-save:hover:not(:disabled) {
- background-color: #F5B041;
+ background-color: var(--mhg-icon-accent-strong);
 }
 
 .manage-installation-modal-cancel:disabled,
@@ -6159,7 +6159,7 @@ fieldset.edit-game-modal-field {
 .edit-game-modal-media-checkbox-label input[type="checkbox"] {
  width: 16px;
  height: 16px;
- accent-color: #E5A00D;
+ accent-color: var(--mhg-icon-accent);
  cursor: pointer;
 }
 
@@ -6362,7 +6362,7 @@ fieldset.edit-game-modal-field {
 
 .edit-game-modal-media-item-input:focus {
  outline: none;
- border-color: #E5A00D;
+ border-color: var(--mhg-icon-accent);
 }
 
 .edit-game-modal-media-item-remove {
@@ -6420,7 +6420,7 @@ fieldset.edit-game-modal-field {
  font-size: 0.8125rem;
  font-weight: 500;
  color: #000;
- background: #E5A00D;
+ background: var(--mhg-icon-accent);
  border: none;
  border-radius: 4px;
  cursor: pointer;
@@ -6428,7 +6428,7 @@ fieldset.edit-game-modal-field {
 }
 
 .edit-game-modal-media-add-btn:hover:not(:disabled) {
- background: #F5B041;
+ background: var(--mhg-icon-accent-strong);
 }
 
 .edit-game-modal-media-add-btn:disabled {
@@ -7906,12 +7906,12 @@ fieldset.edit-game-modal-field {
 }
 
 .edit-collection-modal-save {
- background-color: #E5A00D;
+ background-color: var(--mhg-icon-accent);
  color: #000000;
 }
 
 .edit-collection-modal-save:hover:not(:disabled) {
- background-color: #F5B041;
+ background-color: var(--mhg-icon-accent-strong);
 }
 
 .edit-collection-modal-cancel:disabled,
@@ -7944,8 +7944,8 @@ fieldset.edit-game-modal-field {
 }
 
 .edit-collection-modal-tab.active {
- color: #E5A00D;
- border-bottom-color: #E5A00D;
+ color: var(--mhg-icon-accent);
+ border-bottom-color: var(--mhg-icon-accent);
 }
 
 .edit-collection-modal-tab:disabled {
@@ -7986,7 +7986,7 @@ fieldset.edit-game-modal-field {
 .edit-collection-modal-media-checkbox-label input[type="checkbox"] {
  width: 16px;
  height: 16px;
- accent-color: #E5A00D;
+ accent-color: var(--mhg-icon-accent);
  cursor: pointer;
 }
 
@@ -10736,4 +10736,28 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
  border-width: 2px !important;
  color: #ffffff !important;
  box-shadow: none !important;
+}
+
+/*--- Modal accents: purple (icon accent), not amber ---*/
+.edit-game-modal-overlay .games-list-cover.cover-hover-effect:hover,
+.edit-game-modal-overlay .games-list-cover.cover-hover-effect.cover-dropdown-open,
+.edit-collection-modal-overlay .games-list-cover.cover-hover-effect:hover,
+.edit-collection-modal-overlay .games-list-cover.cover-hover-effect.cover-dropdown-open {
+ outline-color: var(--mhg-icon-accent) !important;
+ box-shadow: 0 10px 20px rgba(196, 181, 253, 0.2) !important;
+}
+
+.edit-game-modal-overlay .games-list-play-button-play-only,
+.edit-game-modal-overlay .games-list-upload-button-upload-only,
+.edit-collection-modal-overlay .games-list-play-button-play-only,
+.edit-collection-modal-overlay .games-list-upload-button-upload-only,
+.edit-game-modal-overlay .games-list-cover.cover-dropdown-open .games-list-play-button-play-only,
+.edit-game-modal-overlay .games-list-cover.cover-dropdown-open .games-list-upload-button-upload-only,
+.edit-collection-modal-overlay .games-list-cover.cover-dropdown-open .games-list-play-button-play-only,
+.edit-collection-modal-overlay .games-list-cover.cover-dropdown-open .games-list-upload-button-upload-only,
+.edit-game-modal-overlay .games-list-play-button-detail:hover,
+.edit-game-modal-overlay .games-list-upload-button-detail:hover,
+.edit-collection-modal-overlay .games-list-play-button-detail:hover,
+.edit-collection-modal-overlay .games-list-upload-button-detail:hover {
+ background-color: rgba(196, 181, 253, 0.9) !important;
 }
