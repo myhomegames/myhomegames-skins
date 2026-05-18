@@ -3570,6 +3570,8 @@ body > .additional-executables-dropdown-menu {
  transform-origin: 50% 0%;
  position: relative;
  z-index: 1;
+ /* Snap + selected-only scale: no post-scroll transform easing. */
+ transition-property: background-color, border-color, color, opacity, box-shadow, filter;
 }
 
 .virtualized-grid-cell-pad.mhg-cover-scale-selected {
@@ -3597,6 +3599,7 @@ body > .additional-executables-dropdown-menu {
  transform-origin: 50% 0%;
  position: relative;
  z-index: 1;
+ transition-property: background-color, border-color, color, opacity, box-shadow, filter;
 }
 
 .tag-list-item.mhg-cover-scale-selected,
