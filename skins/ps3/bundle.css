@@ -3594,6 +3594,10 @@ body > .additional-executables-dropdown-menu {
 * - `--mhg-detail-rail-top`: column 1 only (first-cover line on collection-like pages).
 */
  --mhg-detail-rail-icon-cover-gap: 12px;
+ --mhg-context-rail-cover-top: calc(
+  var(--mhg-detail-rail-top, 204px) + 96px + var(--mhg-detail-rail-icon-cover-gap, 12px)
+ );
+ --mhg-context-rail-bridge-offset: 28px;
  margin-top: calc(-1* var(--mhg-detail-dock-stack)) !important;
  height: 100vh !important;
  height: 100dvh !important;
@@ -3875,6 +3879,32 @@ body > .additional-executables-dropdown-menu {
  --mhg-grid-bottom-inset-tag: 0px;
 }
 
+/*Arrow between context cover (col 1) and scrollable games (col 2).*/
+.mhg-context-rail-bridge {
+ flex: 0 0 auto;
+ align-self: flex-start;
+ margin-top: calc(
+  var(--mhg-context-rail-cover-top) + var(--mhg-context-rail-bridge-offset, 28px)
+ );
+ width: 20px;
+ display: flex;
+ align-items: flex-start;
+ justify-content: center;
+ pointer-events: none;
+ flex-shrink: 0;
+}
+
+.mhg-context-rail-bridge::after {
+ content: "";
+ display: block;
+ width: 10px;
+ height: 10px;
+ margin-right: -2px;
+ border-left: 2px solid rgba(255, 255, 255, 0.55);
+ border-bottom: 2px solid rgba(255, 255, 255, 0.55);
+ transform: rotate(45deg);
+}
+
 .library-item-detail-context-games:focus,
 .library-item-detail-context-games:focus-visible,
 .library-item-detail-context-games:focus-within {
@@ -4015,6 +4045,9 @@ body > .additional-executables-dropdown-menu {
 * =============================================================================*/
 .tag-games-page-shell--context-rail {
  --mhg-tag-rail-icon-cover-gap: 12px;
+ --mhg-context-rail-cover-top: calc(
+  var(--mhg-tag-rail-top, 204px) + 96px + var(--mhg-tag-rail-icon-cover-gap, 12px)
+ );
  margin-top: calc(-1* var(--mhg-tag-dock-stack)) !important;
  height: 100vh !important;
  height: 100dvh !important;
