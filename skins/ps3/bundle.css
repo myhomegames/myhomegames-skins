@@ -1249,7 +1249,7 @@ body *::-webkit-scrollbar-corner {
 
 /*Tag index + collection-like pages: same vertical rail behavior/alignment.*/
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .tag-list-container,
-:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container:not(.collections-list-container--virtualized),
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container:not(.collections-list-container--virtualized):not(.collections-list-container--fixed-focal),
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .library-item-detail-subcollections-grid {
  display: flex !important;
  flex-direction: column !important;
@@ -1382,7 +1382,7 @@ body *::-webkit-scrollbar-corner {
 /*Ensure vertical scrolling is enabled on tag/recommended/collection-like containers.*/
 :root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll,
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.tag-list-container),
-:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.collections-list-container),
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.collections-list-container:not(.collections-list-container--fixed-focal)),
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.library-item-detail-subcollections-grid) {
  overflow-y: auto !important;
  overflow-x: hidden !important;
@@ -1393,7 +1393,7 @@ body *::-webkit-scrollbar-corner {
 * subcollections) share a taller viewport that accommodates two full-size rows
 * plus the scaled-down rows above.*/
 :root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll,
-:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.collections-list-container),
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.collections-list-container:not(.collections-list-container--fixed-focal)),
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.library-item-detail-subcollections-grid) {
  height: 1080px;
 }
@@ -1403,18 +1403,77 @@ body *::-webkit-scrollbar-corner {
  height: 880px;
 }
 
-/*Virtualized collection-like (Collections / Developers / Publishers): same scroll
-* chrome as Library games — `.mhg-library-vertical-covers .home-page-scroll-container`
-* (see ~L1384) — bounded viewport, no outer vertical scroller; wheel hits react-window
-* so VirtualizedCollectionsList session scroll matches what the user moves.*/
+/*Virtualized / fixed-focal collection-like (Collections / Developers / Publishers).*/
 :root[data-mhg-vertical-cover-alignment="true"]
- .home-page-scroll-container:not(.table-view):has(.collections-list-container--virtualized) {
+ .home-page-scroll-container:not(.table-view):has(.collections-list-container--virtualized),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view):has(.collections-list-container--fixed-focal) {
  margin-top: 0 !important;
  padding-top: 0 !important;
  height: 100vh !important;
- overflow-y: hidden !important;
  overflow-x: hidden !important;
+ overflow-y: visible !important;
+ overscroll-behavior: none;
  -webkit-overflow-scrolling: touch;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view):has(.collections-list-container--fixed-focal) {
+ --mhg-grid-top-inset: var(--mhg-grid-top-inset-games);
+ --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-games);
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-list {
+ position: relative;
+ display: block !important;
+ overflow: visible !important;
+ touch-action: none;
+ min-height: 100vh;
+ height: 100%;
+ /* Center each cover slot on the active library icon (XMB axis). */
+ margin-left: max(
+ 0px,
+ calc(
+ var(--mhg-active-library-icon-center-x, 180px) -
+ var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px)) / 2
+ )
+ ) !important;
+ margin-right: auto !important;
+ gap: 0 !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item.virtualized-grid-cell-pad {
+ transform: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item {
+ position: absolute;
+ z-index: 1;
+ pointer-events: auto;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item.mhg-cover-scale-selected {
+ z-index: 3;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item:not(.mhg-cover-scale-selected) {
+ z-index: 0;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item .collections-list-item--sized {
+ transform: none !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-width: var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px)) !important;
+ margin: 0 !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item .games-list-cover {
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 50% 0% !important;
+ transition: none !important;
+ width: var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px)) !important;
+ max-width: 100% !important;
 }
 
 .mhg-library-vertical-covers .home-page-content-wrapper.has-toolbar .home-page-scroll-container:not(.table-view),
@@ -1476,6 +1535,99 @@ body *::-webkit-scrollbar-corner {
 * scroll container to the viewport height so the games column reaches the
 * bottom of the page.*/
  height: 100vh !important;
+ overflow-y: hidden !important;
+ overflow-x: hidden !important;
+ overscroll-behavior: none;
+}
+
+/* Library games: fixed Y slots — wheel changes selection, covers never scroll. */
+.mhg-library-vertical-covers .games-list-container--fixed-focal {
+ height: 100%;
+ min-height: 100%;
+}
+
+.mhg-library-vertical-covers .games-list-container--fixed-focal .fixed-focal-games-list {
+ position: relative;
+ overflow: hidden !important;
+ touch-action: none;
+ margin-left: max(
+ 0px,
+ calc(
+ var(--mhg-active-library-icon-center-x, 180px) -
+ (var(--mhg-vertical-column-width) / 2) +
+ var(--mhg-vertical-column-shift-x, 0px)
+ )
+ ) !important;
+ margin-right: auto !important;
+}
+
+.mhg-library-vertical-covers .fixed-focal-games-item {
+ position: absolute;
+ z-index: 1;
+}
+
+.mhg-library-vertical-covers .fixed-focal-games-item.mhg-cover-scale-selected {
+ z-index: 3;
+}
+
+.mhg-library-vertical-covers .fixed-focal-games-item .games-list-item--cover-sized {
+ transform: none !important;
+}
+
+.mhg-library-vertical-covers .fixed-focal-games-item .games-list-cover {
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 50% 50% !important;
+ transition: none !important;
+}
+
+/* Tag index: fixed Y slots — wheel changes selection, tiles never scroll. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view):has(.fixed-focal-tag-list) {
+ overflow-x: hidden !important;
+ overflow-y: visible !important;
+ overscroll-behavior: none;
+ height: 100vh !important;
+ padding-top: 0 !important;
+ padding-bottom: var(--mhg-grid-bottom-inset-tag) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-list {
+ overflow: visible !important;
+ touch-action: none;
+ min-height: 100vh;
+ margin-left: max(
+ 0px,
+ calc(
+ var(--mhg-active-library-icon-center-x, 180px) -
+ (var(--mhg-vertical-column-width) / 2) +
+ var(--mhg-vertical-column-shift-x, 0px)
+ )
+ ) !important;
+ margin-right: auto !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-item {
+ position: absolute;
+ z-index: 1;
+ pointer-events: auto;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-item.mhg-cover-scale-selected {
+ z-index: 3;
+}
+
+/* Unselected tiles above the bar stay behind the libraries strip. */
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-item:not(.mhg-cover-scale-selected) {
+ z-index: 0;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-item .tag-list-item {
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 50% 50% !important;
+ transition: none !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ margin: 0 !important;
 }
 
 /*Hard override on the actual covers rail container (virtualized path).*/
@@ -1832,7 +1984,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  .tag-list-container,
 :root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
  .home-page-scroll-container:not(.table-view)
- .collections-list-container:not(.collections-list-container--virtualized),
+ .collections-list-container:not(.collections-list-container--virtualized):not(.collections-list-container--fixed-focal),
 :root[data-mhg-vertical-cover-alignment="true"]:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
  .home-page-scroll-container:not(.table-view)
  .library-item-detail-subcollections-grid {
@@ -3464,14 +3616,32 @@ body > .additional-executables-dropdown-menu {
 * container is the actual scroller, the padding becomes part of the
 * scroll content and the items remain visible behind the bar as they
 * scroll up.*/
+/* Fixed-focal collection-like: inset via JS, not scroll padding. */
 :root[data-mhg-vertical-cover-alignment="true"]
- .home-page-scroll-container:not(.table-view):has(.tag-list-container),
+ .home-page-scroll-container:not(.table-view):has(.collections-list-container--fixed-focal) {
+ padding-top: 0 !important;
+ padding-bottom: var(--mhg-grid-bottom-inset-collections) !important;
+ overflow-y: visible !important;
+}
+
 :root[data-mhg-vertical-cover-alignment="true"]
- .home-page-scroll-container:not(.table-view):has(.collections-list-container:not(.collections-list-container--virtualized)),
+ .home-page-scroll-container:not(.table-view):has(.tag-list-container:not(.fixed-focal-tag-list)),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view):has(.collections-list-container:not(.collections-list-container--virtualized):not(.collections-list-container--fixed-focal)),
 :root[data-mhg-vertical-cover-alignment="true"]
  .home-page-scroll-container:not(.table-view):has(.library-item-detail-subcollections-grid) {
  padding-top: var(--mhg-grid-top-inset) !important;
  padding-bottom: var(--mhg-grid-bottom-inset) !important;
+}
+
+/* Fixed-focal tag rail positions via JS (`readGridTopInsetPx`); no scroll padding. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view):has(.fixed-focal-tag-list) {
+ --mhg-grid-top-inset: var(--mhg-grid-top-inset-tag);
+ --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-tag);
+ padding-top: 0 !important;
+ overflow-y: visible !important;
+ height: 100vh !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll {
@@ -3510,7 +3680,7 @@ body > .additional-executables-dropdown-menu {
 
 /*Non-virtualized tag/collection-like containers: align flush with the top.*/
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .tag-list-container,
-:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container:not(.collections-list-container--virtualized),
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container:not(.collections-list-container--virtualized):not(.collections-list-container--fixed-focal),
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .library-item-detail-subcollections-grid {
  margin-top: 0 !important;
 }
