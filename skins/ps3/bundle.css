@@ -162,6 +162,14 @@ body *::-webkit-scrollbar-corner {
 */
  --mhg-step-scroll-rows: 1;
  /*
+* Cover scale: only the pad nearest the focal align line is full size; all
+* others use `--mhg-cell-scale-unselected` (see useCoverScaleAroundBar).
+*/
+ --mhg-cover-scale-selected-only: 1;
+ --mhg-cell-scale-unselected: 0.5;
+ --mhg-cell-scale-selected: 1;
+ --mhg-cover-scale-focal-below-bar: 2px;
+ /*
 * `useGlobalCoverScaleAroundBar`: tag index tiles (`.tag-list-item`) only —
 * shifts the shrink reference line upward by this many CSS pixels so
 * rimpicciolimento starts slightly later while scrolling up. 0 = same as
@@ -3560,6 +3568,12 @@ body > .additional-executables-dropdown-menu {
 .virtualized-grid-cell-pad {
  transform: scale(var(--mhg-cell-scale, 1));
  transform-origin: 50% 0%;
+ position: relative;
+ z-index: 1;
+}
+
+.virtualized-grid-cell-pad.mhg-cover-scale-selected {
+ z-index: 3;
 }
 
 /*GameListItem always carries `games-list-item--cover-sized`; inside virtualized
@@ -3581,6 +3595,15 @@ body > .additional-executables-dropdown-menu {
 .games-list-item--cover-sized {
  transform: scale(var(--mhg-cell-scale, 1));
  transform-origin: 50% 0%;
+ position: relative;
+ z-index: 1;
+}
+
+.tag-list-item.mhg-cover-scale-selected,
+.collections-list-item--sized.mhg-cover-scale-selected,
+.library-item-detail-subcollection-cell.mhg-cover-scale-selected,
+.games-list-item--cover-sized.mhg-cover-scale-selected {
+ z-index: 3;
 }
 
 /*=============================================================================
@@ -3954,15 +3977,6 @@ body > .additional-executables-dropdown-menu {
  box-shadow: none !important;
 }
 
-.library-item-detail-scroll--context-rail
- .library-item-detail-context-games
- .virtualized-grid-cell-pad,
-.library-item-detail-scroll--context-rail
- .library-item-detail-context-games
- .games-list-item--cover-sized {
- --mhg-cell-scale: 1 !important;
- transform: scale(1) !important;
-}
 
 .library-item-detail-scroll--context-rail
  .library-item-detail-context-games
@@ -4180,11 +4194,6 @@ body > .additional-executables-dropdown-menu {
  --mhg-step-scroll-rows: 1;
 }
 
-.tag-games-context-games .virtualized-grid-cell-pad,
-.tag-games-context-games .games-list-item--cover-sized {
- --mhg-cell-scale: 1 !important;
- transform: scale(1) !important;
-}
 
 .tag-games-context-games .virtualized-grid-cell-pad .games-list-item--cover-sized {
  width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
