@@ -1119,6 +1119,49 @@ body *::-webkit-scrollbar-corner {
  display: block;
 }
 
+/* Tag tiles and placeholders: overlay title on cover (16:9 index). */
+.cover-overlay-content {
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ z-index: 2;
+ pointer-events: none;
+}
+
+.cover-placeholder-text,
+.cover-overlay-title-text {
+ font-size: var(--cover-text-fs, 14px);
+ text-align: center;
+ font-weight: 600;
+ line-height: 1.3;
+ word-break: break-word;
+ overflow: hidden;
+ display: -webkit-box;
+ -webkit-line-clamp: var(--cover-line-clamp, 3);
+ -webkit-box-orient: vertical;
+ width: 100%;
+ max-height: 100%;
+}
+
+.cover-placeholder-text {
+ padding: var(--cover-text-pad, 8px);
+ color: rgba(255, 255, 255, 0.85);
+}
+
+.cover-overlay-title-layer.cover-overlay-content {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: var(--cover-text-pad, 8px);
+}
+
+.cover-overlay-title-text {
+ color: rgba(255, 255, 255, 0.95);
+ text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.85);
+}
+
 /*
 * libraryBarHeaderActions: in keep Settings/Profile as icons appended to
 * the horizontal strip (no labels, same visual tone as library icons).
@@ -1430,6 +1473,9 @@ body *::-webkit-scrollbar-corner {
  touch-action: none;
  min-height: 100vh;
  height: 100%;
+ --mhg-fixed-focal-cover-height: calc(
+  var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px)) * 1.5
+ );
  /* Center each cover slot on the active library icon (XMB axis). */
  margin-left: max(
  0px,
@@ -1474,6 +1520,65 @@ body *::-webkit-scrollbar-corner {
  transition: none !important;
  width: var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px)) !important;
  max-width: 100% !important;
+ height: var(--mhg-fixed-focal-cover-height) !important;
+ min-height: var(--mhg-fixed-focal-cover-height) !important;
+}
+
+/* Collapse layout gap under scaled-down covers so titles sit under the visible tile. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .games-list-cover {
+ margin-bottom: calc(
+  (var(--mhg-cell-scale, 0.5) - 1) * var(--mhg-fixed-focal-cover-height)
+ ) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item .games-list-title-wrapper {
+ position: relative;
+ display: flex;
+ flex-direction: column;
+ gap: 2px;
+ margin-top: 6px;
+ overflow: visible;
+ max-width: var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px));
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper {
+ margin-top: 4px;
+ max-width: calc(var(--mhg-fixed-focal-cover-size, 240px) * var(--mhg-cell-scale, 0.5));
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item .games-list-title {
+ font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+ font-size: 0.85rem;
+ font-weight: 500;
+ color: rgba(255, 255, 255, 0.92);
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .games-list-title {
+ font-size: 0.72rem;
+ font-weight: 500;
+ color: rgba(255, 255, 255, 0.78);
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item .games-list-year {
+ font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+ font-size: 0.75rem;
+ color: rgba(255, 255, 255, 0.55);
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .games-list-year {
+ font-size: 0.65rem;
+ color: rgba(255, 255, 255, 0.48);
 }
 
 .mhg-library-vertical-covers .home-page-content-wrapper.has-toolbar .home-page-scroll-container:not(.table-view),
