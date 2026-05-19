@@ -10,6 +10,7 @@
     "sidebarSearchPopup": true,
     "disableAlphabetNavigator": true,
     "verticalCoverAlignment": true,
-    "compactCollectionLikeDetail": true
+    "compactCollectionLikeDetail": true,
+    "fixedFocalStepSound": true
   }
 }
