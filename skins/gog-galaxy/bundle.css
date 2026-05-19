@@ -1077,7 +1077,7 @@ body:has(.launch-modal-overlay) .mhg-header {
 .add-game-create-btn {
  flex-shrink: 0;
  padding: 14px 20px;
- background: linear-gradient(135deg, #FFB300 0%, #e6a000 100%);
+ background: linear-gradient(135deg, var(--mhg-icon-accent) 0%, #a78bfa 100%);
  border: none;
  border-radius: 12px;
  color: #0f0f0f;
@@ -1089,9 +1089,9 @@ body:has(.launch-modal-overlay) .mhg-header {
 }
 
 .add-game-create-btn:hover:not(:disabled) {
- background: linear-gradient(135deg, #ffc233 0%, #FFB300 100%);
+ background: linear-gradient(135deg, var(--mhg-icon-accent-strong) 0%, var(--mhg-icon-accent) 100%);
  transform: translateY(-1px);
- box-shadow: 0 4px 12px rgba(255, 179, 0, 0.35);
+ box-shadow: 0 4px 12px rgba(196, 181, 253, 0.35);
 }
 
 .add-game-create-btn:disabled {
@@ -1126,9 +1126,9 @@ body:has(.launch-modal-overlay) .mhg-header {
 
 .add-game-search-input:focus {
  outline: none;
- border-color: #FFB300;
+ border-color: var(--mhg-icon-accent);
  background: rgba(42, 42, 42, 1);
- box-shadow: 0 0 0 3px rgba(255, 179, 0, 0.1);
+ box-shadow: 0 0 0 3px rgba(196, 181, 253, 0.1);
 }
 
 .add-game-error {
@@ -1164,7 +1164,7 @@ body:has(.launch-modal-overlay) .mhg-header {
 }
 
 .add-game-results::-webkit-scrollbar-thumb:hover {
- background: rgba(255, 179, 0, 0.5);
+ background: rgba(196, 181, 253, 0.5);
 }
 
 .add-game-empty-state {
@@ -1191,7 +1191,7 @@ body:has(.launch-modal-overlay) .mhg-header {
  width: 40px;
  height: 40px;
  border: 3px solid rgba(255, 255, 255, 0.1);
- border-top-color: #FFB300;
+ border-top-color: var(--mhg-icon-accent);
  border-radius: 50%;
  animation: spin 0.8s linear infinite;
 }
@@ -1230,16 +1230,16 @@ body:has(.launch-modal-overlay) .mhg-header {
  left: 0;
  right: 0;
  bottom: 0;
- background: linear-gradient(135deg, rgba(255, 179, 0, 0.05) 0%, transparent 100%);
+ background: linear-gradient(135deg, rgba(196, 181, 253, 0.05) 0%, transparent 100%);
  opacity: 0;
  transition: opacity 0.2s ease;
 }
 
 .add-game-result-item:hover {
  background: rgba(42, 42, 42, 0.9);
- border-color: rgba(255, 179, 0, 0.3);
+ border-color: rgba(196, 181, 253, 0.3);
  transform: translateY(-2px);
- box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 179, 0, 0.2);
+ box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(196, 181, 253, 0.2);
 }
 
 .add-game-result-item:hover::before {
@@ -8460,7 +8460,7 @@ fieldset.edit-game-modal-field {
  width: 40px;
  height: 40px;
  border: 3px solid rgba(255, 255, 255, 0.1);
- border-top-color: #ffb300;
+ border-top-color: var(--mhg-icon-accent);
  border-radius: 50%;
  animation: add-game-spin 0.8s linear infinite;
  margin-bottom: 16px;
@@ -10680,7 +10680,8 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .settings-button,
 .settings-button-active:not(:disabled),
 .update-notification-download-primary {
- background-color: var(--mhg-icon-accent) !important;
+ background: var(--mhg-icon-accent) !important;
+ background-image: none !important;
  border-color: var(--mhg-icon-accent) !important;
  color: #000000 !important;
 }
@@ -10698,7 +10699,8 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .login-page-settings-cta:hover,
 .settings-button:hover:not(:disabled),
 .update-notification-download-primary:hover {
- background-color: var(--mhg-icon-accent-strong) !important;
+ background: var(--mhg-icon-accent-strong) !important;
+ background-image: none !important;
  border-color: var(--mhg-icon-accent-strong) !important;
 }
 
@@ -10760,4 +10762,19 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .edit-collection-modal-overlay .games-list-play-button-detail:hover,
 .edit-collection-modal-overlay .games-list-upload-button-detail:hover {
  background-color: rgba(196, 181, 253, 0.9) !important;
+}
+
+/*--- Add Game: purple accent (sidebar + modal) ---*/
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="mhg-header-add-game"] {
+ color: var(--mhg-icon-accent);
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:hover:not(.mhg-library-active),
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="mhg-header-add-game"] {
+ color: var(--mhg-icon-accent-strong) !important;
+}
+
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key="mhg-header-add-game"]::before,
+.mhg-libraries-bar .mhg-library-active[data-mhg-library-key="mhg-header-add-game"]::before {
+ opacity: 1;
 }
