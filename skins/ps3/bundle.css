@@ -7054,6 +7054,126 @@ body > .additional-executables-dropdown-menu {
  height: auto !important;
 }
 
+/* Tag detail context-rail: narrow games column — cap cover width, give titles room. */
+.tag-games-page-shell--context-rail
+ .tag-games-context-games:has(.fixed-focal-games-list) {
+ overflow-x: hidden !important;
+ overflow-y: visible !important;
+ overscroll-behavior: none;
+}
+
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .games-list-container--fixed-focal {
+ height: 100%;
+ min-height: 100%;
+}
+
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .games-list-container--fixed-focal
+ .fixed-focal-games-list {
+ position: relative;
+ display: block !important;
+ overflow: visible !important;
+ touch-action: none;
+ min-height: 100vh;
+ height: 100%;
+ margin-left: 0 !important;
+ margin-right: auto !important;
+ gap: 0 !important;
+}
+
+.tag-games-page-shell--context-rail .tag-games-context-games .fixed-focal-games-item {
+ position: absolute;
+ z-index: 1;
+ pointer-events: auto;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ overflow: visible !important;
+}
+
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item.mhg-cover-scale-selected {
+ z-index: 3;
+}
+
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected) {
+ z-index: 0;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item
+ .games-list-item--cover-sized {
+ width: 100% !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ margin: 0 !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item
+ .games-list-cover {
+ flex: 0 1 auto;
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 0% 50% !important;
+ transition: none !important;
+ width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
+ max-width: min(
+  var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)),
+  38%
+ ) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item.mhg-cover-scale-selected
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item.mhg-cover-scale-selected
+ .games-list-title-wrapper
+ .tooltip-wrapper {
+ display: flex !important;
+ flex: 1 1 auto;
+ min-width: 0;
+ width: auto;
+ max-width: none !important;
+ overflow: hidden;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item.mhg-cover-scale-selected
+ .games-list-title-wrapper
+ .tooltip-wrapper
+ .games-list-title,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .mhg-cover-scale-selected
+ .games-list-title {
+ white-space: normal !important;
+ display: -webkit-box !important;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp: 4;
+ line-clamp: 4;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ word-break: break-word;
+}
+
 /*=============================================================================
 * Vista Dettaglio (`viewMode.detail`): list rows under the active library icon.
 * Base row layout (PS3 bundle omits the full Plex component stylesheet).
