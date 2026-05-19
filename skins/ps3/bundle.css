@@ -2676,7 +2676,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  display: flex;
  align-items: center;
  justify-content: center;
- z-index: 1000;
+ z-index: 10100;
 }
 
 @keyframes mhg-add-game-fade-in {
@@ -3122,6 +3122,2236 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  background-color: #f5b041;
 }
 
+
+/* ==========================================================================
+ * Modals (portaled to document.body) — above tool dock (z-index 10060).
+ * PS3 previously shipped add-game + search modal only; edit/launch/confirm
+ * overlays had no positioning and rendered invisible behind the UI chrome.
+ * ========================================================================== */
+
+/* --- ./components/collections/EditCollectionLikeModal.css --- */
+
+
+.edit-collection-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10100;
+}
+
+.edit-collection-modal-container {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.edit-collection-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-collection-modal-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.edit-collection-modal-header h2 svg {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.edit-collection-modal-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.edit-collection-modal-close:hover {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.edit-collection-modal-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.edit-collection-modal-error {
+  background-color: rgba(220, 38, 38, 0.1);
+  color: #ef4444;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.edit-collection-modal-field {
+  margin-bottom: 20px;
+}
+
+.edit-collection-modal-field label {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.edit-collection-modal-field input,
+.edit-collection-modal-field textarea {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 10px 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.edit-collection-modal-field input:focus,
+.edit-collection-modal-field textarea:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.edit-collection-modal-field input:disabled,
+.edit-collection-modal-field textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.edit-collection-modal-field textarea {
+  resize: vertical;
+  min-height: 300px;
+}
+
+.edit-collection-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-collection-modal-cancel,
+.edit-collection-modal-save {
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.edit-collection-modal-cancel {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.edit-collection-modal-cancel:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.edit-collection-modal-save {
+  background-color: var(--mhg-primary, #22c55e);
+  color: #000000;
+}
+
+.edit-collection-modal-save:hover:not(:disabled) {
+  background-color: #4ade80;
+}
+
+.edit-collection-modal-cancel:disabled,
+.edit-collection-modal-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.edit-collection-modal-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-collection-modal-tab {
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.edit-collection-modal-tab:hover:not(:disabled) {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.edit-collection-modal-tab.active {
+  color: var(--mhg-primary, #22c55e);
+  border-bottom-color: var(--mhg-primary, #22c55e);
+}
+
+.edit-collection-modal-tab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.edit-collection-modal-info {
+  display: flex;
+  flex-direction: column;
+  min-height: 487px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.edit-collection-modal-media {
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+}
+
+.edit-collection-modal-media-options {
+  margin-bottom: -16px;
+}
+
+.edit-collection-modal-media-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.edit-collection-modal-media-checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--mhg-primary, #22c55e);
+  cursor: pointer;
+}
+
+.edit-collection-modal-media-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  min-height: 203px;
+}
+
+/* Riga URL esterno: stessa altezza contenuto, non 203px */
+.edit-collection-modal-media-row.edit-game-modal-external-url-row {
+  min-height: unset;
+  align-items: flex-start;
+}
+
+/* Background 16:9 (~169px) non riempie i 203px della riga cover: senza questo resta vuoto sotto l’immagine e l’URL sembra lontano */
+.edit-collection-modal-media-row.edit-collection-modal-media-row--background {
+  min-height: unset;
+  align-items: flex-start;
+}
+
+.edit-collection-modal-media-info {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edit-collection-modal-media-info label,
+.edit-collection-modal-media-info .edit-collection-modal-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.2;
+  min-height: 1.2em;
+}
+
+.edit-collection-modal-media-description {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.edit-collection-modal-media-image-container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+}
+
+
+/* Confirmation Modal Styles */
+.dropdown-menu-confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10100;
+}
+
+.dropdown-menu-confirm-container {
+  background-color: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  min-width: 400px;
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu-confirm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-menu-confirm-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu-confirm-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.dropdown-menu-confirm-close:hover {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.dropdown-menu-confirm-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.dropdown-menu-confirm-content p {
+  margin: 0 0 16px 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.dropdown-menu-confirm-error {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 16px;
+  color: rgba(239, 68, 68, 0.9);
+  font-size: 13px;
+}
+
+.dropdown-menu-confirm-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-menu-confirm-cancel,
+.dropdown-menu-confirm-delete,
+.dropdown-menu-confirm-reload {
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.dropdown-menu-confirm-cancel {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dropdown-menu-confirm-cancel:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.dropdown-menu-confirm-delete {
+  background-color: rgba(239, 68, 68, 0.9);
+  color: #ffffff;
+}
+
+.dropdown-menu-confirm-delete:hover:not(:disabled) {
+  background-color: rgba(239, 68, 68, 1);
+}
+
+.dropdown-menu-confirm-reload {
+  background-color: rgba(34, 197, 94, 0.9);
+  color: #ffffff;
+}
+
+.dropdown-menu-confirm-reload:hover:not(:disabled) {
+  background-color: rgba(34, 197, 94, 1);
+}
+
+.dropdown-menu-confirm-cancel:disabled,
+.dropdown-menu-confirm-delete:disabled,
+.dropdown-menu-confirm-reload:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --- ./components/common/InlineTagList.css --- */
+
+
+.inline-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.inline-tag-list-item {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  line-height: var(--font-body-2-line-height);
+  text-decoration: none;
+}
+
+.inline-tag-list-item--clickable {
+  cursor: pointer;
+}
+
+.inline-tag-list-item--clickable:hover {
+  text-decoration: underline;
+  color: rgba(255, 255, 255, 1);
+}
+
+.inline-tag-list-item--static {
+  cursor: default;
+}
+
+.inline-tag-list-sep {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  line-height: var(--font-body-2-line-height);
+}
+
+.inline-tag-list-more-btn {
+  display: inline-flex;
+  align-items: center;
+  line-height: var(--font-body-2-line-height);
+  vertical-align: baseline;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  cursor: pointer;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.inline-tag-list-more-btn:hover {
+  text-decoration: underline;
+  color: rgba(255, 255, 255, 1);
+}
+
+.inline-tag-list-more-span {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: baseline;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  line-height: var(--font-body-2-line-height);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.inline-tag-list-more-span:hover {
+  text-decoration: underline;
+  color: rgba(255, 255, 255, 1);
+}
+
+.launch-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10100;
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+.launch-modal-container {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  border: 1px solid #2a2a2a;
+  width: 40%;
+  max-width: 500px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.launch-modal-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #2a2a2a;
+  border-top: 4px solid var(--mhg-primary, #22c55e);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.launch-modal-error-title {
+  font-size: 24px;
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.launch-modal-error-message {
+  color: #ffffff;
+  font-size: 16px;
+  text-align: center;
+  line-height: 1.5;
+}
+/* --- ./components/common/TagEditor.css --- */
+
+
+.tag-editor-container {
+  position: relative;
+}
+
+.tag-editor-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  min-height: 42px;
+  padding: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.tag-editor-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.tag-editor-tag-remove {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 0;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tag-editor-tag-remove:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.tag-editor-tag-remove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tag-editor-input {
+  flex: 1;
+  min-width: 120px;
+  background: none !important;
+  border: none !important;
+  padding: 4px 0 !important;
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-family: inherit;
+}
+
+.tag-editor-input:focus {
+  outline: none !important;
+  border: none !important;
+  background: none !important;
+}
+
+.tag-editor-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tag-editor-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background-color: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tag-editor-suggestion {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s ease;
+}
+
+.tag-editor-suggestion:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tag-editor-suggestion:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* --- ./components/games/AddToCollectionModal.css --- */
+
+
+.add-to-collection-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+  pointer-events: auto;
+}
+
+.add-to-collection-modal {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  height: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.add-to-collection-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.add-to-collection-modal-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.add-to-collection-modal-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.add-to-collection-modal-close:hover {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.add-to-collection-modal-error {
+  padding: 10px 24px;
+  background-color: rgba(220, 53, 69, 0.15);
+  color: #f87171;
+  font-size: 0.875rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.add-to-collection-modal-search {
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.add-to-collection-modal-search input {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.add-to-collection-modal-search input::selection {
+  background-color: #87CEEB;
+  color: #000000;
+}
+
+.add-to-collection-modal-search input:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 1);
+  color: #000000;
+}
+
+.add-to-collection-modal-search input:focus::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.add-to-collection-modal-search input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.add-to-collection-modal-collections {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+  min-height: 350px;
+}
+
+.add-to-collection-modal-collection-item {
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.add-to-collection-modal-collection-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.add-to-collection-modal-collection-title {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.add-to-collection-modal-collection-count {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.75rem;
+}
+
+.add-to-collection-modal-empty {
+  padding: 40px 24px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+}
+
+.add-to-collection-modal-create {
+  padding: 12px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.add-to-collection-modal-create input {
+  flex: 1;
+  padding: 10px 12px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.add-to-collection-modal-create input::selection {
+  background-color: #87CEEB;
+  color: #000000;
+}
+
+.add-to-collection-modal-create input:focus {
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 1);
+  color: #000000;
+}
+
+.add-to-collection-modal-create input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.add-to-collection-modal-create-button {
+  padding: 10px 20px;
+  background-color: var(--mhg-primary, #22c55e);
+  border: none;
+  border-radius: 4px;
+  color: #000000;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-to-collection-modal-create-button:hover:not(:disabled) {
+  background-color: #4ade80;
+}
+
+.add-to-collection-modal-create-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* --- ./components/games/AgeRatings.css --- */
+
+
+.age-ratings-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.age-rating-item {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  line-height: var(--font-body-2-line-height);
+}
+
+.age-rating-separator {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  line-height: var(--font-body-2-line-height);
+}
+
+
+/* --- ./components/games/EditGameModal.css --- */
+
+
+/* Grouped fields: <fieldset> + <legend> (no default border) */
+fieldset.edit-game-modal-field {
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.edit-game-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10100;
+}
+
+.edit-game-modal-container {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.edit-game-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-game-modal-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.edit-game-modal-header h2 svg {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.edit-game-modal-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.edit-game-modal-close:hover {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.edit-game-modal-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.edit-game-modal-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.edit-game-modal-error {
+  background-color: rgba(220, 38, 38, 0.1);
+  color: #ef4444;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.edit-game-modal-field {
+  margin-bottom: 20px;
+}
+
+.edit-game-modal-field label,
+.edit-game-modal-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.edit-game-modal-age-rating-select {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  min-width: 120px;
+}
+
+.edit-game-modal-field input,
+.edit-game-modal-field textarea {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 10px 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.edit-game-modal-field input:focus,
+.edit-game-modal-field textarea:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.edit-game-modal-field input:disabled,
+.edit-game-modal-field textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.edit-game-modal-field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.edit-game-modal-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.edit-game-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-game-modal-cancel,
+.edit-game-modal-save {
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.edit-game-modal-cancel {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.edit-game-modal-cancel:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.edit-game-modal-save {
+  background-color: var(--mhg-primary, #22c55e);
+  color: #000000;
+}
+
+.edit-game-modal-save:hover:not(:disabled) {
+  background-color: #4ade80;
+}
+
+.edit-game-modal-cancel:disabled,
+.edit-game-modal-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.edit-game-modal-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-game-modal-tab {
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.edit-game-modal-tab:hover:not(:disabled) {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.edit-game-modal-tab.active {
+  color: var(--mhg-primary, #22c55e);
+  border-bottom-color: var(--mhg-primary, #22c55e);
+}
+
+.edit-game-modal-tab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Alternative names list (Info tab) */
+.edit-game-modal-alt-names-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.edit-game-modal-alt-names-input {
+  flex: 1;
+  min-width: 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-family: inherit;
+}
+
+.edit-game-modal-alt-names-input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.edit-game-modal-alt-names-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.edit-game-modal-similar-name {
+  flex: 1;
+  min-width: 0;
+  color: #ffffff;
+  font-size: 0.9375rem;
+}
+
+.edit-game-modal-alt-names-remove {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  background-color: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 4px;
+  color: #ef4444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.edit-game-modal-alt-names-remove:hover:not(:disabled) {
+  background-color: rgba(220, 38, 38, 0.2);
+  border-color: rgba(220, 38, 38, 0.5);
+}
+
+.edit-game-modal-alt-names-remove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.edit-game-modal-alt-names-add {
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+.edit-game-modal-alt-names-row.edit-game-modal-alt-names-add {
+  flex-wrap: wrap;
+}
+
+.edit-game-modal-add-btn {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #000;
+  background: var(--mhg-primary, #22c55e);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.edit-game-modal-add-btn:hover:not(:disabled) {
+  background: #4ade80;
+}
+
+.edit-game-modal-add-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* --- ./components/games/ManageInstallationModal.css --- */
+
+
+.manage-installation-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10100;
+}
+
+.manage-installation-modal-container {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.manage-installation-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.manage-installation-modal-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.manage-installation-modal-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.manage-installation-modal-close:hover {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.manage-installation-modal-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.manage-installation-modal-description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.manage-installation-modal-error {
+  background-color: rgba(220, 38, 38, 0.1);
+  color: #ef4444;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.manage-installation-executables-list {
+  margin-bottom: 20px;
+}
+
+.manage-installation-executable-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  margin-bottom: 12px;
+  transition: opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+/* Drag only from the handle — whole row was draggable and stole text selection + showed bad drag ghosts */
+.manage-installation-drag-handle {
+  cursor: grab;
+  touch-action: none;
+}
+
+.manage-installation-drag-handle:active {
+  cursor: grabbing;
+}
+
+.manage-installation-executable-item-drag-over {
+  opacity: 0.5;
+  transform: scale(1.02);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.manage-installation-executable-order-controls {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.manage-installation-executable-number {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+
+.manage-installation-executable-fields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.manage-installation-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.manage-installation-field-group label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.manage-installation-field-group input {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 10px 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  cursor: text;
+}
+
+.manage-installation-field-group input *,
+.manage-installation-browse-button *,
+.manage-installation-remove-button * {
+  cursor: default;
+  pointer-events: none;
+}
+
+.manage-installation-browse-button,
+.manage-installation-remove-button {
+  cursor: pointer;
+}
+
+.manage-installation-field-group input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.manage-installation-path-input-group {
+  display: flex;
+  gap: 8px;
+}
+
+.manage-installation-path-input-group input {
+  flex: 1;
+}
+
+.manage-installation-browse-button {
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 10px 16px;
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.manage-installation-browse-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.manage-installation-remove-button {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background-color: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 4px;
+  color: #ef4444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  padding: 0;
+}
+
+.manage-installation-remove-button:hover:not(:disabled) {
+  background-color: rgba(220, 38, 38, 0.2);
+  border-color: rgba(220, 38, 38, 0.5);
+}
+
+.manage-installation-remove-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.manage-installation-add-button {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.manage-installation-add-button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.manage-installation-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.manage-installation-modal-cancel,
+.manage-installation-modal-save {
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  border: none;
+}
+
+.manage-installation-modal-cancel {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.manage-installation-modal-cancel:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.manage-installation-modal-save {
+  background-color: var(--mhg-primary, #22c55e);
+  color: #000000;
+}
+
+.manage-installation-modal-save:hover:not(:disabled) {
+  background-color: #4ade80;
+}
+
+.manage-installation-modal-cancel:disabled,
+.manage-installation-modal-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- ./components/games/MediaGallery.css --- */
+
+
+.media-gallery-strip {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.media-gallery-tile {
+  flex-shrink: 0;
+  width: 300px;
+  border-radius: 4px;
+  cursor: pointer;
+  aspect-ratio: 16 / 9;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.media-gallery-tile:hover {
+  opacity: 0.8;
+  transform: scale(1.02);
+}
+
+.media-gallery-tile-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 4px;
+}
+
+.media-gallery-thumb {
+  flex-shrink: 0;
+  width: 300px;
+  height: auto;
+  border-radius: 4px;
+  cursor: pointer;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.media-gallery-thumb:hover {
+  opacity: 0.8;
+  transform: scale(1.02);
+}
+
+.media-gallery-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10010;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.media-gallery-lightbox-inner {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-gallery-lightbox-icon-btn {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  transition: background-color 0.2s ease;
+}
+
+.media-gallery-lightbox-icon-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.media-gallery-lightbox-icon-btn--prev,
+.media-gallery-lightbox-icon-btn--next {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.media-gallery-lightbox-icon-btn--prev {
+  left: -60px;
+}
+
+.media-gallery-lightbox-icon-btn--next {
+  right: -60px;
+}
+
+.media-gallery-lightbox-icon-btn--close {
+  top: -60px;
+  right: 0;
+}
+
+.media-gallery-lightbox-img {
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.media-gallery-lightbox-iframe {
+  width: 90vw;
+  max-width: 1600px;
+  aspect-ratio: 16 / 9;
+  border-radius: 4px;
+  border: none;
+}
+
+.media-gallery-lightbox-counter {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  opacity: 0.8;
+}
+
+
+/* --- ./components/games/SimilarGamesList.css --- */
+
+
+.similar-games-inline-row {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.similar-games-cover-cell {
+  flex-shrink: 0;
+  width: var(--similar-cover-size, 150px);
+  min-width: var(--similar-cover-size, 150px);
+}
+
+/* --- ./components/games/WebsitesList.css --- */
+
+
+.websites-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.websites-list-item {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  line-height: var(--font-body-2-line-height);
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+.websites-list-favicon {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.websites-list-item:hover {
+  text-decoration: underline;
+  color: rgba(255, 255, 255, 1);
+}
+
+
+/* --- ./components/games/edit/EditGameMediaTab.css --- */
+
+
+.edit-game-modal-media {
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.edit-game-modal-media-options {
+  margin-bottom: -16px;
+}
+
+.edit-game-modal-media-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.edit-game-modal-media-checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--mhg-primary, #22c55e);
+  cursor: pointer;
+}
+
+.edit-game-modal-media-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  min-height: 203px;
+}
+
+.edit-game-modal-media-info {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edit-game-modal-media-info label,
+.edit-game-modal-media-info .edit-game-modal-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.2;
+  min-height: 1.2em;
+}
+
+.edit-game-modal-media-description {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.edit-game-modal-media-image-container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.edit-game-modal-media-gallery-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.edit-game-modal-media-row:has(.edit-game-modal-media-gallery-wrapper) {
+  min-height: unset;
+}
+
+/* Background 16:9 (~169px): senza questo la riga resta alta 203px (come la cover) e l’URL sembra lontano */
+.edit-game-modal-media-row.edit-game-modal-media-row--background {
+  min-height: unset;
+  align-items: flex-start;
+}
+
+.edit-game-modal-media-empty {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+.edit-game-modal-media-row-stack {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 38px;
+}
+
+.edit-game-modal-media-row-stack .edit-game-modal-media-info {
+  flex: none;
+  max-width: none;
+}
+
+.edit-game-modal-media-row-stack .edit-game-modal-media-info .edit-game-modal-media-description {
+  margin-bottom: 0;
+}
+
+.edit-game-modal-media-editor {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+}
+
+.edit-game-modal-media-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-game-modal-media-group-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.edit-game-modal-media-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.edit-game-modal-media-item-preview {
+  flex-shrink: 0;
+  width: 120px;
+  height: 68px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.edit-game-modal-media-item-preview-with-remove {
+  position: relative;
+}
+
+.edit-game-modal-media-item-remove-overlay {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  background-color: rgba(220, 38, 38, 0.9);
+  border: none;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+  padding: 0;
+  margin: 0;
+  line-height: 24px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.edit-game-modal-media-item-remove-overlay::before {
+  content: "×";
+  display: block;
+  line-height: 1;
+  transform: translateY(0px);
+}
+
+.edit-game-modal-media-item-remove-overlay:hover:not(:disabled) {
+  background-color: rgba(220, 38, 38, 1);
+  transform: scale(1.1);
+}
+
+.edit-game-modal-media-item-remove-overlay:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.edit-game-modal-media-item-preview-video {
+  width: 160px;
+  height: 90px;
+}
+
+.edit-game-modal-media-item-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.edit-game-modal-media-item-thumb-video {
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none;
+}
+
+.edit-game-modal-media-item-placeholder {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.edit-game-modal-media-item-input {
+  flex: 1;
+  min-width: 160px;
+  padding: 6px 10px;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.edit-game-modal-media-item-input:focus {
+  outline: none;
+  border-color: var(--mhg-primary, #22c55e);
+}
+
+.edit-game-modal-media-item-remove {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.edit-game-modal-media-item-remove:hover:not(:disabled) {
+  background: rgba(220, 53, 69, 0.5);
+  color: #fff;
+}
+
+.edit-game-modal-media-item-remove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.edit-game-modal-media-item-pending-label {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.edit-game-modal-media-add {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.edit-game-modal-media-add .edit-game-modal-media-item-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.edit-game-modal-media-add-btn {
+  padding: 6px 14px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #000;
+  background: var(--mhg-primary, #22c55e);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.edit-game-modal-media-add-btn:hover:not(:disabled) {
+  background: #4ade80;
+}
+
+.edit-game-modal-media-add-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.edit-game-modal-media-image-with-fields {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+
+/** Raggruppa immagine + riga URL esterno con gap compatto */
+.edit-game-modal-media-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+/** Seconda riga: label nella colonna 200px come Cover/Background */
+.edit-game-modal-external-url-row {
+  min-height: unset;
+  align-items: flex-start;
+}
+
+.edit-game-modal-external-url-input-column {
+  flex: 1;
+  min-width: 0;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.edit-game-modal-external-url-field {
+  width: 100%;
+  max-width: 420px;
+}
+
+.edit-game-modal-external-url-input {
+  width: 100%;
+  margin-top: 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.8125rem;
+  box-sizing: border-box;
+}
+
+.edit-game-modal-external-url-hint {
+  margin: 6px 0 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.35;
+}
+
+
+/* --- ./components/games/edit/FranchiseSeriesEditor.css --- */
+
+
+.franchise-series-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.franchise-series-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.franchise-series-chip-label {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.franchise-series-chip-remove {
+  padding: 0 2px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.franchise-series-chip-remove:hover {
+  color: #fff;
+}
+
+.franchise-series-add {
+  position: relative;
+}
+
+.franchise-series-add-button {
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.franchise-series-add-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.franchise-series-add-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.franchise-series-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  z-index: 10;
+  min-width: 200px;
+}
+
+.franchise-series-dropdown-empty {
+  padding: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.franchise-series-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.franchise-series-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
 /*--- Popups / menus (from Plex skin bundle; ships a full stylesheet only) ---*/
 
 /*--- ./components/filters/FilterPopup.css ---*/
@@ -3320,6 +5550,13 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  right: auto;
  bottom: auto;
  z-index: 10020;
+ max-height: calc(100dvh - var(--mhg-toolbar-popup-top, 120px) - 12px);
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+ .filter-popup .filter-popup-scrollable {
+ max-height: min(400px, calc(100dvh - var(--mhg-toolbar-popup-top, 120px) - 56px));
 }
 
 /*--- ./components/common/DropdownMenu.css (subset) ---*/
@@ -3533,7 +5770,7 @@ body > .additional-executables-dropdown-menu {
  display: flex;
  align-items: center;
  justify-content: center;
- z-index: 10002;
+ z-index: 10100;
  pointer-events: auto;
 }
 
@@ -4806,7 +7043,7 @@ body > .additional-executables-dropdown-menu {
  margin-top: 8px;
  background-color: transparent;
  border: none;
- color: #e5a00d;
+ color: var(--mhg-primary, #22c55e);
  cursor: pointer;
  padding: 0;
  font-size: 0.85rem;
@@ -5262,6 +7499,11 @@ body > .additional-executables-dropdown-menu {
 .games-table-column-menu-check {
   flex-shrink: 0;
   margin-left: 8px;
+  color: var(--mhg-primary, #22c55e);
+}
+
+.games-table-column-menu-check path {
+  fill: currentColor;
 }
 
 .games-table tbody tr {
@@ -5797,7 +8039,23 @@ body > .additional-executables-dropdown-menu {
  flex: 1 1 auto;
  display: flex;
  flex-direction: column;
- min-height: 0;
+ min-height: 100dvh;
+ overflow: hidden;
+}
+
+.mhg-library-vertical-covers.home-page-content:has(.home-page-scroll-container.table-view),
+.mhg-library-vertical-covers .home-page-layout:has(.home-page-scroll-container.table-view) {
+ flex: 1 1 auto;
+ display: flex;
+ flex-direction: column;
+ min-height: 100dvh;
+}
+
+.home-page-main-container:has(.home-page-scroll-container.table-view) {
+ display: flex;
+ flex-direction: column;
+ flex: 1 1 auto;
+ min-height: 100dvh;
  overflow: hidden;
 }
 
@@ -5830,6 +8088,7 @@ body > .additional-executables-dropdown-menu {
  background-color: transparent;
  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
  box-sizing: border-box;
+ flex: 0 0 auto;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -5860,20 +8119,28 @@ body > .additional-executables-dropdown-menu {
 
 :root[data-mhg-vertical-cover-alignment="true"]
  .home-page-scroll-container.table-view {
- flex: 1 1 auto;
- min-height: 0;
+ flex: 1 1 0;
+ min-height: calc(
+  100dvh - var(--mhg-table-view-top-inset, var(--mhg-grid-top-inset-games, 420px)) - 48px
+ );
+ height: calc(
+  100dvh - var(--mhg-table-view-top-inset, var(--mhg-grid-top-inset-games, 420px)) - 48px
+ ) !important;
  padding-top: 0 !important;
  padding-bottom: 0 !important;
- height: auto !important;
  overflow: hidden !important;
 }
 
 .mhg-library-vertical-covers .home-page-scroll-container.table-view,
 .mhg-vertical-covers-page .home-page-scroll-container.table-view {
- height: auto !important;
- min-height: 0 !important;
+ flex: 1 1 0;
+ min-height: calc(
+  100dvh - var(--mhg-table-view-top-inset, var(--mhg-grid-top-inset-games, 420px)) - 48px
+ );
+ height: calc(
+  100dvh - var(--mhg-table-view-top-inset, var(--mhg-grid-top-inset-games, 420px)) - 48px
+ ) !important;
  overflow: hidden !important;
- flex: 1 1 auto;
 }
 
 .mhg-library-vertical-covers
@@ -5915,6 +8182,19 @@ body > .additional-executables-dropdown-menu {
 
 :root[data-mhg-vertical-cover-alignment="true"] .games-table-header-table th {
  background-color: rgba(34, 197, 94, 0.08);
+}
+
+/* Vista Tabella: column picker stays above the scrollable body layer. */
+:root[data-mhg-vertical-cover-alignment="true"] .games-table-header-section {
+ position: relative;
+ z-index: 4;
+ overflow: visible;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container.table-view {
+ position: relative;
+ z-index: 1;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .games-table-header-table thead {
