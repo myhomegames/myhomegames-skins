@@ -157,6 +157,8 @@ body *::-webkit-scrollbar-corner {
 */
  --mhg-grid-bottom-inset-tag: calc(100dvh - var(--mhg-library-bar-effective-bottom));
  --mhg-grid-bottom-inset-games: calc(100dvh - var(--mhg-library-bar-effective-bottom));
+ /*Fixed-focal tag index: extra rail height so tiles reach the page bottom.*/
+ --mhg-fixed-focal-tag-list-height-extra: 300px;
  /*Collection-like: scroll cap is enforced in JS (VirtualizedCollectionsList), not bottom pad.*/
  --mhg-grid-bottom-inset-collections: 0px;
  /*How far the last cover may rise above the first-cover line (VirtualizedCollectionsList).*/
@@ -1656,8 +1658,8 @@ body *::-webkit-scrollbar-corner {
 :root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-list {
  overflow: visible !important;
  touch-action: none;
- height: 100%;
- min-height: 100%;
+ height: calc(100% + var(--mhg-fixed-focal-tag-list-height-extra, 0px));
+ min-height: calc(100% + var(--mhg-fixed-focal-tag-list-height-extra, 0px));
  margin-left: max(
  0px,
  calc(
