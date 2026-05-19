@@ -10676,7 +10676,6 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .search-result-play-button,
 .igdb-game-detail-mark-owned-button,
 .library-item-detail-play-btn,
-.login-page-settings-cta,
 .settings-button,
 .settings-button-active:not(:disabled),
 .update-notification-download-primary {
@@ -10696,7 +10695,6 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .search-result-play-button:hover,
 .igdb-game-detail-mark-owned-button:hover:not(:disabled),
 .library-item-detail-play-btn:hover,
-.login-page-settings-cta:hover,
 .settings-button:hover:not(:disabled),
 .update-notification-download-primary:hover {
  background: var(--mhg-icon-accent-strong) !important;
@@ -10705,7 +10703,6 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 }
 
 /*Accent links / icon-text actions*/
-.login-page-settings-link,
 .manage-installation-add-button,
 .mark-as-owned-button:hover:not(:disabled) {
  color: var(--mhg-icon-accent) !important;
@@ -10777,4 +10774,55 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .mhg-libraries-bar .mhg-library-button[data-mhg-library-key="mhg-header-add-game"]::before,
 .mhg-libraries-bar .mhg-library-active[data-mhg-library-key="mhg-header-add-game"]::before {
  opacity: 1;
+}
+
+/*--- Login: Plex palette (unchanged by GOG purple/gradient theme) ---*/
+html:has(.login-page-root),
+body:has(.login-page-root) {
+ background: #1a1a1a !important;
+ background-color: #1a1a1a !important;
+ color: #ffffff !important;
+}
+
+.login-page-root {
+ background-color: #1a1a1a !important;
+ color: #ffffff !important;
+}
+
+.login-page-lead,
+.login-page-missing-primary {
+ color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.login-page-settings-hint {
+ color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.login-page-missing-secondary {
+ color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.login-page-twitch-btn {
+ background-color: #9146ff !important;
+ color: #ffffff !important;
+}
+
+.login-page-twitch-btn:hover {
+ background-color: #772ce8 !important;
+}
+
+.login-page-settings-link {
+ color: #e5a00d !important;
+}
+
+.login-page-settings-cta {
+ background-color: #e5a00d !important;
+ background-image: none !important;
+ border-color: #e5a00d !important;
+ color: #000000 !important;
+}
+
+.login-page-settings-cta:hover {
+ background-color: #f5b041 !important;
+ border-color: #f5b041 !important;
 }
