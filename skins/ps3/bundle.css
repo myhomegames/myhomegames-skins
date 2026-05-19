@@ -1455,8 +1455,8 @@ body *::-webkit-scrollbar-corner {
  height: 1080px;
 }
 
-/*Tag pages: shorter scroll viewport.*/
-:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.tag-list-container) {
+/*Tag pages (scrollable rail only): shorter scroll viewport.*/
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view):has(.tag-list-container:not(.fixed-focal-tag-list)) {
  height: 880px;
 }
 
@@ -1650,13 +1650,14 @@ body *::-webkit-scrollbar-corner {
  overscroll-behavior: none;
  height: 100vh !important;
  padding-top: 0 !important;
- padding-bottom: var(--mhg-grid-bottom-inset-tag) !important;
+ padding-bottom: 0 !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-list {
  overflow: visible !important;
  touch-action: none;
- min-height: 100vh;
+ height: 100%;
+ min-height: 100%;
  margin-left: max(
  0px,
  calc(
@@ -5939,6 +5940,7 @@ body > .additional-executables-dropdown-menu {
  --mhg-grid-top-inset: var(--mhg-grid-top-inset-tag);
  --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-tag);
  padding-top: 0 !important;
+ padding-bottom: 0 !important;
  overflow-y: visible !important;
  height: 100vh !important;
 }
