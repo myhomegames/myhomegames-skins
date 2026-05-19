@@ -1685,8 +1685,7 @@ body *::-webkit-scrollbar-corner {
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-item .tag-list-item {
- transform: scale(var(--mhg-cell-scale, 1)) !important;
- transform-origin: 50% 50% !important;
+ transform: none !important;
  transition: none !important;
  width: 100% !important;
  min-width: 0 !important;
@@ -6100,6 +6099,9 @@ body > .additional-executables-dropdown-menu {
  .virtualized-grid-cell-pad
  .games-list-item--cover-sized,
 :root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad
+ .collections-list-item--sized,
+:root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-games-item
  .games-list-item--cover-sized,
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -6133,9 +6135,17 @@ body > .additional-executables-dropdown-menu {
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad
  .games-list-item--cover-sized
  .games-list-cover,
 :root[data-mhg-vertical-cover-alignment="true"]
+ .games-list-item--cover-sized
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .collections-list-item--sized
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad
  .collections-list-item--sized
  .games-list-cover,
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -6168,17 +6178,30 @@ body > .additional-executables-dropdown-menu {
  .tag-list-item:not(.mhg-cover-scale-selected)
  .games-list-title-wrapper,
 :root[data-mhg-vertical-cover-alignment="true"]
- .home-page-scroll-container:not(.table-view)
+ .library-item-detail-subcollections-grid
  .collections-list-item--sized:not(.mhg-cover-scale-selected)
  .games-list-title-wrapper {
  display: none !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
- .mhg-cover-scale-selected
+ .virtualized-grid-cell-pad.mhg-cover-scale-selected
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item.mhg-cover-scale-selected
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item.mhg-cover-scale-selected
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item.mhg-cover-scale-selected
  .games-list-title-wrapper,
 :root[data-mhg-vertical-cover-alignment="true"]
  .tag-list-item.mhg-cover-scale-selected
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .library-item-detail-subcollections-grid
+ .collections-list-item--sized.mhg-cover-scale-selected
  .games-list-title-wrapper {
  position: relative;
  display: flex !important;
@@ -6189,6 +6212,59 @@ body > .additional-executables-dropdown-menu {
  max-width: none !important;
  gap: 2px;
  justify-content: center;
+ overflow: hidden;
+}
+
+/* Tag fixed-focal: title beside 16:9 cover; selection on item + wrapper. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-list
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-list
+ .tag-list-item:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper {
+ display: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-list
+ .fixed-focal-tag-item.mhg-cover-scale-selected
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-list
+ .tag-list-item.mhg-cover-scale-selected
+ .games-list-title-wrapper {
+ display: flex !important;
+ flex-direction: column !important;
+ flex: 1 1 auto !important;
+ min-width: 0 !important;
+ margin-top: 0 !important;
+ max-width: none !important;
+ gap: 2px;
+ justify-content: center;
+ overflow: hidden;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item
+ .tag-list-item
+ .games-list-cover {
+ width: var(--tag-list-cover-size, 150px) !important;
+ max-width: min(var(--tag-list-cover-size, 150px), 58%) !important;
+ height: auto !important;
+ aspect-ratio: 16 / 9 !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item
+ .tag-list-item
+ .games-list-title-wrapper
+ .tooltip-wrapper {
+ display: block;
+ min-width: 0;
+ flex: 1 1 auto;
+ width: 100%;
  overflow: hidden;
 }
 
