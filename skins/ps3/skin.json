@@ -11,6 +11,7 @@
     "disableAlphabetNavigator": true,
     "verticalCoverAlignment": true,
     "compactCollectionLikeDetail": true,
-    "fixedFocalStepSound": true
+    "fixedFocalStepSound": true,
+    "autoShowBackgroundOnSelection": true
   }
 }
