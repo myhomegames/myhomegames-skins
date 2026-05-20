@@ -1240,6 +1240,234 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.85);
 }
 
+/* --- Cover hover + play / edit / menu actions (PS3 XMB rail) --- */
+.cover-hover-effect {
+ position: relative;
+ cursor: pointer;
+ outline: 3px solid transparent;
+ outline-offset: -3px;
+ transition: outline-color 0.2s ease;
+ overflow: hidden;
+}
+
+.cover-hover-effect::before {
+ content: "";
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background-color: rgba(0, 0, 0, 0);
+ z-index: 2;
+ transition: background-color 0.2s ease;
+ pointer-events: none;
+}
+
+.cover-hover-effect:hover,
+*:hover > .cover-hover-effect {
+ outline-color: var(--mhg-icon-accent, #c4b5fd);
+ border-radius: 4px;
+}
+
+.cover-hover-effect:hover::before,
+*:hover > .cover-hover-effect::before {
+ background-color: rgba(0, 0, 0, 0.4);
+}
+
+.games-list-play-button {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ border: none;
+ border-radius: 50%;
+ width: 48px;
+ height: 48px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ cursor: pointer;
+ transition: opacity 0.2s ease, background-color 0.2s ease;
+ z-index: 3;
+ pointer-events: auto;
+}
+
+.games-list-play-button-detail {
+ background-color: rgba(0, 0, 0, 0.7);
+ opacity: 0;
+}
+
+.games-list-cover:hover .games-list-play-button-detail {
+ opacity: 1;
+ background-color: rgba(0, 0, 0, 0.7);
+}
+
+.games-list-play-button-detail:hover {
+ background-color: rgba(196, 181, 253, 0.92) !important;
+}
+
+.games-list-play-button-play-only {
+ background-color: rgba(196, 181, 253, 0.92);
+ opacity: 0;
+}
+
+.games-list-cover-play:hover .games-list-play-button-play-only {
+ opacity: 1;
+}
+
+.games-list-play-button-play-only:hover {
+ background-color: rgba(221, 214, 254, 0.95);
+}
+
+.games-list-item:hover > .games-list-cover.cover-hover-effect {
+ outline-color: transparent;
+ box-shadow: none;
+}
+
+.games-list-item:hover > .games-list-cover.cover-hover-effect::before {
+ background-color: rgba(0, 0, 0, 0);
+}
+
+.games-list-cover.cover-hover-effect:hover {
+ outline-color: var(--mhg-icon-accent, #c4b5fd) !important;
+ border-radius: 4px;
+ box-shadow: 0 10px 20px rgba(196, 181, 253, 0.25) !important;
+}
+
+.games-list-cover.cover-hover-effect:hover::before {
+ background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.games-list-cover.cover-hover-effect.cover-dropdown-open {
+ outline-color: var(--mhg-icon-accent, #c4b5fd) !important;
+ border-radius: 4px;
+ box-shadow: 0 10px 20px rgba(196, 181, 253, 0.25) !important;
+}
+
+.games-list-cover.cover-hover-effect.cover-dropdown-open::before {
+ background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.games-list-cover.cover-dropdown-open .games-list-play-button-detail,
+.games-list-cover-play.cover-dropdown-open .games-list-play-button-play-only {
+ opacity: 1;
+}
+
+.games-list-cover.cover-dropdown-open .games-list-edit-button,
+.games-list-cover.cover-dropdown-open .games-list-dropdown-wrapper .dropdown-menu-button {
+ opacity: 1;
+}
+
+.games-list-cover.cover-popup-overlay .games-list-play-button,
+.games-list-cover.cover-popup-overlay .games-list-upload-button,
+.games-list-cover.cover-popup-overlay .games-list-edit-button {
+ opacity: 0 !important;
+ pointer-events: none !important;
+}
+
+.games-list-play-button svg {
+ width: 24px;
+ height: 24px;
+ color: #ffffff;
+ margin-left: 3px;
+}
+
+.games-list-edit-button {
+ position: absolute;
+ bottom: 8px;
+ left: 8px;
+ border: none;
+ border-radius: 4px;
+ width: 32px;
+ height: 32px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ cursor: pointer;
+ background-color: transparent;
+ opacity: 0;
+ transition: opacity 0.2s ease, background-color 0.2s ease;
+ z-index: 3;
+ pointer-events: auto;
+}
+
+.games-list-edit-button-bottom-right {
+ left: auto;
+ right: 8px;
+}
+
+.games-list-cover:hover .games-list-edit-button {
+ opacity: 1;
+}
+
+.games-list-edit-button svg {
+ width: 16px;
+ height: 16px;
+ color: rgba(255, 255, 255, 0.5);
+ transition: color 0.2s ease;
+}
+
+.games-list-edit-button:hover svg {
+ color: #ffffff;
+}
+
+.games-list-dropdown-wrapper {
+ position: absolute;
+ bottom: 8px;
+ left: 8px;
+ z-index: 3;
+ pointer-events: auto;
+}
+
+.games-list-dropdown-wrapper-bottom-right {
+ left: auto;
+ right: 8px;
+}
+
+.games-list-cover:hover .games-list-dropdown-wrapper .dropdown-menu-button {
+ opacity: 1;
+}
+
+.games-list-dropdown-menu .dropdown-menu-button {
+ width: 32px;
+ height: 32px;
+ background-color: transparent;
+}
+
+.games-list-dropdown-menu .dropdown-menu-popup {
+ bottom: 100%;
+ top: auto;
+ margin-bottom: 4px;
+ margin-top: 0;
+}
+
+/*
+ * Vertical fixed-focal rail (PS3): selection is wheel/step, not hover — show
+ * play, edit, and ⋮ on the focal cover and keep the bar clickable.
+ */
+:root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover.cover-hover-effect {
+ outline-color: var(--mhg-icon-accent, #c4b5fd) !important;
+ box-shadow: 0 10px 20px rgba(196, 181, 253, 0.25) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover.cover-hover-effect::before {
+ background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover .games-list-play-button-detail,
+:root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover .games-list-play-button-play-only,
+:root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover .games-list-edit-button,
+:root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover .games-list-dropdown-wrapper .dropdown-menu-button {
+ opacity: 1;
+ pointer-events: auto;
+}
+
+.mhg-library-vertical-covers .fixed-focal-games-item,
+.library-item-detail-scroll--context-rail .fixed-focal-games-item,
+.tag-games-page-shell--context-rail .tag-games-context-games .fixed-focal-games-item {
+ pointer-events: auto;
+}
+
 /*
 * libraryBarHeaderActions: in keep Settings/Profile as icons appended to
 * the horizontal strip (no labels, same visual tone as library icons).
@@ -1605,7 +1833,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 
 :root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item .games-list-cover {
  transform: scale(var(--mhg-cell-scale, 1)) !important;
- transform-origin: 0% 50% !important;
+ transform-origin: 50% 50% !important;
  transition: none !important;
  width: var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px)) !important;
  max-width: var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px)) !important;
@@ -1712,7 +1940,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 
 .mhg-library-vertical-covers .fixed-focal-games-item .games-list-cover {
  transform: scale(var(--mhg-cell-scale, 1)) !important;
- transform-origin: 0% 50% !important;
+ transform-origin: 50% 50% !important;
  transition: none !important;
 }
 
@@ -7172,8 +7400,9 @@ body > .additional-executables-dropdown-menu {
  .collections-list-item--sized
  .games-list-cover {
  flex: 0 0 auto;
+ /* Center origin: unselected covers shrink on the same axis as the focal tile. */
  transform: scale(var(--mhg-cell-scale, 1)) !important;
- transform-origin: 0% 50% !important;
+ transform-origin: 50% 50% !important;
  width: var(--games-list-cover-size, var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px))) !important;
  max-width: var(--games-list-cover-size, var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px))) !important;
  aspect-ratio: 3 / 4 !important;
@@ -7202,7 +7431,7 @@ body > .additional-executables-dropdown-menu {
  .games-list-cover {
  flex: 0 0 auto;
  transform: scale(var(--mhg-cell-scale, 1)) !important;
- transform-origin: 0% 50% !important;
+ transform-origin: 50% 50% !important;
  width: var(--tag-list-cover-size, 150px) !important;
  max-width: var(--tag-list-cover-size, 150px) !important;
  height: auto !important;
@@ -7952,7 +8181,7 @@ body > .additional-executables-dropdown-menu {
  .fixed-focal-games-item
  .games-list-cover {
  transform: scale(var(--mhg-cell-scale, 1)) !important;
- transform-origin: 0% 50% !important;
+ transform-origin: 50% 50% !important;
  transition: none !important;
  width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
  max-width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
@@ -8224,7 +8453,7 @@ body > .additional-executables-dropdown-menu {
  .games-list-cover {
  flex: 0 1 auto;
  transform: scale(var(--mhg-cell-scale, 1)) !important;
- transform-origin: 0% 50% !important;
+ transform-origin: 50% 50% !important;
  transition: none !important;
  width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
  max-width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
