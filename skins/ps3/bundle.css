@@ -8125,8 +8125,9 @@ body > .additional-executables-dropdown-menu {
  --mhg-grid-bottom-inset: calc(100dvh - var(--mhg-context-rail-cover-top));
  --mhg-grid-bottom-inset-games: var(--mhg-grid-bottom-inset);
  overflow-x: hidden !important;
- overflow-y: visible !important;
+ overflow-y: hidden !important;
  overscroll-behavior: none;
+ touch-action: none;
 }
 
 .library-item-detail-scroll--context-rail
@@ -8396,8 +8397,9 @@ body > .additional-executables-dropdown-menu {
 .tag-games-page-shell--context-rail
  .tag-games-context-games:has(.fixed-focal-games-list) {
  overflow-x: hidden !important;
- overflow-y: visible !important;
+ overflow-y: hidden !important;
  overscroll-behavior: none;
+ touch-action: none;
 }
 
 .tag-games-page-shell--context-rail
