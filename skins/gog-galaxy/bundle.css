@@ -9813,11 +9813,12 @@ fieldset.edit-game-modal-field {
 */
 .library-item-detail-libraries-bar-host,
 .game-detail-libraries-bar-wrapper,
-.igdb-game-detail-libraries-bar-wrapper {
+.igdb-game-detail-libraries-bar-wrapper,
+.tag-games-libraries-bar-host {
  display: none !important;
 }
 
-/*Tag routes: TagGamesPage no longer mounts a second bar in-app; hide any stray duplicate.*/
+/* Legacy sibling rule if a stray in-page bar is mounted without a host wrapper. */
 header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
  display: none !important;
 }
