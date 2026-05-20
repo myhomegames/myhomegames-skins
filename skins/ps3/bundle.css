@@ -98,15 +98,25 @@ body *::-webkit-scrollbar-corner {
  --mhg-library-vertical-covers: 1;
  /*Apply vertical covers layout to all games-list pages.*/
  --mhg-vertical-covers-all-pages: 1;
- --mhg-vertical-column-width: 360px;
+ --mhg-vertical-column-width: 480px;
+ --mhg-vertical-column-viewport-margin: 72px;
  --mhg-vertical-column-shift-x: 72px;
+ /*Horizontal anchor for rail margin-left; decouple from row width so wider rows extend right. */
+ --mhg-vertical-rail-align-half-width: 180px;
  --mhg-detail-view-cover-width: 100px;
  --mhg-detail-view-row-gap: 24px;
  --mhg-library-icon-size: 96px;
+ /*Selected rail title beside cover (games, tags, collection-like).*/
+ --mhg-vertical-rail-title-font-size: 1.1rem;
+ --mhg-vertical-rail-title-font-weight: 600;
+ --mhg-vertical-rail-year-font-size: 0.875rem;
+ --mhg-vertical-rail-cover-title-gap: 12px;
+ /*Portrait cover box (400x533px ≈ 3:4). Used by fixed-focal row height in CSS + web lists.*/
+ --mhg-cover-portrait-height-factor: 1.3325;
  /*Vista Dettaglio: same X axis as fixed-focal games rail (cover under icon column).*/
  --mhg-detail-view-align-x: calc(
   var(--mhg-active-library-icon-center-x, 180px) -
-  (var(--mhg-vertical-column-width, 360px) / 2) +
+  var(--mhg-vertical-rail-align-half-width, 180px) +
   var(--mhg-vertical-column-shift-x, 0px)
  );
  /*Recommended rail should stay centered on the Recommended icon line.*/
@@ -1299,7 +1309,7 @@ body *::-webkit-scrollbar-corner {
  0px,
  calc(
  var(--mhg-active-library-icon-center-x, 180px) -
- (var(--mhg-vertical-column-width) / 2) +
+ var(--mhg-vertical-rail-align-half-width, 180px) +
  var(--mhg-vertical-column-shift-x, 0px)
  )
  ) !important;
@@ -1321,7 +1331,7 @@ body *::-webkit-scrollbar-corner {
  0px,
  calc(
  var(--mhg-active-library-icon-center-x, 180px) -
- (var(--mhg-vertical-column-width) / 2) +
+ var(--mhg-vertical-rail-align-half-width, 180px) +
  var(--mhg-vertical-column-shift-x, 0px)
  )
  ) !important;
@@ -1329,17 +1339,27 @@ body *::-webkit-scrollbar-corner {
  gap: 20px !important;
 }
 
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .tag-list-container {
+ margin-left: max(
+ 0px,
+ calc(
+ var(--mhg-active-library-icon-center-x, 180px) -
+ var(--tag-list-cover-size, 150px) / 2
+ )
+ ) !important;
+}
+
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .tag-list-item,
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-item--sized,
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .library-item-detail-subcollection-cell {
- width: min(var(--mhg-vertical-column-width), calc(100vw - 140px)) !important;
- min-width: min(var(--mhg-vertical-column-width), calc(100vw - 140px)) !important;
+ width: min(var(--mhg-vertical-column-width), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
+ min-width: min(var(--mhg-vertical-column-width), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
 }
 
 /*Collection-like list (non-virtualized): a bit more horizontal budget than tag rows.*/
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-item--sized {
- width: min(var(--mhg-vertical-column-width), calc(100vw - 72px)) !important;
- min-width: min(var(--mhg-vertical-column-width), calc(100vw - 72px)) !important;
+ width: min(var(--mhg-vertical-column-width), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
+ min-width: min(var(--mhg-vertical-column-width), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container--virtualized .virtualized-list-fade {
@@ -1367,7 +1387,7 @@ body *::-webkit-scrollbar-corner {
  0px,
  calc(
  var(--mhg-active-library-icon-center-x, 180px) -
- (var(--mhg-vertical-column-width) / 2) +
+ var(--mhg-vertical-rail-align-half-width, 180px) +
  var(--mhg-vertical-column-shift-x, 0px)
  )
  ) !important;
@@ -1426,7 +1446,7 @@ body *::-webkit-scrollbar-corner {
  0px,
  calc(
  var(--mhg-active-library-icon-center-x, 180px) -
- (var(--mhg-vertical-column-width) / 2) +
+ var(--mhg-vertical-rail-align-half-width, 180px) +
  var(--mhg-recommended-column-shift-x, 0px)
  )
  ) !important;
@@ -1434,8 +1454,8 @@ body *::-webkit-scrollbar-corner {
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-item--cover-sized {
- width: min(var(--mhg-vertical-column-width), calc(100vw - 140px)) !important;
- min-width: min(var(--mhg-vertical-column-width), calc(100vw - 140px)) !important;
+ width: min(var(--mhg-vertical-column-width), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
+ min-width: min(var(--mhg-vertical-column-width), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
 }
 
 /*Ensure vertical scrolling is enabled on tag/recommended/collection-like containers.*/
@@ -1490,7 +1510,8 @@ body *::-webkit-scrollbar-corner {
  min-height: 100vh;
  height: 100%;
  --mhg-fixed-focal-cover-height: calc(
-  var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px)) * 1.5
+  var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px)) *
+  var(--mhg-cover-portrait-height-factor, 1.3325)
  );
  /* Center each cover slot on the active library icon (XMB axis). */
  margin-left: max(
@@ -1535,9 +1556,10 @@ body *::-webkit-scrollbar-corner {
  transform-origin: 0% 50% !important;
  transition: none !important;
  width: var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px)) !important;
- max-width: 100% !important;
- height: var(--mhg-fixed-focal-cover-height) !important;
- min-height: var(--mhg-fixed-focal-cover-height) !important;
+ max-width: var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px)) !important;
+ aspect-ratio: 3 / 4 !important;
+ height: auto !important;
+ min-height: 0 !important;
 }
 
 .mhg-library-vertical-covers .home-page-content-wrapper.has-toolbar .home-page-scroll-container:not(.table-view),
@@ -1559,8 +1581,7 @@ body *::-webkit-scrollbar-corner {
  0px,
  calc(
  var(--mhg-active-library-icon-center-x, 180px) -
- (var(--mhg-vertical-column-width) / 2) +
- var(--mhg-vertical-column-shift-x, 0px)
+ var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) / 2
  )
  ) !important;
  margin-right: auto !important;
@@ -1618,8 +1639,7 @@ body *::-webkit-scrollbar-corner {
  0px,
  calc(
  var(--mhg-active-library-icon-center-x, 180px) -
- (var(--mhg-vertical-column-width) / 2) +
- var(--mhg-vertical-column-shift-x, 0px)
+ var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) / 2
  )
  ) !important;
  margin-right: auto !important;
@@ -1664,8 +1684,7 @@ body *::-webkit-scrollbar-corner {
  0px,
  calc(
  var(--mhg-active-library-icon-center-x, 180px) -
- (var(--mhg-vertical-column-width) / 2) +
- var(--mhg-vertical-column-shift-x, 0px)
+ var(--tag-list-cover-size, 150px) / 2
  )
  ) !important;
  margin-right: auto !important;
@@ -1675,6 +1694,14 @@ body *::-webkit-scrollbar-corner {
  position: absolute;
  z-index: 1;
  pointer-events: auto;
+ width: min(
+  var(--mhg-vertical-column-width),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))
+ ) !important;
+ min-width: min(
+  var(--mhg-vertical-column-width),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))
+ ) !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-item.mhg-cover-scale-selected {
@@ -6116,17 +6143,18 @@ body > .additional-executables-dropdown-menu {
  display: flex !important;
  flex-direction: row !important;
  align-items: center !important;
- gap: 12px;
- width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - 140px)) !important;
+ gap: var(--mhg-vertical-rail-cover-title-gap, 12px);
+ width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
  min-width: 0 !important;
- max-width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - 140px)) !important;
+ max-width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
  box-sizing: border-box;
  transform: none !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-games-item,
-:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item {
- width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - 140px)) !important;
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item,
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-item {
+ width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -6149,7 +6177,28 @@ body > .additional-executables-dropdown-menu {
 :root[data-mhg-vertical-cover-alignment="true"]
  .virtualized-grid-cell-pad
  .collections-list-item--sized
+ .games-list-cover {
+ flex: 0 0 auto;
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 0% 50% !important;
+ width: var(--games-list-cover-size, var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px))) !important;
+ max-width: var(--games-list-cover-size, var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px))) !important;
+ aspect-ratio: 3 / 4 !important;
+ height: auto !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .collections-list-item--sized
  .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad
+ .collections-list-item--sized
+ .games-list-cover {
+ width: var(--collections-list-cover-size, var(--mhg-fixed-focal-cover-size, 240px)) !important;
+ max-width: var(--collections-list-cover-size, var(--mhg-fixed-focal-cover-size, 240px)) !important;
+}
+
+/* Tag index only: 16:9 tiles beside titles (not game/collection portrait covers). */
 :root[data-mhg-vertical-cover-alignment="true"]
  .tag-list-container
  .tag-list-item
@@ -6161,6 +6210,10 @@ body > .additional-executables-dropdown-menu {
  flex: 0 0 auto;
  transform: scale(var(--mhg-cell-scale, 1)) !important;
  transform-origin: 0% 50% !important;
+ width: var(--tag-list-cover-size, 150px) !important;
+ max-width: var(--tag-list-cover-size, 150px) !important;
+ height: auto !important;
+ aspect-ratio: 16 / 9 !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -6214,6 +6267,8 @@ body > .additional-executables-dropdown-menu {
  max-width: none !important;
  gap: 2px;
  justify-content: center;
+ align-items: center;
+ text-align: center;
  overflow: hidden;
 }
 
@@ -6245,17 +6300,50 @@ body > .additional-executables-dropdown-menu {
  max-width: none !important;
  gap: 2px;
  justify-content: center;
+ align-items: center;
+ text-align: center;
  overflow: hidden;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-item
- .tag-list-item
- .games-list-cover {
- width: var(--tag-list-cover-size, 150px) !important;
- max-width: min(var(--tag-list-cover-size, 150px), 58%) !important;
- height: auto !important;
- aspect-ratio: 16 / 9 !important;
+ .fixed-focal-tag-list
+ .tag-list-item.mhg-cover-scale-selected
+ .games-list-title-wrapper
+ .tooltip-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-container:not(.fixed-focal-tag-list)
+ .tag-list-item.mhg-cover-scale-selected
+ .games-list-title-wrapper
+ .tooltip-wrapper {
+ display: block;
+ min-width: 0;
+ flex: 1 1 auto;
+ width: 100%;
+ max-width: none !important;
+ overflow: hidden;
+ text-align: center;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-list
+ .tag-list-item.mhg-cover-scale-selected
+ .games-list-title,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-container:not(.fixed-focal-tag-list)
+ .tag-list-item.mhg-cover-scale-selected
+ .games-list-title {
+ white-space: normal !important;
+ display: -webkit-box !important;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp: 4;
+ line-clamp: 4;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ word-break: break-word;
+ text-align: center !important;
+ font-size: var(--mhg-vertical-rail-title-font-size, 1.1rem) !important;
+ font-weight: var(--mhg-vertical-rail-title-font-weight, 600) !important;
+ width: 100%;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -6268,26 +6356,41 @@ body > .additional-executables-dropdown-menu {
  flex: 1 1 auto;
  width: 100%;
  overflow: hidden;
+ text-align: center;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-title-wrapper
+ .tooltip-wrapper {
+ text-align: center;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
  .mhg-cover-scale-selected
  .games-list-title {
  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
- font-size: 0.85rem;
- font-weight: 500;
+ font-size: var(--mhg-vertical-rail-title-font-size, 1.05rem);
+ font-weight: var(--mhg-vertical-rail-title-font-weight, 600);
  color: rgba(255, 255, 255, 0.92);
  overflow: hidden;
  text-overflow: ellipsis;
  white-space: nowrap;
+ text-align: center;
+ width: 100%;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
  .mhg-cover-scale-selected
  .games-list-year {
  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
- font-size: 0.75rem;
+ font-size: var(--mhg-vertical-rail-year-font-size, 0.85rem);
  color: rgba(255, 255, 255, 0.55);
+ text-align: center;
+ width: 100%;
 }
 
 /* Legacy below-cover title spacing (collections fixed-focal). */
@@ -6313,12 +6416,12 @@ body > .additional-executables-dropdown-menu {
 :root[data-mhg-vertical-cover-alignment="true"]
  .virtualized-collections-grid
  .collections-list-item--sized {
- width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - 72px)) !important;
- max-width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - 72px)) !important;
+ width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
+ max-width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item {
- width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - 72px)) !important;
+ width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
 }
 
 /*=============================================================================
@@ -6859,7 +6962,9 @@ body > .additional-executables-dropdown-menu {
  transform-origin: 0% 50% !important;
  transition: none !important;
  width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
- max-width: 100% !important;
+ max-width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
+ aspect-ratio: 3 / 4 !important;
+ height: auto !important;
 }
 
 /*=============================================================================
@@ -7129,10 +7234,9 @@ body > .additional-executables-dropdown-menu {
  transform-origin: 0% 50% !important;
  transition: none !important;
  width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
- max-width: min(
-  var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)),
-  38%
- ) !important;
+ max-width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
+ aspect-ratio: 3 / 4 !important;
+ height: auto !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -7152,6 +7256,9 @@ body > .additional-executables-dropdown-menu {
  width: auto;
  max-width: none !important;
  overflow: hidden;
+ justify-content: center;
+ align-items: center;
+ text-align: center;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -7174,6 +7281,9 @@ body > .additional-executables-dropdown-menu {
  overflow: hidden;
  text-overflow: ellipsis;
  word-break: break-word;
+ text-align: center !important;
+ font-size: var(--mhg-vertical-rail-title-font-size, 1.05rem) !important;
+ font-weight: var(--mhg-vertical-rail-title-font-weight, 600) !important;
 }
 
 /*=============================================================================
@@ -7457,7 +7567,7 @@ body > .additional-executables-dropdown-menu {
    --mhg-detail-view-align-x,
    calc(
     var(--mhg-active-library-icon-center-x, 180px) -
-    (var(--mhg-vertical-column-width, 360px) / 2) +
+    var(--mhg-vertical-rail-align-half-width, 180px) +
     var(--mhg-vertical-column-shift-x, 0px)
    )
   )
@@ -8378,7 +8488,7 @@ body > .additional-executables-dropdown-menu {
    --mhg-detail-view-align-x,
    calc(
     var(--mhg-active-library-icon-center-x, 180px) -
-    (var(--mhg-vertical-column-width, 360px) / 2) +
+    var(--mhg-vertical-rail-align-half-width, 180px) +
     var(--mhg-vertical-column-shift-x, 0px)
    )
   )
@@ -8406,7 +8516,7 @@ body > .additional-executables-dropdown-menu {
    --mhg-detail-view-align-x,
    calc(
     var(--mhg-active-library-icon-center-x, 180px) -
-    (var(--mhg-vertical-column-width, 360px) / 2) +
+    var(--mhg-vertical-rail-align-half-width, 180px) +
     var(--mhg-vertical-column-shift-x, 0px)
    )
   )
