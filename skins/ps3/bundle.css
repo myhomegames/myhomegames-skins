@@ -94,6 +94,11 @@ body *::-webkit-scrollbar-corner {
  /*Force LibrariesBar inline list (disable combobox fallback) for icon strip.*/
  --mhg-libraries-force-list: 1;
  --mhg-primary: #22c55e;
+ --mhg-play-accent: #22c55e;
+ --mhg-play-accent-hover: #4ade80;
+ --mhg-play-accent-soft: rgba(34, 197, 94, 0.92);
+ --mhg-play-accent-soft-hover: rgba(74, 222, 128, 0.95);
+ --mhg-play-glow: rgba(34, 197, 94, 0.25);
 /*Enable single-row cover rail in Library page (read by web app + CSS).*/
  --mhg-library-vertical-covers: 1;
  /*Apply vertical covers layout to all games-list pages.*/
@@ -1275,7 +1280,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 
 .cover-hover-effect:hover,
 *:hover > .cover-hover-effect {
- outline-color: var(--mhg-icon-accent, #c4b5fd);
+ outline-color: var(--mhg-play-accent, var(--mhg-primary, #22c55e));
  border-radius: 4px;
 }
 
@@ -1313,11 +1318,11 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 }
 
 .games-list-play-button-detail:hover {
- background-color: rgba(196, 181, 253, 0.92) !important;
+ background-color: var(--mhg-play-accent-soft) !important;
 }
 
 .games-list-play-button-play-only {
- background-color: rgba(196, 181, 253, 0.92);
+ background-color: var(--mhg-play-accent-soft);
  opacity: 0;
 }
 
@@ -1326,7 +1331,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 }
 
 .games-list-play-button-play-only:hover {
- background-color: rgba(221, 214, 254, 0.95);
+ background-color: var(--mhg-play-accent-soft-hover);
 }
 
 .games-list-item:hover > .games-list-cover.cover-hover-effect {
@@ -1339,9 +1344,9 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 }
 
 .games-list-cover.cover-hover-effect:hover {
- outline-color: var(--mhg-icon-accent, #c4b5fd) !important;
+ outline-color: var(--mhg-play-accent, var(--mhg-primary, #22c55e)) !important;
  border-radius: 4px;
- box-shadow: 0 10px 20px rgba(196, 181, 253, 0.25) !important;
+ box-shadow: 0 10px 20px var(--mhg-play-glow) !important;
 }
 
 .games-list-cover.cover-hover-effect:hover::before {
@@ -1349,9 +1354,9 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 }
 
 .games-list-cover.cover-hover-effect.cover-dropdown-open {
- outline-color: var(--mhg-icon-accent, #c4b5fd) !important;
+ outline-color: var(--mhg-play-accent, var(--mhg-primary, #22c55e)) !important;
  border-radius: 4px;
- box-shadow: 0 10px 20px rgba(196, 181, 253, 0.25) !important;
+ box-shadow: 0 10px 20px var(--mhg-play-glow) !important;
 }
 
 .games-list-cover.cover-hover-effect.cover-dropdown-open::before {
@@ -1456,8 +1461,8 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  * play, edit, and ⋮ on the focal cover and keep the bar clickable.
  */
 :root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover.cover-hover-effect {
- outline-color: var(--mhg-icon-accent, #c4b5fd) !important;
- box-shadow: 0 10px 20px rgba(196, 181, 253, 0.25) !important;
+ outline-color: var(--mhg-play-accent, var(--mhg-primary, #22c55e)) !important;
+ box-shadow: 0 10px 20px var(--mhg-play-glow) !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover.cover-hover-effect::before {
@@ -2436,8 +2441,8 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  * Tokens below are scoped to the rules in this block only.
  * =========================================================================*/
 :root {
- --mhg-icon-accent: #c4b5fd;
- --mhg-icon-accent-strong: #ddd6fe;
+ --mhg-icon-accent: var(--mhg-play-accent, #22c55e);
+ --mhg-icon-accent-strong: var(--mhg-play-accent-hover, #4ade80);
  --mhg-text-main: rgba(255, 255, 255, 0.9);
  --mhg-text-muted: rgba(255, 255, 255, 0.68);
  --mhg-header-chip: rgba(6, 10, 18, 0.82);
@@ -2908,8 +2913,8 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
 .search-result-play-button {
  flex-shrink: 0;
  background: none;
- border: 2px solid var(--mhg-icon-accent);
- color: var(--mhg-icon-accent);
+ border: 2px solid var(--mhg-play-accent, var(--mhg-primary, #22c55e));
+ color: var(--mhg-play-accent, var(--mhg-primary, #22c55e));
  cursor: pointer;
  padding: 8px;
  display: flex;
