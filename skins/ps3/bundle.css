@@ -196,6 +196,15 @@ body *::-webkit-scrollbar-corner {
  --mhg-cell-scale-selected: 1;
  --mhg-cover-scale-focal-below-bar: 2px;
  /*
+ * Fixed-focal rails: more neighbors + tighter vertical packing (XMB column).
+ * `--mhg-fixed-focal-neighbor-slots`: covers rendered above/below the focal tile.
+ * `--mhg-fixed-focal-packed-rows`: stack unselected tiles by scaled height, not full row.
+ * `--vgrid-gap-half`: half of the gap between stacked covers (×2 = full gap).
+ */
+ --mhg-fixed-focal-neighbor-slots: 5;
+ --mhg-fixed-focal-packed-rows: 1;
+ --vgrid-gap-half: 8px;
+ /*
 * `useGlobalCoverScaleAroundBar`: tag index tiles (`.tag-list-item`) only —
 * shifts the shrink reference line upward by this many CSS pixels so
 * rimpicciolimento starts slightly later while scrolling up. 0 = same as
