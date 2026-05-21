@@ -116,7 +116,9 @@ body *::-webkit-scrollbar-corner {
  --mhg-vertical-rail-title-font-size: 1.3rem;
  --mhg-vertical-rail-title-font-weight: 600;
  --mhg-vertical-rail-year-font-size: 1rem;
- --mhg-vertical-rail-cover-title-gap: 12px;
+ /* Space between cover right edge and title (flex gap on rail rows). */
+ --mhg-vertical-rail-cover-title-gap: 32px;
+ --mhg-vertical-rail-title-line-clamp: 4;
  /*Portrait cover box (400x533px ≈ 3:4). Used by fixed-focal row height in CSS + web lists.*/
  --mhg-cover-portrait-height-factor: 1.3325;
  /*Vista Dettaglio: same X axis as fixed-focal games rail (cover under icon column).*/
@@ -7386,7 +7388,7 @@ body > .additional-executables-dropdown-menu {
  display: flex !important;
  flex-direction: row !important;
  align-items: center !important;
- gap: var(--mhg-vertical-rail-cover-title-gap, 12px);
+ gap: var(--mhg-vertical-rail-cover-title-gap, 32px);
  width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
  min-width: 0 !important;
  max-width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
@@ -7536,9 +7538,9 @@ body > .additional-executables-dropdown-menu {
  margin-top: 0 !important;
  max-width: none !important;
  gap: 2px;
- justify-content: center;
- align-items: center;
- text-align: center;
+ justify-content: flex-start;
+ align-items: flex-start;
+ text-align: left;
  overflow: hidden;
 }
 
@@ -7569,9 +7571,9 @@ body > .additional-executables-dropdown-menu {
  margin-top: 0 !important;
  max-width: none !important;
  gap: 2px;
- justify-content: center;
- align-items: center;
- text-align: center;
+ justify-content: flex-start;
+ align-items: flex-start;
+ text-align: left;
  overflow: hidden;
 }
 
@@ -7591,29 +7593,7 @@ body > .additional-executables-dropdown-menu {
  width: 100%;
  max-width: none !important;
  overflow: hidden;
- text-align: center;
-}
-
-:root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-list
- .tag-list-item.mhg-cover-scale-selected
- .games-list-title,
-:root[data-mhg-vertical-cover-alignment="true"]
- .tag-list-container:not(.fixed-focal-tag-list)
- .tag-list-item.mhg-cover-scale-selected
- .games-list-title {
- white-space: normal !important;
- display: -webkit-box !important;
- -webkit-box-orient: vertical;
- -webkit-line-clamp: 4;
- line-clamp: 4;
- overflow: hidden;
- text-overflow: ellipsis;
- word-break: break-word;
- text-align: center !important;
- font-size: var(--mhg-vertical-rail-title-font-size, 1.3rem) !important;
- font-weight: var(--mhg-vertical-rail-title-font-weight, 600) !important;
- width: 100%;
+ text-align: left;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -7626,31 +7606,47 @@ body > .additional-executables-dropdown-menu {
  flex: 1 1 auto;
  width: 100%;
  overflow: hidden;
- text-align: center;
+ text-align: left;
 }
 
-:root[data-mhg-vertical-cover-alignment="true"]
- .mhg-cover-scale-selected
- .games-list-title-wrapper,
 :root[data-mhg-vertical-cover-alignment="true"]
  .mhg-cover-scale-selected
  .games-list-title-wrapper
  .tooltip-wrapper {
- text-align: center;
+ display: block;
+ min-width: 0;
+ flex: 1 1 auto;
+ width: 100%;
+ max-width: none !important;
+ overflow: hidden;
+ text-align: left;
 }
 
+/* Games / collection-like / subcollection rails: wrap long titles like tag tiles. */
 :root[data-mhg-vertical-cover-alignment="true"]
  .mhg-cover-scale-selected
- .games-list-title {
+ .games-list-title,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-title.truncate,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .truncate.games-list-title {
  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
- font-size: var(--mhg-vertical-rail-title-font-size, 1.3rem);
- font-weight: var(--mhg-vertical-rail-title-font-weight, 600);
+ font-size: var(--mhg-vertical-rail-title-font-size, 1.3rem) !important;
+ font-weight: var(--mhg-vertical-rail-title-font-weight, 600) !important;
  color: rgba(255, 255, 255, 0.92);
+ white-space: normal !important;
+ display: -webkit-box !important;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp: var(--mhg-vertical-rail-title-line-clamp, 4);
+ line-clamp: var(--mhg-vertical-rail-title-line-clamp, 4);
  overflow: hidden;
  text-overflow: ellipsis;
- white-space: nowrap;
- text-align: center;
+ word-break: break-word;
+ text-align: left !important;
  width: 100%;
+ max-width: 100%;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -7659,7 +7655,7 @@ body > .additional-executables-dropdown-menu {
  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
  font-size: var(--mhg-vertical-rail-year-font-size, 1rem);
  color: rgba(255, 255, 255, 0.55);
- text-align: center;
+ text-align: left;
  width: 100%;
 }
 
@@ -7676,8 +7672,8 @@ body > .additional-executables-dropdown-menu {
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-tag-item
  .tag-list-item {
- gap: var(--mhg-vertical-rail-cover-title-gap, 12px) !important;
- column-gap: var(--mhg-vertical-rail-cover-title-gap, 12px) !important;
+ gap: var(--mhg-vertical-rail-cover-title-gap, 32px) !important;
+ column-gap: var(--mhg-vertical-rail-cover-title-gap, 32px) !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -8512,9 +8508,6 @@ body > .additional-executables-dropdown-menu {
  position: absolute;
  z-index: 1;
  pointer-events: auto;
- width: 100% !important;
- min-width: 0 !important;
- max-width: 100% !important;
  overflow: visible !important;
 }
 
@@ -8530,15 +8523,16 @@ body > .additional-executables-dropdown-menu {
  z-index: 0;
 }
 
-:root[data-mhg-vertical-cover-alignment="true"]
- .tag-games-page-shell--context-rail
+.tag-games-page-shell--context-rail
  .tag-games-context-games
  .fixed-focal-games-item
  .games-list-item--cover-sized {
- width: 100% !important;
+ transform: none !important;
+ width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
  min-width: 0 !important;
- max-width: 100% !important;
+ max-width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
  margin: 0 !important;
+ box-sizing: border-box;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -8556,52 +8550,7 @@ body > .additional-executables-dropdown-menu {
  height: auto !important;
 }
 
-:root[data-mhg-vertical-cover-alignment="true"]
- .tag-games-page-shell--context-rail
- .tag-games-context-games
- .fixed-focal-games-item.mhg-cover-scale-selected
- .games-list-title-wrapper,
-:root[data-mhg-vertical-cover-alignment="true"]
- .tag-games-page-shell--context-rail
- .tag-games-context-games
- .fixed-focal-games-item.mhg-cover-scale-selected
- .games-list-title-wrapper
- .tooltip-wrapper {
- display: flex !important;
- flex: 1 1 auto;
- min-width: 0;
- width: auto;
- max-width: none !important;
- overflow: hidden;
- justify-content: center;
- align-items: center;
- text-align: center;
-}
-
-:root[data-mhg-vertical-cover-alignment="true"]
- .tag-games-page-shell--context-rail
- .tag-games-context-games
- .fixed-focal-games-item.mhg-cover-scale-selected
- .games-list-title-wrapper
- .tooltip-wrapper
- .games-list-title,
-:root[data-mhg-vertical-cover-alignment="true"]
- .tag-games-page-shell--context-rail
- .tag-games-context-games
- .mhg-cover-scale-selected
- .games-list-title {
- white-space: normal !important;
- display: -webkit-box !important;
- -webkit-box-orient: vertical;
- -webkit-line-clamp: 4;
- line-clamp: 4;
- overflow: hidden;
- text-overflow: ellipsis;
- word-break: break-word;
- text-align: center !important;
- font-size: var(--mhg-vertical-rail-title-font-size, 1.3rem) !important;
- font-weight: var(--mhg-vertical-rail-title-font-weight, 600) !important;
-}
+/* Context-rail games column (tag detail + collection-like): inherits .mhg-cover-scale-selected title wrap. */
 
 /*=============================================================================
 * Vista Dettaglio (`viewMode.detail`): list rows under the active library icon.
