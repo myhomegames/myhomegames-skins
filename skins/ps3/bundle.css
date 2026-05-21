@@ -342,7 +342,9 @@ html[data-mhg-background-visible="true"] .home-page-content-wrapper,
 html[data-mhg-background-visible="true"] .home-page-scroll-container:not(.table-view),
 html[data-mhg-background-visible="true"] .mhg-vertical-covers-page,
 html[data-mhg-background-visible="true"] .library-item-detail-page-shell--context-rail,
-html[data-mhg-background-visible="true"] .library-item-detail-scroll--context-rail {
+html[data-mhg-background-visible="true"] .library-item-detail-scroll--context-rail,
+html[data-mhg-background-visible="true"] .recommended-section-detail-shell--context-rail,
+html[data-mhg-background-visible="true"] .recommended-section-detail-scroll--context-rail {
  background: transparent !important;
  background-color: transparent !important;
 }
@@ -1498,7 +1500,8 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 
 .mhg-library-vertical-covers .fixed-focal-games-item,
 .library-item-detail-scroll--context-rail .fixed-focal-games-item,
-.tag-games-page-shell--context-rail .tag-games-context-games .fixed-focal-games-item {
+.tag-games-page-shell--context-rail .tag-games-context-games .fixed-focal-games-item,
+.recommended-section-detail-scroll--context-rail .fixed-focal-games-item {
  pointer-events: auto;
 }
 
@@ -8642,6 +8645,354 @@ body > .additional-executables-dropdown-menu {
 }
 
 /* Context-rail games column (tag detail + collection-like): inherits .mhg-cover-scale-selected title wrap. */
+
+/*=============================================================================
+* Recommended section detail (compact + vertical covers): same shell as tag/collection.
+* Column 1 = Recommended library icon + section title; column 2 = fixed-focal games.
+* =============================================================================*/
+.recommended-section-detail-shell--context-rail {
+ --mhg-recommended-rail-icon-title-gap: 12px;
+ /* Same first-cover line as collection/tag: icon row + gap (not title block height). */
+ --mhg-context-rail-cover-top: calc(
+  var(--mhg-detail-rail-top, 204px) + 96px + var(--mhg-recommended-rail-icon-title-gap, 12px)
+ );
+ --mhg-context-rail-bridge-offset: 28px;
+ /* Column-2 selected cover top = bridge row (col-1 line + offset), same visual as collection. */
+ --mhg-context-rail-focal-nudge-px: var(--mhg-context-rail-bridge-offset, 28px);
+ margin-top: calc(-1* var(--mhg-detail-dock-stack, 0px)) !important;
+ height: 100vh !important;
+ height: 100dvh !important;
+ max-height: 100vh !important;
+ max-height: 100dvh !important;
+ overflow: hidden !important;
+ position: relative;
+ box-sizing: border-box;
+}
+
+.recommended-section-libraries-bar-host--dock-only {
+ position: relative;
+}
+
+.recommended-section-libraries-bar-host--dock-only .mhg-libraries-container,
+.recommended-section-libraries-bar-host--dock-only .mhg-collections-shortcuts {
+ display: none !important;
+}
+
+.recommended-section-libraries-bar-host--dock-only
+ > .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] {
+ display: block !important;
+ margin-bottom: 0 !important;
+}
+
+.recommended-section-libraries-bar-host--dock-only .mhg-top-right-tool-dock {
+ min-width: 0;
+ width: 100%;
+}
+
+.recommended-section-libraries-bar-host--dock-only .mhg-top-right-tool-dock-inner {
+ gap: 12px;
+ padding: 0 12px;
+}
+
+.recommended-section-libraries-bar-host--dock-only .mhg-top-right-tool-dock-view,
+.recommended-section-libraries-bar-host--dock-only .mhg-top-right-tool-dock-main-games {
+ display: none !important;
+}
+
+.recommended-section-libraries-bar-host--dock-only .mhg-libraries-bar-container {
+ display: none !important;
+}
+
+.recommended-section-detail-shell--context-rail .recommended-section-detail-main-min-h,
+.recommended-section-detail-shell--context-rail .recommended-section-detail-layout-min-h,
+.recommended-section-detail-shell--context-rail .home-page-content-wrapper {
+ height: 100% !important;
+ min-height: 0 !important;
+ max-height: 100vh !important;
+ max-height: 100dvh !important;
+}
+
+.recommended-section-detail-shell--context-rail .recommended-section-detail-scroll {
+ display: flex !important;
+ flex-direction: column !important;
+ flex: 1 1 auto !important;
+ height: 100% !important;
+ max-height: 100vh !important;
+ max-height: 100dvh !important;
+ min-height: 0 !important;
+ overflow: hidden !important;
+}
+
+.recommended-section-detail-scroll--context-rail {
+ overflow: hidden !important;
+}
+
+.recommended-section-detail-scroll--context-rail.home-page-scroll-container:focus,
+.recommended-section-detail-scroll--context-rail.home-page-scroll-container:focus-visible {
+ outline: none !important;
+ border: none !important;
+ box-shadow: none !important;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-detail-section-full.recommended-section-context-layout {
+ flex: 1 1 auto;
+ min-height: 0;
+ height: 100%;
+}
+
+.recommended-section-context-layout {
+ display: flex;
+ flex-direction: row;
+ align-items: stretch;
+ justify-content: flex-start;
+ width: 100%;
+ height: 100%;
+ min-height: 100%;
+ box-sizing: border-box;
+ padding-left: calc(20px + 8px);
+ gap: 4px;
+}
+
+.recommended-section-context-rail {
+ flex: 0 0 auto;
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ align-self: flex-start;
+ flex-shrink: 0;
+ width: auto;
+ max-width: min(var(--lid-cover-size, 150px), 42vw);
+ padding-top: var(--mhg-detail-rail-top, 204px);
+ gap: var(--mhg-recommended-rail-icon-title-gap, 12px);
+ z-index: 2;
+}
+
+.recommended-section-context-rail-library.mhg-library-button,
+.recommended-section-context-rail-library.mhg-library-active {
+ width: 96px;
+ min-width: 96px;
+ height: 96px;
+}
+
+.recommended-section-context-rail-library.mhg-library-active .mhg-library-button-label {
+ display: block;
+}
+
+.recommended-section-context-rail-title-block {
+ width: 100%;
+ max-width: 100%;
+ box-sizing: border-box;
+}
+
+.recommended-section-detail-shell--context-rail .mhg-context-rail-bridge {
+ flex: 0 0 auto;
+ width: 8px;
+ min-width: 8px;
+ margin-left: 0;
+ margin-right: 0;
+}
+
+.recommended-section-context-rail-title {
+ margin: 0;
+ width: 100%;
+ text-align: left;
+ word-break: break-word;
+}
+
+.recommended-section-context-games {
+ flex: 1 1 auto;
+ min-width: 0;
+ min-height: 0;
+ height: 100%;
+ max-height: 100%;
+ overflow-y: auto !important;
+ overflow-x: hidden !important;
+ overscroll-behavior: contain;
+ -webkit-overflow-scrolling: touch;
+ align-self: stretch;
+ margin: 0 !important;
+ padding: 0 !important;
+ box-sizing: border-box;
+ outline: none !important;
+ border: none !important;
+ box-shadow: none !important;
+ scrollbar-width: none;
+ -ms-overflow-style: none;
+ --mhg-grid-top-inset: 0px;
+ --mhg-grid-top-inset-games: 0px;
+ --mhg-grid-top-inset-collections: 0px;
+ --mhg-grid-top-inset-tag: 0px;
+ --mhg-grid-bottom-inset: calc(100dvh - var(--mhg-context-rail-cover-top));
+ --mhg-grid-bottom-inset-games: var(--mhg-grid-bottom-inset);
+ --mhg-grid-bottom-inset-collections: 0px;
+ --mhg-grid-bottom-inset-tag: 0px;
+ --mhg-step-scroll-rows: 1;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ > .recommended-section-games-list {
+ padding-top: var(--mhg-context-rail-cover-top);
+ box-sizing: border-box;
+}
+
+.recommended-section-context-games:focus,
+.recommended-section-context-games:focus-visible,
+.recommended-section-context-games:focus-within {
+ outline: none !important;
+ border: none !important;
+ box-shadow: none !important;
+}
+
+.recommended-section-context-games::-webkit-scrollbar,
+.recommended-section-context-games *::-webkit-scrollbar {
+ width: 0 !important;
+ height: 0 !important;
+ display: none !important;
+ background: transparent !important;
+}
+
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games .games-list-container,
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games .games-list-container--virtualized,
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games .virtualized-games-grid,
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games .virtualized-list-fade,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .virtualized-games-grid,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .games-list-container:not(.games-list-container--virtualized) {
+ margin-left: 0 !important;
+ margin-right: 0 !important;
+ align-items: flex-start !important;
+}
+
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games .games-list-container,
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .games-list-container--virtualized,
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .games-list-container--virtualized
+ .virtualized-list-fade {
+ width: 100% !important;
+ min-height: 0 !important;
+ height: auto !important;
+ padding-left: 0 !important;
+ padding-right: 0 !important;
+}
+
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games .mhg-vertical-covers-page,
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .mhg-vertical-covers-page
+ .home-page-scroll-container {
+ --mhg-grid-bottom-inset: 0px !important;
+ padding-top: 0 !important;
+ padding-bottom: 0 !important;
+ margin-top: 0 !important;
+ margin-bottom: 0 !important;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games:has(.fixed-focal-games-list) {
+ --mhg-grid-top-inset: var(--mhg-context-rail-cover-top);
+ --mhg-grid-top-inset-games: var(--mhg-context-rail-cover-top);
+ --mhg-grid-bottom-inset: calc(100dvh - var(--mhg-context-rail-cover-top));
+ --mhg-grid-bottom-inset-games: var(--mhg-grid-bottom-inset);
+ overflow-x: hidden !important;
+ overflow-y: hidden !important;
+ overscroll-behavior: none;
+ touch-action: none;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games:has(.fixed-focal-games-list)
+ > .recommended-section-games-list {
+ padding-top: 0 !important;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .games-list-container--fixed-focal {
+ height: 100%;
+ min-height: 100%;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .games-list-container--fixed-focal
+ .fixed-focal-games-list {
+ position: relative;
+ display: block !important;
+ overflow: visible !important;
+ touch-action: none;
+ min-height: 100vh;
+ min-height: 100dvh;
+ height: 100%;
+ margin-left: 0 !important;
+ margin-right: auto !important;
+ gap: 0 !important;
+}
+
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games {
+ margin-left: 0 !important;
+ padding-left: 0 !important;
+}
+
+.recommended-section-detail-scroll--context-rail .fixed-focal-games-item.virtualized-grid-cell-pad {
+ transform: none !important;
+}
+
+.recommended-section-detail-scroll--context-rail .fixed-focal-games-item {
+ position: absolute;
+ z-index: 1;
+ pointer-events: auto;
+}
+
+.recommended-section-detail-scroll--context-rail .fixed-focal-games-item.mhg-cover-scale-selected {
+ z-index: 3;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected) {
+ z-index: 0;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item
+ .games-list-item--cover-sized {
+ transform: none !important;
+ width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+ min-width: 0 !important;
+ max-width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+ margin: 0 !important;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item
+ .games-list-cover {
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 50% 50% !important;
+ transition: none !important;
+ width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
+ max-width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
+ aspect-ratio: 3 / 4 !important;
+ height: auto !important;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .virtualized-grid-cell-pad
+ .games-list-item--cover-sized {
+ width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ box-sizing: border-box !important;
+}
 
 /*=============================================================================
 * Vista Dettaglio (`viewMode.detail`): list rows under the active library icon.
