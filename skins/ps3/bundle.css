@@ -143,7 +143,7 @@ body *::-webkit-scrollbar-corner {
  /*Min space between the strip above and the selected title (offset -1).*/
  --mhg-recommended-strip-above-selected-gap: 56px;
  /*Extra clearance so the title above does not overlap the library icon graphic.*/
- --mhg-recommended-strip-above-icon-gap: 24px;
+ --mhg-recommended-strip-above-icon-gap: 12px;
  /*In-flow layout: extra gap under header so the icon strip sits lower (XMB-style).*/
  --mhg-library-bar-margin-top: 64px;
  /*
