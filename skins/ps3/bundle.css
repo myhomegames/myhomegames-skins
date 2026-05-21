@@ -134,6 +134,16 @@ body *::-webkit-scrollbar-corner {
  --mhg-recommended-strip-title-font-size-unselected: 0.85rem;
  --mhg-recommended-section-row-height: 4.5rem;
  --mhg-recommended-section-gap: 40px;
+ /*Clearance for strip titles in the library icon band (not global section gap).*/
+ --mhg-recommended-strip-bar-adjacent-gap: 48px;
+ /*Selected title: lower from icon-center focal (the title on the Recommended icon).*/
+ --mhg-recommended-strip-selected-nudge-down: 56px;
+ /*Min space between selected title and the next strip below it.*/
+ --mhg-recommended-strip-below-selected-gap: 40px;
+ /*Min space between the strip above and the selected title (offset -1).*/
+ --mhg-recommended-strip-above-selected-gap: 56px;
+ /*Extra clearance so the title above does not overlap the library icon graphic.*/
+ --mhg-recommended-strip-above-icon-gap: 24px;
  /*In-flow layout: extra gap under header so the icon strip sits lower (XMB-style).*/
  --mhg-library-bar-margin-top: 64px;
  /*
