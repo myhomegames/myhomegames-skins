@@ -144,7 +144,7 @@ body *::-webkit-scrollbar-corner {
  --mhg-recommended-strip-above-selected-gap: 56px;
  /*Extra clearance so the title above does not overlap the library icon graphic.*/
  --mhg-recommended-strip-above-icon-gap: 12px;
- /*Strip titles: flush with active library icon left edge (inset after icon start).*/
+ /*Strip titles: flush with visible ::before glyph start (inset after glyph).*/
  --mhg-recommended-strip-title-anchor-inset-left: 0px;
  /*Raise the recommended strip titles column (negative = up).*/
  --mhg-recommended-strips-column-shift-y: -36px;
@@ -1817,7 +1817,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 :root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-recommended-strip-item {
  transform: translateX(var(--mhg-recommended-strip-title-anchor-inset-left, 0px)) !important;
  max-width: calc(
-  100vw - var(--mhg-active-library-icon-left-x, 0px) -
+  100vw - var(--mhg-active-library-icon-graphic-left-x, var(--mhg-active-library-icon-left-x, 0px)) -
   var(--mhg-vertical-column-viewport-margin, 72px) -
   var(--mhg-recommended-strip-title-anchor-inset-left, 0px)
  ) !important;
