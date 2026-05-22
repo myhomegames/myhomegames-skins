@@ -1482,31 +1482,412 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 }
 
 /*
- * Vertical fixed-focal rail (PS3): selection is wheel/step, not hover — show
- * play, edit, and ⋮ on the focal cover and keep the bar clickable.
+ * Vertical fixed-focal rail (PS3): wheel/step selects the focal tile; hover
+ * highlight and actions only while the pointer is over the selected cover.
  */
 :root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover.cover-hover-effect {
- outline-color: var(--mhg-play-accent, var(--mhg-primary, #22c55e)) !important;
- box-shadow: 0 10px 20px var(--mhg-play-glow) !important;
+ outline-color: transparent !important;
+ box-shadow: none !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover.cover-hover-effect::before {
- background-color: rgba(0, 0, 0, 0.4) !important;
+ background-color: rgba(0, 0, 0, 0) !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover .games-list-play-button-detail,
 :root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover .games-list-play-button-play-only,
 :root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover .games-list-edit-button,
 :root[data-mhg-vertical-cover-alignment="true"] .mhg-cover-scale-selected .games-list-cover .games-list-dropdown-wrapper .dropdown-menu-button {
- opacity: 1;
+ opacity: 0;
+ pointer-events: none;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item.mhg-cover-scale-selected:hover
+ .cover-hover-effect,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect,
+.mhg-library-vertical-covers
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect,
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect,
+.tag-games-page-shell--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect,
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect {
+ outline-color: var(--mhg-play-accent, var(--mhg-primary, #22c55e)) !important;
+ box-shadow: 0 10px 20px var(--mhg-play-glow) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item.mhg-cover-scale-selected:hover
+ .cover-hover-effect::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect::before,
+.mhg-library-vertical-covers
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect::before,
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect::before,
+.tag-games-page-shell--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect::before,
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover.cover-hover-effect::before {
+ background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-play-button-detail,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-play-button-play-only,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-edit-button,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-dropdown-wrapper
+ .dropdown-menu-button,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-play-button-detail,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-edit-button,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-dropdown-wrapper
+ .dropdown-menu-button,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-edit-button,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-upload-button,
+.mhg-library-vertical-covers
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-play-button-detail,
+.mhg-library-vertical-covers
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-play-button-play-only,
+.mhg-library-vertical-covers
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-edit-button,
+.mhg-library-vertical-covers
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-dropdown-wrapper
+ .dropdown-menu-button,
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-play-button-detail,
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-play-button-play-only,
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-edit-button,
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-dropdown-wrapper
+ .dropdown-menu-button,
+.tag-games-page-shell--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-play-button-detail,
+.tag-games-page-shell--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-play-button-play-only,
+.tag-games-page-shell--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-edit-button,
+.tag-games-page-shell--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-dropdown-wrapper
+ .dropdown-menu-button,
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-play-button-detail,
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-play-button-play-only,
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-edit-button,
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .games-list-cover
+ .games-list-dropdown-wrapper
+ .dropdown-menu-button {
+ opacity: 1 !important;
+ pointer-events: auto !important;
+}
+
+.mhg-library-vertical-covers .fixed-focal-games-item.mhg-cover-scale-selected,
+.library-item-detail-scroll--context-rail .fixed-focal-games-item.mhg-cover-scale-selected,
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-item.mhg-cover-scale-selected,
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item.mhg-cover-scale-selected,
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item.mhg-cover-scale-selected {
  pointer-events: auto;
 }
 
-.mhg-library-vertical-covers .fixed-focal-games-item,
-.library-item-detail-scroll--context-rail .fixed-focal-games-item,
-.tag-games-page-shell--context-rail .tag-games-context-games .fixed-focal-games-item,
-.recommended-section-detail-scroll--context-rail .fixed-focal-games-item {
- pointer-events: auto;
+/* Fixed-focal columns: wheel selects; only the focal tile/title is clickable. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-recommended-strip-item:not(.mhg-cover-scale-selected),
+.mhg-library-vertical-covers .fixed-focal-games-item:not(.mhg-cover-scale-selected),
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected),
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected),
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected) {
+ pointer-events: none !important;
+ cursor: default !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected) *,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected) *,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected) *,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-recommended-strip-item:not(.mhg-cover-scale-selected) *,
+.mhg-library-vertical-covers .fixed-focal-games-item:not(.mhg-cover-scale-selected) *,
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected) *,
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected) *,
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected) * {
+ pointer-events: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected)
+ .tag-list-item,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-recommended-strip-item:not(.mhg-cover-scale-selected)
+ .recommended-strip-title-button {
+ cursor: default !important;
+}
+
+/* No hover highlight on unfocused tiles (play/edit use pointer-events on selected only). */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .cover-hover-effect,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .cover-hover-effect,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover.cover-hover-effect,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover.cover-hover-effect,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected)
+ .cover-hover-effect,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected):hover
+ .cover-hover-effect,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected)
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .cover-hover-effect,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected):hover
+ .cover-hover-effect,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .games-list-cover.cover-hover-effect,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover.cover-hover-effect,
+.mhg-library-vertical-covers
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover.cover-hover-effect,
+.mhg-library-vertical-covers
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover.cover-hover-effect,
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover.cover-hover-effect,
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover.cover-hover-effect,
+.tag-games-page-shell--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover.cover-hover-effect,
+.tag-games-page-shell--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover.cover-hover-effect,
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover.cover-hover-effect,
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover.cover-hover-effect {
+ outline-color: transparent !important;
+ box-shadow: none !important;
+ cursor: default !important;
+ filter: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .cover-hover-effect::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .cover-hover-effect::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover.cover-hover-effect::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover.cover-hover-effect::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected)
+ .cover-hover-effect::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected):hover
+ .cover-hover-effect::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected)
+ .games-list-cover::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .cover-hover-effect::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected):hover
+ .cover-hover-effect::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .games-list-cover.cover-hover-effect::before,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover.cover-hover-effect::before,
+.mhg-library-vertical-covers
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover.cover-hover-effect::before,
+.mhg-library-vertical-covers
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover.cover-hover-effect::before,
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover.cover-hover-effect::before,
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover.cover-hover-effect::before,
+.tag-games-page-shell--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover.cover-hover-effect::before,
+.tag-games-page-shell--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover.cover-hover-effect::before,
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover.cover-hover-effect::before,
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .games-list-cover.cover-hover-effect::before {
+ background-color: rgba(0, 0, 0, 0) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover:hover
+ .games-list-play-button-detail,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover:hover
+ .games-list-play-button-play-only,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover:hover
+ .games-list-edit-button,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-cover:hover
+ .games-list-dropdown-wrapper
+ .dropdown-menu-button,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .games-list-cover:hover
+ .games-list-play-button-detail,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .games-list-cover:hover
+ .games-list-edit-button,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .games-list-cover:hover
+ .games-list-dropdown-wrapper
+ .dropdown-menu-button {
+ opacity: 0 !important;
 }
 
 /*
@@ -1919,7 +2300,6 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 :root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item {
  position: absolute;
  z-index: 1;
- pointer-events: auto;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item.mhg-cover-scale-selected {
@@ -2090,7 +2470,6 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 :root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-item {
  position: absolute;
  z-index: 1;
- pointer-events: auto;
  width: min(
   var(--mhg-tag-vertical-column-width, var(--mhg-vertical-column-width)),
   calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))
@@ -8349,7 +8728,6 @@ body > .additional-executables-dropdown-menu {
 .library-item-detail-scroll--context-rail .fixed-focal-games-item {
  position: absolute;
  z-index: 1;
- pointer-events: auto;
 }
 
 .library-item-detail-scroll--context-rail .fixed-focal-games-item.mhg-cover-scale-selected {
@@ -8611,7 +8989,6 @@ body > .additional-executables-dropdown-menu {
 .tag-games-page-shell--context-rail .tag-games-context-games .fixed-focal-games-item {
  position: absolute;
  z-index: 1;
- pointer-events: auto;
  overflow: visible !important;
 }
 
@@ -8967,7 +9344,6 @@ body > .additional-executables-dropdown-menu {
 .recommended-section-detail-scroll--context-rail .fixed-focal-games-item {
  position: absolute;
  z-index: 1;
- pointer-events: auto;
 }
 
 .recommended-section-detail-scroll--context-rail .fixed-focal-games-item.mhg-cover-scale-selected {
