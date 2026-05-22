@@ -8662,13 +8662,16 @@ body > .additional-executables-dropdown-menu {
 * =============================================================================*/
 .recommended-section-detail-shell--context-rail {
  --mhg-recommended-rail-icon-title-gap: 12px;
- /* Same first-cover line as collection/tag: icon row + gap (not title block height). */
+ /* Column 2 lines up with the section title (not the icon row). */
  --mhg-context-rail-cover-top: calc(
   var(--mhg-detail-rail-top, 204px) + 96px + var(--mhg-recommended-rail-icon-title-gap, 12px)
  );
+ /* Arrow keeps the original bridge row; games column uses focal nudge 0. */
  --mhg-context-rail-bridge-offset: 28px;
- /* Column-2 selected cover top = bridge row (col-1 line + offset), same visual as collection. */
- --mhg-context-rail-focal-nudge-px: var(--mhg-context-rail-bridge-offset, 28px);
+ --mhg-context-rail-focal-nudge-px: 0px;
+ /* Extra space between title rail and games column. */
+ --mhg-recommended-detail-layout-gap: 16px;
+ --mhg-recommended-detail-games-shift-x: 24px;
  margin-top: calc(-1* var(--mhg-detail-dock-stack, 0px)) !important;
  height: 100vh !important;
  height: 100dvh !important;
@@ -8762,6 +8765,10 @@ body > .additional-executables-dropdown-menu {
  box-sizing: border-box;
  padding-left: calc(20px + 8px);
  gap: 4px;
+}
+
+.recommended-section-detail-shell--context-rail .recommended-section-context-layout {
+ gap: var(--mhg-recommended-detail-layout-gap, 16px);
 }
 
 .recommended-section-context-rail {
@@ -8949,7 +8956,7 @@ body > .additional-executables-dropdown-menu {
 }
 
 .recommended-section-detail-scroll--context-rail .recommended-section-context-games {
- margin-left: 0 !important;
+ margin-left: var(--mhg-recommended-detail-games-shift-x, 24px) !important;
  padding-left: 0 !important;
 }
 
