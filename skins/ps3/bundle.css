@@ -144,6 +144,10 @@ body *::-webkit-scrollbar-corner {
  --mhg-recommended-strip-above-selected-gap: 56px;
  /*Extra clearance so the title above does not overlap the library icon graphic.*/
  --mhg-recommended-strip-above-icon-gap: 12px;
+ /*Strip titles: flush with active library icon left edge (inset after icon start).*/
+ --mhg-recommended-strip-title-anchor-inset-left: 0px;
+ /*Raise the recommended strip titles column (negative = up).*/
+ --mhg-recommended-strips-column-shift-y: -36px;
  /*In-flow layout: extra gap under header so the icon strip sits lower (XMB-style).*/
  --mhg-library-bar-margin-top: 64px;
  /*
@@ -1801,6 +1805,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  min-height: 100%;
  margin-left: 0 !important;
  margin-right: 0 !important;
+ margin-top: var(--mhg-recommended-strips-column-shift-y, 0px) !important;
  overflow: visible !important;
 }
 
@@ -1810,13 +1815,18 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 
 /* Recommended index: strip titles — smaller font when not selected (no scale shrink). */
 :root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-recommended-strip-item {
- transform: translateX(-50%) !important;
+ transform: translateX(var(--mhg-recommended-strip-title-anchor-inset-left, 0px)) !important;
+ max-width: calc(
+  100vw - var(--mhg-active-library-icon-left-x, 0px) -
+  var(--mhg-vertical-column-viewport-margin, 72px) -
+  var(--mhg-recommended-strip-title-anchor-inset-left, 0px)
+ ) !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"] .recommended-strip-title-button {
  display: block;
  width: 100%;
- text-align: center;
+ text-align: left;
  white-space: nowrap;
  overflow: hidden;
  text-overflow: ellipsis;
