@@ -8555,6 +8555,43 @@ body > .additional-executables-dropdown-menu {
  transform: rotate(45deg);
 }
 
+/* Tag + collection-like detail: same context-rail chevron (size, stroke, row). */
+.library-item-detail-page-shell--context-rail .mhg-context-rail-bridge,
+.tag-games-page-shell--context-rail .mhg-context-rail-bridge {
+ flex: 0 0 auto;
+ align-self: flex-start;
+ margin-top: calc(
+  var(--mhg-context-rail-cover-top) + var(--mhg-context-rail-bridge-offset, 28px)
+ ) !important;
+ width: 20px !important;
+ min-width: 20px !important;
+ max-width: 20px !important;
+ padding: 0 !important;
+ display: flex !important;
+ align-items: flex-start !important;
+ justify-content: center !important;
+ pointer-events: none;
+ position: relative;
+ z-index: 2;
+ box-sizing: border-box;
+}
+
+.library-item-detail-page-shell--context-rail .mhg-context-rail-bridge::after,
+.tag-games-page-shell--context-rail .mhg-context-rail-bridge::after {
+ content: "" !important;
+ display: block !important;
+ width: 10px !important;
+ height: 10px !important;
+ margin-right: -2px !important;
+ margin-left: 0 !important;
+ border-left: 2px solid rgba(255, 255, 255, 0.55) !important;
+ border-bottom: 2px solid rgba(255, 255, 255, 0.55) !important;
+ border-top: none !important;
+ border-right: none !important;
+ background: transparent !important;
+ transform: rotate(45deg) !important;
+}
+
 .library-item-detail-context-games:focus,
 .library-item-detail-context-games:focus-visible,
 .library-item-detail-context-games:focus-within {
@@ -8769,6 +8806,7 @@ body > .additional-executables-dropdown-menu {
  --mhg-context-rail-cover-top: calc(
   var(--mhg-tag-rail-top, 204px) + 96px + var(--mhg-tag-rail-icon-cover-gap, 12px)
  );
+ --mhg-context-rail-bridge-offset: 28px;
  margin-top: calc(-1* var(--mhg-tag-dock-stack)) !important;
  height: 100vh !important;
  height: 100dvh !important;
@@ -8829,7 +8867,7 @@ body > .additional-executables-dropdown-menu {
  min-height: 100%;
  box-sizing: border-box;
  padding-left: calc(20px + 8px);
- gap: 12px;
+ gap: 24px;
 }
 
 .tag-games-context-rail {
