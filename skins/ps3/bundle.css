@@ -8797,6 +8797,17 @@ body > .additional-executables-dropdown-menu {
  animation: mhg-context-rail-rail-slide-return 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Ignore stray mouseup on the focal cover right after context-rail return. */
+.fixed-focal-tag-list.mhg-context-rail-activation-locked,
+.fixed-focal-collections-list.mhg-context-rail-activation-locked,
+.fixed-focal-tag-list.mhg-context-rail-activation-locked .fixed-focal-tag-item,
+.fixed-focal-collections-list.mhg-context-rail-activation-locked .fixed-focal-collections-item,
+.fixed-focal-tag-list.mhg-context-rail-activation-locked .fixed-focal-tag-item *,
+.fixed-focal-collections-list.mhg-context-rail-activation-locked .fixed-focal-collections-item * {
+ pointer-events: none !important;
+ cursor: default !important;
+}
+
 .tag-games-context-rail-library,
 .tag-games-context-rail-cover,
 .library-item-detail-context-rail-library,
