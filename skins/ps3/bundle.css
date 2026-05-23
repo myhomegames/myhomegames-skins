@@ -352,9 +352,22 @@ html[data-mhg-background-visible="true"] .library-item-detail-scroll--context-ra
 html[data-mhg-background-visible="true"] .tag-games-page-shell--context-rail,
 html[data-mhg-background-visible="true"] .tag-games-page-layout-min-h,
 html[data-mhg-background-visible="true"] .recommended-section-detail-shell--context-rail,
-html[data-mhg-background-visible="true"] .recommended-section-detail-scroll--context-rail {
+html[data-mhg-background-visible="true"] .recommended-section-detail-scroll--context-rail,
+html[data-mhg-background-visible="true"] .game-detail-container,
+html[data-mhg-background-visible="true"] .game-detail-main-container,
+html[data-mhg-background-visible="true"] .game-detail-scroll-container,
+html[data-mhg-background-visible="true"] .igdb-game-detail-container,
+html[data-mhg-background-visible="true"] .igdb-game-detail-main-container,
+html[data-mhg-background-visible="true"] .igdb-game-detail-scroll-container {
  background: transparent !important;
  background-color: transparent !important;
+}
+
+/* Anchor overlay dock + full-bleed detail scroll on `/game/:id` and IGDB detail. */
+.app-main-container:has(.game-detail-container),
+.app-main-container:has(.igdb-game-detail-container) {
+ position: relative;
+ min-height: 100vh;
 }
 
 html[data-mhg-background-visible="true"] [data-mhg-background-portal] {
@@ -5336,18 +5349,30 @@ fieldset.edit-game-modal-field {
   background-color: transparent !important;
 }
 
+/* Overlay dock: bar floats above; detail content starts at y=0 and scrolls underneath. */
 .game-detail-libraries-bar-wrapper {
-  position: relative;
-  z-index: 1000;
-  pointer-events: auto;
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ z-index: 50;
+ pointer-events: none;
+}
+
+.game-detail-libraries-bar-wrapper .mhg-libraries-bar,
+.game-detail-libraries-bar-wrapper .mhg-libraries-bar * {
+ pointer-events: auto;
 }
 
 .game-detail-container {
-  position: relative;
-  z-index: 2;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+ position: relative;
+ z-index: 1;
+ min-height: 100vh;
+ height: 100vh;
+ display: flex;
+ flex-direction: column;
+ margin-top: 0;
+ padding-top: 0;
 }
 
 .game-detail-main-container {
@@ -5363,22 +5388,57 @@ fieldset.edit-game-modal-field {
 .game-detail-content {
   position: relative;
   z-index: 1;
+  flex: 1 1 auto;
   min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0 !important;
 }
 
 .game-detail-layout {
+  flex: 1 1 auto;
   min-height: 0;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
 }
 
 .game-detail-content-wrapper {
+  flex: 1 1 auto;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .game-detail-scroll-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100vh;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
   padding-left: 64px;
   padding-right: 64px;
-  padding-top: 5px;
+  padding-top: calc(var(--mhg-library-bar-effective-bottom) + 8px) !important;
   padding-bottom: 32px;
+}
+
+.game-detail-scroll-container > .game-detail-header {
+  padding-top: 0;
+}
+
+/* Same dock pull as library rails: scroll box starts at page top, content passes under the dock. */
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .game-detail-scroll-container,
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .igdb-game-detail-scroll-container {
+ margin-top: calc(
+  35px - var(--mhg-top-tool-dock-stack, 136px) - var(--mhg-library-bar-margin-top, 0px)
+ ) !important;
+ height: calc(
+  100vh + 64px + var(--mhg-top-tool-dock-stack, 136px) + var(--mhg-library-bar-margin-top, 0px)
+ ) !important;
 }
 
 .game-detail-header {
@@ -6313,17 +6373,28 @@ fieldset.edit-game-modal-field {
 }
 
 .igdb-game-detail-libraries-bar-wrapper {
-  position: relative;
-  z-index: 1000;
-  pointer-events: auto;
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ z-index: 50;
+ pointer-events: none;
+}
+
+.igdb-game-detail-libraries-bar-wrapper .mhg-libraries-bar,
+.igdb-game-detail-libraries-bar-wrapper .mhg-libraries-bar * {
+ pointer-events: auto;
 }
 
 .igdb-game-detail-container {
-  position: relative;
-  z-index: 2;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+ position: relative;
+ z-index: 1;
+ min-height: 100vh;
+ height: 100vh;
+ display: flex;
+ flex-direction: column;
+ margin-top: 0;
+ padding-top: 0;
 }
 
 .igdb-game-detail-main-container {
@@ -6339,22 +6410,46 @@ fieldset.edit-game-modal-field {
 .igdb-game-detail-content {
   position: relative;
   z-index: 1;
+  flex: 1 1 auto;
   min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0 !important;
 }
 
 .igdb-game-detail-layout {
+  flex: 1 1 auto;
   min-height: 0;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
 }
 
 .igdb-game-detail-content-wrapper {
+  flex: 1 1 auto;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .igdb-game-detail-scroll-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100vh;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
   padding-left: 64px;
   padding-right: 64px;
-  padding-top: 5px;
+  padding-top: calc(var(--mhg-library-bar-effective-bottom) + 8px) !important;
   padding-bottom: 32px;
+}
+
+.igdb-game-detail-scroll-container > .igdb-game-detail-header {
+  padding-top: 0;
 }
 
 .igdb-game-detail-header {
@@ -7901,6 +7996,44 @@ body > .additional-executables-dropdown-menu {
  position: relative;
 }
 
+/*
+ * Core page flex/scroll chain (Plex `HomePage.css` — omitted from the PS3 bundle).
+ * Without this, `.home-page-scroll-container` never gets a bounded height or
+ * `overflow-y: auto`, so game detail and other full-page scroll areas break.
+ */
+.home-page-content {
+ flex: 1;
+ min-height: 0;
+ overflow: hidden;
+ display: flex;
+ flex-direction: column;
+ padding-top: 0;
+}
+
+.home-page-layout {
+ flex: 1;
+ min-height: 0;
+ display: flex;
+ flex-direction: row;
+ overflow: hidden;
+}
+
+.home-page-content-wrapper {
+ flex: 1;
+ min-height: 0;
+ display: flex;
+ flex-direction: column;
+ overflow: hidden;
+}
+
+.home-page-scroll-container {
+ flex: 1 1 auto;
+ min-height: 0;
+ overflow-y: auto;
+ overflow-x: hidden;
+ overscroll-behavior: contain;
+}
+
 /*Pull the libraries bar out of normal flow so the content area underneath
 * starts at y=0 of the page. The bar stays on top (z-index 50) so its
 * icons remain clickable, but its background is transparent: the cover
@@ -9181,6 +9314,33 @@ body > .additional-executables-dropdown-menu {
 .library-item-detail-context-rail-cover {
  width: var(--lid-cover-size, 150px);
  max-width: min(var(--lid-cover-size, 150px), 40vw);
+}
+
+/* Static context-rail cover: wheel UX is for the games column, not this tile. */
+.library-item-detail-context-rail,
+.tag-games-context-rail {
+ position: relative;
+ z-index: 4;
+}
+
+.library-item-detail-context-rail-cover .games-list-cover-play:hover .games-list-play-button-play-only,
+.library-item-detail-context-rail-cover .games-list-play-button-play-only:hover,
+.tag-games-context-rail-cover .games-list-cover-play:hover .games-list-play-button-play-only,
+.tag-games-context-rail-cover .games-list-play-button-play-only:hover {
+ opacity: 1 !important;
+ pointer-events: auto !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .library-item-detail-context-rail-cover
+ .games-list-cover-play:hover
+ .games-list-play-button-play-only,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-games-context-rail-cover
+ .games-list-cover-play:hover
+ .games-list-play-button-play-only {
+ opacity: 1 !important;
+ pointer-events: auto !important;
 }
 
 .library-item-detail-context-rail-cover .cover-container,
