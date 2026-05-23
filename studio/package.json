@@ -6,7 +6,6 @@
   "scripts": {
     "predev": "node ./scripts/prep.mjs",
     "dev": "vite",
-    "prebuild": "node ./scripts/prep.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },

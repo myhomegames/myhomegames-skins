@@ -1,24 +1,27 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-
-type Manifest = {
-  skins: { id: string; name: string; zip: string; snapshot?: string }[];
-};
+import { fetchCatalog, type SkinsCatalog } from "./fetchCatalog";
 
 export default function App() {
-  const [manifest, setManifest] = useState<Manifest | null>(null);
+  const [catalog, setCatalog] = useState<SkinsCatalog | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
     void (async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const res = await fetch(`${import.meta.env.BASE_URL}skins-built.json`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = (await res.json()) as Manifest;
-        if (!cancelled) setManifest(data);
+        const data = await fetchCatalog();
+        if (!cancelled) setCatalog(data);
       } catch (e) {
-        if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load manifest");
+        if (!cancelled) {
+          setError(e instanceof Error ? e.message : "Failed to load catalog");
+          setCatalog(null);
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
       }
     })();
     return () => {
@@ -31,39 +34,61 @@ export default function App() {
       <header className="studio__hero">
         <h1>MyHomeGames skins</h1>
         <p className="studio__lead">
-          Example themes and a small studio app. Each zip contains a full <code>bundle.css</code> plus{" "}
-          <code>skin.json</code> — no merge with the web default at build time.
+          Example themes for MyHomeGames Web. Each archive contains a full <code>bundle.css</code> plus{" "}
+          <code>skin.json</code> — install from the main app under Settings → Appearance.
         </p>
       </header>
 
       <section className="studio__section">
-        <h2>Built archives</h2>
+        <h2>Download skins</h2>
         <p className="studio__hint">
-          Run <code>npm run dev</code> or <code>npm run build</code> from <code>studio/</code> to generate{" "}
-          <code>public/zips/*.mhg-skin.zip</code>. Install them from the main app: Settings → Appearance → Choose
-          archive.
+          Official packages are published with <code>npm run release</code> on{" "}
+          <a href="https://github.com/myhomegames/myhomegames-skins/releases">GitHub Releases</a>. This page lists
+          the latest release and links to each <code>.mhg-skin.zip</code>.
         </p>
-        {error && <p className="studio__error">Could not load skins-built.json ({error}). Run prep first.</p>}
-        {manifest && (
-          <ul className="studio__cards">
-            {manifest.skins.map((s) => (
-              <li key={s.id} className="studio__card">
-                {s.snapshot && (
-                  <img
-                    className="studio__snapshot"
-                    src={/^https?:\/\//i.test(s.snapshot) ? s.snapshot : `${import.meta.env.BASE_URL}${s.snapshot}`}
-                    alt={`${s.name} snapshot`}
-                    loading="lazy"
-                  />
-                )}
-                <h3>{s.name}</h3>
-                <p className="studio__id">{s.id}</p>
-                <a className="studio__dl" href={`${import.meta.env.BASE_URL}zips/${encodeURIComponent(s.zip)}`} download>
-                  Download {s.zip}
-                </a>
-              </li>
-            ))}
-          </ul>
+        {loading && <p className="studio__hint">Loading catalog…</p>}
+        {error && (
+          <p className="studio__error">
+            Could not load the skin catalog ({error}).
+            {import.meta.env.DEV && (
+              <>
+                {" "}
+                For local preview, run <code>npm run dev</code> from <code>studio/</code> (runs prep first).
+              </>
+            )}
+          </p>
+        )}
+        {catalog && (
+          <>
+            <p className="studio__hint">
+              {catalog.source === "release" ? (
+                <>
+                  Release <strong>{catalog.version ?? "latest"}</strong> on GitHub.
+                </>
+              ) : (
+                <>Local build (dev fallback — publish with npm run release for production).</>
+              )}
+            </p>
+            <ul className="studio__cards">
+              {catalog.skins.map((s) => (
+                <li key={s.id} className="studio__card">
+                  {s.snapshotUrl && (
+                    <img
+                      className="studio__snapshot"
+                      src={s.snapshotUrl}
+                      alt={`${s.name} snapshot`}
+                      loading="lazy"
+                    />
+                  )}
+                  <h3>{s.name}</h3>
+                  <p className="studio__id">{s.id}</p>
+                  <a className="studio__dl" href={s.downloadUrl} download={s.zip}>
+                    Download {s.zip}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
         )}
       </section>
 
@@ -77,8 +102,7 @@ export default function App() {
             <code>skins/&lt;id&gt;/bundle.css</code> — complete theme for that skin (required)
           </li>
           <li>
-            <code>scripts/build-zips.mjs</code> — zips <code>skin.json</code> + <code>bundle.css</code>; writes{" "}
-            <code>skins-built.json</code>
+            <code>npm run release</code> — builds zips and publishes to GitHub Releases
           </li>
         </ul>
       </section>
