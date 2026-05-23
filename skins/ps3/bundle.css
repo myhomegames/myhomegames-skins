@@ -7077,7 +7077,7 @@ fieldset.edit-game-modal-field {
 /*--- Popups / menus (from Plex skin bundle; ships a full stylesheet only) ---*/
 
 /*=============================================================================
- * PS3 — all popups/menus: right slide-in sheet (one third of viewport), not centered boxes.
+ * PS3 — all popups/menus: right slide-in sheet (~40% viewport), not centered boxes.
  *============================================================================= */
 
 @keyframes mhg-ps3-sheet-in {
@@ -7104,6 +7104,11 @@ fieldset.edit-game-modal-field {
  padding: 0 !important;
 }
 
+/* Above dropdown sheet (10100) and portaled submenus (10101) */
+.add-to-collection-modal-overlay {
+ z-index: 10102 !important;
+}
+
 /* Sidebar search: beat Tailwind utilities on the overlay/panel */
 .game-search-modal-overlay.mhg-sidebar-search-overlay {
  align-items: stretch !important;
@@ -7115,7 +7120,7 @@ fieldset.edit-game-modal-field {
  height: 100% !important;
  min-height: 0 !important;
  max-height: 100dvh !important;
- width: calc(100% / 3) !important;
+ width: 40% !important;
  min-width: 0 !important;
  max-width: 100% !important;
 }
@@ -7137,7 +7142,7 @@ fieldset.edit-game-modal-field {
 .mhg-sidebar-search-modal.game-search-modal,
 .edit-game-modal-container,
 .edit-collection-modal-container {
- width: calc(100% / 3) !important;
+ width: 40% !important;
  min-width: 0 !important;
  max-width: 100% !important;
  height: 100% !important;
@@ -7154,7 +7159,7 @@ fieldset.edit-game-modal-field {
 }
 
 .launch-modal-container {
- width: calc(100% / 3) !important;
+ width: 40% !important;
  max-width: 100% !important;
  align-items: stretch !important;
 }
@@ -7166,8 +7171,6 @@ fieldset.edit-game-modal-field {
 .games-list-toolbar-popup,
 .view-mode-dropdown,
 .view-mode-dropdown.view-mode-dropdown--portaled,
-body > .add-to-collection-dropdown-menu,
-body > .additional-executables-dropdown-menu,
 .games-table-column-menu-popup,
 .search-dropdown,
 .profile-dropdown-popup,
@@ -7179,7 +7182,7 @@ body > .additional-executables-dropdown-menu,
  left: auto !important;
  bottom: 0 !important;
  margin: 0 !important;
- width: calc(100% / 3) !important;
+ width: 40% !important;
  min-width: 0 !important;
  max-width: 100% !important;
  height: 100% !important;
@@ -7253,10 +7256,87 @@ body > .additional-executables-dropdown-menu,
  overflow-y: auto !important;
 }
 
-/* Submenus inside the right sheet open to the left, not off-screen */
-.dropdown-menu-popup .dropdown-menu-collectionlike-submenu {
+/* Portaled dropdown submenus: same right sheet as the parent menu (overlay pane) */
+body > .add-to-collection-dropdown-menu,
+body > .additional-executables-dropdown-menu {
+ position: fixed !important;
+ top: 0 !important;
+ right: 0 !important;
  left: auto !important;
- right: calc(100% - 1px) !important;
+ bottom: 0 !important;
+ width: 40% !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ height: 100% !important;
+ max-height: 100dvh !important;
+ margin: 0 !important;
+ border-radius: 0 !important;
+ border: none !important;
+ border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+ box-shadow: none !important;
+ z-index: 10101 !important;
+ overflow-x: hidden !important;
+ overflow-y: auto !important;
+ padding: 8px 0 !important;
+ background-color: #1a1a1a !important;
+ animation: mhg-ps3-sheet-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item,
+body > .additional-executables-dropdown-menu .additional-executables-dropdown-item {
+ display: flex !important;
+ align-items: center !important;
+ font-size: 13px !important;
+ padding: 8px 24px !important;
+ margin: 2px 0 !important;
+ width: 100% !important;
+ background: none !important;
+ border: none !important;
+ cursor: pointer !important;
+ color: rgba(255, 255, 255, 0.7) !important;
+ white-space: nowrap !important;
+ box-sizing: border-box !important;
+}
+
+body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item:hover,
+body > .additional-executables-dropdown-menu .additional-executables-dropdown-item:hover {
+ background-color: rgba(255, 255, 255, 0.05) !important;
+ color: #ffffff !important;
+}
+
+body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-divider {
+ height: 1px !important;
+ background-color: rgba(255, 255, 255, 0.1) !important;
+ margin: 4px 0 !important;
+}
+
+body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-section-title {
+ padding: 8px 24px 4px 24px !important;
+ font-size: 11px !important;
+ font-weight: 600 !important;
+ color: rgba(255, 255, 255, 0.5) !important;
+ text-transform: uppercase !important;
+ letter-spacing: 0.5px !important;
+ text-align: left !important;
+}
+
+/* Collection-like "Add to" submenu rendered inside the dropdown sheet */
+.dropdown-menu-popup .dropdown-menu-collectionlike-submenu {
+ position: absolute !important;
+ top: 0 !important;
+ right: 0 !important;
+ left: 0 !important;
+ bottom: 0 !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-height: none !important;
+ margin: 0 !important;
+ border-radius: 0 !important;
+ border: none !important;
+ box-shadow: none !important;
+ z-index: 5 !important;
+ overflow-y: auto !important;
+ animation: mhg-ps3-sheet-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -7277,6 +7357,7 @@ body > .additional-executables-dropdown-menu,
  .view-mode-dropdown.view-mode-dropdown--portaled,
  body > .add-to-collection-dropdown-menu,
  body > .additional-executables-dropdown-menu,
+ .dropdown-menu-popup .dropdown-menu-collectionlike-submenu,
  .games-table-column-menu-popup,
  .search-dropdown,
  .profile-dropdown-popup,
@@ -7554,7 +7635,7 @@ body > .additional-executables-dropdown-menu,
 
 body > .add-to-collection-dropdown-menu,
 body > .additional-executables-dropdown-menu {
- z-index: 10003 !important;
+ z-index: 10101 !important;
 }
 
 .dropdown-menu-item {
