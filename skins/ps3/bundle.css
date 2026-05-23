@@ -8739,17 +8739,52 @@ body > .additional-executables-dropdown-menu {
  animation: mhg-context-rail-peek-fade-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+@keyframes mhg-context-rail-rail-slide-enter {
+ from {
+  opacity: 0.92;
+  transform: translateX(72px);
+ }
+ to {
+  opacity: 1;
+  transform: translateX(0);
+ }
+}
+
+/* Icon + cover column: always slide in from index navigation (also when View Transitions fail). */
+.library-item-detail-page-shell--context-rail.mhg-context-rail-motion-enter
+ .library-item-detail-context-rail,
+.tag-games-page-shell--context-rail.mhg-context-rail-motion-enter
+ .tag-games-context-rail {
+ animation: mhg-context-rail-rail-slide-enter 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.tag-games-context-rail-library,
+.tag-games-context-rail-cover,
+.library-item-detail-context-rail-library,
+.library-item-detail-context-rail-cover {
+ contain: layout;
+}
+
 @supports (view-transition-name: none) {
+ /* Let shared cover/library morph; avoid full-page crossfade masking the slide. */
  ::view-transition-old(root),
  ::view-transition-new(root) {
-  animation-duration: 0.38s;
+  animation: none;
+ }
+
+ ::view-transition-group(mhg-context-rail-cover),
+ ::view-transition-group(mhg-context-rail-library) {
+  animation-duration: 0.42s;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
  }
 
  ::view-transition-old(mhg-context-rail-cover),
- ::view-transition-new(mhg-context-rail-cover) {
+ ::view-transition-new(mhg-context-rail-cover),
+ ::view-transition-old(mhg-context-rail-library),
+ ::view-transition-new(mhg-context-rail-library) {
   animation-duration: 0.42s;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  mix-blend-mode: normal;
  }
 }
 

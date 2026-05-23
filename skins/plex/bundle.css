@@ -689,6 +689,12 @@ body:has(.launch-modal-overlay) {
   width: auto;
 }
 
+body:has(.app-main-container[data-mhg-persistent-library-shell="true"]) [data-mhg-background-portal] {
+  left: var(--plex-shell-sidebar-width) !important;
+  right: 0 !important;
+  width: auto !important;
+}
+
 .app-main-container[data-mhg-persistent-library-shell="true"] .background-manager-root.background-manager-root--solid {
   left: var(--plex-shell-sidebar-width);
   right: 0;
@@ -1440,6 +1446,21 @@ body:has(.launch-modal-overlay) {
   z-index: 1;
 }
 
+/* Body portal paint (BackgroundManager): same dimming as .background-manager-overlay on root. */
+.background-manager-portal-bg {
+  z-index: 0;
+}
+
+.background-manager-portal-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 26, 26, 0.85);
+  z-index: 1;
+  pointer-events: none;
+}
+
 .background-manager-foreground {
   flex: 1;
   display: flex;
@@ -1480,6 +1501,11 @@ html[data-mhg-background-visible="true"] [data-mhg-background-portal] {
 
 html[data-mhg-background-visible="true"] .background-manager-root {
   z-index: 0 !important;
+}
+
+html[data-mhg-background-visible="true"] .background-manager-foreground {
+  position: relative;
+  z-index: 2;
 }
 
 
