@@ -3919,7 +3919,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3931,7 +3931,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
   border-radius: 8px;
   width: 90%;
   max-width: 600px;
-  max-height: 90vh;
+  max-height: 85vh;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
@@ -5004,7 +5004,7 @@ fieldset.edit-game-modal-field {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5015,7 +5015,7 @@ fieldset.edit-game-modal-field {
   background-color: #1a1a1a;
   border-radius: 8px;
   width: 90%;
-  max-width: 600px;
+  max-width: 720px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -7075,6 +7075,216 @@ fieldset.edit-game-modal-field {
 
 
 /*--- Popups / menus (from Plex skin bundle; ships a full stylesheet only) ---*/
+
+/*=============================================================================
+ * PS3 — all popups/menus: right slide-in sheet (one third of viewport), not centered boxes.
+ *============================================================================= */
+
+@keyframes mhg-ps3-sheet-in {
+ from {
+  transform: translateX(100%);
+ }
+ to {
+  transform: translateX(0);
+ }
+}
+
+/* Full-screen overlays → dim + align panel to the right */
+.add-game-overlay,
+.dropdown-menu-confirm-overlay,
+.launch-modal-overlay,
+.add-to-collection-modal-overlay,
+.manage-installation-modal-overlay,
+.game-search-modal-overlay,
+.edit-game-modal-overlay,
+.edit-collection-modal-overlay {
+ align-items: stretch !important;
+ justify-content: flex-end !important;
+ background-color: rgba(0, 0, 0, 0.55) !important;
+ padding: 0 !important;
+}
+
+/* Sidebar search: beat Tailwind utilities on the overlay/panel */
+.game-search-modal-overlay.mhg-sidebar-search-overlay {
+ align-items: stretch !important;
+ justify-content: flex-end !important;
+ padding: 0 !important;
+}
+
+.mhg-sidebar-search-modal.game-search-modal {
+ height: 100% !important;
+ min-height: 0 !important;
+ max-height: 100dvh !important;
+ width: calc(100% / 3) !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+}
+
+.mhg-sidebar-search-modal-list.game-search-modal-list {
+ flex: 1 !important;
+ min-height: 0 !important;
+ overflow-y: auto !important;
+ overflow-x: hidden !important;
+}
+
+/* Panel inside an overlay */
+.add-game-container,
+.dropdown-menu-confirm-container,
+.launch-modal-container,
+.add-to-collection-modal,
+.manage-installation-modal-container,
+.game-search-modal,
+.mhg-sidebar-search-modal.game-search-modal,
+.edit-game-modal-container,
+.edit-collection-modal-container {
+ width: calc(100% / 3) !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ height: 100% !important;
+ max-height: 100dvh !important;
+ margin: 0 !important;
+ border-radius: 0 !important;
+ border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+ box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55) !important;
+ animation: mhg-ps3-sheet-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.add-game-container {
+ max-width: 100% !important;
+}
+
+.launch-modal-container {
+ width: calc(100% / 3) !important;
+ max-width: 100% !important;
+ align-items: stretch !important;
+}
+
+/* Menus portaled or anchored near controls → fixed right sheet + dim band to the left */
+.filter-popup,
+.sort-popup,
+.dropdown-menu-popup,
+.games-list-toolbar-popup,
+.view-mode-dropdown,
+.view-mode-dropdown.view-mode-dropdown--portaled,
+body > .add-to-collection-dropdown-menu,
+body > .additional-executables-dropdown-menu,
+.games-table-column-menu-popup,
+.search-dropdown,
+.profile-dropdown-popup,
+.update-notification-popup,
+.franchise-series-dropdown {
+ position: fixed !important;
+ top: 0 !important;
+ right: 0 !important;
+ left: auto !important;
+ bottom: 0 !important;
+ margin: 0 !important;
+ width: calc(100% / 3) !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ height: 100% !important;
+ max-height: 100dvh !important;
+ border-radius: 0 !important;
+ border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+ box-shadow:
+  -12px 0 40px rgba(0, 0, 0, 0.55),
+  -100vmax 0 0 100vmax rgba(0, 0, 0, 0.55) !important;
+ z-index: 10100 !important;
+ overflow: hidden !important;
+ display: flex !important;
+ flex-direction: column !important;
+ animation: mhg-ps3-sheet-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.filter-popup-scrollable,
+.games-list-toolbar-popup-scrollable {
+ flex: 1 !important;
+ max-height: none !important;
+ overflow-y: auto !important;
+}
+
+.dropdown-menu-popup {
+ overflow-y: auto !important;
+ padding-top: 8px !important;
+ padding-bottom: 8px !important;
+}
+
+.games-list-dropdown-menu .dropdown-menu-popup,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-menu-dropdown
+ .dropdown-menu-popup {
+ top: 0 !important;
+ bottom: 0 !important;
+ left: auto !important;
+ right: 0 !important;
+ margin: 0 !important;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+ .filter-popup,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+ .sort-popup {
+ top: 0 !important;
+ right: 0 !important;
+ left: auto !important;
+ bottom: 0 !important;
+ margin: 0 !important;
+ max-height: 100dvh !important;
+}
+
+.edit-collection-modal-content,
+.edit-game-modal-content,
+.add-to-collection-modal-collections,
+.manage-installation-modal-content {
+ flex: 1 !important;
+ min-height: 0 !important;
+ overflow-y: auto !important;
+}
+
+.add-game-container {
+ overflow: hidden !important;
+}
+
+.add-game-container .add-game-content {
+ flex: 1 !important;
+ min-height: 0 !important;
+ overflow-y: auto !important;
+}
+
+/* Submenus inside the right sheet open to the left, not off-screen */
+.dropdown-menu-popup .dropdown-menu-collectionlike-submenu {
+ left: auto !important;
+ right: calc(100% - 1px) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+ .add-game-container,
+ .dropdown-menu-confirm-container,
+ .launch-modal-container,
+ .add-to-collection-modal,
+ .manage-installation-modal-container,
+ .game-search-modal,
+ .mhg-sidebar-search-modal.game-search-modal,
+ .edit-game-modal-container,
+ .edit-collection-modal-container,
+ .filter-popup,
+ .sort-popup,
+ .dropdown-menu-popup,
+ .games-list-toolbar-popup,
+ .view-mode-dropdown,
+ .view-mode-dropdown.view-mode-dropdown--portaled,
+ body > .add-to-collection-dropdown-menu,
+ body > .additional-executables-dropdown-menu,
+ .games-table-column-menu-popup,
+ .search-dropdown,
+ .profile-dropdown-popup,
+ .update-notification-popup,
+ .franchise-series-dropdown {
+  animation: none !important;
+ }
+}
 
 /*--- ./components/filters/FilterPopup.css ---*/
 
