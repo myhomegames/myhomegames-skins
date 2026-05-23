@@ -340,6 +340,8 @@ body *::-webkit-scrollbar-corner {
 html[data-mhg-background-visible="true"] body,
 html[data-mhg-background-visible="true"] #root,
 html[data-mhg-background-visible="true"] .app-main-container,
+/* PS3 classic shell: Tailwind bg-[#1a1a1a] on this wrapper hid the portal backdrop. */
+html[data-mhg-background-visible="true"] .home-page-main-container,
 html[data-mhg-background-visible="true"] .home-page-content,
 html[data-mhg-background-visible="true"] .home-page-layout,
 html[data-mhg-background-visible="true"] .home-page-content-wrapper,
@@ -368,13 +370,33 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  z-index: 2;
 }
 
+.background-manager-portal-bg {
+ position: absolute;
+ inset: 0;
+ width: 100%;
+ height: 100%;
+ z-index: 0;
+ pointer-events: none;
+}
+
 .background-manager-portal-overlay {
  position: absolute;
  inset: 0;
  width: 100%;
  height: 100%;
+ z-index: 1;
  background-color: rgba(26, 26, 26, 0.85);
  pointer-events: none;
+}
+
+[data-mhg-background-portal] {
+ position: fixed;
+ inset: 0;
+ width: 100vw;
+ height: 100dvh;
+ min-height: 100vh;
+ pointer-events: none;
+ z-index: 0;
 }
 
 .mhg-libraries-bar {
@@ -8756,6 +8778,23 @@ body > .additional-executables-dropdown-menu {
 .tag-games-page-shell--context-rail.mhg-context-rail-motion-enter
  .tag-games-context-rail {
  animation: mhg-context-rail-rail-slide-enter 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes mhg-context-rail-rail-slide-return {
+ from {
+  opacity: 0.92;
+  transform: translateX(56px);
+ }
+ to {
+  opacity: 1;
+  transform: translateX(0);
+ }
+}
+
+/* Index list: return from context-rail detail (icon + cover morph back to focal column). */
+.home-page-content-wrapper.mhg-context-rail-motion-return .fixed-focal-tag-list,
+.home-page-content-wrapper.mhg-context-rail-motion-return .fixed-focal-collections-list {
+ animation: mhg-context-rail-rail-slide-return 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .tag-games-context-rail-library,
