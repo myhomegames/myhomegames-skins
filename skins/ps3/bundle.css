@@ -118,7 +118,16 @@ body *::-webkit-scrollbar-corner {
  --mhg-vertical-rail-year-font-size: 1rem;
  /* Space between cover right edge and title (flex gap on rail rows). */
  --mhg-vertical-rail-cover-title-gap: 32px;
- --mhg-vertical-rail-title-line-clamp: 4;
+ /* More wrapped lines so long titles do not vertically center-shift the selected cover. */
+ --mhg-vertical-rail-title-line-clamp: 6;
+ /* Selected title optical Y beside cover (negative = up, positive = down). */
+ --mhg-vertical-rail-title-nudge-portrait: -32px;
+ --mhg-vertical-rail-title-nudge-tag: 58px;
+ --mhg-vertical-rail-portrait-slot-height: calc(
+  var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) *
+  var(--mhg-cover-portrait-height-factor, 1.3325)
+ );
+ --mhg-vertical-rail-tag-slot-height: calc(var(--tag-list-cover-size, 150px) * 9 / 16);
  /*Portrait cover box (400x533px ≈ 3:4). Used by fixed-focal row height in CSS + web lists.*/
  --mhg-cover-portrait-height-factor: 1.3325;
  /*Vista Dettaglio: same X axis as fixed-focal games rail (cover under icon column).*/
@@ -2461,6 +2470,26 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 .mhg-library-vertical-covers .fixed-focal-games-item {
  position: absolute;
  z-index: 1;
+}
+
+.mhg-library-vertical-covers .fixed-focal-games-item.virtualized-grid-cell-pad,
+.mhg-library-vertical-covers .fixed-focal-collections-item.virtualized-grid-cell-pad {
+ transform: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-games-item.mhg-cover-scale-selected,
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item.mhg-cover-scale-selected {
+ height: var(--mhg-vertical-rail-portrait-slot-height) !important;
+ min-height: var(--mhg-vertical-rail-portrait-slot-height) !important;
+ max-height: var(--mhg-vertical-rail-portrait-slot-height) !important;
+ overflow: visible;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-item.mhg-cover-scale-selected {
+ height: var(--mhg-vertical-rail-tag-slot-height) !important;
+ min-height: var(--mhg-vertical-rail-tag-slot-height) !important;
+ max-height: var(--mhg-vertical-rail-tag-slot-height) !important;
+ overflow: visible;
 }
 
 .mhg-library-vertical-covers .fixed-focal-games-item.mhg-cover-scale-selected {
@@ -8327,7 +8356,8 @@ body > .additional-executables-dropdown-menu {
  .games-list-item--cover-sized {
  display: flex !important;
  flex-direction: row !important;
- align-items: center !important;
+ /* Keep cover top on the focal line; title wraps beside/below without shifting the tile. */
+ align-items: flex-start !important;
  gap: var(--mhg-vertical-rail-cover-title-gap, 32px);
  width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
  min-width: 0 !important;
@@ -8461,27 +8491,125 @@ body > .additional-executables-dropdown-menu {
  .fixed-focal-collections-item.mhg-cover-scale-selected
  .games-list-title-wrapper,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-item.mhg-cover-scale-selected
- .games-list-title-wrapper,
+ .mhg-cover-scale-selected
+ .games-list-item--cover-sized
+ > .games-list-title-wrapper,
 :root[data-mhg-vertical-cover-alignment="true"]
- .tag-list-item.mhg-cover-scale-selected
- .games-list-title-wrapper,
+ .mhg-cover-scale-selected
+ .collections-list-item--sized
+ > .games-list-title-wrapper,
 :root[data-mhg-vertical-cover-alignment="true"]
  .library-item-detail-subcollections-grid
  .collections-list-item--sized.mhg-cover-scale-selected
  .games-list-title-wrapper {
- position: relative;
+ position: absolute !important;
+ top: 50% !important;
+ transform: translateY(calc(-50% + var(--mhg-vertical-rail-title-nudge-portrait, 0px))) !important;
+ left: calc(
+  var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) +
+  var(--mhg-vertical-rail-cover-title-gap, 32px)
+ ) !important;
+ right: 0 !important;
+ width: auto !important;
+ max-width: calc(
+  100% - var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) -
+  var(--mhg-vertical-rail-cover-title-gap, 32px)
+ ) !important;
  display: flex !important;
  flex-direction: column !important;
- flex: 1 1 auto;
+ flex: none;
  min-width: 0;
  margin-top: 0 !important;
- max-width: none !important;
  gap: 2px;
- justify-content: flex-start;
+ justify-content: center;
  align-items: flex-start;
  text-align: left;
  overflow: hidden;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .collections-list-item--sized
+ .games-list-title-wrapper {
+ transform: translateY(calc(-50% + var(--mhg-vertical-rail-title-nudge-portrait, 0px))) !important;
+ left: calc(
+  var(--collections-list-cover-size, var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px))) +
+  var(--mhg-vertical-rail-cover-title-gap, 32px)
+ ) !important;
+ max-width: calc(
+  100% -
+  var(--collections-list-cover-size, var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px))) -
+  var(--mhg-vertical-rail-cover-title-gap, 32px)
+ ) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item.mhg-cover-scale-selected
+ .tag-list-item
+ > .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-list
+ .fixed-focal-tag-item.mhg-cover-scale-selected
+ .tag-list-item
+ > .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-list
+ .tag-list-item.mhg-cover-scale-selected
+ > .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-container:not(.fixed-focal-tag-list)
+ .tag-list-item.mhg-cover-scale-selected
+ > .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-item.mhg-cover-scale-selected
+ > .games-list-title-wrapper {
+ position: absolute !important;
+ top: 50% !important;
+ transform: translateY(calc(-50% + var(--mhg-vertical-rail-title-nudge-tag, 0px))) !important;
+ left: calc(var(--tag-list-cover-size, 150px) + var(--mhg-vertical-rail-cover-title-gap, 32px)) !important;
+ right: 0 !important;
+ width: auto !important;
+ max-width: calc(
+  100% - var(--tag-list-cover-size, 150px) - var(--mhg-vertical-rail-cover-title-gap, 32px)
+ ) !important;
+ display: flex !important;
+ flex-direction: column !important;
+ flex: none;
+ min-width: 0;
+ margin-top: 0 !important;
+ gap: 2px;
+ justify-content: center;
+ align-items: flex-start;
+ text-align: left;
+ overflow: hidden;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item.mhg-cover-scale-selected
+ .tag-list-item,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-item--cover-sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .collections-list-item--sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .tag-list-item {
+ position: relative !important;
+ display: flex !important;
+ flex-direction: row !important;
+ align-items: flex-start !important;
+ height: 100% !important;
+ min-height: 0 !important;
+ box-sizing: border-box;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-cover {
+ flex: 0 0 auto;
+ align-self: flex-start !important;
 }
 
 /* Tag fixed-focal: title beside 16:9 cover; selection on item + wrapper. */
@@ -8494,27 +8622,6 @@ body > .additional-executables-dropdown-menu {
  .tag-list-item:not(.mhg-cover-scale-selected)
  .games-list-title-wrapper {
  display: none !important;
-}
-
-:root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-list
- .fixed-focal-tag-item.mhg-cover-scale-selected
- .games-list-title-wrapper,
-:root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-list
- .tag-list-item.mhg-cover-scale-selected
- .games-list-title-wrapper {
- display: flex !important;
- flex-direction: column !important;
- flex: 1 1 auto !important;
- min-width: 0 !important;
- margin-top: 0 !important;
- max-width: none !important;
- gap: 2px;
- justify-content: flex-start;
- align-items: flex-start;
- text-align: left;
- overflow: hidden;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
@@ -8575,15 +8682,17 @@ body > .additional-executables-dropdown-menu {
  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
  font-size: var(--mhg-vertical-rail-title-font-size, 1.3rem) !important;
  font-weight: var(--mhg-vertical-rail-title-font-weight, 600) !important;
+ line-height: 1.2;
  color: rgba(255, 255, 255, 0.92);
  white-space: normal !important;
  display: -webkit-box !important;
  -webkit-box-orient: vertical;
- -webkit-line-clamp: var(--mhg-vertical-rail-title-line-clamp, 4);
- line-clamp: var(--mhg-vertical-rail-title-line-clamp, 4);
+ -webkit-line-clamp: var(--mhg-vertical-rail-title-line-clamp, 6);
+ line-clamp: var(--mhg-vertical-rail-title-line-clamp, 6);
  overflow: hidden;
  text-overflow: ellipsis;
  word-break: break-word;
+ overflow-wrap: anywhere;
  text-align: left !important;
  width: 100%;
  max-width: 100%;
@@ -8642,6 +8751,16 @@ body > .additional-executables-dropdown-menu {
  .games-list-title-wrapper {
  margin: 0 !important;
  padding: 0 !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected.tag-list-item
+ > .games-list-cover {
+ align-self: flex-start !important;
+ flex-shrink: 0;
 }
 
 /* Legacy below-cover title spacing (collections fixed-focal). */
