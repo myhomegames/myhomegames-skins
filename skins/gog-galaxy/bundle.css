@@ -10827,3 +10827,302 @@ body:has(.login-page-root) {
  background-color: #f5b041 !important;
  border-color: #f5b041 !important;
 }
+
+/*--- GOG Galaxy: vertical cover alignment (persistent sidebar shell) ---*/
+
+:root[data-mhg-vertical-cover-alignment="true"] {
+ --mhg-cover-portrait-height-factor: 1.3325;
+ --mhg-vertical-column-width: 560px;
+ --mhg-tag-vertical-column-width: 560px;
+ /* Reserve left sidebar + page gutters so the rail can use the main column width. */
+ --mhg-vertical-column-viewport-margin: calc(var(--mhg-sidebar-width, 300px) + 64px);
+ --mhg-vertical-rail-cover-title-gap: 28px;
+ --mhg-vertical-rail-title-font-size: 1.2rem;
+ --mhg-vertical-rail-title-font-weight: 600;
+ --mhg-vertical-rail-year-font-size: 0.95rem;
+ --mhg-vertical-rail-title-line-clamp: 5;
+ --mhg-vertical-rail-title-nudge-portrait: -20px;
+ --mhg-vertical-rail-portrait-slot-height: calc(
+  var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) *
+  var(--mhg-cover-portrait-height-factor, 1.3325)
+ );
+}
+
+/* Owned games / library: fixed-focal rail in the right column (not under top icon strip). */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-library-vertical-covers
+ .home-page-scroll-container:not(.table-view) {
+ flex: 1 1 auto;
+ min-height: 0;
+ height: auto !important;
+ overflow-y: hidden !important;
+ overflow-x: hidden !important;
+ overscroll-behavior: none;
+ padding-top: 0 !important;
+ margin-top: 0 !important;
+ --mhg-grid-top-inset-games: 32px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-library-vertical-covers
+ .games-list-container--fixed-focal {
+ flex: 1 1 auto;
+ min-height: 0;
+ height: 100%;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-library-vertical-covers
+ .games-list-container--fixed-focal
+ .fixed-focal-games-list {
+ position: relative;
+ overflow: visible !important;
+ touch-action: none;
+ margin-left: 32px !important;
+ margin-right: auto !important;
+ max-width: min(
+  var(--mhg-vertical-column-width, 560px),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 364px))
+ ) !important;
+ width: min(
+  var(--mhg-vertical-column-width, 560px),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 364px))
+ ) !important;
+ box-sizing: border-box;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-library-vertical-covers
+ .fixed-focal-games-item {
+ position: absolute;
+ z-index: 1;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-library-vertical-covers
+ .fixed-focal-games-item.mhg-cover-scale-selected {
+ z-index: 3;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-library-vertical-covers
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected) {
+ z-index: 0;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item.mhg-cover-scale-selected,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item.mhg-cover-scale-selected {
+ height: var(--mhg-vertical-rail-portrait-slot-height) !important;
+ min-height: var(--mhg-vertical-rail-portrait-slot-height) !important;
+ max-height: var(--mhg-vertical-rail-portrait-slot-height) !important;
+ overflow: visible;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-library-vertical-covers
+ .fixed-focal-games-item
+ .games-list-item--cover-sized {
+ transform: none !important;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-library-vertical-covers
+ .fixed-focal-games-item
+ .games-list-cover {
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 50% 50% !important;
+ transition: none !important;
+}
+
+/* Rail row: cover + title beside it; widen past cover-only width. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .home-page-scroll-container:not(.table-view)
+ .games-list-item--cover-sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .fixed-focal-games-item
+ .games-list-item--cover-sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .virtualized-grid-cell-pad
+ .games-list-item--cover-sized {
+ display: flex !important;
+ flex-direction: row !important;
+ align-items: flex-start !important;
+ gap: var(--mhg-vertical-rail-cover-title-gap, 28px);
+ width: min(
+  var(--mhg-vertical-column-width, 560px),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 364px))
+ ) !important;
+ min-width: 0 !important;
+ max-width: min(
+  var(--mhg-vertical-column-width, 560px),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 364px))
+ ) !important;
+ box-sizing: border-box;
+ transform: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .fixed-focal-games-item,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .fixed-focal-collections-item {
+ width: min(
+  var(--mhg-vertical-column-width, 560px),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 364px))
+ ) !important;
+ max-width: min(
+  var(--mhg-vertical-column-width, 560px),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 364px))
+ ) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .fixed-focal-games-item
+ .games-list-item--cover-sized
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .games-list-item--cover-sized
+ .games-list-cover {
+ flex: 0 0 auto;
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 50% 50% !important;
+ width: var(--games-list-cover-size, var(--mhg-fixed-focal-cover-size, 240px)) !important;
+ max-width: var(--games-list-cover-size, var(--mhg-fixed-focal-cover-size, 240px)) !important;
+ aspect-ratio: 3 / 4 !important;
+ height: auto !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected) * {
+ pointer-events: none !important;
+ cursor: default !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper {
+ display: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .fixed-focal-games-item.mhg-cover-scale-selected
+ .games-list-title-wrapper {
+ position: absolute !important;
+ top: 50% !important;
+ transform: translateY(calc(-50% + var(--mhg-vertical-rail-title-nudge-portrait, 0px))) !important;
+ left: calc(
+  var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) +
+  var(--mhg-vertical-rail-cover-title-gap, 28px)
+ ) !important;
+ right: 0 !important;
+ width: auto !important;
+ max-width: calc(
+  100% - var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) -
+  var(--mhg-vertical-rail-cover-title-gap, 28px)
+ ) !important;
+ display: flex !important;
+ flex-direction: column !important;
+ flex: none;
+ min-width: 0;
+ margin-top: 0 !important;
+ gap: 2px;
+ justify-content: center;
+ align-items: flex-start;
+ text-align: left;
+ overflow: hidden;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .fixed-focal-games-item.mhg-cover-scale-selected
+ .games-list-title {
+ font-size: var(--mhg-vertical-rail-title-font-size, 1.2rem);
+ font-weight: var(--mhg-vertical-rail-title-font-weight, 600);
+ display: -webkit-box;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp: var(--mhg-vertical-rail-title-line-clamp, 5);
+ overflow: hidden;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .fixed-focal-games-item.mhg-cover-scale-selected
+ .games-list-year {
+ font-size: var(--mhg-vertical-rail-year-font-size, 0.95rem);
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .mhg-cover-scale-selected
+ .games-list-item--cover-sized {
+ position: relative !important;
+ display: flex !important;
+ flex-direction: row !important;
+ align-items: flex-start !important;
+ height: 100% !important;
+ min-height: 0 !important;
+ box-sizing: border-box;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .mhg-cover-scale-selected
+ .games-list-cover {
+ flex: 0 0 auto;
+ align-self: flex-start !important;
+}
+
+/* Tags / collections in the main column: same wide rail, left-aligned in the list band. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .home-page-scroll-container:not(.table-view)
+ .tag-list-container,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .home-page-scroll-container:not(.table-view)
+ .collections-list-container:not(.collections-list-container--virtualized):not(
+  .collections-list-container--fixed-focal
+ ) {
+ display: flex !important;
+ flex-direction: column !important;
+ align-items: flex-start !important;
+ margin-left: 32px !important;
+ margin-right: auto !important;
+ gap: 20px !important;
+ max-width: min(
+  var(--mhg-vertical-column-width, 560px),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 364px))
+ ) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .home-page-scroll-container:not(.table-view)
+ .tag-list-item,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-main-container
+ .home-page-scroll-container:not(.table-view)
+ .collections-list-item--sized {
+ width: min(
+  var(--mhg-tag-vertical-column-width, var(--mhg-vertical-column-width, 560px)),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 364px))
+ ) !important;
+ min-width: min(
+  var(--mhg-tag-vertical-column-width, var(--mhg-vertical-column-width, 560px)),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 364px))
+ ) !important;
+}
