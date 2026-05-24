@@ -12,6 +12,7 @@
     "verticalCoverAlignment": true,
     "compactCollectionLikeDetail": true,
     "fixedFocalStepSound": true,
-    "autoShowBackgroundOnSelection": true
+    "autoShowBackgroundOnSelection": true,
+    "disableTitleTooltips": true
   }
 }
