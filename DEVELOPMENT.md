@@ -57,12 +57,3 @@ cat dist/release/skins-built.json
 | `GITHUB_TOKEN` | — | Recommended for `npm run release` (PAT with `repo` scope; API upload) |
 | `MHG_SKINS_GITHUB_REPO` | `myhomegames/myhomegames-skins` | `owner/repo` used in manifest URLs |
 | `GITHUB_REPOSITORY` | — | Used in CI (`owner/repo`) when set |
-| `OUT_ZIPS` | (set by prep:release) | Passed through to `build-zips.mjs` |
-
-## Local zip build (no release)
-
-```bash
-npm run zip
-```
-
-Output defaults to `studio/public/zips/` for the studio dev UI only.

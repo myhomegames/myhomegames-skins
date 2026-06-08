@@ -17,7 +17,7 @@ Published **`.mhg-skin.zip`** files live on **[GitHub Releases](https://github.c
 
 ## Installing a skin (Settings)
 
-1. Download a **`.mhg-skin.zip`** from the studio site or build one locally (`npm run zip`).
+1. Download a **`.mhg-skin.zip`** from the studio site (or [GitHub Releases](https://github.com/myhomegames/myhomegames-skins/releases)).
 2. Open **Settings → Appearance** in the web app.
 3. Click **Choose archive** and upload the zip. The server extracts it into **`${METADATA_PATH}/skins/<new-uuid>/`** and selects the new skin.
 
@@ -101,8 +101,8 @@ Skin ids are **UUIDs** (v4-style folder names).
 **myhomegames-skins** includes:
 
 - **`skins/<id>/`** — one folder per skin, each with committed **`bundle.css`** + **`skin.json`**.
-- **`scripts/build-zips.mjs`** — zips **`skin.json`** + **`bundle.css`** per folder.
-- **`studio/`** — React + Vite UI: **`npm run dev`** / **`npm run build`** from `studio/` (after **`npm install`** at this repo root) to rebuild zips and download them.
+- **`scripts/prepare-release.mjs`** — builds zips and **`skins-built.json`** under `dist/release/` for **`npm run release`**.
+- **`studio/`** — React + Vite catalog UI: lists the latest GitHub release (`npm run dev` / `npm run build` in `studio/`).
 
 ---
 
@@ -110,7 +110,7 @@ Skin ids are **UUIDs** (v4-style folder names).
 
 1. Author a **complete** **`bundle.css`** for your theme (replace the whole UI, not a partial override unless you inlined a full baseline yourself).
 2. Add **`skin.json`** with a display `name`.
-3. Zip the two files (root or single top-level folder), or use **`npm run zip`** in **myhomegames-skins** with `skins/<your-id>/`.
+3. Zip the two files (root or single top-level folder), or publish via **`npm run release`** in **myhomegames-skins**.
 4. Install via Settings, or copy the extracted folder manually into `METADATA_PATH/skins/<uuid>/`.
 
 ### Live-ish iteration: symlink a repo folder into the server skins directory
@@ -161,7 +161,7 @@ If a theme must ship entirely inside **myhomegames-web** (no zip install), add a
 | Active id in browser | `myhomegames-web/src/skins/skinStorage.ts` |
 | Server skin id helper | `myhomegames-web/src/skins/skinIds.ts` |
 | Settings UI | `myhomegames-web/src/components/settings/SettingsSkinSection.tsx` |
-| Zip build | **This repo**: `scripts/build-zips.mjs`, `skins/*/` |
+| Zip build / release | **This repo**: `scripts/prepare-release.mjs`, `skins/*/` |
 
 ---
 

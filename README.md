@@ -5,25 +5,18 @@ Example UI skins for **[MyHomeGames Web](https://github.com/myhomegames/myhomega
 ## Requirements
 
 - **Node.js 18+**
-- **`npm run zip`** zips every `skins/<id>/` that has **`skin.json`** + **`bundle.css`**.
 
 ## Quick start
 
-The studio’s `predev` / `prebuild` hooks run `scripts/build-zips.mjs`, which uses **`adm-zip` from the repository root**. Install dependencies at the root **before** building or running `studio/` only.
-
 ```bash
-# Install zip script dependency (adm-zip)
 cd myhomegames-skins
 npm install
-
-# Build archives only → studio/public/zips/*.mhg-skin.zip (local / studio UI)
-npm run zip
 
 # GitHub release (official distribution for the web app)
 # Bump version in package.json first, then:
 npm run release
 
-# Studio (optional): local preview UI — not used for distribution
+# Studio site (GitHub Pages build)
 npm install --prefix studio
 npm run build --prefix studio
 ```
@@ -36,7 +29,7 @@ npm install
 npm run dev
 ```
 
-`predev` runs the zip step first (packages each skin’s committed **`bundle.css`** + `skin.json`). Open the printed URL to download built archives from the UI.
+The dev server lists skins from the **latest GitHub release** (same as the published studio site).
 
 ## Skin folder contract
 
@@ -45,24 +38,11 @@ Every skin folder under `skins/<id>/` ships only:
 - **`skin.json`** — metadata shown in the web app after install.
 - **`bundle.css`** — **complete** theme for that skin. Nothing is merged with the web default at zip time.
 
-To add a skin, create `skins/<your-id>/` with those two files, then run **`npm run zip`** or **`npm run build`** from `studio/`.
+To add a skin, create `skins/<your-id>/` with those two files, then publish with **`npm run release`**.
 
 ### Faster local iteration (no new tooling)
 
 If the server’s metadata directory is on your machine, you can **symlink** `METADATA_PATH/skins/<uuid>` to `myhomegames-skins/skins/<your-id>/` after a one-time install, then edit `bundle.css` in this repo and **reload the browser**. See **[SKINS.md — symlink a repo folder](SKINS.md#live-ish-iteration-symlink-a-repo-folder-into-the-server-skins-directory)** for step-by-step instructions (macOS, Linux, Windows).
-
-## How the zip is built
-
-`scripts/build-zips.mjs`:
-
-1. For each `skins/<id>/` with **`skin.json`** and **`bundle.css`**, copies them into `<id>.mhg-skin.zip` (no CSS processing — the archive is a full replacement theme for the web app).
-2. Writes **`skins-built.json`** next to the zips (manifest for the studio UI).
-
-Environment variables:
-
-|Variable|Default|Meaning|
-|--------|-------|-------|
-|`OUT_ZIPS`|`studio/public/zips` under this repo|Output directory for zips + sibling `skins-built.json`|
 
 ## GitHub releases
 
