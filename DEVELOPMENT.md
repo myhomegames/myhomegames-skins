@@ -8,9 +8,9 @@ The project uses **`release-it`** (same workflow as **myhomegames-server**) to p
 
 - Node.js 18+
 - `npm install` at the repository root
-- **GitHub Personal Access Token** with `repo` scope (required — `npm run release` exits early if missing)
+- **GitHub Personal Access Token** with `repo` scope (recommended for automated releases)
 
-Without `GITHUB_TOKEN`, `release-it` falls back to opening the GitHub “new release” page in the browser with the entire changelog in the URL. For large histories that URL exceeds GitHub’s limit (**“Your request URL is too long”**), and skin zips are **not** uploaded automatically in that mode.
+Without `GITHUB_TOKEN`, `release-it` falls back to opening the GitHub “new release” page in the browser with the entire changelog in the URL. For large histories that URL may exceed GitHub’s limit (**“Your request URL is too long”**), and skin zips are **not** uploaded automatically in that mode.
 
 1. Create a token at [github.com/settings/tokens](https://github.com/settings/tokens) → **Generate new token (classic)** → scope **`repo`**.
 2. Export it (or copy `.env.example` to `.env` and set the value there — `.env` is gitignored):
@@ -52,7 +52,7 @@ cat dist/release/skins-built.json
 
 | Variable | Default | Meaning |
 |----------|---------|---------|
-| `GITHUB_TOKEN` | — | **Required locally** for `npm run release` (PAT with `repo` scope) |
+| `GITHUB_TOKEN` | — | Recommended for `npm run release` (PAT with `repo` scope; API upload) |
 | `MHG_SKINS_GITHUB_REPO` | `myhomegames/myhomegames-skins` | `owner/repo` used in manifest URLs |
 | `GITHUB_REPOSITORY` | — | Used in CI (`owner/repo`) when set |
 | `OUT_ZIPS` | (set by prep:release) | Passed through to `build-zips.mjs` |
