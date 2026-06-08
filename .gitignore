@@ -14,3 +14,4 @@ studio/public/skins-built.json
 .DS_Store
 .env
 .env.*.local
+.cursor

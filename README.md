@@ -16,10 +16,14 @@ The studio’s `predev` / `prebuild` hooks run `scripts/build-zips.mjs`, which u
 cd myhomegames-skins
 npm install
 
-# Build archives only → studio/public/zips/*.mhg-skin.zip
+# Build archives only → studio/public/zips/*.mhg-skin.zip (local / studio UI)
 npm run zip
 
-# Studio (React): generates public/zips + skins-built.json, then Vite build → docs/ (repo root)
+# GitHub release (official distribution for the web app)
+# Bump version in package.json first, then:
+npm run release
+
+# Studio (optional): local preview UI — not used for distribution
 npm install --prefix studio
 npm run build --prefix studio
 ```
@@ -59,6 +63,10 @@ Environment variables:
 |Variable|Default|Meaning|
 |--------|-------|-------|
 |`OUT_ZIPS`|`studio/public/zips` under this repo|Output directory for zips + sibling `skins-built.json`|
+
+## GitHub releases
+
+Official **`.mhg-skin.zip`** packages are published with **`npm run release`** (see **[DEVELOPMENT.md](DEVELOPMENT.md)**). The **studio** site (build in `studio/` → `docs/`) lists skins from the latest GitHub release and links to each **`downloadUrl`** — not from bundled zips in Pages.
 
 ## License
 

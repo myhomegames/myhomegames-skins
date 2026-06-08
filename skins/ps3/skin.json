@@ -2,5 +2,17 @@
   "name": "PS3",
   "description": "PS3 theme style",
   "version": "1.0.0",
-  "snapshot": "snapshot.jpg"
+  "snapshot": "snapshot.jpg",
+  "web": {
+    "libraryHoverSelect": true,
+    "libraryBarHeaderActions": true,
+    "topRightToolDock": true,
+    "sidebarSearchPopup": true,
+    "disableAlphabetNavigator": true,
+    "verticalCoverAlignment": true,
+    "compactCollectionLikeDetail": true,
+    "fixedFocalStepSound": true,
+    "autoShowBackgroundOnSelection": true,
+    "disableTitleTooltips": true
+  }
 }

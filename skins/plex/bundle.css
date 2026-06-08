@@ -1,3 +1,8 @@
+/* Compact collection-like detail actions in top bar: align with toolbar controls. */
+.mhg-libraries-actions-right-extra .library-item-detail-compact-top-action,
+.mhg-libraries-actions-before-main-games .library-item-detail-compact-top-action {
+  transform: translateY(2px);
+}
 /* --- ./base/globals.css --- */
 
 
@@ -357,7 +362,81 @@ body:has(.launch-modal-overlay) {
   max-width: calc(100% - 200px);
 }
 
-/* Vertical library tabs for top-strip skins: `LibrariesBar.css` in myhomegames-web (class `.mhg-libraries-bar--vertical-page-tabs`). */
+/* Vertical library tabs for top-strip skins (`libraryPagesVerticalList` && !`persistentLibraryShell`). */
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs {
+  min-height: auto;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-libraries-bar-container {
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 16px;
+  min-height: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 72px;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-libraries-container {
+  position: relative;
+  left: auto;
+  transform: none;
+  flex: 0 1 auto;
+  width: auto;
+  min-width: 200px;
+  max-width: min(340px, 38vw);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 2px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: min(360px, 45vh, calc(100vh - 120px));
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-library-button,
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-library-active {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  white-space: normal;
+  border-bottom: none !important;
+  transform: none;
+  padding: 10px 16px;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-library-active::after {
+  display: none;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-collections-shortcuts {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-collections-shortcuts-title {
+  width: 100%;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-collection-shortcut-button {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+}
+
+.mhg-libraries-bar.mhg-libraries-bar--vertical-page-tabs .mhg-libraries-actions {
+  margin-left: auto;
+  flex-shrink: 0;
+  align-self: flex-start;
+  padding-top: 2px;
+}
 
 .mhg-libraries-actions {
   display: flex;
@@ -608,6 +687,12 @@ body:has(.launch-modal-overlay) {
   left: var(--plex-shell-sidebar-width);
   right: 0;
   width: auto;
+}
+
+body:has(.app-main-container[data-mhg-persistent-library-shell="true"]) [data-mhg-background-portal] {
+  left: var(--plex-shell-sidebar-width) !important;
+  right: 0 !important;
+  width: auto !important;
 }
 
 .app-main-container[data-mhg-persistent-library-shell="true"] .background-manager-root.background-manager-root--solid {
@@ -1361,7 +1446,43 @@ body:has(.launch-modal-overlay) {
   z-index: 1;
 }
 
+/* Body portal paint (BackgroundManager): same dimming as .background-manager-overlay on root. */
+.background-manager-portal-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.background-manager-portal-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(26, 26, 26, 0.85);
+  pointer-events: none;
+}
+
+[data-mhg-background-portal] {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .background-manager-foreground {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
   position: relative;
   z-index: 2;
   pointer-events: none;
@@ -1369,6 +1490,38 @@ body:has(.launch-modal-overlay) {
 
 .background-manager-foreground > * {
   pointer-events: auto;
+}
+
+/*
+ * When a backdrop is active, page shells must stay transparent so the fixed
+ * background layer (portal + background-manager-root) is visible behind the rail.
+ */
+html[data-mhg-background-visible="true"] body,
+html[data-mhg-background-visible="true"] #root,
+html[data-mhg-background-visible="true"] .app-main-container,
+html[data-mhg-background-visible="true"] .home-page-main-container,
+html[data-mhg-background-visible="true"] .home-page-content,
+html[data-mhg-background-visible="true"] .home-page-layout,
+html[data-mhg-background-visible="true"] .home-page-content-wrapper,
+html[data-mhg-background-visible="true"] .home-page-scroll-container:not(.table-view),
+html[data-mhg-background-visible="true"] .mhg-vertical-covers-page,
+html[data-mhg-background-visible="true"] .library-item-detail-page-shell--context-rail,
+html[data-mhg-background-visible="true"] .library-item-detail-scroll--context-rail {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+html[data-mhg-background-visible="true"] [data-mhg-background-portal] {
+  z-index: 0 !important;
+}
+
+html[data-mhg-background-visible="true"] .background-manager-root {
+  z-index: 0 !important;
+}
+
+html[data-mhg-background-visible="true"] .background-manager-foreground {
+  position: relative;
+  z-index: 2;
 }
 
 
@@ -6495,6 +6648,172 @@ fieldset.edit-game-modal-field {
 
 /* --- ./components/layout/LibrariesBar.css --- */
 
+.mhg-libraries-actions-right-extra {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* `web.topRightToolDock`: tool row above the libraries strip; strip in second row. */
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) {
+  --mhg-top-tool-dock-band-height: 52px;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Ensure dock row + strip row always reserve space (horizontal strip uses absolute children otherwise). */
+  min-height: calc(var(--mhg-top-tool-dock-band-height, 52px) + 64px);
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-bar-container {
+  display: flex;
+  /* Strip sizes to tabs; in-flow min-height so the row never collapses to 0. */
+  flex: 0 0 auto;
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-height: 64px;
+}
+
+/* Persistent shell: sidebar has a defined height — grow below the tool dock; avoid min-height:0-only (collapses strip). */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-libraries-bar-container {
+  flex: 1 1 auto;
+  flex-shrink: 1;
+  min-height: 120px;
+  height: auto;
+  overflow-y: auto;
+}
+
+/*
+ * Horizontal top strip only (no persistent shell). Shell sidebars use their own `.mhg-libraries-container` rules.
+ */
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-container {
+  position: relative;
+  left: auto;
+  transform: none;
+  width: auto;
+  max-width: min(86vw, 1180px);
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock {
+  position: relative;
+  top: auto;
+  right: auto;
+  flex: 0 0 var(--mhg-top-tool-dock-band-height);
+  height: var(--mhg-top-tool-dock-band-height);
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
+  padding: 0 10px 0 12px;
+  z-index: 10050;
+  pointer-events: none;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-inner {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  max-width: 100%;
+  pointer-events: auto;
+}
+
+/*
+ * Page toolbar portal slot inside the top-right tool dock.
+ * `flex: 0 1 auto` keeps the slot collapsed when no page portals its toolbar in
+ * (so the icon row stays compact, as if the slot did not exist) and lets it
+ * grow to the toolbar's natural width when the portal is populated.
+ */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-page-toolbar-slot {
+  flex: 0 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-page-toolbar-inner {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-page-toolbar-inner
+  .games-list-toolbar {
+  position: static;
+  top: auto;
+  left: auto;
+  z-index: auto;
+  /* Inline page toolbar uses top 0 / bottom 8px — in the 52px dock row that reads visually high vs
+     logo, spinner, and view mode (all `align-items: center`). Use balanced vertical padding; less
+     left inset than the in-page bar (no library strip beside this slot). */
+  padding: 6px 36px 6px 10px;
+  box-sizing: border-box;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-height: 44px;
+  padding: 0 4px;
+  margin: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo:hover {
+  opacity: 0.88;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo svg {
+  max-height: 32px;
+  width: auto;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-menu-dropdown
+  .dropdown-menu-popup {
+  top: 100%;
+  bottom: auto;
+  left: auto;
+  right: 0;
+  margin-top: 6px;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-slider,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games {
+  display: flex;
+  align-items: center;
+}
 
 .mhg-libraries-menu-container {
   position: absolute;
@@ -7726,6 +8045,27 @@ fieldset.edit-game-modal-field {
   margin-left: 8px;
 }
 
+/*
+ * Top dock (`web.topRightToolDock`): when `GamesListToolbar` uses
+ * `dockToolbarPopups`, it sets `data-mhg-toolbar-popup-fixed` and
+ * `--mhg-toolbar-popup-*` on the filter/sort row; these rules pin panels to
+ * the viewport under that row.
+ */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+  .filter-popup,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+  .sort-popup {
+  position: fixed;
+  top: var(--mhg-toolbar-popup-top);
+  left: var(--mhg-toolbar-popup-left);
+  margin-top: 0;
+  right: auto;
+  bottom: auto;
+  z-index: 10020;
+}
+
 
 
 /* --- ./components/ui/AlphabetNavigator.css --- */
@@ -8111,6 +8451,22 @@ fieldset.edit-game-modal-field {
   flex-direction: column;
   /* Same net offset as former padding-top: 128px + margin-top: -30px, without negative margin */
   padding-top: 128px;
+}
+
+/* Fixed libraries bar is taller when the tool dock sits above the strip — keep content from sliding under it. */
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
+  .app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .home-page-main-container
+  .home-page-content {
+  padding-top: calc(128px + var(--mhg-top-tool-dock-band-height, 52px));
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(
+    .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  )
+  .home-page-main-container
+  .home-page-content {
+  padding-top: calc(64px + var(--mhg-top-tool-dock-band-height, 52px));
 }
 
 .home-page-layout {
@@ -8670,6 +9026,12 @@ fieldset.edit-game-modal-field {
 
 .library-item-detail-dropdown-menu .dropdown-menu-button {
   opacity: 1 !important;
+}
+
+/* Compact collection detail (Plex): open "Add to" submenu to the left so it stays inside viewport. */
+.library-item-detail-dropdown-menu .dropdown-menu-collectionlike-submenu {
+  left: auto;
+  right: calc(100% - 1px);
 }
 
 .game-detail-collections-section {
@@ -9334,4 +9696,85 @@ fieldset.edit-game-modal-field {
   object-fit: fill;
   object-position: center;
   display: block;
+}
+
+/*
+ * libraryBarHeaderActions: show Settings/Profile as extra library rows in the
+ * left sidebar (same visual language as Library/Collections/Publishers rows).
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions {
+  margin-left: 0;
+  align-self: stretch;
+  width: 100%;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .mhg-libraries-shell-action-button,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .profile-dropdown-button {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  position: relative;
+  gap: 0.45em;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .mhg-libraries-shell-action-button:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .profile-dropdown-button:hover {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .mhg-libraries-shell-action-button::after {
+  content: "Settings";
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .profile-dropdown-button::after {
+  content: "Profile";
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
+  .mhg-libraries-actions-right-extra
+  .profile-dropdown-arrow {
+  display: none;
 }

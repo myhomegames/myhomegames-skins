@@ -11,12 +11,15 @@ The active skin id is stored in the browser under `localStorage` key `mhg_active
 
 ---
 
+## Downloading official skins (studio site)
+
+Published **`.mhg-skin.zip`** files live on **[GitHub Releases](https://github.com/myhomegames/myhomegames-skins/releases)** (`npm run release` — see **[DEVELOPMENT.md](DEVELOPMENT.md)**). The **studio** site (GitHub Pages build under `docs/`) lists skins from the latest release and links to each archive’s **`downloadUrl`**.
+
 ## Installing a skin (Settings)
 
-1. Build a valid **`.zip`** (or **`.mhg-skin.zip`**) with **`skin.json`** and a single, complete **`bundle.css`** (see **myhomegames-skins** `npm run zip`, or pack manually).
+1. Download a **`.mhg-skin.zip`** from the studio site or build one locally (`npm run zip`).
 2. Open **Settings → Appearance** in the web app.
-3. Optionally set a **display name** (overrides `skin.json` name for the list).
-4. Click **Choose archive** and upload the zip. The server extracts it into **`${METADATA_PATH}/skins/<new-uuid>/`** and selects the new skin.
+3. Click **Choose archive** and upload the zip. The server extracts it into **`${METADATA_PATH}/skins/<new-uuid>/`** and selects the new skin.
 
 **Auth**: Upload and delete require the same API token as other write operations (`X-Auth-Token`: dev token or Twitch token). Listing and downloading CSS use the same rules as other metadata routes (`optionalToken`: if Twitch login is enabled in server settings, a token is required).
 

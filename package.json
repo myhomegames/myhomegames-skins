@@ -1,14 +1,45 @@
 {
   "name": "myhomegames-skins",
+  "version": "1.1.0",
   "private": true,
+  "license": "Apache-2.0",
   "description": "Example UI skins and tooling to build .mhg-skin.zip archives for MyHomeGames Web",
   "scripts": {
     "zip": "node scripts/build-zips.mjs",
+    "prep:release": "node scripts/prepare-release.mjs",
+    "release": "node scripts/run-release.mjs",
     "build": "npm run build --prefix studio && node scripts/sync-install-to-metadata.mjs",
     "build:all": "npm run build --prefix studio",
     "sync:metadata": "node scripts/sync-install-to-metadata.mjs"
   },
   "devDependencies": {
-    "adm-zip": "^0.5.16"
+    "adm-zip": "^0.5.16",
+    "release-it": "^17.0.0"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "${version}",
+      "tag": true,
+      "requireCleanWorkingDir": false,
+      "requireUpstream": false
+    },
+    "github": {
+      "release": true,
+      "skipChecks": true,
+      "releaseName": "${version}",
+      "assets": [
+        "dist/release/zips/*.mhg-skin.zip",
+        "dist/release/skins-built.json",
+        "dist/release/snapshots/*"
+      ]
+    },
+    "npm": {
+      "publish": false,
+      "version": false
+    },
+    "hooks": {
+      "before:release": ["npm run prep:release"]
+    }
   }
 }
