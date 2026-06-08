@@ -48,26 +48,12 @@ export default function App() {
         </p>
         {loading && <p className="studio__hint">Loading catalog…</p>}
         {error && (
-          <p className="studio__error">
-            Could not load the skin catalog ({error}).
-            {import.meta.env.DEV && (
-              <>
-                {" "}
-                For local preview, run <code>npm run dev</code> from <code>studio/</code> (runs prep first).
-              </>
-            )}
-          </p>
+          <p className="studio__error">Could not load the skin catalog ({error}).</p>
         )}
         {catalog && (
           <>
             <p className="studio__hint">
-              {catalog.source === "release" ? (
-                <>
-                  Release <strong>{catalog.version ?? "latest"}</strong> on GitHub.
-                </>
-              ) : (
-                <>Local build (dev fallback — publish with npm run release for production).</>
-              )}
+              Release <strong>{catalog.version ?? "latest"}</strong> on GitHub.
             </p>
             <ul className="studio__cards">
               {catalog.skins.map((s) => (

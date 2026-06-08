@@ -5,10 +5,8 @@ node_modules/
 dist/
 docs
 
-# Vite / studio build + generated archives (from predev / prebuild)
+# Vite / studio build
 studio/dist/
-studio/public/zips/
-studio/public/skins-built.json
 
 # Misc
 *.log
