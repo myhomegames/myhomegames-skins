@@ -38,7 +38,10 @@
       "version": false
     },
     "hooks": {
-      "before:release": ["npm run prep:release"]
+      "before:release": [
+        "node scripts/check-github-token.mjs",
+        "npm run prep:release"
+      ]
     }
   }
 }
