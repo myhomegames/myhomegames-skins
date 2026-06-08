@@ -31,6 +31,8 @@ Never commit the token to the repository.
 npm run release
 ```
 
+`npm run release` uses `scripts/run-release.mjs`, which sets `NODE_DEBUG=release-it:config` to work around a release-it/Octokit bug (`log: null` → *Cannot read properties of null (reading 'debug')*). GitHub config uses `skipChecks: true` for the same compatibility reason.
+
 This will:
 
 1. Run **`npm run prep:release`** — builds `dist/release/zips/*.mhg-skin.zip`, snapshots, and **`dist/release/skins-built.json`** with `downloadUrl` / `snapshotUrl` pointing at the GitHub release assets.

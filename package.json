@@ -7,7 +7,7 @@
   "scripts": {
     "zip": "node scripts/build-zips.mjs",
     "prep:release": "node scripts/prepare-release.mjs",
-    "release": "release-it --no-increment",
+    "release": "node scripts/run-release.mjs",
     "build": "npm run build --prefix studio && node scripts/sync-install-to-metadata.mjs",
     "build:all": "npm run build --prefix studio",
     "sync:metadata": "node scripts/sync-install-to-metadata.mjs"
@@ -39,10 +39,7 @@
       "version": false
     },
     "hooks": {
-      "before:release": [
-        "node scripts/check-github-token.mjs",
-        "npm run prep:release"
-      ]
+      "before:release": ["npm run prep:release"]
     }
   }
 }
