@@ -2,6 +2,11 @@
 .mhg-libraries-actions-right-extra .library-item-detail-compact-top-action {
  transform: translateY(2px);
 }
+
+/* Dock update bell: 2px lower (popup is portaled — `transform` here is safe). */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update {
+ transform: translateY(2px);
+}
 /**
 * Empty skin — no Plex theme rules.
 * Layout shell and BackgroundManager helpers (Tailwind loads from the web app build).
@@ -1020,9 +1025,15 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view,
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-slider,
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games {
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update {
  display: flex;
  align-items: center;
+ flex-shrink: 0;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update .update-notification-popup {
+ z-index: 10040;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view .view-mode-button {
@@ -1434,6 +1445,43 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 .profile-dropdown-item-danger:hover {
  background-color: rgba(255, 255, 255, 0.1);
  color: rgba(255, 255, 255, 1);
+}
+
+/* --- ./components/layout/UpdateNotification.css --- */
+
+.update-notification-wrapper {
+ position: relative;
+ display: inline-flex;
+ align-items: center;
+ margin: 0;
+ padding: 0;
+}
+
+.update-notification-button {
+ position: relative;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 36px;
+ height: 36px;
+ padding: 0;
+ margin: 0;
+ background: none;
+ border: none;
+ cursor: pointer;
+ color: rgba(255, 255, 255, 0.85);
+}
+
+.update-notification-bell {
+ color: var(--mhg-primary, #22c55e);
+}
+
+.update-notification-button:hover .update-notification-bell {
+ color: #4ade80;
+}
+
+.update-notification-dot {
+ opacity: 1;
 }
 
 .profile-page {
@@ -8024,6 +8072,94 @@ fieldset.edit-game-modal-field {
  font-size: 0.875rem;
  text-transform: uppercase;
  letter-spacing: 0.04em;
+}
+
+/* Update right sheet — inner content only; panel chrome from rule above. */
+.update-notification-popup {
+ padding: 0 !important;
+}
+
+.update-notification-header {
+ flex-shrink: 0;
+ margin: 0;
+ padding: 12px 16px;
+ border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+ background: rgba(0, 0, 0, 0.2);
+ font-weight: 600;
+ color: rgba(255, 255, 255, 0.5);
+ font-size: 0.875rem;
+ text-transform: uppercase;
+ letter-spacing: 0.04em;
+}
+
+.update-notification-changelog {
+ flex: 1;
+ min-height: 0;
+ display: flex;
+ flex-direction: column;
+ margin: 0;
+ padding: 12px 16px;
+ border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+ overflow: hidden;
+}
+
+.update-notification-changelog-title {
+ flex-shrink: 0;
+ margin-bottom: 8px;
+ font-weight: 600;
+ color: rgba(255, 255, 255, 0.5);
+ font-size: 0.875rem;
+ text-transform: uppercase;
+}
+
+.update-notification-changelog-body {
+ flex: 1;
+ min-height: 0;
+ overflow-y: auto;
+ font-size: 0.875rem;
+ line-height: 1.45;
+ color: rgba(255, 255, 255, 0.8);
+ white-space: pre-wrap;
+ word-break: break-word;
+}
+
+.update-notification-downloads {
+ flex-shrink: 0;
+ display: flex;
+ flex-direction: column;
+ padding: 8px 0 12px;
+}
+
+.update-notification-download-primary,
+.update-notification-download-item {
+ display: block;
+ width: 100%;
+ padding: 8px 24px;
+ text-align: left;
+ background: none;
+ border: none;
+ color: rgba(255, 255, 255, 0.7);
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+  "Helvetica Neue", sans-serif;
+ font-size: 13px;
+ cursor: pointer;
+ transition: background-color 0.2s ease, color 0.2s ease;
+ box-sizing: border-box;
+}
+
+.update-notification-download-primary {
+ color: var(--mhg-primary, #22c55e);
+ font-weight: 600;
+}
+
+.update-notification-download-primary:hover,
+.update-notification-download-item:hover {
+ background-color: rgba(255, 255, 255, 0.05);
+ color: #ffffff;
+}
+
+.update-notification-download-primary:hover {
+ color: #4ade80;
 }
 
 .games-list-dropdown-menu .dropdown-menu-popup,
