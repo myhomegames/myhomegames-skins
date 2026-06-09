@@ -357,7 +357,8 @@ body:has(.edit-game-modal-overlay) .mhg-header,
 body:has(.edit-collection-modal-overlay) .mhg-header,
 body:has(.dropdown-menu-confirm-overlay) .mhg-header,
 body:has(.add-game-overlay) .mhg-header,
-body:has(.launch-modal-overlay) .mhg-header {
+body:has(.launch-modal-overlay) .mhg-header,
+body:has(.add-to-collection-modal-overlay) .mhg-header {
  opacity: 0.5;
  pointer-events: none;
 }
@@ -11113,7 +11114,7 @@ body:has(.login-page-root) {
  .home-page-main-container
  .home-page-scroll-container:not(.table-view)
  .tag-list-item,
-:root[data-mhg-vertical-cover-alignment="true"]
+ :root[data-mhg-vertical-cover-alignment="true"]
  .home-page-main-container
  .home-page-scroll-container:not(.table-view)
  .collections-list-item--sized {
@@ -11125,4 +11126,9 @@ body:has(.login-page-root) {
   var(--mhg-tag-vertical-column-width, var(--mhg-vertical-column-width, 560px)),
   calc(100vw - var(--mhg-vertical-column-viewport-margin, 364px))
  ) !important;
+}
+
+/* Above portaled "Add to" submenus (10003) and library-bar menus (10008) */
+.add-to-collection-modal-overlay {
+ z-index: 10110 !important;
 }
