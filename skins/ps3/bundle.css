@@ -3,10 +3,6 @@
  transform: translateY(2px);
 }
 
-/* Dock update bell: 2px lower (popup is portaled — `transform` here is safe). */
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update {
- transform: translateY(2px);
-}
 /**
 * Empty skin — no Plex theme rules.
 * Layout shell and BackgroundManager helpers (Tailwind loads from the web app build).
@@ -1023,6 +1019,15 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  margin-top: 6px;
 }
 
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-activity-spinner {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ width: 36px;
+ height: 36px;
+}
+
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view,
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-slider,
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games,
@@ -1457,13 +1462,25 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  padding: 0;
 }
 
-.update-notification-button {
- position: relative;
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update .update-notification-button {
  display: flex;
  align-items: center;
  justify-content: center;
  width: 36px;
  height: 36px;
+ padding: 0;
+ margin: 0;
+ background: none;
+ border: none;
+ cursor: pointer;
+ color: rgba(255, 255, 255, 0.85);
+}
+
+.update-notification-button {
+ position: relative;
+ display: flex;
+ align-items: center;
+ justify-content: center;
  padding: 0;
  margin: 0;
  background: none;
