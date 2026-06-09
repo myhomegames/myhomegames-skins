@@ -248,7 +248,8 @@ body:has(.edit-game-modal-overlay),
 body:has(.edit-collection-modal-overlay),
 body:has(.dropdown-menu-confirm-overlay),
 body:has(.add-game-overlay),
-body:has(.launch-modal-overlay) {
+body:has(.launch-modal-overlay),
+body:has(.add-to-collection-modal-overlay) {
   .mhg-header {
     opacity: 0.5;
     pointer-events: none;
@@ -6810,9 +6811,19 @@ fieldset.edit-game-modal-field {
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view,
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-slider,
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games {
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update .update-notification-wrapper {
+  margin: 0;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update .update-notification-popup {
+  z-index: 10040;
 }
 
 .mhg-libraries-menu-container {
@@ -9777,4 +9788,9 @@ fieldset.edit-game-modal-field {
   .mhg-libraries-actions-right-extra
   .profile-dropdown-arrow {
   display: none;
+}
+
+/* Above portaled "Add to" submenus (10003) and library-bar menus (10008) */
+.add-to-collection-modal-overlay {
+  z-index: 10110 !important;
 }

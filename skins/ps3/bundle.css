@@ -2,6 +2,7 @@
 .mhg-libraries-actions-right-extra .library-item-detail-compact-top-action {
  transform: translateY(2px);
 }
+
 /**
 * Empty skin — no Plex theme rules.
 * Layout shell and BackgroundManager helpers (Tailwind loads from the web app build).
@@ -1018,11 +1019,26 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  margin-top: 6px;
 }
 
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view,
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-slider,
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games {
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-activity-spinner {
  display: flex;
  align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ width: 36px;
+ height: 36px;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-slider,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update {
+ display: flex;
+ align-items: center;
+ flex-shrink: 0;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update {
+ margin-top: 2px;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view .view-mode-button {
@@ -1434,6 +1450,55 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 .profile-dropdown-item-danger:hover {
  background-color: rgba(255, 255, 255, 0.1);
  color: rgba(255, 255, 255, 1);
+}
+
+/* --- ./components/layout/UpdateNotification.css --- */
+
+.update-notification-wrapper {
+ position: relative;
+ display: inline-flex;
+ align-items: center;
+ margin: 0;
+ padding: 0;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update .update-notification-button {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 36px;
+ height: 36px;
+ padding: 0;
+ margin: 0;
+ background: none;
+ border: none;
+ cursor: pointer;
+ color: rgba(255, 255, 255, 0.85);
+}
+
+.update-notification-button {
+ position: relative;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 0;
+ margin: 0;
+ background: none;
+ border: none;
+ cursor: pointer;
+ color: rgba(255, 255, 255, 0.85);
+}
+
+.update-notification-bell {
+ color: var(--mhg-primary, #22c55e);
+}
+
+.update-notification-button:hover .update-notification-bell {
+ color: #4ade80;
+}
+
+.update-notification-dot {
+ opacity: 1;
 }
 
 .profile-page {
@@ -7973,7 +8038,6 @@ fieldset.edit-game-modal-field {
 .view-mode-dropdown.view-mode-dropdown--portaled,
 .games-table-column-menu-popup,
 .profile-dropdown-popup,
-.update-notification-popup,
 .franchise-series-dropdown {
  position: fixed !important;
  top: 0 !important;
@@ -8024,6 +8088,94 @@ fieldset.edit-game-modal-field {
  font-size: 0.875rem;
  text-transform: uppercase;
  letter-spacing: 0.04em;
+}
+
+/* Update right sheet — inner content only; panel chrome from rule above. */
+.update-notification-popup {
+ padding: 0 !important;
+}
+
+.update-notification-header {
+ flex-shrink: 0;
+ margin: 0;
+ padding: 12px 16px;
+ border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+ background: rgba(0, 0, 0, 0.2);
+ font-weight: 600;
+ color: rgba(255, 255, 255, 0.5);
+ font-size: 0.875rem;
+ text-transform: uppercase;
+ letter-spacing: 0.04em;
+}
+
+.update-notification-changelog {
+ flex: 1;
+ min-height: 0;
+ display: flex;
+ flex-direction: column;
+ margin: 0;
+ padding: 12px 16px;
+ border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+ overflow: hidden;
+}
+
+.update-notification-changelog-title {
+ flex-shrink: 0;
+ margin-bottom: 8px;
+ font-weight: 600;
+ color: rgba(255, 255, 255, 0.5);
+ font-size: 0.875rem;
+ text-transform: uppercase;
+}
+
+.update-notification-changelog-body {
+ flex: 1;
+ min-height: 0;
+ overflow-y: auto;
+ font-size: 0.875rem;
+ line-height: 1.45;
+ color: rgba(255, 255, 255, 0.8);
+ white-space: pre-wrap;
+ word-break: break-word;
+}
+
+.update-notification-downloads {
+ flex-shrink: 0;
+ display: flex;
+ flex-direction: column;
+ padding: 8px 0 12px;
+}
+
+.update-notification-download-primary,
+.update-notification-download-item {
+ display: block;
+ width: 100%;
+ padding: 8px 24px;
+ text-align: left;
+ background: none;
+ border: none;
+ color: rgba(255, 255, 255, 0.7);
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+  "Helvetica Neue", sans-serif;
+ font-size: 13px;
+ cursor: pointer;
+ transition: background-color 0.2s ease, color 0.2s ease;
+ box-sizing: border-box;
+}
+
+.update-notification-download-primary {
+ color: var(--mhg-primary, #22c55e);
+ font-weight: 600;
+}
+
+.update-notification-download-primary:hover,
+.update-notification-download-item:hover {
+ background-color: rgba(255, 255, 255, 0.05);
+ color: #ffffff;
+}
+
+.update-notification-download-primary:hover {
+ color: #4ade80;
 }
 
 .games-list-dropdown-menu .dropdown-menu-popup,
@@ -8174,7 +8326,7 @@ body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-section-titl
  .dropdown-menu-popup .dropdown-menu-collectionlike-submenu,
  .games-table-column-menu-popup,
  .profile-dropdown-popup,
- .update-notification-popup,
+ body > .update-notification-popup,
  .franchise-series-dropdown {
   animation: none !important;
  }
@@ -12369,5 +12521,69 @@ body > .additional-executables-dropdown-menu {
 
 :root[data-mhg-vertical-cover-alignment="true"] .scrollable-section--classic-covers .scrollable-section-nav {
  display: flex !important;
+}
+
+/*=============================================================================
+* Update notification (portaled to body on PS3): full-viewport dim + right sheet.
+*============================================================================*/
+
+body > .update-notification-popup {
+ position: fixed !important;
+ inset: 0 !important;
+ top: 0 !important;
+ right: 0 !important;
+ left: 0 !important;
+ bottom: 0 !important;
+ margin: 0 !important;
+ padding: 0 !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ height: 100% !important;
+ max-height: 100dvh !important;
+ border: none !important;
+ border-radius: 0 !important;
+ background-color: rgba(0, 0, 0, 0.55) !important;
+ box-shadow: none !important;
+ z-index: 10110 !important;
+ overflow: hidden !important;
+ display: grid !important;
+ grid-template-columns: 1fr min(40%, 100%) !important;
+ grid-template-rows: auto 1fr auto !important;
+ animation: mhg-ps3-sheet-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+body > .update-notification-popup > .update-notification-header {
+ grid-column: 2 !important;
+ grid-row: 1 !important;
+ background-color: #1a1a1a !important;
+ border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+ box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55) !important;
+}
+
+body > .update-notification-popup > .update-notification-changelog {
+ grid-column: 2 !important;
+ grid-row: 2 !important;
+ background-color: #1a1a1a !important;
+ border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+body > .update-notification-popup > .update-notification-downloads {
+ grid-column: 2 !important;
+ grid-row: 3 !important;
+ background-color: #1a1a1a !important;
+ border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+ box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55) !important;
+}
+
+body > .update-notification-popup > .update-notification-downloads:last-child:nth-child(2) {
+ grid-row: 2 !important;
+}
+
+body:has(> .update-notification-popup) .mhg-libraries-bar,
+body:has(> .update-notification-popup) .game-detail-libraries-bar-wrapper,
+body:has(> .update-notification-popup) .igdb-game-detail-libraries-bar-wrapper {
+ visibility: hidden !important;
+ pointer-events: none !important;
 }
 
