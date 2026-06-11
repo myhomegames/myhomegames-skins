@@ -21,7 +21,7 @@ Published **`.mhg-skin.zip`** files live on **[GitHub Releases](https://github.c
 2. Open **Settings → Appearance** in the web app.
 3. Click **Choose archive** and upload the zip. The server extracts it into **`${METADATA_PATH}/skins/<new-uuid>/`** and selects the new skin.
 
-**Auth**: Upload and delete require the same API token as other write operations (`X-Auth-Token`: dev token or Twitch token). Listing and downloading CSS use the same rules as other metadata routes (`optionalToken`: if Twitch login is enabled in server settings, a token is required).
+**Auth**: API routes are open by default. Skin upload/delete use the same `optionalToken` middleware as other write operations (no login required).
 
 **Limits** (server, `routes/skins.js`):
 
