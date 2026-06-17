@@ -46,6 +46,17 @@ function readSkinTitle(skinJsonPath) {
   return null;
 }
 
+function readSkinVersion(skinJson) {
+  const version = skinJson && typeof skinJson.version === "string" ? skinJson.version.trim() : "";
+  if (!version || !/^\d+\.\d+\.\d+/.test(version)) return null;
+  return version.split("-")[0];
+}
+
+/** Published archive name: `<skinId>-<version>.mhg-skin.zip` */
+function buildSkinZipFileName(skinId, version) {
+  return `${skinId}-${version}.mhg-skin.zip`;
+}
+
 function readSkinJson(skinJsonPath) {
   try {
     const parsed = JSON.parse(fs.readFileSync(skinJsonPath, "utf8"));
@@ -91,8 +102,14 @@ function zipSkinFolder(skinId, skinDir) {
     return null;
   }
 
-  const zip = new AdmZip();
   const skinJson = readSkinJson(skinJsonPath);
+  const skinVersion = readSkinVersion(skinJson);
+  if (!skinVersion) {
+    console.warn(`Skip ${skinId}: skin.json version must be a semver string (e.g. 1.0.0)`);
+    return null;
+  }
+
+  const zip = new AdmZip();
   zip.addFile("skin.json", Buffer.from(fs.readFileSync(skinJsonPath, "utf8"), "utf8"));
   zip.addFile("bundle.css", Buffer.from(bundleCss, "utf8"));
   if (typeof skinJson.snapshot === "string" && skinJson.snapshot.trim()) {
@@ -106,14 +123,15 @@ function zipSkinFolder(skinId, skinDir) {
   }
 
   fs.mkdirSync(OUT_ZIPS, { recursive: true });
-  const zipName = `${skinId}.mhg-skin.zip`;
+  const zipName = buildSkinZipFileName(skinId, skinVersion);
   const outFile = path.join(OUT_ZIPS, zipName);
   zip.writeZip(outFile);
   const kb = (bundleCss.length / 1024).toFixed(1);
   console.log(`Wrote ${outFile} (${kb} KB CSS)`);
   const title = readSkinTitle(skinJsonPath) || skinId;
   const snapshot = resolveManifestSnapshot(skinJson.snapshot, skinId, skinDir);
-  return snapshot ? { id: skinId, name: title, zip: zipName, snapshot } : { id: skinId, name: title, zip: zipName };
+  const base = { id: skinId, name: title, version: skinVersion, zip: zipName };
+  return snapshot ? { ...base, snapshot } : base;
 }
 
 function buildReleaseZips() {
@@ -149,7 +167,13 @@ function enhanceManifest(version, ownerRepo) {
   const enhanced = skins.map((entry) => {
     if (!entry || typeof entry !== "object") return entry;
     const id = typeof entry.id === "string" ? entry.id : "";
-    const zip = typeof entry.zip === "string" ? entry.zip : `${id}.mhg-skin.zip`;
+    const version = typeof entry.version === "string" ? entry.version.trim() : "";
+    const zip =
+      typeof entry.zip === "string"
+        ? entry.zip
+        : version
+          ? buildSkinZipFileName(id, version)
+          : `${id}.mhg-skin.zip`;
     const downloadUrl = releaseAssetUrl(ownerRepo, version, `zips/${zip}`);
     const out = { ...entry, zip, downloadUrl };
     if (typeof entry.snapshot === "string" && entry.snapshot.trim()) {
