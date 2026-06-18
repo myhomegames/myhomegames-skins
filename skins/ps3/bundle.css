@@ -1044,6 +1044,38 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  margin-top: 2px;
 }
 
+/* Main-games toggle sits higher than sibling dock icons when the shared actions class forces flex-start. */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-main-games.mhg-libraries-actions-main-games-container {
+ align-items: center !important;
+ align-self: center !important;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games .tooltip-wrapper {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games .main-games-toggle-button {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ padding: 0;
+ margin: 0;
+ border: 0;
+ background: transparent;
+ cursor: pointer;
+ color: rgba(255, 255, 255, 0.78);
+ transform: translateY(3px);
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games .main-games-toggle-button svg {
+ display: block;
+ width: 24px;
+ height: 24px;
+}
+
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view .view-mode-button {
  font-size: 0.8125rem;
  display: inline-flex;
@@ -9760,6 +9792,14 @@ body > .additional-executables-dropdown-menu {
  flex-shrink: 0;
 }
 
+.library-item-detail-libraries-bar-host--dock-only .mhg-top-right-tool-dock-main-games,
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-main-games {
+ display: flex !important;
+ align-items: center !important;
+ align-self: center !important;
+ flex-shrink: 0;
+}
+
 .library-item-detail-libraries-bar-host--dock-only
  .mhg-top-right-tool-dock-new-games
  .new-games-toggle-button,
@@ -9776,6 +9816,25 @@ body > .additional-executables-dropdown-menu {
  padding: 0;
  margin: 0;
  box-sizing: border-box;
+}
+
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-main-games
+ .main-games-toggle-button,
+.tag-games-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-main-games
+ .main-games-toggle-button {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ width: 40px;
+ height: 40px;
+ min-width: 40px;
+ min-height: 40px;
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
+ transform: translateY(3px);
 }
 
 .library-item-detail-libraries-bar-host--dock-only
@@ -10516,10 +10575,6 @@ html.mhg-context-rail-activation-lock-global #root * {
 .tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-view,
 .tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-slider {
  display: none !important;
-}
-
-.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-main-games {
- flex-shrink: 0;
 }
 
 .tag-games-page-shell--context-rail .home-page-content,
