@@ -9873,6 +9873,18 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
  min-width: calc(var(--mhg-sidebar-width) + var(--mhg-persistent-shell-min-main-column));
 }
 
+/* Settings has no sidebar column: drop shell min-width so Pagine/Opzioni grids stay aligned. */
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.settings-page) {
+ min-width: 0;
+ overflow-x: hidden;
+}
+
+html:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings-page),
+body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings-page) {
+ min-width: 0;
+ overflow-x: hidden;
+}
+
 /*
 * z-index: 10005 — position: fixed sempre crea uno stacking context per `.mhg-libraries-bar`,
 * quindi i figli fissi (.mhg-libraries-actions a 10080, .mhg-libraries-menu-container a 10150)
