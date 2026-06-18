@@ -219,6 +219,84 @@ body {
   color: rgba(255, 255, 255, 1);
 }
 
+/* Phone widths: search shrinks so header actions stay on screen (desktop resize is unaffected). */
+@media (max-width: 479px) {
+  .mhg-header-container {
+    gap: 8px;
+    padding: 0 8px;
+    min-width: 0;
+  }
+
+  .mhg-logo-button {
+    height: 40px;
+  }
+
+  .mhg-logo-button svg {
+    width: 64px;
+    height: auto;
+  }
+
+  .mhg-search-container {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .mhg-search-container-wrapper {
+    min-width: 0;
+  }
+
+  .search-bar-container {
+    min-width: 0;
+  }
+
+  .mhg-search-icon-wrapper {
+    padding-left: 8px;
+  }
+
+  .mhg-search-input {
+    padding: 6px 6px;
+    font-size: 13px;
+  }
+
+  .search-input-with-padding.has-query {
+    padding-right: 28px;
+  }
+
+  .mhg-header-actions {
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
+  .mhg-header-button,
+  .mhg-activity-spinner,
+  .update-notification-button.mhg-header-button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .mhg-header-button svg,
+  .update-notification-button.mhg-header-button svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .profile-dropdown-button.mhg-header-button {
+    width: 32px;
+    gap: 0;
+    padding: 0;
+  }
+
+  .profile-dropdown-button.mhg-header-button .profile-dropdown-arrow {
+    display: none;
+  }
+
+  .profile-dropdown-wrapper,
+  .update-notification-wrapper {
+    flex-shrink: 0;
+  }
+}
+
 /* Activity spinner */
 .mhg-activity-spinner {
   display: flex;
