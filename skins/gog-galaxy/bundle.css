@@ -11142,3 +11142,10 @@ body:has(.login-page-root) {
 .add-to-collection-modal-overlay {
  z-index: 10110 !important;
 }
+
+body:has(.add-to-collection-modal-overlay) > .add-to-collection-dropdown-menu,
+body:has(.add-to-collection-modal-overlay) > .additional-executables-dropdown-menu,
+body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
+ visibility: hidden !important;
+ pointer-events: none !important;
+}

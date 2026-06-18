@@ -10181,6 +10181,16 @@ body > .additional-executables-dropdown-menu {
  animation: mhg-context-rail-rail-slide-return 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Full-page input freeze after context-rail return (ghost click / history). */
+html.mhg-context-rail-activation-lock-global,
+html.mhg-context-rail-activation-lock-global body,
+html.mhg-context-rail-activation-lock-global #root,
+html.mhg-context-rail-activation-lock-global #root * {
+ pointer-events: none !important;
+ user-select: none !important;
+ cursor: default !important;
+}
+
 /* Ignore stray mouseup on the focal cover right after context-rail return. */
 .fixed-focal-tag-list.mhg-context-rail-activation-locked,
 .fixed-focal-collections-list.mhg-context-rail-activation-locked,
@@ -12583,6 +12593,18 @@ body > .update-notification-popup > .update-notification-downloads:last-child:nt
 body:has(> .update-notification-popup) .mhg-libraries-bar,
 body:has(> .update-notification-popup) .game-detail-libraries-bar-wrapper,
 body:has(> .update-notification-popup) .igdb-game-detail-libraries-bar-wrapper {
+ visibility: hidden !important;
+ pointer-events: none !important;
+}
+
+/* Above portaled "Add to" submenus (10003) and library-bar menus (10008) */
+.add-to-collection-modal-overlay {
+ z-index: 10110 !important;
+}
+
+body:has(.add-to-collection-modal-overlay) > .add-to-collection-dropdown-menu,
+body:has(.add-to-collection-modal-overlay) > .additional-executables-dropdown-menu,
+body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
  visibility: hidden !important;
  pointer-events: none !important;
 }
