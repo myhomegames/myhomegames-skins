@@ -171,6 +171,7 @@ body {
 }
 
 .mhg-header-container > .mhg-logo-button,
+.mhg-header-container > .mhg-library-sidebar-toggle,
 .mhg-header-container > .mhg-search-container,
 .mhg-header-container > .mhg-activity-spinner,
 .mhg-header-container > .tooltip-wrapper,
@@ -9761,6 +9762,9 @@ fieldset.edit-game-modal-field {
 /*--- two-column shell (left menu + right content) ---*/
 :root {
  --mhg-sidebar-width: 300px;
+ --mhg-persistent-shell-min-main-column: 520px;
+ /* Collapsible overlay only below this viewport width; above it keep sidebar + horizontal scroll. */
+ --mhg-collapsible-sidebar-max-width: 720px;
  --mhg-sidebar-gap: 12px;
  /*List/catalog right column: flat app chrome (same as table header strip + default bar).*/
  --mhg-list-column-bg: #1a1a1a;
@@ -9858,13 +9862,15 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 }
 
 /*
-* Same shell at every viewport width (no breakpoint that switches to horizontal nav).
-* Below this width the page scrolls horizontally so the two-column shell does not reflow.
+* Wide viewports: two-column shell with horizontal scroll below min width.
+* Narrow collapsible mode (`collapsibleLibrarySidebar`) is handled at the end of this file.
 */
-.app-main-container {
+.app-main-container[data-mhg-persistent-library-shell="true"]:not(
+  [data-mhg-collapsible-library-sidebar="true"]
+) {
  overflow-x: auto;
  overflow-y: hidden;
- min-width: calc(var(--mhg-sidebar-width) + 520px);
+ min-width: calc(var(--mhg-sidebar-width) + var(--mhg-persistent-shell-min-main-column));
 }
 
 /*
@@ -11148,4 +11154,124 @@ body:has(.add-to-collection-modal-overlay) > .additional-executables-dropdown-me
 body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
  visibility: hidden !important;
  pointer-events: none !important;
+}
+
+/*--- GOG Galaxy: collapsible library sidebar (narrow viewports) ---*/
+
+.mhg-library-sidebar-backdrop {
+ position: fixed;
+ top: 0;
+ right: 0;
+ bottom: 0;
+ left: var(--mhg-sidebar-width);
+ z-index: 10004;
+ margin: 0;
+ padding: 0;
+ border: 0;
+ background: rgba(0, 0, 0, 0.45);
+ cursor: pointer;
+}
+
+.mhg-library-sidebar-toggle {
+ flex-shrink: 0;
+}
+
+@media (max-width: 719px) {
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"] {
+  min-width: 0;
+  overflow-x: hidden;
+ }
+
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"] {
+  overflow-x: visible;
+ }
+
+ html:has(.app-main-container[data-mhg-collapsible-library-sidebar="true"]),
+ body:has(.app-main-container[data-mhg-collapsible-library-sidebar="true"]),
+ body:has(.app-main-container[data-mhg-collapsible-library-sidebar="true"]) #root {
+  min-width: 0;
+  overflow-x: hidden;
+ }
+
+ html:has(
+   .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+  ),
+ body:has(
+   .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+  ),
+ body:has(
+   .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+  )
+  #root {
+  overflow-x: visible;
+ }
+
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"] .mhg-libraries-bar {
+  transition: left 0.22s ease;
+  transform: none;
+ }
+
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"]:not(
+   [data-mhg-library-sidebar-open="true"]
+  )
+  .mhg-libraries-bar {
+  left: calc(-1 * var(--mhg-sidebar-width));
+  pointer-events: none;
+ }
+
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+  .mhg-libraries-bar {
+  left: 0;
+  pointer-events: auto;
+  z-index: 10005;
+ }
+
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+  .mhg-libraries-bar
+  .mhg-libraries-bar-container {
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  min-height: 0;
+ }
+
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+  .mhg-libraries-bar
+  .mhg-libraries-container {
+  flex: 0 0 auto;
+  max-height: none;
+  overflow-y: visible;
+ }
+
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"] .home-page-main-container,
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"] .library-item-detail-page-shell,
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"] .game-detail-container,
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"] .igdb-game-detail-container {
+  margin-left: 0;
+  width: 100%;
+ }
+
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+  .home-page-main-container,
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+  .library-item-detail-page-shell,
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+  .game-detail-container,
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+  .igdb-game-detail-container {
+  pointer-events: none;
+ }
+
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"]:not(
+   [data-mhg-library-sidebar-open="true"]
+  )
+  .background-manager-overlay,
+ .app-main-container[data-mhg-collapsible-library-sidebar="true"]:not(
+   [data-mhg-library-sidebar-open="true"]
+  )
+  .background-manager-root.background-manager-root--solid {
+  left: 0;
+ }
 }
