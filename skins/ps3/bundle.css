@@ -113,9 +113,9 @@ body *::-webkit-scrollbar-corner {
  --mhg-detail-view-cover-width: 100px;
  --mhg-detail-view-row-gap: 24px;
  --mhg-library-icon-size: 96px;
- /* Equal spacing between library-bar icons; reserve on the right for covers/rails. */
+ /* Equal spacing between library-bar icons. */
  --mhg-library-bar-icon-gap: 16px;
- --mhg-library-bar-strip-right-reserve: min(38vw, 480px);
+ --mhg-library-bar-strip-max-width: min(calc(100vw - 32px), 1600px);
  /* Sidebar search modal + results list height. */
  --mhg-sidebar-search-modal-min-height: 520px;
  --mhg-sidebar-search-modal-max-height: min(92vh, 860px);
@@ -557,10 +557,13 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  flex: 0 0 auto;
  flex-grow: 0;
  flex-shrink: 0;
+ width: 100%;
+ box-sizing: border-box;
  min-height: auto;
  margin-top: var(--mhg-tool-dock-to-strip-gap, 80px);
  /*Strip content flush to the top of the row (no extra vertical inset).*/
  align-items: flex-start;
+ justify-content: flex-start;
  padding-top: 0;
  padding-bottom: 0;
  padding-left: 20px;
@@ -1069,7 +1072,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  left: auto;
  transform: none;
  width: max-content;
- max-width: min(86vw, 1180px);
+ max-width: var(--mhg-library-bar-strip-max-width, min(calc(100vw - 32px), 1600px));
  display: flex;
  flex-wrap: nowrap;
  align-items: flex-start;
@@ -1080,8 +1083,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  overflow-x: auto;
  overflow-y: hidden;
  /*Room for `transform: scale(1.08)` on tiles without clipping or scrolling vertically.*/
- padding: 10px 8px 14px;
- padding-right: calc(8px + var(--mhg-library-bar-strip-right-reserve, min(38vw, 480px)));
+ padding: 10px 0 14px 8px;
  border-radius: 0;
  background: transparent;
  border: 0;
@@ -1098,13 +1100,21 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-container {
+ flex: 1 1 auto;
+ min-width: 0;
  align-items: flex-start !important;
  overflow-y: hidden;
  gap: var(--mhg-library-bar-icon-gap, 16px) !important;
- width: max-content !important;
- max-width: min(86vw, 1180px) !important;
- padding: 10px 8px 14px !important;
- padding-right: calc(8px + var(--mhg-library-bar-strip-right-reserve, min(38vw, 480px))) !important;
+ width: auto !important;
+ max-width: none !important;
+ padding: 10px 0 14px 8px !important;
+}
+
+.mhg-libraries-container .mhg-library-button,
+.mhg-libraries-container .mhg-library-active,
+.mhg-libraries-container .profile-dropdown-wrapper {
+ /*Keep caption/label overflow from widening horizontal scroll past the last tile.*/
+ overflow-x: clip;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-library-button,
@@ -1177,10 +1187,10 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  pointer-events: none;
  z-index: 5;
  /*Tailwind `truncate` / `min-w-0` on the span would clip the caption under the tile.*/
- max-width: none;
+ max-width: var(--mhg-library-icon-size, 96px);
  min-width: 0;
- overflow: visible;
- text-overflow: clip;
+ overflow: hidden;
+ text-overflow: ellipsis;
 }
 
 .mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover .mhg-library-button-label,
@@ -1200,9 +1210,9 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  text-shadow: 0 0 6px rgba(120, 180, 255, 0.45);
  pointer-events: none;
  z-index: 5;
- max-width: none;
- overflow: visible;
- text-overflow: clip;
+ max-width: var(--mhg-library-icon-size, 96px);
+ overflow: hidden;
+ text-overflow: ellipsis;
 }
 
 /*While hovering Settings/Profile/Add game, visually mute previously-active library entry.*/
@@ -2384,6 +2394,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 
 /*`topRightToolDock`: keep strip actions top-aligned with icons (overrides align-self above).*/
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-actions {
+ flex-shrink: 0;
  align-self: flex-start;
  align-items: flex-start !important;
 }
