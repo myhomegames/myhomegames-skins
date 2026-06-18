@@ -6,6 +6,7 @@
   "description": "Example UI skins and tooling to build .mhg-skin.zip archives for MyHomeGames Web",
   "scripts": {
     "prep:release": "node scripts/prepare-release.mjs",
+    "compat:validate": "node scripts/compat-validate.mjs",
     "release": "node scripts/run-release.mjs",
     "build": "npm run build --prefix studio && node scripts/sync-install-to-metadata.mjs",
     "build:all": "npm run build --prefix studio",
