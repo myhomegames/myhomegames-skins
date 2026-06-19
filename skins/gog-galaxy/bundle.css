@@ -11461,19 +11461,21 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
   margin-left: 0;
  }
 
- /* Library action icons (views, slider, toggles) on row 2, main column right. */
+ /* Library action icons (views, slider, toggles) on row 2, centered in main column. */
  .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-libraries-actions {
   top: 64px;
   left: calc(var(--mhg-sidebar-width) + 12px);
   right: 12px;
   flex-wrap: wrap;
-  align-content: flex-start;
-  justify-content: flex-end;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
   row-gap: 4px;
  }
 
  .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-libraries-actions-icon-cluster {
   flex-wrap: wrap;
+  justify-content: center;
   row-gap: 4px;
  }
 
@@ -11488,9 +11490,10 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
   width: auto;
   max-width: none;
   box-sizing: border-box;
+  justify-content: center;
   flex-wrap: wrap;
-  align-items: flex-start;
-  align-content: flex-start;
+  align-items: center;
+  align-content: center;
   row-gap: 4px;
  }
 
@@ -11498,9 +11501,10 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 4px;
   row-gap: 4px;
-  width: 100%;
+  width: auto;
   max-width: 100%;
   min-width: 0;
  }
