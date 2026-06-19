@@ -9881,6 +9881,39 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
  width: 100%;
 }
 
+/* Game / IGDB detail: hide header “+” but keep its flex slot (GOG header layout uses it for margin-left: auto). */
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.game-detail-container)
+ [data-mhg-header-action="add-game"],
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.igdb-game-detail-container)
+ [data-mhg-header-action="add-game"],
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.game-detail-container)
+ .mhg-header-actions
+ > .tooltip-wrapper:has([data-mhg-header-action="add-game"]),
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.igdb-game-detail-container)
+ .mhg-header-actions
+ > .tooltip-wrapper:has([data-mhg-header-action="add-game"]) {
+ visibility: hidden !important;
+ pointer-events: none !important;
+}
+
+/* Game / IGDB detail: new-games toggle is for library/tag lists, not this page. */
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.game-detail-container)
+ .mhg-libraries-actions
+ > .mhg-libraries-actions-icon-cluster
+ > .mhg-libraries-actions-new-games-container,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.igdb-game-detail-container)
+ .mhg-libraries-actions
+ > .mhg-libraries-actions-icon-cluster
+ > .mhg-libraries-actions-new-games-container,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.game-detail-container)
+ .mhg-libraries-actions-before-main-games
+ .new-games-toggle-button,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.igdb-game-detail-container)
+ .mhg-libraries-actions-before-main-games
+ .new-games-toggle-button {
+ display: none !important;
+}
+
 /*
 * Wide viewports: two-column shell with horizontal scroll below min width.
 * Narrow collapsible mode (`collapsibleLibrarySidebar`) is handled at the end of this file.
