@@ -10911,7 +10911,7 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .mhg-libraries-actions
  .background-toggle-button {
- transform: translateY(-1px);
+ transform: translateY(0);
 }
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
