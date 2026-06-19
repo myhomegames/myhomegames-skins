@@ -5273,7 +5273,7 @@ fieldset.edit-game-modal-field {
  background-color: transparent;
  flex-shrink: 0;
  position: fixed;
- top: 14px;
+ top: 15px;
  left: calc(var(--mhg-sidebar-width) + 96px);
  /*Below .mhg-header (10006): header chrome receives clicks first*/
  z-index: 10004;
