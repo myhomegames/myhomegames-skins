@@ -8509,8 +8509,8 @@ fieldset.edit-game-modal-field {
  overflow: hidden;
  display: flex;
  flex-direction: column;
- /*Same net offset as former padding-top: 128px + margin-top: -30px, without negative margin*/
- padding-top: 128px;
+ /* Persistent GOG shell: grid top inset via --mhg-grid-top-inset-* (not shell padding). */
+ padding-top: 0;
 }
 
 :root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
@@ -9826,6 +9826,15 @@ fieldset.edit-game-modal-field {
  --mhg-gog-top-chrome-extra: 0px;
  --mhg-gog-chrome-row2: 36px;
  --mhg-gog-chrome-filter-row: 36px;
+ /* Initial scroll offset; virtualized grids read --mhg-grid-top-inset-games. */
+ --mhg-gog-scroll-top-inset: 64px;
+ --mhg-grid-top-inset-games: var(--mhg-gog-scroll-top-inset, 64px);
+ --mhg-grid-top-inset-collections: var(--mhg-gog-scroll-top-inset, 64px);
+ --mhg-grid-top-inset-tag: var(--mhg-gog-scroll-top-inset, 64px);
+ --mhg-grid-bottom-inset: 0px;
+ --mhg-grid-bottom-inset-games: 0px;
+ --mhg-grid-bottom-inset-collections: 0px;
+ --mhg-grid-bottom-inset-tag: 0px;
 }
 
 /*
@@ -10563,22 +10572,95 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 }
 
 /*
-* Main column: start list/detail content at the same vertical band as the first row of the
-* left sidebar (.mhg-libraries-bar-container uses padding-top: 64px below the fixed header).
+* Detail routes: keep the non-scrollable shell inset below the fixed header.
+* List/catalog pages: grid extends from y=0; covers pass under fixed chrome via
+* --mhg-grid-top-inset-* (read by VirtualizedGamesList / VirtualizedCollectionsList).
 */
-.home-page-main-container .home-page-content {
+.home-page-main-container.library-item-detail-main-inner .home-page-content,
+.home-page-main-container.game-detail-main-container .home-page-content,
+.home-page-main-container.igdb-game-detail-main-container .home-page-content {
  padding-top: 64px;
 }
 
-/*Fixed top tool dock in the main column — keep list content below the band.*/
-.app-main-container[data-mhg-persistent-library-shell="true"]:has(
- .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- )
+/*
+* List/catalog main column: no shell or scroll-container padding — the react-window
+* grid fills the column from the top; row-0 top inset keeps covers below chrome at
+* scroll=0 while scrolling lets them rise behind the fixed icons/filter.
+*/
+.app-main-container[data-mhg-persistent-library-shell="true"]
  .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
  .igdb-game-detail-main-container
  )
  .home-page-content {
- padding-top: calc(64px + var(--mhg-top-tool-dock-band-height, 52px));
+ padding-top: 0 !important;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(
+ .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ ) {
+ --mhg-gog-scroll-top-inset: calc(64px + var(--mhg-top-tool-dock-band-height, 52px));
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ )
+ .home-page-scroll-container,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ )
+ .home-page-content-wrapper.home-page-fade-in .home-page-scroll-container,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ )
+ .home-page-content-wrapper.games-list-page-fade .home-page-scroll-container:not(.table-view),
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ )
+ .home-page-content-wrapper.has-toolbar .home-page-scroll-container.table-view {
+ padding-top: 0 !important;
+ padding-bottom: 0 !important;
+ --mhg-grid-top-inset-games: var(--mhg-gog-scroll-top-inset, 64px);
+ --mhg-grid-top-inset-collections: var(--mhg-gog-scroll-top-inset, 64px);
+ --mhg-grid-top-inset-tag: var(--mhg-gog-scroll-top-inset, 64px);
+ --mhg-grid-bottom-inset: 0px;
+ --mhg-grid-bottom-inset-games: 0px;
+ --mhg-grid-bottom-inset-collections: 0px;
+ --mhg-grid-bottom-inset-tag: 0px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ )
+ .home-page-content-wrapper.home-page-fade-in .home-page-scroll-container,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ )
+ .home-page-content-wrapper.games-list-page-fade .home-page-scroll-container:not(.table-view) {
+ --mhg-grid-top-inset-games: calc(var(--mhg-gog-scroll-top-inset, 64px) + 32px);
+ --mhg-grid-top-inset-collections: calc(var(--mhg-gog-scroll-top-inset, 64px) + 32px);
+ --mhg-grid-top-inset-tag: calc(var(--mhg-gog-scroll-top-inset, 64px) + 32px);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ )
+ .home-page-content-wrapper.has-toolbar .home-page-scroll-container.table-view {
+ --mhg-grid-top-inset-games: calc(var(--mhg-gog-scroll-top-inset, 64px) + 16px);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ )
+ .recommended-page-scroll {
+ padding-bottom: 0 !important;
 }
 
 .home-page-main-container .home-page-content-wrapper.has-toolbar {
@@ -10973,7 +11055,7 @@ body:has(.login-page-root) {
  overscroll-behavior: none;
  padding-top: 0 !important;
  margin-top: 0 !important;
- --mhg-grid-top-inset-games: 32px;
+ --mhg-grid-top-inset-games: var(--mhg-gog-scroll-top-inset, 64px);
 }
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
@@ -11385,6 +11467,7 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
   --mhg-gog-top-chrome-extra: calc(
    var(--mhg-gog-chrome-row2) + var(--mhg-gog-chrome-filter-row)
   );
+  --mhg-gog-scroll-top-inset: calc(64px + var(--mhg-gog-top-chrome-extra, 0px));
  }
 
  .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header {
@@ -11519,9 +11602,6 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
   max-width: 100%;
  }
 
- .app-main-container[data-mhg-persistent-library-shell="true"] .home-page-main-container .home-page-content {
-  padding-top: calc(64px + var(--mhg-gog-top-chrome-extra, 0px));
- }
 }
 
 /*
