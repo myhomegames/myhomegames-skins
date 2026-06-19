@@ -302,6 +302,18 @@ body {
  max-width: min(260px, 28vw);
 }
 
+/*
+ * GOG persistent shell: global search keeps the fullscreen width (420px) while
+ * resizing — do not shrink with `42vw` like the default header rule.
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-header-container
+ > .mhg-search-container:not(:has(.mhg-title-filter-wrapper)) {
+ flex: 0 0 420px;
+ width: 420px;
+ max-width: 420px;
+}
+
 .mhg-header-button {
  position: relative;
  display: flex;
@@ -9810,6 +9822,10 @@ fieldset.edit-game-modal-field {
  --mhg-lib-mask-playerPerspectives: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cellipse%20cx%3D%2210%22%20cy%3D%2210.5%22%20rx%3D%225.5%22%20ry%3D%223.1%22%20fill%3D%22black%22%2F%3E%3C%2Fsvg%3E");
  --mhg-lib-mask-keywords: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M7.2%205.2h5.6l2.8%202.8v5.8l-2.8%202.8H7.2l-2.8-2.8V8l2.8-2.8zm1.2%204.5h3.2v1H8.4v-1z%22%2F%3E%3C%2Fsvg%3E");
  --mhg-lib-mask-collection: var(--mhg-lib-mask-collections);
+ /* Extra main-column top inset when GOG header/library chrome uses stacked rows. */
+ --mhg-gog-top-chrome-extra: 0px;
+ --mhg-gog-chrome-row2: 36px;
+ --mhg-gog-chrome-filter-row: 36px;
 }
 
 /*
@@ -9911,6 +9927,18 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 .app-main-container[data-mhg-persistent-library-shell="true"]:has(.igdb-game-detail-container)
  .mhg-libraries-actions-before-main-games
  .new-games-toggle-button {
+ display: none !important;
+}
+
+/* Game / IGDB detail: cover size slider is for library grids, not this page. */
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.game-detail-container)
+ .mhg-libraries-actions-slider-container,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.igdb-game-detail-container)
+ .mhg-libraries-actions-slider-container,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.game-detail-container)
+ .mhg-top-right-tool-dock-slider,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.igdb-game-detail-container)
+ .mhg-top-right-tool-dock-slider {
  display: none !important;
 }
 
@@ -11341,5 +11369,214 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
   )
   .background-manager-root.background-manager-root--solid {
   left: 0;
+ }
+}
+
+/*
+ * GOG persistent shell — narrow viewport:
+ * - Header row 1: logo + left icons (profile, settings, …) | search + “+”
+ * - Row 2: library action icons (main column)
+ * - Row 3: filter / sort toolbar when tight
+ */
+@media (max-width: 1023px) {
+ .app-main-container[data-mhg-persistent-library-shell="true"] {
+  --mhg-gog-chrome-row2: 36px;
+  --mhg-gog-chrome-filter-row: 36px;
+  --mhg-gog-top-chrome-extra: calc(
+   var(--mhg-gog-chrome-row2) + var(--mhg-gog-chrome-filter-row)
+  );
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header {
+  height: 64px;
+  min-height: 64px;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header-container {
+  flex-wrap: nowrap;
+  align-items: center;
+  height: 64px;
+  min-height: 64px;
+  padding-bottom: 0;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header-container > .mhg-logo-button {
+  order: 1;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header-container > .mhg-library-sidebar-toggle {
+  order: 2;
+ }
+
+ /* Left cluster stays beside the logo (base orders 11–13, 52 for update). */
+ .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header-container > .profile-dropdown-wrapper {
+  order: 11;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header-container > .mhg-activity-spinner {
+  order: 13;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-header-actions:not(:has(.mhg-activity-spinner))
+  > .tooltip-wrapper:nth-child(2),
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-header-actions:has(.mhg-activity-spinner)
+  > .tooltip-wrapper:nth-child(3) {
+  order: 12;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header-container > .update-notification-wrapper,
+ .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header-actions > .update-notification-wrapper {
+  order: 14;
+ }
+
+ /* Right cluster: search then + */
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-header-container
+  > .mhg-search-container:not(:has(.mhg-title-filter-wrapper)) {
+  order: 48;
+  flex: 0 0 420px;
+  width: 420px;
+  max-width: 420px;
+  margin-left: auto;
+  justify-content: flex-end;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-header-container
+  > .mhg-search-container:has(.mhg-title-filter-wrapper) {
+  order: 48;
+  margin-left: auto;
+  justify-content: flex-end;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-header-actions:not(:has(.mhg-activity-spinner))
+  > .tooltip-wrapper:nth-child(1),
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-header-actions:has(.mhg-activity-spinner)
+  > .tooltip-wrapper:nth-child(2) {
+  order: 49;
+  margin-left: 0;
+ }
+
+ /* Library action icons (views, slider, toggles) on row 2, main column right. */
+ .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-libraries-actions {
+  top: 64px;
+  left: calc(var(--mhg-sidebar-width) + 12px);
+  right: 12px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: flex-end;
+  row-gap: 4px;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-libraries-actions-icon-cluster {
+  flex-wrap: wrap;
+  row-gap: 4px;
+ }
+
+ /*
+  * Filter / sort (Tutto, Per Titolo, count) — row 3 below icons.
+  * `left` + `right` give a real width so `flex-wrap` can break onto extra lines.
+  */
+ .app-main-container[data-mhg-persistent-library-shell="true"] .games-list-toolbar {
+  top: calc(64px + var(--mhg-gog-chrome-row2, 36px));
+  left: calc(var(--mhg-sidebar-width) + 12px);
+  right: 12px;
+  width: auto;
+  max-width: none;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  row-gap: 4px;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"] .games-list-toolbar-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  row-gap: 4px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .games-list-toolbar-item:not(:first-child) {
+  margin-left: 0;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"] .games-list-toolbar-item {
+  flex: 0 1 auto;
+  max-width: 100%;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"] .home-page-main-container .home-page-content {
+  padding-top: calc(64px + var(--mhg-gog-top-chrome-extra, 0px));
+ }
+}
+
+/*
+ * Collapsible library menu: keep header chrome (icons, filter) viewport-anchored.
+ * When the drawer opens it slides over them — do not shift `left` with the sidebar.
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"]
+ .mhg-libraries-actions,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"]
+ .games-list-toolbar {
+ left: 12px;
+ right: 12px;
+}
+
+.app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-actions,
+.app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .games-list-toolbar {
+ z-index: 10003;
+ pointer-events: none;
+}
+
+/*
+ * Actions live inside `.mhg-libraries-bar` (stacking context 10090), so the root
+ * backdrop cannot paint over them — match the dimmed filter with reduced opacity.
+ */
+.app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-actions {
+ opacity: 0.55;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"]
+ .mhg-libraries-actions {
+ transition: opacity 0.22s ease;
+}
+
+.app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-bar {
+ z-index: 10090;
+}
+
+.app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-header-container
+ > .mhg-library-sidebar-toggle {
+ position: relative;
+ z-index: 10200;
+}
+
+/* Tighter: row-2 icons and row-3 filter often need two lines each. */
+@media (max-width: 819px) {
+ .app-main-container[data-mhg-persistent-library-shell="true"] {
+  --mhg-gog-chrome-row2: 48px;
+  --mhg-gog-chrome-filter-row: 40px;
+ }
+}
+
+@media (max-width: 719px) {
+ .app-main-container[data-mhg-persistent-library-shell="true"] {
+  --mhg-gog-chrome-row2: 56px;
+  --mhg-gog-chrome-filter-row: 44px;
  }
 }
