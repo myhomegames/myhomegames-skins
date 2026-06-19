@@ -6650,7 +6650,9 @@ fieldset.edit-game-modal-field {
  flex-shrink: 1;
  min-height: 0;
  height: auto;
- overflow-y: auto;
+ overflow-y: hidden;
+ display: flex;
+ flex-direction: column;
 }
 
 /*
@@ -9980,7 +9982,7 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 
 /*
 * z-index: 10005 — position: fixed sempre crea uno stacking context per `.mhg-libraries-bar`,
-* quindi i figli fissi (.mhg-libraries-actions a 10080, .mhg-libraries-menu-container a 10150)
+* quindi i figli fissi (.mhg-libraries-actions sotto .mhg-libraries-bar-container, .mhg-libraries-menu-container a 10150)
 * sono confinati al livello della barra nel contesto radice. Impostando qui 10005 la barra
 * (e tutti i suoi figli fissi) viene dipinta sopra .games-list-toolbar (10004) e sopra il
 * .background-manager-root (0)/.background-manager-overlay delle pagine di dettaglio, così
@@ -9997,6 +9999,12 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  min-height: 0;
  padding: 0;
  z-index: 10005;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-libraries-bar {
+ display: flex;
+ flex-direction: column;
+ min-height: 0;
 }
 
 .mhg-libraries-bar-container {
@@ -10017,6 +10025,16 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  border-right: none;
  overflow-y: visible;
  overflow-x: visible;
+ position: relative;
+ z-index: 2;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar-container {
+ flex: 1 1 auto;
+ height: auto;
+ min-height: 0;
+ overflow-y: hidden;
 }
 
 .mhg-libraries-container {
@@ -10038,12 +10056,28 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  align-items: stretch;
  gap: 4px;
  padding: 0;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-libraries-container {
+ position: relative;
  z-index: 2;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-container {
+ flex: 1 1 auto;
+ min-height: 0;
+ max-height: none;
+ overflow-y: auto;
+ -webkit-overflow-scrolling: touch;
+ overscroll-behavior: contain;
 }
 
 /*Sidebar : elenco più compatto tra le voci*/
 .mhg-libraries-bar .mhg-libraries-container {
- gap: 2px;
+ gap: 4px;
 }
 
 /*Tool dock steals vertical space; let the page list use the remaining column below it.*/
@@ -10053,6 +10087,7 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  flex: 1 1 auto;
  min-height: 0;
  max-height: none;
+ overflow-y: auto;
 }
 
 .mhg-libraries-bar .mhg-collections-shortcuts {
@@ -10096,7 +10131,51 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 .mhg-libraries-bar .mhg-library-active[data-mhg-library-key] {
  display: flex;
  align-items: center;
- gap: 0.45em;
+ gap: 0.65em;
+}
+
+/* Row labels above mask icons (in-row and when rows overlap while scrolling). */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-library-button[data-mhg-library-key],
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-library-active[data-mhg-library-key],
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-collection-shortcut-button,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-sidebar-search-trigger {
+ position: relative;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-library-button-label,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-collection-shortcut-button
+ > span {
+ position: relative;
+ z-index: 1;
+ min-width: 0;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-library-button[data-mhg-library-key]::before,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-library-active[data-mhg-library-key]::before,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-collection-shortcut-button::before,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-sidebar-search-trigger::before {
+ position: relative;
+ z-index: 0;
 }
 
 .mhg-libraries-bar .mhg-library-button[data-mhg-library-key]::before,
@@ -10394,7 +10473,7 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 .mhg-libraries-bar .mhg-sidebar-search-trigger {
  display: flex;
  align-items: center;
- gap: 0.45em;
+ gap: 0.65em;
 }
 
 .mhg-libraries-bar .mhg-sidebar-search-trigger::before {
@@ -10437,7 +10516,7 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 .mhg-libraries-bar .mhg-collection-shortcut-button {
  display: flex;
  align-items: center;
- gap: 0.45em;
+ gap: 0.65em;
  color: rgba(255, 255, 255, 0.6);
  padding: 6px 12px;
 }
@@ -10502,16 +10581,16 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  flex-wrap: nowrap;
  justify-content: flex-start;
  gap: 8px;
- /*Keep whole actions stack above main content and toolbar*/
- z-index: 10080;
+ /* Below `.mhg-libraries-bar-container` (z-index 2) where paths cross; still inside bar context 10005. */
+ z-index: 1;
  pointer-events: auto;
 }
 
 .mhg-libraries-menu-container {
- position: fixed;
+ position: absolute;
  top: 20px;
- /*Keep the top three-dots menu inside the left sidebar column.*/
- left: calc(var(--mhg-sidebar-width) - 56px);
+ right: 12px;
+ left: auto;
  bottom: auto;
  padding: 0;
  height: auto;
@@ -11581,25 +11660,32 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
   left: 0;
   pointer-events: auto;
   z-index: 10005;
+  display: flex;
+  flex-direction: column;
  }
 
  .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
   .mhg-libraries-bar
   .mhg-libraries-bar-container {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
-  min-height: 0;
  }
 
  .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
   .mhg-libraries-bar
   .mhg-libraries-container {
-  flex: 0 0 auto;
-  max-height: none;
-  overflow-y: visible;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
  }
 
  .app-main-container[data-mhg-collapsible-library-sidebar="true"] .home-page-main-container,
@@ -11734,6 +11820,19 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
   justify-content: center;
   row-gap: 4px;
   min-height: var(--mhg-gog-chrome-row2, 36px);
+  z-index: 3;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar-container {
+  z-index: 1;
+ }
+
+ /* List scrolls under fixed toolbar chrome when the drawer is closed. */
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar
+  .mhg-libraries-container {
+  z-index: 1;
  }
 
  .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-libraries-actions-icon-cluster {
@@ -11798,7 +11897,12 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
 }
 
 .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
- .mhg-libraries-actions,
+ .mhg-libraries-actions {
+ z-index: 1;
+ pointer-events: none;
+ opacity: 1;
+}
+
 .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
  .games-list-toolbar {
  z-index: 10003;
@@ -11806,17 +11910,27 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
 }
 
 /*
- * Actions live inside `.mhg-libraries-bar` (stacking context 10090), so the root
- * backdrop cannot paint over them — match the dimmed filter with reduced opacity.
+ * Drawer open: scroll list above sibling `.mhg-libraries-actions` (same parent bar-container).
  */
 .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
- .mhg-libraries-actions {
- opacity: 0.55;
+ .mhg-libraries-bar
+ .mhg-libraries-container {
+ position: relative;
+ z-index: 2;
 }
 
-.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"]
- .mhg-libraries-actions {
- transition: opacity 0.22s ease;
+/*
+ * Per-icon dimming under the open drawer (class toggled by web layout JS).
+ * `filter` on each control — no full-width overlay band in empty gaps.
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-actions
+ .mhg-under-library-drawer,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .games-list-toolbar
+ .mhg-under-library-drawer {
+ filter: brightness(0.55);
+ transition: filter 0.22s ease;
 }
 
 .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
