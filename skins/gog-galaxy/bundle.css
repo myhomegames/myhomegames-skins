@@ -10669,9 +10669,6 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  */
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .mhg-libraries-actions
- .view-mode-button,
-.app-main-container[data-mhg-persistent-library-shell="true"]
- .mhg-libraries-actions
  .background-toggle-button,
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .mhg-libraries-actions
@@ -10690,6 +10687,9 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  .mhg-libraries-actions
  .library-item-detail-edit-button,
 .app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"],
+.app-main-container[data-mhg-persistent-library-shell="true"]
  .games-list-toolbar
  .games-list-toolbar-button,
 .app-main-container[data-mhg-persistent-library-shell="true"]
@@ -10698,6 +10698,15 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  background-color: #1a1a1a !important;
  box-sizing: border-box;
  border-radius: 4px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"]:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"]:active {
+ background-color: #1a1a1a !important;
 }
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
@@ -10737,8 +10746,29 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .mhg-libraries-actions
  .view-mode-button {
+ position: relative;
+ z-index: 0;
+ height: 36px;
  min-height: 36px;
- padding: 4px 10px;
+ max-height: 36px;
+ align-items: center;
+ background-color: transparent !important;
+ overflow: visible;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-actions
+ .view-mode-button::before {
+ content: "";
+ position: absolute;
+ left: 0;
+ right: 0;
+ top: 2px;
+ height: 36px;
+ background-color: #1a1a1a;
+ border-radius: 4px;
+ z-index: -1;
+ pointer-events: none;
 }
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
@@ -10754,6 +10784,62 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  align-items: center;
  padding: 8px 12px;
  margin-left: 8px;
+}
+
+/*
+ * Align library toolbar icons with header “+”: cancel legacy translateY nudges from
+ * LibrariesBar.css and center the 36px tiles in the 64px header band (wide view).
+ * Narrow row-2 top is set in the @media block below.
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"] .mhg-libraries-actions {
+ transform: none;
+ top: 14px;
+ align-items: center;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-actions
+ .new-games-toggle-button,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-actions
+ .main-games-toggle-button {
+ transform: none;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-actions
+ .background-toggle-button {
+ transform: translateY(-1px);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-menu-container {
+ transform: translateY(-2px);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-actions-right-extra
+ .library-item-detail-edit-button,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-actions-right-extra
+ .library-item-detail-dropdown-menu,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-actions-before-main-games
+ .library-item-detail-compact-top-action:has(.background-toggle-button) {
+ transform: translateY(0);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-actions
+ .mhg-libraries-actions-view-mode-container,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-actions
+ .cover-size-slider-container {
+ transform: translateY(-2px);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"] .games-list-toolbar {
+ transform: translateY(-1px);
 }
 
 .home-page-main-container .home-page-content-wrapper.has-toolbar {
