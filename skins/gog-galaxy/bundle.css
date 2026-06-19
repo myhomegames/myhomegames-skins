@@ -10743,6 +10743,29 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 }
 
 /*
+ * Tags / recommended: non-virtualized lists use padding/margin instead of
+ * react-window row-0 inset (same `--mhg-grid-top-inset-*` as games/collections).
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ )
+ .home-page-scroll-container:not(.table-view)
+ > .tag-list-container {
+ padding-top: var(--mhg-grid-top-inset-tag, var(--mhg-gog-scroll-top-inset, 64px));
+ box-sizing: border-box;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ )
+ .recommended-page-scroll:not(.recommended-page-scroll--strips-layout):not(.table-view)
+ > .scrollable-section:first-child {
+ margin-top: var(--mhg-grid-top-inset-games, var(--mhg-gog-scroll-top-inset, 64px));
+}
+
+/*
  * Opaque tile behind each fixed chrome control (not the whole row) so scrolling
  * covers stay legible underneath without one large band.
  */
