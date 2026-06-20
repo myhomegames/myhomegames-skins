@@ -10719,22 +10719,22 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
  .igdb-game-detail-main-container
- )
+ ):not(.tag-games-page-shell)
  .home-page-scroll-container,
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
  .igdb-game-detail-main-container
- )
+ ):not(.tag-games-page-shell)
  .home-page-content-wrapper.home-page-fade-in .home-page-scroll-container,
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
  .igdb-game-detail-main-container
- )
+ ):not(.tag-games-page-shell)
  .home-page-content-wrapper.games-list-page-fade .home-page-scroll-container:not(.table-view),
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
  .igdb-game-detail-main-container
- )
+ ):not(.tag-games-page-shell)
  .home-page-content-wrapper.has-toolbar .home-page-scroll-container.table-view {
  padding-top: 0 !important;
  padding-bottom: 0 !important;
@@ -10750,12 +10750,12 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
  .igdb-game-detail-main-container
- )
+ ):not(.tag-games-page-shell)
  .home-page-content-wrapper.home-page-fade-in .home-page-scroll-container,
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
  .igdb-game-detail-main-container
- )
+ ):not(.tag-games-page-shell)
  .home-page-content-wrapper.games-list-page-fade .home-page-scroll-container:not(.table-view) {
  --mhg-grid-top-inset-games: calc(var(--mhg-gog-scroll-top-inset, 64px) + 32px);
  --mhg-grid-top-inset-collections: calc(var(--mhg-gog-scroll-top-inset, 64px) + 32px);
@@ -10765,9 +10765,52 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
  .igdb-game-detail-main-container
- )
+ ):not(.tag-games-page-shell)
  .home-page-content-wrapper.has-toolbar .home-page-scroll-container.table-view {
  --mhg-grid-top-inset-games: calc(var(--mhg-gog-scroll-top-inset, 64px) + 16px);
+}
+
+/*
+ * Tag games detail (`tag-games-page-shell`): dedicated grid inset track.
+ * Uses `--mhg-gog-scroll-top-inset` (64px wide, stacked chrome when ≤1023px).
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.tag-games-page-shell:not(.tag-games-page-shell--context-rail)
+ .home-page-scroll-container,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.tag-games-page-shell:not(.tag-games-page-shell--context-rail)
+ .home-page-content-wrapper.games-list-page-fade
+ .home-page-scroll-container:not(.table-view),
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.tag-games-page-shell:not(.tag-games-page-shell--context-rail)
+ .home-page-content-wrapper.has-toolbar
+ .home-page-scroll-container.table-view {
+ padding-top: 0 !important;
+ padding-bottom: 0 !important;
+ --mhg-grid-top-inset-games: calc(var(--mhg-gog-scroll-top-inset, 64px) + 32px);
+ --mhg-grid-top-inset-collections: calc(var(--mhg-gog-scroll-top-inset, 64px) + 32px);
+ --mhg-grid-top-inset-tag: calc(var(--mhg-gog-scroll-top-inset, 64px) + 32px);
+ --mhg-grid-bottom-inset: 0px;
+ --mhg-grid-bottom-inset-games: 0px;
+ --mhg-grid-bottom-inset-collections: 0px;
+ --mhg-grid-bottom-inset-tag: 0px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.tag-games-page-shell:not(.tag-games-page-shell--context-rail)
+ .home-page-content-wrapper.has-toolbar
+ .home-page-scroll-container.table-view {
+ --mhg-grid-top-inset-games: calc(var(--mhg-gog-scroll-top-inset, 64px) + 16px);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.tag-games-page-shell:not(.tag-games-page-shell--context-rail)
+ .home-page-scroll-container:not(.table-view)
+ .games-list-container:not(.games-list-container--virtualized):not(
+  .games-list-container--fixed-focal
+ ) {
+ padding-top: calc(var(--mhg-gog-scroll-top-inset, 64px) + 5px);
+ box-sizing: border-box;
 }
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
@@ -11960,6 +12003,34 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
  .app-main-container[data-mhg-persistent-library-shell="true"] .games-list-toolbar-item {
   flex: 0 1 auto;
   max-width: 100%;
+ }
+
+ /*
+  * Collection-like + tag games detail: stacked chrome (row 2 icons + row 3 filter)
+  * needs the same initial offset as library lists — not header-only 64px shell padding.
+  */
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .home-page-content {
+  padding-top: 0 !important;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .library-item-detail-scroll {
+  --mhg-grid-top-inset-games: calc(var(--mhg-gog-scroll-top-inset, 64px) + 32px);
+  --mhg-grid-top-inset-collections: calc(var(--mhg-gog-scroll-top-inset, 64px) + 32px);
+  --mhg-grid-top-inset: calc(var(--mhg-gog-scroll-top-inset, 64px) + 32px);
+  padding-top: 0 !important;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .library-item-detail-scroll
+  .library-item-detail-games-list
+  > .games-list-container:not(.games-list-container--virtualized):not(
+   .games-list-container--fixed-focal
+  ) {
+  padding-top: calc(var(--mhg-gog-scroll-top-inset, 64px) + 5px);
+  box-sizing: border-box;
  }
 
 }
