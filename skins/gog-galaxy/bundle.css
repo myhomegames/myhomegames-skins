@@ -10680,11 +10680,21 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 * Detail routes: keep the non-scrollable shell inset below the fixed header.
 * List/catalog pages: grid extends from y=0; covers pass under fixed chrome via
 * --mhg-grid-top-inset-* (read by VirtualizedGamesList / VirtualizedCollectionsList).
+* Game / IGDB detail: same initial offset, but inset lives on the scroll container
+* (not the shell) so content can scroll up behind the fixed header.
 */
-.home-page-main-container.library-item-detail-main-inner .home-page-content,
+.home-page-main-container.library-item-detail-main-inner .home-page-content {
+ padding-top: 64px;
+}
+
 .home-page-main-container.game-detail-main-container .home-page-content,
 .home-page-main-container.igdb-game-detail-main-container .home-page-content {
- padding-top: 64px;
+ padding-top: 0;
+}
+
+.home-page-main-container.game-detail-main-container .game-detail-scroll-container,
+.home-page-main-container.igdb-game-detail-main-container .igdb-game-detail-scroll-container {
+ padding-top: calc(64px + 5px);
 }
 
 /*
@@ -10955,6 +10965,21 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  .mhg-libraries-actions-before-main-games
  .library-item-detail-compact-top-action:has(.background-toggle-button) {
  transform: translateY(0);
+}
+
+/*
+ * Game detail only: hide/show background at the far right (just left of ⋮ on wide row 1).
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.game-detail-container)
+ .mhg-libraries-actions-before-main-games:has(.background-toggle-button) {
+ position: fixed;
+ top: 14px;
+ right: 48px;
+ z-index: 10160;
+ margin: 0;
+ pointer-events: auto;
+ display: flex;
+ align-items: center;
 }
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
@@ -11870,6 +11895,12 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
   row-gap: 4px;
   min-height: var(--mhg-gog-chrome-row2, 36px);
   z-index: 3;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]:has(.game-detail-container)
+  .mhg-libraries-actions-before-main-games:has(.background-toggle-button) {
+  top: 64px;
+  right: 12px;
  }
 
  .app-main-container[data-mhg-persistent-library-shell="true"]
