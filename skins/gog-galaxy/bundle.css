@@ -7555,6 +7555,11 @@ fieldset.edit-game-modal-field {
  transition: background-color 0.2s ease;
  background-color: transparent;
  cursor: pointer;
+ width: 100%;
+ max-width: 100%;
+ min-width: 0;
+ box-sizing: border-box;
+ overflow: hidden;
 }
 
 .search-dropdown-item {
@@ -7578,6 +7583,25 @@ fieldset.edit-game-modal-field {
 
 .search-results-list-item--game-row {
  align-items: center;
+ display: grid;
+ grid-template-columns: auto minmax(0, 1fr) auto;
+ column-gap: 20px;
+}
+
+.search-results-list-item--game-row .games-list-cover {
+ grid-column: 1;
+ grid-row: 1;
+}
+
+.search-results-list-item--game-row .search-result-game-text {
+ grid-column: 2;
+ grid-row: 1;
+}
+
+.search-results-list-item--game-row .search-result-right-actions {
+ grid-column: 3;
+ grid-row: 1;
+ margin-left: 0;
 }
 
 .search-results-list-item .games-list-cover {
@@ -7636,8 +7660,11 @@ fieldset.edit-game-modal-field {
 
 /*Game row: title + IGDB type pill (matches Add Game search results)*/
 .search-result-game-text {
- flex: 1;
+ flex: 1 1 0%;
  min-width: 0;
+ max-width: 100%;
+ width: 100%;
+ overflow: hidden;
  display: flex;
  flex-direction: column;
  gap: 4px;
@@ -7651,6 +7678,31 @@ fieldset.edit-game-modal-field {
  gap: 8px;
  flex-wrap: wrap;
  width: 100%;
+ min-width: 0;
+ max-width: 100%;
+}
+
+.search-result-game-title-row .search-result-type-label {
+ flex-shrink: 0;
+ max-width: 42%;
+}
+
+.search-result-game-title-row .tooltip-wrapper {
+ flex: 1 1 auto;
+ min-width: 0;
+ max-width: 100%;
+ overflow: hidden;
+ display: block;
+}
+
+.search-result-game-title-row .search-result-title,
+.search-result-game-title-row .games-list-title-clickable {
+ display: block;
+ min-width: 0;
+ max-width: 100%;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
 }
 
 .search-result-type-label {
@@ -7691,11 +7743,17 @@ fieldset.edit-game-modal-field {
  font-size: 0.9rem;
  line-height: 1.45;
  color: rgba(255, 255, 255, 0.65);
+ width: 100%;
+ min-width: 0;
+ max-width: 100%;
+ word-break: break-word;
+ overflow-wrap: anywhere;
+ white-space: normal;
  display: -webkit-box;
  -webkit-line-clamp: 2;
+ line-clamp: 2;
  -webkit-box-orient: vertical;
  overflow: hidden;
- max-width: 100%;
 }
 
 /*Right actions container - aligns play and dropdown to the right*/
@@ -9977,6 +10035,73 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
 }
 
 /*
+ * Search results is outside MainAppLayout (no collapsible sidebar attr): same flat full-width
+ * column as settings — drop the 820px shell min-width so rows stay within the viewport.
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page),
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty),
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-shell) {
+ min-width: 0;
+ max-width: 100%;
+ overflow-x: hidden;
+}
+
+html:has(.app-main-container[data-mhg-persistent-library-shell="true"] .search-results-page),
+html:has(.app-main-container[data-mhg-persistent-library-shell="true"] .search-results-page-empty),
+html:has(.app-main-container[data-mhg-persistent-library-shell="true"] .search-results-shell),
+body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .search-results-page),
+body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .search-results-page-empty),
+body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .search-results-shell),
+body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .search-results-page) #root,
+body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .search-results-page-empty) #root,
+body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .search-results-shell) #root {
+ min-width: 0;
+ max-width: 100%;
+ overflow-x: hidden;
+}
+
+/*
+ * Search results: flat #1a1a1a column — header band + “+” tile match library chrome (#1a1a1a).
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page) .mhg-header,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .mhg-header,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-shell) .mhg-header {
+ background-color: #1a1a1a;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page)
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"],
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty)
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"],
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-shell)
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"],
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page)
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"]:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty)
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"]:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-shell)
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"]:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page)
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"]:active,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty)
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"]:active,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-shell)
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"]:active {
+ background: #1a1a1a !important;
+ background-color: #1a1a1a !important;
+ border-radius: 4px;
+}
+
+/*
  * Settings uses a flat #1a1a1a column: extend that band through the header and drop the
  * opaque “+” tile so it matches the page instead of a gradient square.
  */
@@ -12221,5 +12346,96 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
  .app-main-container[data-mhg-persistent-library-shell="true"] {
   --mhg-gog-chrome-row2: 56px;
   --mhg-gog-chrome-filter-row: 44px;
+ }
+}
+
+/*--- GOG Galaxy: search results page (persistent shell, full-width route) ---*/
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page),
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) {
+ height: 100dvh;
+ max-height: 100dvh;
+ overflow: hidden;
+ display: flex;
+ flex-direction: column;
+ min-height: 0;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page) .search-results-page,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .search-results-page,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .search-results-page-empty {
+ flex: 1 1 auto;
+ min-height: 0;
+ max-height: 100%;
+ width: 100%;
+ overflow: hidden;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page) .search-results-content,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .search-results-content {
+ flex: 1 1 auto;
+ min-height: 0;
+ max-height: 100%;
+ overflow-y: auto;
+ overflow-x: hidden;
+ overscroll-behavior: contain;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page) .search-results-content-inner,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .search-results-content-inner {
+ width: 100%;
+ max-width: min(80rem, 100%);
+ padding-left: clamp(16px, 4vw, 48px);
+ padding-right: clamp(16px, 4vw, 48px);
+ box-sizing: border-box;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page) .search-results-header,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .search-results-header {
+ width: 100%;
+ max-width: min(80rem, 100%);
+ padding-left: clamp(16px, 4vw, 48px);
+ padding-right: clamp(16px, 4vw, 48px);
+ box-sizing: border-box;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page) .search-results-list-container,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .search-results-list-container {
+ width: 100%;
+ max-width: 100%;
+ padding-left: 0;
+ padding-right: 0;
+ box-sizing: border-box;
+}
+
+@media (max-width: 720px) {
+ .app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page) .search-results-list-item,
+ .app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .search-results-list-item {
+  gap: 12px;
+  padding: 12px 8px;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page) .search-results-list-item--game-row,
+ .app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .search-results-list-item--game-row {
+  column-gap: 12px;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page) .search-results-list-item .games-list-cover,
+ .app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .search-results-list-item .games-list-cover {
+  width: 72px;
+  flex-shrink: 0;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page) .search-result-play-button,
+ .app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .search-result-play-button {
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page) .search-result-play-button svg,
+ .app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .search-result-play-button svg {
+  width: 18px;
+  height: 18px;
  }
 }
