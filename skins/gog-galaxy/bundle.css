@@ -9976,6 +9976,28 @@ header ~ .mhg-libraries-bar ~ .mhg-libraries-bar {
  overflow-x: hidden;
 }
 
+/*
+ * Settings uses a flat #1a1a1a column: extend that band through the header and drop the
+ * opaque “+” tile so it matches the page instead of a gradient square.
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.settings-page) .mhg-header {
+ background-color: #1a1a1a;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.settings-page)
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"],
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.settings-page)
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"]:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(.settings-page)
+ .mhg-header-actions
+ [data-mhg-header-action="add-game"]:active {
+ background: transparent !important;
+ background-color: transparent !important;
+ border-radius: 50%;
+}
+
 html:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings-page),
 body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings-page),
 body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings-page) #root {
