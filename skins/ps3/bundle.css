@@ -6175,6 +6175,57 @@ fieldset.edit-game-modal-field {
  pointer-events: auto;
 }
 
+/*
+ * Game detail + top dock: hide/show background belongs inside the dock chrome
+ * (via `rightActionsBeforeMainGames`), not in the empty strip row below.
+ */
+.game-detail-libraries-bar-wrapper .mhg-libraries-bar-container {
+ margin-top: 0 !important;
+ min-height: 0 !important;
+ height: 0 !important;
+ overflow: visible !important;
+ padding: 0 !important;
+ border: none !important;
+}
+
+.game-detail-libraries-bar-wrapper .mhg-libraries-actions {
+ display: none !important;
+}
+
+.game-detail-libraries-bar-wrapper .mhg-top-right-tool-dock-inner {
+ gap: 12px;
+ padding: 0 12px;
+}
+
+.game-detail-libraries-bar-wrapper .mhg-top-right-tool-dock-before-main-games,
+.game-detail-libraries-bar-wrapper
+ .mhg-top-right-tool-dock-before-main-games.mhg-libraries-actions-before-main-games {
+ display: flex !important;
+ align-items: center !important;
+ align-self: center !important;
+ flex-shrink: 0;
+}
+
+.game-detail-libraries-bar-wrapper
+ .mhg-top-right-tool-dock-before-main-games
+ .library-item-detail-compact-top-action,
+.game-detail-libraries-bar-wrapper
+ .mhg-top-right-tool-dock-before-main-games
+ .background-toggle-button {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ width: 40px;
+ height: 40px;
+ min-width: 40px;
+ min-height: 40px;
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
+ transform: translateY(0);
+}
+
 .game-detail-container {
  position: relative;
  z-index: 1;
