@@ -9744,7 +9744,7 @@ body > .additional-executables-dropdown-menu {
 */
  --mhg-detail-rail-icon-cover-gap: 12px;
  --mhg-context-rail-cover-top: calc(
-  var(--mhg-detail-rail-top, 204px) + 96px + var(--mhg-detail-rail-icon-cover-gap, 12px)
+  var(--mhg-detail-rail-top, 204px) + var(--mhg-context-rail-col1-icon, 96px) + var(--mhg-detail-rail-icon-cover-gap, 12px)
  );
  --mhg-context-rail-bridge-offset: 28px;
  margin-top: calc(-1* var(--mhg-detail-dock-stack)) !important;
@@ -10003,21 +10003,28 @@ body > .additional-executables-dropdown-menu {
  align-items: stretch;
  justify-content: flex-start;
  width: 100%;
+ min-width: 0;
  height: 100%;
  min-height: 100%;
  box-sizing: border-box;
- /*Match `.mhg-libraries-bar-container` (20px) + strip padding (8px).*/
- padding-left: calc(20px + 8px);
- gap: 24px;
+ padding-left: var(--mhg-context-rail-layout-padding, calc(20px + 8px));
+ gap: var(--mhg-context-rail-layout-gap, 24px);
 }
 
 .library-item-detail-context-rail {
- flex: 0 0 auto;
+ flex: 0 1 auto;
  display: flex;
  flex-direction: column;
  align-items: flex-start;
  align-self: flex-start;
- flex-shrink: 0;
+ flex-shrink: 1;
+ min-width: 0;
+ max-width: calc(
+  max(
+   var(--mhg-context-rail-col1-icon, 96px),
+   var(--mhg-context-rail-col1-cover-max, var(--lid-cover-size, 240px))
+  )
+ );
  padding-top: var(--mhg-detail-rail-top, 204px);
  gap: var(--mhg-detail-rail-icon-cover-gap, 12px);
  z-index: 2;
@@ -10025,14 +10032,16 @@ body > .additional-executables-dropdown-menu {
 
 .library-item-detail-context-rail-library.mhg-library-button,
 .library-item-detail-context-rail-library.mhg-library-active {
- width: 96px;
- min-width: 96px;
- height: 96px;
+ width: var(--mhg-context-rail-col1-icon, 96px);
+ min-width: var(--mhg-context-rail-col1-icon, 96px);
+ height: var(--mhg-context-rail-col1-icon, 96px);
+ overflow: visible;
 }
 
 .library-item-detail-context-games {
- flex: 1 1 auto;
- min-width: 0;
+ flex: 1 1 0;
+ min-width: var(--mhg-context-rail-games-min, 88px);
+ width: 0;
  min-height: 0;
  height: 100%;
  max-height: 100%;
@@ -10049,8 +10058,20 @@ body > .additional-executables-dropdown-menu {
  box-shadow: none !important;
  scrollbar-width: none;
  -ms-overflow-style: none;
+ container-type: inline-size;
+ container-name: mhg-context-rail-games;
+ --mhg-context-rail-focal-cover-cap: min(
+  var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)),
+  clamp(44px, 36cqw, 168px)
+ );
+ --mhg-vertical-rail-cover-title-gap: clamp(4px, 3cqw, 20px);
+ --mhg-vertical-rail-title-font-size: clamp(0.68rem, 5.2cqw, 1.3rem);
+ --mhg-vertical-rail-year-font-size: clamp(0.58rem, 4cqw, 1rem);
+ --mhg-vertical-rail-title-line-clamp: 4;
+ --mhg-vertical-rail-title-nudge-portrait: clamp(-10px, -1.5cqw, -32px);
+ --mhg-vertical-column-width: var(--mhg-context-rail-games-column-width, min(480px, 100%));
  --mhg-context-rail-cover-top: calc(
-  var(--mhg-detail-rail-top, 204px) + 96px + var(--mhg-detail-rail-icon-cover-gap, 12px)
+  var(--mhg-detail-rail-top, 204px) + var(--mhg-context-rail-col1-icon, 96px) + var(--mhg-detail-rail-icon-cover-gap, 12px)
  );
  /*
  * Leading space via list wrapper padding (virtualized grid scrolls inside).
@@ -10076,17 +10097,19 @@ body > .additional-executables-dropdown-menu {
 
 /*Arrow between context cover (col 1) and scrollable games (col 2).*/
 .mhg-context-rail-bridge {
- flex: 0 0 auto;
+ flex: 0 1 var(--mhg-context-rail-bridge-width, 20px);
  align-self: flex-start;
  margin-top: calc(
   var(--mhg-context-rail-cover-top) + var(--mhg-context-rail-bridge-offset, 28px)
  );
- width: 20px;
+ width: var(--mhg-context-rail-bridge-width, 20px);
+ min-width: 0;
+ max-width: var(--mhg-context-rail-bridge-width, 20px);
  display: flex;
  align-items: flex-start;
  justify-content: center;
  pointer-events: none;
- flex-shrink: 0;
+ flex-shrink: 1;
 }
 
 .mhg-context-rail-bridge::after {
@@ -10103,14 +10126,14 @@ body > .additional-executables-dropdown-menu {
 /* Tag + collection-like detail: same context-rail chevron (size, stroke, row). */
 .library-item-detail-page-shell--context-rail .mhg-context-rail-bridge,
 .tag-games-page-shell--context-rail .mhg-context-rail-bridge {
- flex: 0 0 auto;
+ flex: 0 1 var(--mhg-context-rail-bridge-width, 20px);
  align-self: flex-start;
  margin-top: calc(
   var(--mhg-context-rail-cover-top) + var(--mhg-context-rail-bridge-offset, 28px)
  ) !important;
- width: 20px !important;
- min-width: 20px !important;
- max-width: 20px !important;
+ width: var(--mhg-context-rail-bridge-width, 20px) !important;
+ min-width: 0 !important;
+ max-width: var(--mhg-context-rail-bridge-width, 20px) !important;
  padding: 0 !important;
  display: flex !important;
  align-items: flex-start !important;
@@ -10119,6 +10142,7 @@ body > .additional-executables-dropdown-menu {
  position: relative;
  z-index: 2;
  box-sizing: border-box;
+ flex-shrink: 1;
 }
 
 .library-item-detail-page-shell--context-rail .mhg-context-rail-bridge::after,
@@ -10140,13 +10164,137 @@ body > .additional-executables-dropdown-menu {
 /* Index column ghost between arrow and games column (tag / collection-like detail). */
 .library-item-detail-page-shell--context-rail,
 .tag-games-page-shell--context-rail {
- --mhg-context-rail-index-peek-width: 168px;
+ --mhg-context-rail-index-peek-width: clamp(28px, 7vw, 168px);
+ --mhg-context-rail-index-peek-gap-after: clamp(2px, 0.6vw, 24px);
+ --mhg-context-rail-layout-padding: clamp(4px, 1vw, 28px);
+ --mhg-context-rail-layout-gap: clamp(2px, 0.6vw, 24px);
+ --mhg-context-rail-bridge-width: clamp(0px, 1vw, 20px);
+ --mhg-context-rail-col1-icon: clamp(36px, 7vw, 96px);
+ --mhg-context-rail-games-min: clamp(104px, 28vw, 9999px);
+ --mhg-context-rail-games-column-width: min(var(--mhg-vertical-column-width, 480px), 100%);
+}
+
+@media (max-width: 900px) {
+ .library-item-detail-page-shell--context-rail {
+  --mhg-detail-rail-icon-cover-gap: clamp(32px, 7.5vw, 48px);
+ }
+
+ .tag-games-page-shell--context-rail {
+  --mhg-tag-rail-icon-cover-gap: clamp(54px, 12vw, 74px);
+ }
+
+ .library-item-detail-context-rail-library.mhg-library-active .mhg-library-button-label {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 22px;
+  max-width: max(calc(var(--mhg-context-rail-col1-icon, 96px) * 1.35), 72px);
+  font-size: clamp(9px, 2.5vw, 12px);
+  line-height: 1.15;
+  white-space: nowrap;
+ }
+
+ .tag-games-context-rail-library.mhg-library-active .mhg-library-button-label {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 18px;
+  max-width: max(calc(var(--mhg-context-rail-col1-icon, 96px) * 1.35), 72px);
+  font-size: clamp(9px, 2.5vw, 12px);
+  line-height: 1.15;
+  white-space: nowrap;
+ }
+
+ .library-item-detail-page-shell--context-rail {
+  --mhg-context-rail-col1-cover-max: clamp(
+   36px,
+   8vw,
+   min(var(--lid-cover-size, 240px), 120px)
+  );
+ }
+
+ .tag-games-page-shell--context-rail {
+  --mhg-context-rail-tag-cover-max: clamp(
+   36px,
+   8vw,
+   var(--tag-list-cover-size, 150px)
+  );
+ }
+
+ .library-item-detail-context-rail-cover {
+  margin-top: 0;
+ }
+
+ .tag-games-context-rail .tag-games-context-rail-cover.tag-list-item {
+  margin-top: 24px;
+ }
+}
+
+@media (max-width: 720px) {
+ .library-item-detail-page-shell--context-rail {
+  --mhg-context-rail-index-peek-width: clamp(24px, 6vw, 120px);
+  --mhg-context-rail-index-peek-gap-after: clamp(0px, 0.4vw, 12px);
+  --mhg-context-rail-layout-padding: clamp(2px, 0.6vw, 16px);
+  --mhg-context-rail-layout-gap: clamp(0px, 0.4vw, 12px);
+  --mhg-context-rail-bridge-width: 0px;
+  --mhg-context-rail-col1-icon: clamp(32px, 6vw, 72px);
+  --mhg-context-rail-games-min: clamp(112px, 34vw, 9999px);
+  --mhg-detail-rail-icon-cover-gap: clamp(40px, 9vw, 56px);
+ }
+
+ .tag-games-page-shell--context-rail {
+  --mhg-context-rail-index-peek-width: clamp(24px, 6vw, 120px);
+  --mhg-context-rail-index-peek-gap-after: clamp(0px, 0.4vw, 12px);
+  --mhg-context-rail-layout-padding: clamp(2px, 0.6vw, 16px);
+  --mhg-context-rail-layout-gap: clamp(0px, 0.4vw, 12px);
+  --mhg-context-rail-bridge-width: 0px;
+  --mhg-context-rail-col1-icon: clamp(32px, 6vw, 72px);
+  --mhg-context-rail-games-min: clamp(112px, 34vw, 9999px);
+  --mhg-tag-rail-icon-cover-gap: clamp(64px, 14vw, 84px);
+ }
+
+ .library-item-detail-context-rail-library.mhg-library-active .mhg-library-button-label {
+  margin-top: 28px;
+ }
+
+ .tag-games-context-rail-library.mhg-library-active .mhg-library-button-label {
+  top: 100%;
+  margin-top: 24px;
+ }
+
+ .library-item-detail-page-shell--context-rail {
+  --mhg-context-rail-col1-cover-max: clamp(24px, 4.5vw, 56px);
+  --mhg-context-rail-games-min: clamp(120px, 36vw, 9999px);
+ }
+
+ .tag-games-page-shell--context-rail {
+  --mhg-context-rail-tag-cover-max: clamp(36px, 8vw, 100px);
+ }
+
+ .library-item-detail-context-rail-cover {
+  margin-top: 0;
+ }
+
+ .tag-games-context-rail .tag-games-context-rail-cover.tag-list-item {
+  margin-top: 32px;
+ }
+
+ .library-item-detail-page-shell--context-rail .mhg-context-rail-bridge,
+ .tag-games-page-shell--context-rail .mhg-context-rail-bridge {
+  display: none !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+ }
 }
 
 .mhg-context-rail-index-peek {
- flex: 0 0 var(--mhg-context-rail-index-peek-width, 168px);
+ flex: 0 1 var(--mhg-context-rail-index-peek-width, 168px);
  width: var(--mhg-context-rail-index-peek-width, 168px);
- min-width: var(--mhg-context-rail-index-peek-width, 168px);
+ min-width: 0;
  max-width: var(--mhg-context-rail-index-peek-width, 168px);
  align-self: stretch;
  margin-top: calc(-1 * var(--mhg-context-rail-peek-lift, 0px)) !important;
@@ -10159,7 +10307,7 @@ body > .additional-executables-dropdown-menu {
  z-index: 1;
  position: relative;
  box-sizing: border-box;
- flex-shrink: 0;
+ flex-shrink: 1;
 }
 
 .tag-games-page-shell--context-rail .mhg-context-rail-index-peek {
@@ -10401,13 +10549,23 @@ html.mhg-context-rail-activation-lock-global #root * {
  box-sizing: border-box !important;
 }
 
-.library-item-detail-context-rail-library.mhg-library-active .mhg-library-button-label {
+.library-item-detail-context-rail-library.mhg-library-active .mhg-library-button-label,
+.tag-games-context-rail-library.mhg-library-active .mhg-library-button-label {
  display: block;
 }
 
 .library-item-detail-context-rail-cover {
- width: var(--lid-cover-size, 150px);
- max-width: min(var(--lid-cover-size, 150px), 40vw);
+ width: min(var(--lid-cover-size, 150px), var(--mhg-context-rail-col1-cover-max, var(--lid-cover-size, 240px)));
+ max-width: var(--mhg-context-rail-col1-cover-max, min(var(--lid-cover-size, 150px), 40vw));
+ box-sizing: border-box;
+}
+
+.library-item-detail-context-rail-cover .cover-container,
+.library-item-detail-context-rail-cover .games-list-cover,
+.library-item-detail-context-rail-cover img {
+ width: 100% !important;
+ max-width: 100% !important;
+ height: auto !important;
 }
 
 /* Static context-rail cover: wheel UX is for the games column, not this tile. */
@@ -10435,12 +10593,6 @@ html.mhg-context-rail-activation-lock-global #root * {
  .games-list-play-button-play-only {
  opacity: 1 !important;
  pointer-events: auto !important;
-}
-
-.library-item-detail-context-rail-cover .cover-container,
-.library-item-detail-context-rail-cover img {
- width: 100% !important;
- max-width: 100% !important;
 }
 
 /*Detail games column: left-aligned rail; no global icon-center margin shift.*/
@@ -10583,10 +10735,43 @@ html.mhg-context-rail-activation-lock-global #root * {
  transform: scale(var(--mhg-cell-scale, 1)) !important;
  transform-origin: 50% 50% !important;
  transition: none !important;
- width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
- max-width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
+ width: var(--mhg-context-rail-focal-cover-cap, min(var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)), 100%)) !important;
+ max-width: var(--mhg-context-rail-focal-cover-cap, min(var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)), 100%)) !important;
  aspect-ratio: 3 / 4 !important;
  height: auto !important;
+}
+
+/* Context-rail games column: cap cover width so the selected title stays beside it. */
+.library-item-detail-page-shell--context-rail
+ .library-item-detail-context-games
+ .mhg-cover-scale-selected
+ .games-list-title-wrapper,
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .mhg-cover-scale-selected
+ .games-list-title-wrapper {
+ left: calc(
+  var(--mhg-context-rail-focal-cover-cap, var(--mhg-fixed-focal-cover-size, 240px)) +
+  var(--mhg-vertical-rail-cover-title-gap, 12px)
+ ) !important;
+ max-width: calc(
+  100% -
+  var(--mhg-context-rail-focal-cover-cap, var(--mhg-fixed-focal-cover-size, 240px)) -
+  var(--mhg-vertical-rail-cover-title-gap, 12px)
+ ) !important;
+ transform: translateY(calc(-50% + var(--mhg-vertical-rail-title-nudge-portrait, 0px))) !important;
+}
+
+.library-item-detail-page-shell--context-rail
+ .library-item-detail-context-games
+ .mhg-cover-scale-selected
+ .games-list-item--cover-sized,
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .mhg-cover-scale-selected
+ .games-list-item--cover-sized {
+ gap: var(--mhg-vertical-rail-cover-title-gap, 12px) !important;
+ column-gap: var(--mhg-vertical-rail-cover-title-gap, 12px) !important;
 }
 
 /*=============================================================================
@@ -10595,7 +10780,7 @@ html.mhg-context-rail-activation-lock-global #root * {
 .tag-games-page-shell--context-rail {
  --mhg-tag-rail-icon-cover-gap: 12px;
  --mhg-context-rail-cover-top: calc(
-  var(--mhg-tag-rail-top, 204px) + 96px + var(--mhg-tag-rail-icon-cover-gap, 12px)
+  var(--mhg-tag-rail-top, 204px) + var(--mhg-context-rail-col1-icon, 96px) + var(--mhg-tag-rail-icon-cover-gap, 12px)
  );
  --mhg-context-rail-bridge-offset: 28px;
  margin-top: calc(-1* var(--mhg-tag-dock-stack)) !important;
@@ -10654,20 +10839,28 @@ html.mhg-context-rail-activation-lock-global #root * {
  align-items: stretch;
  justify-content: flex-start;
  width: 100%;
+ min-width: 0;
  height: 100%;
  min-height: 100%;
  box-sizing: border-box;
- padding-left: calc(20px + 8px);
- gap: 24px;
+ padding-left: var(--mhg-context-rail-layout-padding, calc(20px + 8px));
+ gap: var(--mhg-context-rail-layout-gap, 24px);
 }
 
 .tag-games-context-rail {
- flex: 0 0 auto;
+ flex: 0 1 auto;
  display: flex;
  flex-direction: column;
  align-items: flex-start;
  align-self: flex-start;
- flex-shrink: 0;
+ flex-shrink: 1;
+ min-width: 0;
+ max-width: calc(
+  max(
+   var(--mhg-context-rail-col1-icon, 96px),
+   var(--mhg-context-rail-tag-cover-max, var(--tag-list-cover-size, 150px))
+  )
+ );
  padding-top: var(--mhg-tag-rail-top, 204px);
  gap: var(--mhg-tag-rail-icon-cover-gap, 12px);
  z-index: 2;
@@ -10675,9 +10868,10 @@ html.mhg-context-rail-activation-lock-global #root * {
 
 .tag-games-context-rail-library.mhg-library-button,
 .tag-games-context-rail-library.mhg-library-active {
- width: 96px;
- min-width: 96px;
- height: 96px;
+ width: var(--mhg-context-rail-col1-icon, 96px);
+ min-width: var(--mhg-context-rail-col1-icon, 96px);
+ height: var(--mhg-context-rail-col1-icon, 96px);
+ overflow: visible;
 }
 
 /*Match tag list tile: 16:9 at --tag-list-cover-size, not collection portrait width.*/
@@ -10687,13 +10881,17 @@ html.mhg-context-rail-activation-lock-global #root * {
 }
 
 .tag-games-context-rail .tag-games-context-rail-cover.tag-list-item .games-list-cover {
- width: var(--tag-list-cover-size, var(--lid-cover-size, 150px)) !important;
- max-width: 100%;
+ width: min(
+  var(--tag-list-cover-size, var(--lid-cover-size, 150px)),
+  var(--mhg-context-rail-tag-cover-max, var(--tag-list-cover-size, var(--lid-cover-size, 150px)))
+ ) !important;
+ max-width: var(--mhg-context-rail-tag-cover-max, 100%) !important;
 }
 
 .tag-games-context-games {
- flex: 1 1 auto;
- min-width: 0;
+ flex: 1 1 0;
+ min-width: var(--mhg-context-rail-games-min, 88px);
+ width: 0;
  min-height: 0;
  height: 100%;
  max-height: 100%;
@@ -10705,6 +10903,18 @@ html.mhg-context-rail-activation-lock-global #root * {
  margin: 0 !important;
  padding: 0 !important;
  box-sizing: border-box;
+ container-type: inline-size;
+ container-name: mhg-context-rail-games;
+ --mhg-context-rail-focal-cover-cap: min(
+  var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)),
+  clamp(44px, 36cqw, 168px)
+ );
+ --mhg-vertical-rail-cover-title-gap: clamp(4px, 3cqw, 20px);
+ --mhg-vertical-rail-title-font-size: clamp(0.68rem, 5.2cqw, 1.3rem);
+ --mhg-vertical-rail-year-font-size: clamp(0.58rem, 4cqw, 1rem);
+ --mhg-vertical-rail-title-line-clamp: 4;
+ --mhg-vertical-rail-title-nudge-portrait: clamp(-10px, -1.5cqw, -32px);
+ --mhg-vertical-column-width: var(--mhg-context-rail-games-column-width, min(480px, 100%));
  --mhg-grid-top-inset: var(--mhg-context-rail-cover-top);
  --mhg-grid-top-inset-games: var(--mhg-context-rail-cover-top);
  --mhg-grid-top-inset-collections: 0px;
@@ -10716,16 +10926,25 @@ html.mhg-context-rail-activation-lock-global #root * {
  --mhg-step-scroll-rows: 1;
 }
 
+@container mhg-context-rail-games (max-width: 220px) {
+ .library-item-detail-context-games,
+ .tag-games-context-games {
+  --mhg-context-rail-focal-cover-cap: min(
+   var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)),
+   clamp(36px, 30cqw, 112px)
+  );
+  --mhg-vertical-rail-cover-title-gap: clamp(2px, 2.5cqw, 12px);
+  --mhg-vertical-rail-title-font-size: clamp(0.62rem, 6cqw, 1rem);
+  --mhg-vertical-rail-title-line-clamp: 5;
+ }
+}
+
 
 .tag-games-context-games .virtualized-grid-cell-pad .games-list-item--cover-sized {
  width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
  min-width: 0 !important;
  max-width: 100% !important;
  box-sizing: border-box !important;
-}
-
-.tag-games-context-rail-library.mhg-library-active .mhg-library-button-label {
- display: block;
 }
 
 .tag-games-page-shell--context-rail .tag-games-context-games .games-list-container,
@@ -10854,8 +11073,8 @@ html.mhg-context-rail-activation-lock-global #root * {
  transform: scale(var(--mhg-cell-scale, 1)) !important;
  transform-origin: 50% 50% !important;
  transition: none !important;
- width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
- max-width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
+ width: var(--mhg-context-rail-focal-cover-cap, min(var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)), 100%)) !important;
+ max-width: var(--mhg-context-rail-focal-cover-cap, min(var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)), 100%)) !important;
  aspect-ratio: 3 / 4 !important;
  height: auto !important;
 }
