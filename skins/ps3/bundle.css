@@ -8453,6 +8453,48 @@ body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-section-titl
  animation: mhg-ps3-sheet-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Narrow viewport: right slide-in sheets span the full page. */
+@media (max-width: 720px) {
+ .add-game-container,
+ .dropdown-menu-confirm-container,
+ .launch-modal-container,
+ .add-to-collection-modal,
+ .manage-installation-modal-container,
+ .game-search-modal:not(.mhg-sidebar-search-modal),
+ .edit-game-modal-container,
+ .edit-collection-modal-container,
+ .filter-popup,
+ .sort-popup,
+ .dropdown-menu-popup,
+ .games-list-toolbar-popup,
+ .view-mode-dropdown,
+ .view-mode-dropdown.view-mode-dropdown--portaled,
+ .games-table-column-menu-popup,
+ .profile-dropdown-popup,
+ .franchise-series-dropdown,
+ body > .add-to-collection-dropdown-menu,
+ body > .additional-executables-dropdown-menu {
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  border-left: none !important;
+  box-shadow: none !important;
+ }
+
+ body > .update-notification-popup {
+  grid-template-columns: 1fr !important;
+ }
+
+ body > .update-notification-popup > .update-notification-header,
+ body > .update-notification-popup > .update-notification-changelog,
+ body > .update-notification-popup > .update-notification-downloads {
+  grid-column: 1 !important;
+  border-left: none !important;
+  box-shadow: none !important;
+ }
+}
+
 @media (prefers-reduced-motion: reduce) {
  .add-game-container,
  .dropdown-menu-confirm-container,
