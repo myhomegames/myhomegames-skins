@@ -522,10 +522,12 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 /*`web.topRightToolDock`: tool row above strip; band height + gap used by vertical-cover compensation.*/
 :root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) {
  --mhg-top-tool-dock-band-height: 56px;
+ --mhg-top-tool-dock-filter-wrap-extra: 0px;
  /*Space between tool dock and icon strip (margin on strip).*/
  --mhg-tool-dock-to-strip-gap: 80px;
  --mhg-top-tool-dock-stack: calc(
- var(--mhg-top-tool-dock-band-height) + var(--mhg-tool-dock-to-strip-gap)
+ var(--mhg-top-tool-dock-band-height) + var(--mhg-tool-dock-to-strip-gap) +
+   var(--mhg-top-tool-dock-filter-wrap-extra, 0px)
  );
  /*
 * Bar grows by `dock band + strip gap` when the top-right tool dock is on,
@@ -574,42 +576,47 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  position: relative;
  top: auto;
  right: auto;
- flex: 0 0 var(--mhg-top-tool-dock-band-height);
- height: var(--mhg-top-tool-dock-band-height);
+ flex: 0 0 auto;
+ min-height: var(--mhg-top-tool-dock-band-height);
+ height: auto;
  width: 100%;
  box-sizing: border-box;
  display: flex;
  flex-direction: row;
  flex-wrap: nowrap;
- align-items: center;
+ align-items: stretch;
  justify-content: flex-end;
  gap: 0;
  padding: 0 12px;
  z-index: 10050;
  pointer-events: none;
+ container-type: inline-size;
+ container-name: ps3-tool-dock;
 }
 
 /*Bordo bianco solo attorno ai controlli visibili (dal logo in poi), non a tutta la larghezza.*/
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-inner {
  display: flex;
  flex-direction: row;
- flex-wrap: nowrap;
+ flex-wrap: wrap;
  align-items: center;
+ align-content: center;
  justify-content: flex-start;
  gap: 10px;
+ row-gap: 2px;
  box-sizing: border-box;
  min-height: var(--mhg-top-tool-dock-band-height);
- height: var(--mhg-top-tool-dock-band-height);
+ height: auto;
  max-width: 100%;
  min-width: 0;
- padding: 0 10px;
+ padding: 2px 10px;
  border: 1px solid #fff;
  border-radius: 0;
  pointer-events: auto;
- overflow-x: auto;
- overflow-y: hidden;
+ overflow-x: visible;
+ overflow-y: visible;
  font-size: 0.8125rem;
- line-height: 1.25;
+ line-height: 1.2;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
@@ -632,13 +639,13 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 * grow to the toolbar's natural width when the portal is populated.
 */
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-page-toolbar-slot {
- flex: 0 1 auto;
+ flex: 1 1 auto;
  min-width: 0;
  min-height: 0;
  display: flex;
  align-items: center;
  justify-content: flex-start;
- overflow-x: auto;
+ overflow-x: visible;
  overflow-y: visible;
  padding: 0;
  box-sizing: border-box;
@@ -647,9 +654,10 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-page-toolbar-inner {
  display: flex;
  align-items: center;
- flex: 0 0 auto;
+ flex: 1 1 auto;
  min-width: 0;
  max-width: 100%;
+ width: 100%;
 }
 
 /*--- ./components/games/GamesListToolbar.css (from Plex skin; dock overrides below) ---*/
@@ -908,7 +916,13 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
  .mhg-top-right-tool-dock-inner:has(.games-list-toolbar)
  .mhg-top-right-tool-dock-page-toolbar-slot {
+ /*
+  * DOM order is logo → spinner → update → filters → view → …; `order` keeps
+  * logo + action icons on one row and sends filters to the next line only.
+  */
+ order: 10;
  flex: 1 1 auto;
+ min-width: 0;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
@@ -920,14 +934,16 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  z-index: auto;
  display: flex;
  align-items: center;
+ align-content: center;
  justify-content: center;
  width: 100%;
  max-width: 100%;
  box-sizing: border-box;
  padding: 0 2px;
  margin: 0;
- flex-wrap: nowrap;
+ flex-wrap: wrap;
  gap: 2px;
+ row-gap: 2px;
  font-size: 0.75rem;
  line-height: 1.2;
  background: transparent;
@@ -938,9 +954,11 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  .games-list-toolbar-left {
  display: flex;
  align-items: center;
+ align-content: center;
  justify-content: center;
- flex-wrap: nowrap;
+ flex-wrap: wrap;
  gap: 2px;
+ row-gap: 2px;
  min-width: 0;
  width: 100%;
 }
@@ -948,7 +966,14 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
  .mhg-top-right-tool-dock-page-toolbar-inner
  .games-list-toolbar-item:not(:first-child) {
- margin-left: -20px;
+ margin-left: 0;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-page-toolbar-inner
+ .games-list-toolbar-item {
+ flex: 0 1 auto;
+ max-width: 100%;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
@@ -966,6 +991,37 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
  .mhg-top-right-tool-dock-page-toolbar-inner
+ .games-list-toolbar-count {
+ flex: 0 1 auto;
+ max-width: 100%;
+ margin-left: 0;
+ font-size: 0.6875rem;
+}
+
+/*
+ * Narrow dock: filters wrap to a second row — grow cover compensation and lift
+ * filters slightly away from the bottom chrome border.
+ */
+@container ps3-tool-dock (max-width: 1180px) {
+ .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] {
+  --mhg-top-tool-dock-filter-wrap-extra: 24px;
+ }
+
+ .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-inner:has(.games-list-toolbar) {
+  padding-bottom: 6px;
+ }
+
+ .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .mhg-top-right-tool-dock-inner:has(.games-list-toolbar)
+  .mhg-top-right-tool-dock-page-toolbar-slot {
+  margin-top: -2px;
+  margin-bottom: 2px;
+ }
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-page-toolbar-inner
  .games-list-toolbar-value {
  white-space: nowrap;
 }
@@ -979,12 +1035,6 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
  .mhg-top-right-tool-dock-page-toolbar-inner
- .games-list-toolbar-count {
- font-size: 0.6875rem;
-}
-
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- .mhg-top-right-tool-dock-page-toolbar-inner
  .games-list-toolbar-clear-button {
  left: 4px;
 }
@@ -993,6 +1043,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  display: flex;
  align-items: center;
  justify-content: center;
+ flex-shrink: 0;
  height: 100%;
  max-height: 44px;
  padding: 0 4px;
@@ -1034,7 +1085,10 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view,
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-slider,
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games,
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update {
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-update,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-before-main-games,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-new-games,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-menu {
  display: flex;
  align-items: center;
  flex-shrink: 0;
@@ -1044,7 +1098,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  margin-top: 2px;
 }
 
-/* Main-games toggle sits higher than sibling dock icons when the shared actions class forces flex-start. */
+/* Main-games toggle: lift slightly vs sibling dock icons (shared actions use flex-start). */
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
  .mhg-top-right-tool-dock-main-games.mhg-libraries-actions-main-games-container {
  align-items: center !important;
@@ -1067,7 +1121,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  background: transparent;
  cursor: pointer;
  color: rgba(255, 255, 255, 0.78);
- transform: translateY(3px);
+ transform: translateY(0);
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games .main-games-toggle-button svg {
@@ -9834,7 +9888,7 @@ body > .additional-executables-dropdown-menu {
  padding: 0;
  margin: 0;
  box-sizing: border-box;
- transform: translateY(3px);
+ transform: translateY(0);
 }
 
 .library-item-detail-libraries-bar-host--dock-only
