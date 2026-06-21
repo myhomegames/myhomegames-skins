@@ -10360,63 +10360,9 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 }
 
 /*
- * Left menu chrome: dark icon tiles only while the library menu column is present
- * (wide viewport sidebar always mounted, or narrow drawer open).
+ * Left menu chrome: dark icon tiles on list rows when the library column is present.
+ * The ⋮ menu trigger stays transparent (see rules above).
  */
-.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
- .mhg-header-libraries-menu-container
- .dropdown-menu-button,
-.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
- .mhg-header-libraries-menu-container
- .dropdown-menu-button:hover,
-.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
- .mhg-header-libraries-menu-container
- .dropdown-menu-button:active,
-.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
- .mhg-header-libraries-menu-container
- .dropdown-menu-button,
-.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
- .mhg-header-libraries-menu-container
- .dropdown-menu-button:hover,
-.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
- .mhg-header-libraries-menu-container
- .dropdown-menu-button:active,
-.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
- .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
- .dropdown-menu-button,
-.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
- .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
- .dropdown-menu-button:hover,
-.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
- .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
- .dropdown-menu-button:active,
-.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
- .mhg-libraries-menu-container
- .dropdown-menu-button,
-.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
- .mhg-libraries-menu-container
- .dropdown-menu-button:hover,
-.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
- .mhg-libraries-menu-container
- .dropdown-menu-button:active,
-.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
- .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
- .dropdown-menu-button,
-.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
- .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
- .dropdown-menu-button:hover,
-.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
- .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
- .dropdown-menu-button:active,
-.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
- .mhg-libraries-menu-container
- .dropdown-menu-button,
-.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
- .mhg-libraries-menu-container
- .dropdown-menu-button:hover,
-.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
- .mhg-libraries-menu-container
- .dropdown-menu-button:active,
 .app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
  .mhg-header-container
  .mhg-library-sidebar-toggle,
@@ -11456,7 +11402,10 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .mhg-libraries-actions
- .new-games-toggle-button,
+ .new-games-toggle-button {
+ transform: translateY(-2px);
+}
+
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .mhg-libraries-actions
  .main-games-toggle-button {
