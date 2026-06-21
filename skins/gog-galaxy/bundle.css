@@ -3165,7 +3165,7 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
 
 .games-list-edit-button-bottom-right {
  left: auto;
- right: 20px;
+ right: 8px;
 }
 
 .games-list-cover:hover .games-list-edit-button {
@@ -3197,7 +3197,7 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
 
 .games-list-dropdown-wrapper-bottom-right {
  left: auto;
- right: 20px;
+ right: 8px;
 }
 
 .games-list-cover:hover .games-list-dropdown-wrapper .dropdown-menu-button {
@@ -7284,13 +7284,13 @@ fieldset.edit-game-modal-field {
  min-width: var(--collections-list-cover-size, 150px);
 }
 
-/*Collections cards: move edit and three-dots slightly left*/
+/*Collections cards: align edit and three-dots with game covers*/
 .collections-list-item .games-list-edit-button-bottom-right {
- right: 20px;
+ right: 8px;
 }
 
 .collections-list-item .games-list-dropdown-wrapper-bottom-right {
- right: 20px;
+ right: 8px;
 }
 
 /*Collections in detail rows: keep edit + three-dots cluster more left*/
