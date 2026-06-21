@@ -13022,6 +13022,22 @@ body > .update-notification-popup > .update-notification-downloads:last-child:nt
  grid-row: 2 !important;
 }
 
+@media (max-width: 720px) {
+ body > .update-notification-popup {
+  grid-template-columns: 1fr !important;
+ }
+
+ body > .update-notification-popup > .update-notification-header,
+ body > .update-notification-popup > .update-notification-changelog,
+ body > .update-notification-popup > .update-notification-downloads,
+ body > .update-notification-popup > .update-notification-skin-updates,
+ body > .update-notification-popup > .update-notification-skin-update {
+  grid-column: 1 !important;
+  border-left: none !important;
+  box-shadow: none !important;
+ }
+}
+
 body:has(> .update-notification-popup) .mhg-libraries-bar,
 body:has(> .update-notification-popup) .game-detail-libraries-bar-wrapper,
 body:has(> .update-notification-popup) .igdb-game-detail-libraries-bar-wrapper {
