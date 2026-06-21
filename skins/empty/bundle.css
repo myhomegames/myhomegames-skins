@@ -110,3 +110,48 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
+/* --- ./components/companies/CompanyIgdbInfoBlock.css --- */
+
+.igdb-company-status-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.25em 0.7em;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  font-weight: 600;
+  border: 1px solid transparent;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  background-color: rgba(161, 161, 170, 0.18);
+  border-color: rgba(161, 161, 170, 0.45);
+  color: #d4d4d8;
+}
+
+.igdb-company-status-badge[data-status="active"] {
+  background-color: rgba(34, 197, 94, 0.18);
+  border-color: rgba(34, 197, 94, 0.5);
+  color: #4ade80;
+}
+
+.igdb-company-status-badge[data-status="defunct"] {
+  background-color: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #f87171;
+}
+
+.igdb-company-status-badge[data-status="merge"] {
+  background-color: rgba(234, 179, 8, 0.2);
+  border-color: rgba(234, 179, 8, 0.55);
+  color: #facc15;
+}
+
+.igdb-company-status-badge[data-status="renamed"] {
+  background-color: rgba(59, 130, 246, 0.18);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #60a5fa;
+}
