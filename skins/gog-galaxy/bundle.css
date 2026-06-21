@@ -10068,7 +10068,7 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .search-r
 }
 
 /*
- * Search results: flat #1a1a1a column — header band + “+” tile match library chrome (#1a1a1a).
+ * Search results: flat #1a1a1a column — header band + “+” tile match library chrome.
  */
 .app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page) .mhg-header,
 .app-main-container[data-mhg-persistent-library-shell="true"]:has(.search-results-page-empty) .mhg-header,
@@ -10317,16 +10317,213 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .mhg-header-libraries-menu-container
+ .dropdown-menu-button,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
+ .dropdown-menu-button,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-menu-container
  .dropdown-menu-button {
  opacity: 1;
- background: transparent;
- border-radius: 50%;
+ background: transparent !important;
+ background-color: transparent !important;
+ border-radius: 4px;
+ width: 36px;
+ height: 36px;
+ min-width: 36px;
+ padding: 0;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
 }
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .mhg-header-libraries-menu-container
- .dropdown-menu-button:hover {
- background: rgba(11, 18, 30, 0.55);
+ .dropdown-menu-button:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-header-libraries-menu-container
+ .dropdown-menu-button:active,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
+ .dropdown-menu-button:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
+ .dropdown-menu-button:active,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-menu-container
+ .dropdown-menu-button:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-menu-container
+ .dropdown-menu-button:active {
+ background: transparent !important;
+ background-color: transparent !important;
+}
+
+/*
+ * Left menu chrome: dark icon tiles only while the library menu column is present
+ * (wide viewport sidebar always mounted, or narrow drawer open).
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-header-libraries-menu-container
+ .dropdown-menu-button,
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-header-libraries-menu-container
+ .dropdown-menu-button:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-header-libraries-menu-container
+ .dropdown-menu-button:active,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-header-libraries-menu-container
+ .dropdown-menu-button,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-header-libraries-menu-container
+ .dropdown-menu-button:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-header-libraries-menu-container
+ .dropdown-menu-button:active,
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
+ .dropdown-menu-button,
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
+ .dropdown-menu-button:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
+ .dropdown-menu-button:active,
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-libraries-menu-container
+ .dropdown-menu-button,
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-libraries-menu-container
+ .dropdown-menu-button:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-libraries-menu-container
+ .dropdown-menu-button:active,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
+ .dropdown-menu-button,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
+ .dropdown-menu-button:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools
+ .dropdown-menu-button:active,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-menu-container
+ .dropdown-menu-button,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-menu-container
+ .dropdown-menu-button:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-menu-container
+ .dropdown-menu-button:active,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-header-container
+ .mhg-library-sidebar-toggle,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-header-container
+ .mhg-library-sidebar-toggle:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-header-container
+ .mhg-library-sidebar-toggle:active {
+ background: #1a1a1a !important;
+ background-color: #1a1a1a !important;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-header-container
+ .mhg-library-sidebar-toggle {
+ width: 36px;
+ height: 36px;
+ min-width: 36px;
+ padding: 0;
+ border-radius: 4px !important;
+ background: transparent !important;
+ background-color: transparent !important;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-header-container
+ .mhg-library-sidebar-toggle:hover,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-header-container
+ .mhg-library-sidebar-toggle:active {
+ background: transparent !important;
+ background-color: transparent !important;
+}
+
+/*
+ * Left sidebar list rows: opaque 36px tile behind each icon mask (menu present only).
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-library-button[data-mhg-library-key],
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-library-active[data-mhg-library-key],
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-collection-shortcut-button,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-sidebar-search-trigger {
+ position: relative;
+ background: transparent !important;
+ background-color: transparent !important;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-libraries-bar
+ .mhg-library-button[data-mhg-library-key]::after,
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-libraries-bar
+ .mhg-library-active[data-mhg-library-key]::after,
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-libraries-bar
+ .mhg-collection-shortcut-button::after,
+.app-main-container[data-mhg-persistent-library-shell="true"]:not([data-mhg-collapsible-library-sidebar="true"])
+ .mhg-libraries-bar
+ .mhg-sidebar-search-trigger::after,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-bar
+ .mhg-library-button[data-mhg-library-key]::after,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-bar
+ .mhg-library-active[data-mhg-library-key]::after,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-bar
+ .mhg-collection-shortcut-button::after,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-libraries-bar
+ .mhg-sidebar-search-trigger::after {
+ content: "";
+ position: absolute;
+ left: 12px;
+ top: 50%;
+ width: 36px;
+ height: 36px;
+ transform: translateY(-50%);
+ background-color: #1a1a1a;
+ border-radius: 4px;
+ box-sizing: border-box;
+ z-index: 0;
+ pointer-events: none;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"]:not([data-mhg-library-sidebar-open="true"])
+ .mhg-libraries-bar
+ .mhg-library-button[data-mhg-library-key]::after,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"]:not([data-mhg-library-sidebar-open="true"])
+ .mhg-libraries-bar
+ .mhg-library-active[data-mhg-library-key]::after,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"]:not([data-mhg-library-sidebar-open="true"])
+ .mhg-libraries-bar
+ .mhg-collection-shortcut-button::after,
+.app-main-container[data-mhg-persistent-library-shell="true"][data-mhg-collapsible-library-sidebar="true"]:not([data-mhg-library-sidebar-open="true"])
+ .mhg-libraries-bar
+ .mhg-sidebar-search-trigger::after {
+ content: none;
+ background: none;
 }
 
 /*Sidebar library rows: icons from data-mhg-library-key via ::before mask (no icons in web)*/
@@ -10378,7 +10575,10 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  .mhg-libraries-bar
  .mhg-sidebar-search-trigger::before {
  position: relative;
- z-index: 0;
+ z-index: 1;
+ width: 36px;
+ height: 36px;
+ min-width: 36px;
 }
 
 .mhg-libraries-bar .mhg-library-button[data-mhg-library-key]::before,
@@ -11024,8 +11224,8 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 }
 
 /*
- * Opaque tile behind each fixed chrome control (not the whole row) so scrolling
- * covers stay legible underneath without one large band.
+ * Opaque tile behind each fixed chrome control on the right (toolbar / header “+”).
+ * Left sidebar tiles are scoped to when the menu column is present.
  */
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .mhg-libraries-actions
