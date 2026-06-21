@@ -176,7 +176,8 @@ body {
 .mhg-header-container > .mhg-activity-spinner,
 .mhg-header-container > .tooltip-wrapper,
 .mhg-header-container > .update-notification-wrapper,
-.mhg-header-container > .profile-dropdown-wrapper {
+.mhg-header-container > .profile-dropdown-wrapper,
+.mhg-header-container > .mhg-header-libraries-menu-container {
  pointer-events: auto;
 }
 
@@ -184,7 +185,8 @@ body {
 .mhg-header-actions > .tooltip-wrapper,
 .mhg-header-actions > .mhg-activity-spinner,
 .mhg-header-actions > .profile-dropdown-wrapper,
-.mhg-header-actions > .update-notification-wrapper {
+.mhg-header-actions > .update-notification-wrapper,
+.mhg-header-actions > .mhg-header-libraries-menu-container {
  pointer-events: auto;
 }
 
@@ -197,8 +199,10 @@ body {
 
 .mhg-header-container > .profile-dropdown-wrapper,
 .mhg-header-container > .update-notification-wrapper,
+.mhg-header-container > .mhg-header-libraries-menu-container,
 .mhg-header-actions > .profile-dropdown-wrapper,
-.mhg-header-actions > .update-notification-wrapper {
+.mhg-header-actions > .update-notification-wrapper,
+.mhg-header-actions > .mhg-header-libraries-menu-container {
  position: relative;
  z-index: 10020;
 }
@@ -9890,6 +9894,9 @@ fieldset.edit-game-modal-field {
  --mhg-gog-top-chrome-extra: 0px;
  --mhg-gog-chrome-row2: 36px;
  --mhg-gog-chrome-filter-row: 36px;
+ /* Sidebar ⋮ chrome — same breakpoint jumps as .mhg-libraries-actions, no transition. */
+ --mhg-sidebar-menu-top: 14px;
+ --mhg-sidebar-menu-right: 12px;
  /* Initial scroll offset; virtualized grids read --mhg-grid-top-inset-games. */
  --mhg-scroll-top-inset: 64px;
  --mhg-grid-top-inset-games: var(--mhg-scroll-top-inset, 64px);
@@ -10211,7 +10218,7 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .mhg-libraries-bar
- .mhg-libraries-container {
+ .mhg-libraries-container:not(:has(.mhg-libraries-sidebar-header-tools)) {
  position: relative;
  z-index: 2;
 }
@@ -10275,6 +10282,51 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 
 .mhg-libraries-bar .mhg-library-button[data-mhg-library-key]:hover:not(.mhg-library-active) {
  color: rgba(255, 255, 255, 0.82);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-bar
+ .mhg-libraries-container:has(.mhg-libraries-sidebar-header-tools) {
+ position: static;
+}
+
+/*
+ * Sidebar ⋮: absolute on .mhg-libraries-bar-container (same column as list icons),
+ * position from --mhg-sidebar-menu-* — snaps with chrome at ≤1023px, no transition.
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-libraries-menu-container.mhg-libraries-sidebar-header-tools {
+ position: absolute;
+ top: var(--mhg-sidebar-menu-top, 14px);
+ right: var(--mhg-sidebar-menu-right, 12px);
+ left: auto;
+ height: 36px;
+ display: flex;
+ align-items: center;
+ padding: 0;
+ margin: 0;
+ pointer-events: auto !important;
+ z-index: 10150 !important;
+}
+
+.mhg-header-libraries-menu-container {
+ display: flex;
+ align-items: center;
+ flex-shrink: 0;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-header-libraries-menu-container
+ .dropdown-menu-button {
+ opacity: 1;
+ background: transparent;
+ border-radius: 50%;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .mhg-header-libraries-menu-container
+ .dropdown-menu-button:hover {
+ background: rgba(11, 18, 30, 0.55);
 }
 
 /*Sidebar library rows: icons from data-mhg-library-key via ::before mask (no icons in web)*/
@@ -10739,13 +10791,15 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 
 .mhg-libraries-menu-container {
  position: absolute;
- top: 20px;
+ top: 0;
  right: 12px;
  left: auto;
  bottom: auto;
  padding: 0;
- height: auto;
+ height: 64px;
  width: auto;
+ display: flex;
+ align-items: center;
  z-index: 10150 !important;
  pointer-events: auto !important;
  isolation: isolate;
@@ -11217,7 +11271,7 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
  .mhg-libraries-menu-container {
- transform: translateY(-2px);
+ transform: none;
 }
 
 .app-main-container[data-mhg-persistent-library-shell="true"]
@@ -12077,6 +12131,8 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
    var(--mhg-gog-chrome-row2) + var(--mhg-gog-chrome-filter-row)
   );
   --mhg-scroll-top-inset: calc(64px + var(--mhg-gog-top-chrome-extra, 0px));
+  --mhg-sidebar-menu-top: 22px;
+  --mhg-sidebar-menu-right: 72px;
  }
 
  .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header {
@@ -12106,6 +12162,13 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
  }
 
  .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header-container > .mhg-activity-spinner {
+  order: 14;
+ }
+
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-header-actions > .mhg-header-libraries-menu-container,
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-header-container > .mhg-header-libraries-menu-container {
   order: 13;
  }
 
@@ -12120,7 +12183,21 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
 
  .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header-container > .update-notification-wrapper,
  .app-main-container[data-mhg-persistent-library-shell="true"] .mhg-header-actions > .update-notification-wrapper {
-  order: 14;
+  order: 15;
+ }
+
+ /* Update bell panel: center in viewport — left-aligned popup overflows on narrow header rows. */
+ .app-main-container[data-mhg-persistent-library-shell="true"] .update-notification-popup {
+  position: fixed;
+  top: calc(64px + 8px);
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  margin-top: 0;
+  width: min(360px, calc(100vw - 24px));
+  max-width: min(360px, calc(100vw - 24px));
+  box-sizing: border-box;
+  z-index: 10210;
  }
 
  /* Right cluster: search then + */
@@ -12303,7 +12380,7 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
  */
 .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
  .mhg-libraries-bar
- .mhg-libraries-container {
+ .mhg-libraries-container:not(:has(.mhg-libraries-sidebar-header-tools)) {
  position: relative;
  z-index: 2;
 }
@@ -12329,7 +12406,13 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
 
 .app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
  .mhg-header-container
- > .mhg-library-sidebar-toggle {
+ > .mhg-library-sidebar-toggle,
+.app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-header-actions
+ > .mhg-header-libraries-menu-container,
+.app-main-container[data-mhg-collapsible-library-sidebar="true"][data-mhg-library-sidebar-open="true"]
+ .mhg-header-container
+ > .mhg-header-libraries-menu-container {
  position: relative;
  z-index: 10200;
 }
