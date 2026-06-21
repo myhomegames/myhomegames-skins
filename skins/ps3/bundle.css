@@ -8200,14 +8200,32 @@ fieldset.edit-game-modal-field {
  max-height: 100dvh !important;
  border-radius: 0 !important;
  border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
- box-shadow:
-  -12px 0 40px rgba(0, 0, 0, 0.55),
-  -100vmax 0 0 100vmax rgba(0, 0, 0, 0.55) !important;
+ box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55) !important;
  z-index: 10100 !important;
  overflow: hidden !important;
  display: flex !important;
  flex-direction: column !important;
+ isolation: isolate !important;
  animation: mhg-ps3-sheet-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Clickable dim band (box-shadow is not hit-testable). Clicks bubble to the sheet root. */
+.filter-popup::before,
+.sort-popup::before,
+.dropdown-menu-popup::before,
+.games-list-toolbar-popup::before,
+.view-mode-dropdown::before,
+.view-mode-dropdown.view-mode-dropdown--portaled::before,
+.games-table-column-menu-popup::before,
+.profile-dropdown-popup::before,
+.franchise-series-dropdown::before,
+body > .add-to-collection-dropdown-menu::before,
+body > .additional-executables-dropdown-menu::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background: rgba(0, 0, 0, 0.55);
+ z-index: -1;
 }
 
 .filter-popup-scrollable,
