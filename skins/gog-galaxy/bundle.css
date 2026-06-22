@@ -11125,6 +11125,80 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 }
 
 /*
+ * Catalog virtualized grids (games / publishers / developers): the react-window
+ * scroller is narrower than the main column, so its scrollbar sits beside the
+ * cover grid. Tags and non-virtualized lists scroll on `.home-page-scroll-container`
+ * with the bar flush to the column’s right edge — stretch the virtualized host
+ * to full width and keep a single scrollbar there.
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ ):not(.tag-games-page-shell)
+ .home-page-scroll-container:not(.table-view):has(
+  .games-list-container--virtualized,
+  .collections-list-container--virtualized
+ ) {
+ overflow-y: hidden !important;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ ):not(.tag-games-page-shell)
+ .home-page-scroll-container:not(.table-view)
+ .games-list-container--virtualized,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ ):not(.tag-games-page-shell)
+ .home-page-scroll-container:not(.table-view)
+ .collections-list-container--virtualized {
+ width: 100% !important;
+ max-width: none !important;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ ):not(.tag-games-page-shell)
+ .home-page-scroll-container:not(.table-view)
+ .games-list-container--virtualized
+ .virtualized-list-fade,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ ):not(.tag-games-page-shell)
+ .home-page-scroll-container:not(.table-view)
+ .collections-list-container--virtualized
+ .virtualized-list-fade {
+ width: 100% !important;
+ max-width: none !important;
+ margin-left: 0 !important;
+ margin-right: 0 !important;
+ padding-right: 0 !important;
+ box-sizing: border-box;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ ):not(.tag-games-page-shell)
+ .home-page-scroll-container:not(.table-view)
+ .virtualized-games-grid,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container:not(.library-item-detail-main-inner):not(.game-detail-main-container):not(
+ .igdb-game-detail-main-container
+ ):not(.tag-games-page-shell)
+ .home-page-scroll-container:not(.table-view)
+ .virtualized-collections-grid {
+ width: 100% !important;
+ max-width: none !important;
+ margin-left: 0 !important;
+ margin-right: 0 !important;
+}
+
+/*
  * Collection-like detail (single collection / developer / publisher): same scroll
  * model as library/catalog lists (Collections / Developers / Publishers pages) —
  * no shell padding-top; row-0 grid inset only so content can scroll under chrome.
