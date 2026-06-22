@@ -11125,6 +11125,97 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 }
 
 /*
+ * Collection-like detail (single collection / developer / publisher): same scroll
+ * model as library/catalog lists (Collections / Developers / Publishers pages) —
+ * no shell padding-top; row-0 grid inset only so content can scroll under chrome.
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.library-item-detail-main-inner
+ .home-page-content {
+ padding-top: 0 !important;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.library-item-detail-main-inner
+ .library-item-detail-scroll,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.library-item-detail-main-inner
+ .library-item-detail-context-games {
+ padding-top: 0 !important;
+ padding-bottom: 0 !important;
+ --mhg-grid-top-inset-games: var(--mhg-scroll-top-inset, 64px);
+ --mhg-grid-top-inset-collections: var(--mhg-scroll-top-inset, 64px);
+ --mhg-grid-top-inset: var(--mhg-scroll-top-inset, 64px);
+ --mhg-grid-top-inset-tag: var(--mhg-scroll-top-inset, 64px);
+ --mhg-grid-bottom-inset: 0px;
+ --mhg-grid-bottom-inset-games: 0px;
+ --mhg-grid-bottom-inset-collections: 0px;
+ --mhg-grid-bottom-inset-tag: 0px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.library-item-detail-main-inner
+ .library-item-detail-content-wrapper.library-item-detail-content-wrapper--ready
+ .library-item-detail-scroll,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.library-item-detail-main-inner
+ .library-item-detail-content-wrapper.library-item-detail-content-wrapper--ready
+ .library-item-detail-context-games {
+ --mhg-grid-top-inset-games: calc(var(--mhg-scroll-top-inset, 64px) + 32px);
+ --mhg-grid-top-inset-collections: calc(var(--mhg-scroll-top-inset, 64px) + 32px);
+ --mhg-grid-top-inset: calc(var(--mhg-scroll-top-inset, 64px) + 32px);
+ --mhg-grid-top-inset-tag: calc(var(--mhg-scroll-top-inset, 64px) + 32px);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.library-item-detail-main-inner
+ .library-item-detail-scroll
+ .library-item-detail-games-list
+ > .games-list-container:not(.games-list-container--virtualized):not(
+  .games-list-container--fixed-focal
+ ),
+.app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.library-item-detail-main-inner
+ .library-item-detail-context-games
+ .library-item-detail-games-list
+ > .games-list-container:not(.games-list-container--virtualized):not(
+  .games-list-container--fixed-focal
+ ) {
+ padding-top: calc(var(--mhg-scroll-top-inset, 64px) + 5px);
+ box-sizing: border-box;
+}
+
+/* Vertical cover: fixed-focal games rail — mirror catalog collection-like lists. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.library-item-detail-main-inner
+ .library-item-detail-scroll:not(.table-view):has(.games-list-container--fixed-focal),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.library-item-detail-main-inner
+ .library-item-detail-context-games:has(.fixed-focal-games-list) {
+ margin-top: 0 !important;
+ padding-top: 0 !important;
+ height: 100vh !important;
+ overflow-x: hidden !important;
+ overflow-y: visible !important;
+ overscroll-behavior: none;
+ -webkit-overflow-scrolling: touch;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.library-item-detail-main-inner
+ .library-item-detail-scroll:not(.table-view):has(.games-list-container--fixed-focal),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .app-main-container[data-mhg-persistent-library-shell="true"]
+ .home-page-main-container.library-item-detail-main-inner
+ .library-item-detail-context-games:has(.fixed-focal-games-list) {
+ --mhg-grid-top-inset: var(--mhg-grid-top-inset-games);
+ --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-games);
+}
+
+/*
  * Tag games detail (`tag-games-page-shell`): dedicated grid inset track.
  * Uses `--mhg-scroll-top-inset` (64px wide, stacked chrome when ≤1023px).
  */
