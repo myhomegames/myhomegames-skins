@@ -762,6 +762,118 @@ body:has(.add-to-collection-modal-overlay) {
   width: 100%;
 }
 
+/*
+ * Collection-like detail: align padding/insets with catalog lists; scroll stays on
+ * `.library-item-detail-scroll` (no inner virtualized grid on classic detail layout).
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+) {
+  --mhg-scroll-top-inset: calc(64px + var(--mhg-top-tool-dock-band-height, 52px));
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .home-page-content {
+  padding-top: 0 !important;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-scroll,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-context-games {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  --mhg-grid-top-inset-games: var(--mhg-scroll-top-inset, 64px);
+  --mhg-grid-top-inset-collections: var(--mhg-scroll-top-inset, 64px);
+  --mhg-grid-top-inset: var(--mhg-scroll-top-inset, 64px);
+  --mhg-grid-top-inset-tag: var(--mhg-scroll-top-inset, 64px);
+  --mhg-grid-bottom-inset: 0px;
+  --mhg-grid-bottom-inset-games: 0px;
+  --mhg-grid-bottom-inset-collections: 0px;
+  --mhg-grid-bottom-inset-tag: 0px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-content-wrapper.library-item-detail-content-wrapper--ready {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-content-wrapper.library-item-detail-content-wrapper--ready
+  .library-item-detail-scroll,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-content-wrapper.library-item-detail-content-wrapper--ready
+  .library-item-detail-context-games {
+  --mhg-grid-top-inset-games: calc(var(--mhg-scroll-top-inset, 64px) + 32px);
+  --mhg-grid-top-inset-collections: calc(var(--mhg-scroll-top-inset, 64px) + 32px);
+  --mhg-grid-top-inset: calc(var(--mhg-scroll-top-inset, 64px) + 32px);
+  --mhg-grid-top-inset-tag: calc(var(--mhg-scroll-top-inset, 64px) + 32px);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-scroll
+  .library-item-detail-games-list
+  > .games-list-container:not(.games-list-container--virtualized):not(
+    .games-list-container--fixed-focal
+  ),
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-context-games
+  .library-item-detail-games-list
+  > .games-list-container:not(.games-list-container--virtualized):not(
+    .games-list-container--fixed-focal
+  ) {
+  padding-top: calc(var(--mhg-scroll-top-inset, 64px) + 5px);
+  box-sizing: border-box;
+}
+
+/* Vertical cover: fixed-focal games rail on detail (context-rail column 2). */
+:root[data-mhg-vertical-cover-alignment="true"]
+  .app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-scroll:not(.table-view):not(.library-item-detail-scroll--context-rail):has(
+    .games-list-container--fixed-focal
+  ),
+:root[data-mhg-vertical-cover-alignment="true"]
+  .app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-context-games:has(.fixed-focal-games-list) {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+  .app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-scroll:not(.table-view):not(.library-item-detail-scroll--context-rail):has(
+    .games-list-container--fixed-focal
+  ),
+:root[data-mhg-vertical-cover-alignment="true"]
+  .app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-context-games:has(.fixed-focal-games-list) {
+  --mhg-grid-top-inset: var(--mhg-grid-top-inset-games);
+  --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-games);
+}
+
 .app-main-container[data-mhg-persistent-library-shell="true"] .background-manager-overlay {
   left: var(--plex-shell-sidebar-width);
   right: 0;
