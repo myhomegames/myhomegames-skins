@@ -3472,7 +3472,8 @@ fieldset.edit-game-modal-field {
 }
 
 .edit-game-modal-field input,
-.edit-game-modal-field textarea {
+.edit-game-modal-field textarea,
+.edit-game-modal-field select {
  width: 100%;
  background-color: rgba(255, 255, 255, 0.05);
  border: 1px solid rgba(255, 255, 255, 0.1);
@@ -3485,14 +3486,16 @@ fieldset.edit-game-modal-field {
 }
 
 .edit-game-modal-field input:focus,
-.edit-game-modal-field textarea:focus {
+.edit-game-modal-field textarea:focus,
+.edit-game-modal-field select:focus {
  outline: none;
  border-color: rgba(255, 255, 255, 0.3);
  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .edit-game-modal-field input:disabled,
-.edit-game-modal-field textarea:disabled {
+.edit-game-modal-field textarea:disabled,
+.edit-game-modal-field select:disabled {
  opacity: 0.5;
  cursor: not-allowed;
 }
