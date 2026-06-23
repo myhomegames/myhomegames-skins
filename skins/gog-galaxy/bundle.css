@@ -816,6 +816,36 @@ body:has(.add-to-collection-modal-overlay) .mhg-header {
  min-height: 300px;
 }
 
+.edit-collection-modal-igdb-fields {
+ margin-top: 8px;
+ padding-top: 20px;
+ border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-collection-modal-subsection-title {
+ margin: 0 0 16px;
+ color: rgba(255, 255, 255, 0.9);
+ font-size: 1rem;
+ font-weight: 600;
+}
+
+.edit-collection-modal-field-row {
+ display: grid;
+ grid-template-columns: minmax(110px, 140px) minmax(0, 1fr);
+ gap: 12px;
+}
+
+.edit-collection-modal-field select {
+ width: 100%;
+ background-color: rgba(255, 255, 255, 0.05);
+ border: 1px solid rgba(255, 255, 255, 0.1);
+ border-radius: 4px;
+ padding: 10px 12px;
+ color: #ffffff;
+ font-size: 1rem;
+ font-family: inherit;
+}
+
 .edit-collection-modal-footer {
  display: flex;
  justify-content: flex-end;
@@ -8051,6 +8081,36 @@ fieldset.edit-game-modal-field {
 .edit-collection-modal-field textarea {
  resize: vertical;
  min-height: 300px;
+}
+
+.edit-collection-modal-igdb-fields {
+ margin-top: 8px;
+ padding-top: 20px;
+ border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-collection-modal-subsection-title {
+ margin: 0 0 16px;
+ color: rgba(255, 255, 255, 0.9);
+ font-size: 1rem;
+ font-weight: 600;
+}
+
+.edit-collection-modal-field-row {
+ display: grid;
+ grid-template-columns: minmax(110px, 140px) minmax(0, 1fr);
+ gap: 12px;
+}
+
+.edit-collection-modal-field select {
+ width: 100%;
+ background-color: rgba(255, 255, 255, 0.05);
+ border: 1px solid rgba(255, 255, 255, 0.1);
+ border-radius: 4px;
+ padding: 10px 12px;
+ color: #ffffff;
+ font-size: 1rem;
+ font-family: inherit;
 }
 
 .edit-collection-modal-footer {
