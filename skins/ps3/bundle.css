@@ -373,16 +373,16 @@ html[data-mhg-background-visible="true"] .recommended-section-detail-scroll--con
 html[data-mhg-background-visible="true"] .game-detail-container,
 html[data-mhg-background-visible="true"] .game-detail-main-container,
 html[data-mhg-background-visible="true"] .game-detail-scroll-container,
-html[data-mhg-background-visible="true"] .igdb-game-detail-container,
-html[data-mhg-background-visible="true"] .igdb-game-detail-main-container,
-html[data-mhg-background-visible="true"] .igdb-game-detail-scroll-container {
+html[data-mhg-background-visible="true"] .catalog-game-detail-container,
+html[data-mhg-background-visible="true"] .catalog-game-detail-main-container,
+html[data-mhg-background-visible="true"] .catalog-game-detail-scroll-container {
  background: transparent !important;
  background-color: transparent !important;
 }
 
 /* Anchor overlay dock + full-bleed detail scroll on `/game/:id` and IGDB detail. */
 .app-main-container:has(.game-detail-container),
-.app-main-container:has(.igdb-game-detail-container) {
+.app-main-container:has(.catalog-game-detail-container) {
  position: relative;
  min-height: 100vh;
 }
@@ -4862,7 +4862,7 @@ body:has(.search-results-shell) .app-main-container {
   min-height: 300px;
 }
 
-.edit-collection-modal-igdb-fields {
+.edit-game-modal-company-fields {
   margin-top: 8px;
   padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -6327,7 +6327,7 @@ fieldset.edit-game-modal-field {
 
 /* Same dock pull as library rails: scroll box starts at page top, content passes under the dock. */
 :root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .game-detail-scroll-container,
-:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .igdb-game-detail-scroll-container {
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .catalog-game-detail-scroll-container {
  margin-top: calc(
   35px - var(--mhg-top-tool-dock-stack, 136px) - var(--mhg-library-bar-margin-top, 0px)
  ) !important;
@@ -6639,7 +6639,7 @@ fieldset.edit-game-modal-field {
   margin-top: 12px;
 }
 
-.game-detail-similar-igdb-chip {
+.game-detail-similar-catalog-chip {
   display: inline-flex;
   align-items: center;
   gap: 0;
@@ -6655,16 +6655,16 @@ fieldset.edit-game-modal-field {
   overflow: hidden;
 }
 
-.game-detail-similar-igdb-chip:hover {
+.game-detail-similar-catalog-chip:hover {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.35);
 }
 
-.game-detail-similar-igdb-chip-name {
+.game-detail-similar-catalog-chip-name {
   padding: 6px 10px;
 }
 
-.game-detail-similar-igdb-chip-badge {
+.game-detail-similar-catalog-chip-badge {
   display: inline-block;
   padding: 4px 8px;
   background: rgba(34, 197, 94, 0.2);
@@ -6803,9 +6803,9 @@ fieldset.edit-game-modal-field {
   text-decoration-color: #4ade80;
 }
 
-/* --- ./components/companies/CompanyIgdbInfoBlock.css --- */
+/* --- ./components/companies/CompanyProfileBlock.css --- */
 
-.igdb-company-status-badge {
+.company-status-badge {
   display: inline-flex;
   align-items: center;
   width: fit-content;
@@ -6825,25 +6825,25 @@ fieldset.edit-game-modal-field {
   color: #d4d4d8;
 }
 
-.igdb-company-status-badge[data-status="active"] {
+.company-status-badge[data-status="active"] {
   background-color: rgba(34, 197, 94, 0.18);
   border-color: rgba(34, 197, 94, 0.5);
   color: #4ade80;
 }
 
-.igdb-company-status-badge[data-status="defunct"] {
+.company-status-badge[data-status="defunct"] {
   background-color: rgba(239, 68, 68, 0.18);
   border-color: rgba(239, 68, 68, 0.5);
   color: #f87171;
 }
 
-.igdb-company-status-badge[data-status="merge"] {
+.company-status-badge[data-status="merge"] {
   background-color: rgba(234, 179, 8, 0.2);
   border-color: rgba(234, 179, 8, 0.55);
   color: #facc15;
 }
 
-.igdb-company-status-badge[data-status="renamed"] {
+.company-status-badge[data-status="renamed"] {
   background-color: rgba(59, 130, 246, 0.18);
   border-color: rgba(59, 130, 246, 0.5);
   color: #60a5fa;
@@ -6860,7 +6860,7 @@ fieldset.edit-game-modal-field {
   margin: 0;
 }
 
-.library-item-detail-title-heading .igdb-company-status-badge {
+.library-item-detail-title-heading .company-status-badge {
   margin-top: 6px;
 }
 
@@ -7332,7 +7332,7 @@ fieldset.edit-game-modal-field {
 }
 
 
-/* --- ./pages/IGDBGameDetailPage.css --- */
+/* --- ./pages/CatalogGameDetailPage.css --- */
 
 
 /* Styles for IGDB Game Detail Page */
@@ -7346,12 +7346,12 @@ fieldset.edit-game-modal-field {
   box-shadow: 0 4px 12px rgba(255, 179, 0, 0.3);
 }
 
-.igdb-game-detail-not-found {
+.catalog-game-detail-not-found {
   width: 100%;
   height: 100%;
 }
 
-.igdb-game-detail-libraries-bar-wrapper {
+.catalog-game-detail-libraries-bar-wrapper {
  position: absolute;
  top: 0;
  left: 0;
@@ -7360,12 +7360,12 @@ fieldset.edit-game-modal-field {
  pointer-events: none;
 }
 
-.igdb-game-detail-libraries-bar-wrapper .mhg-libraries-bar,
-.igdb-game-detail-libraries-bar-wrapper .mhg-libraries-bar * {
+.catalog-game-detail-libraries-bar-wrapper .mhg-libraries-bar,
+.catalog-game-detail-libraries-bar-wrapper .mhg-libraries-bar * {
  pointer-events: auto;
 }
 
-.igdb-game-detail-container {
+.catalog-game-detail-container {
  position: relative;
  z-index: 1;
  min-height: 100vh;
@@ -7376,7 +7376,7 @@ fieldset.edit-game-modal-field {
  padding-top: 0;
 }
 
-.igdb-game-detail-main-container {
+.catalog-game-detail-main-container {
   background-color: transparent;
   position: relative;
   flex: 1;
@@ -7386,7 +7386,7 @@ fieldset.edit-game-modal-field {
   min-height: 0;
 }
 
-.igdb-game-detail-content {
+.catalog-game-detail-content {
   position: relative;
   z-index: 1;
   flex: 1 1 auto;
@@ -7397,7 +7397,7 @@ fieldset.edit-game-modal-field {
   padding-top: 0 !important;
 }
 
-.igdb-game-detail-layout {
+.catalog-game-detail-layout {
   flex: 1 1 auto;
   min-height: 0;
   display: flex;
@@ -7405,7 +7405,7 @@ fieldset.edit-game-modal-field {
   overflow: hidden;
 }
 
-.igdb-game-detail-content-wrapper {
+.catalog-game-detail-content-wrapper {
   flex: 1 1 auto;
   min-height: 0;
   display: flex;
@@ -7413,7 +7413,7 @@ fieldset.edit-game-modal-field {
   overflow: hidden;
 }
 
-.igdb-game-detail-scroll-container {
+.catalog-game-detail-scroll-container {
   flex: 1 1 auto;
   min-height: 0;
   height: 100vh;
@@ -7427,11 +7427,11 @@ fieldset.edit-game-modal-field {
   padding-bottom: 32px;
 }
 
-.igdb-game-detail-scroll-container > .igdb-game-detail-header {
+.catalog-game-detail-scroll-container > .catalog-game-detail-header {
   padding-top: 0;
 }
 
-.igdb-game-detail-header {
+.catalog-game-detail-header {
   display: flex;
   flex-direction: row;
   gap: 48px;
@@ -7441,11 +7441,11 @@ fieldset.edit-game-modal-field {
   margin-bottom: 48px;
 }
 
-.igdb-game-detail-cover-wrapper {
+.catalog-game-detail-cover-wrapper {
   flex-shrink: 0;
 }
 
-.igdb-game-detail-info-panel {
+.catalog-game-detail-info-panel {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -7456,14 +7456,14 @@ fieldset.edit-game-modal-field {
   visibility: visible;
 }
 
-.igdb-game-detail-info-content {
+.catalog-game-detail-info-content {
   display: flex;
   flex-direction: column;
   gap: 8px;
   visibility: visible;
 }
 
-.igdb-game-detail-title {
+.catalog-game-detail-title {
   visibility: visible;
   display: block;
   font-family: var(--font-heading-1-font-family);
@@ -7471,7 +7471,7 @@ fieldset.edit-game-modal-field {
   line-height: var(--font-heading-1-line-height);
 }
 
-.igdb-game-detail-release-date {
+.catalog-game-detail-release-date {
   opacity: 0.8;
   font-family: var(--font-body-2-font-family);
   font-size: var(--font-body-2-font-size);
@@ -7482,7 +7482,7 @@ fieldset.edit-game-modal-field {
   flex-wrap: wrap;
 }
 
-.igdb-game-detail-type-label {
+.catalog-game-detail-type-label {
   flex-shrink: 0;
   font-family: var(--font-body-2-font-family);
   font-size: var(--font-body-2-font-size);
@@ -7495,18 +7495,18 @@ fieldset.edit-game-modal-field {
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.igdb-game-detail-age-ratings-inline {
+.catalog-game-detail-age-ratings-inline {
   display: inline-flex;
   align-items: center;
   gap: 4px;
 }
 
-.igdb-game-detail-age-ratings-inline .age-ratings-list {
+.catalog-game-detail-age-ratings-inline .age-ratings-list {
   display: inline-flex;
   gap: 0;
 }
 
-.igdb-game-detail-ratings {
+.catalog-game-detail-ratings {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -7514,7 +7514,7 @@ fieldset.edit-game-modal-field {
   margin-top: 8px;
 }
 
-.igdb-game-detail-rating-item {
+.catalog-game-detail-rating-item {
   opacity: 0.8;
   font-family: var(--font-body-2-font-family);
   font-size: var(--font-body-2-font-size);
@@ -7524,11 +7524,11 @@ fieldset.edit-game-modal-field {
   gap: 8px;
 }
 
-.igdb-game-detail-rating-icon {
+.catalog-game-detail-rating-icon {
   flex-shrink: 0;
 }
 
-.igdb-game-detail-mark-owned-button {
+.catalog-game-detail-mark-owned-button {
   pointer-events: auto;
   position: relative;
   z-index: 1000;
@@ -7553,49 +7553,49 @@ fieldset.edit-game-modal-field {
   opacity: 1;
 }
 
-.igdb-game-detail-mark-owned-button:disabled {
+.catalog-game-detail-mark-owned-button:disabled {
   background-color: #666;
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.6;
 }
 
-.igdb-game-detail-mark-owned-button:hover:not(:disabled) {
+.catalog-game-detail-mark-owned-button:hover:not(:disabled) {
   background-color: #4ade80;
 }
 
-.igdb-game-detail-mark-owned-button-icon {
+.catalog-game-detail-mark-owned-button-icon {
   display: block;
 }
 
-.igdb-game-detail-media-section {
+.catalog-game-detail-media-section {
   width: 100%;
   margin-top: 48px;
   margin-bottom: 48px;
 }
 
-.igdb-game-detail-info-section {
+.catalog-game-detail-info-section {
   width: 100%;
   margin-top: 48px;
 }
 
-.igdb-game-detail-similar-section {
+.catalog-game-detail-similar-section {
   width: 100%;
   margin-top: 48px;
 }
 
-.igdb-game-detail-similar-section .scrollable-section {
+.catalog-game-detail-similar-section .scrollable-section {
   margin-bottom: 0;
 }
 
-.igdb-game-detail-similar-section .scrollable-section-header,
-.igdb-game-detail-similar-section .scrollable-section-nav {
+.catalog-game-detail-similar-section .scrollable-section-header,
+.catalog-game-detail-similar-section .scrollable-section-nav {
   padding-left: 0;
   padding-right: 0;
   margin-bottom: 12px;
 }
 
-.igdb-game-detail-similar-section .scrollable-section-title {
+.catalog-game-detail-similar-section .scrollable-section-title {
   font-family: var(--font-body-2-font-family);
   font-size: var(--font-body-2-font-size);
   line-height: var(--font-body-2-line-height);
@@ -7604,11 +7604,11 @@ fieldset.edit-game-modal-field {
   margin: 0;
 }
 
-.igdb-game-detail-similar-section .scrollable-section-scroll {
+.catalog-game-detail-similar-section .scrollable-section-scroll {
   padding-right: 0;
 }
 
-.igdb-game-detail-similar-section .scrollable-section-scroll:not(.restoring) {
+.catalog-game-detail-similar-section .scrollable-section-scroll:not(.restoring) {
   margin-left: 0;
   margin-right: 0;
 }
@@ -12347,10 +12347,10 @@ html.mhg-context-rail-activation-lock-global #root * {
 }
 
 /* Solo il titolo in verde per i giochi nuovi (stesso colore del badge sulle cover) */
-.games-table tbody tr.igdb-only-row > td.title-cell {
+.games-table tbody tr.catalog-only-row > td.title-cell {
   color: #4ade80;
 }
-.games-table tbody tr.igdb-only-row:hover > td.title-cell {
+.games-table tbody tr.catalog-only-row:hover > td.title-cell {
   color: #4ade80;
 }
 
@@ -12620,10 +12620,10 @@ html.mhg-context-rail-activation-lock-global #root * {
 }
 
 /* Solo il titolo in verde per i giochi nuovi in tabella virtualizzata */
-.virtualized-games-table-list .virtualized-table-row-wrapper > div[role="row"].igdb-only-row > div.title-cell {
+.virtualized-games-table-list .virtualized-table-row-wrapper > div[role="row"].catalog-only-row > div.title-cell {
   color: #4ade80;
 }
-.virtualized-games-table-list .virtualized-table-row-wrapper:hover > div[role="row"].igdb-only-row > div.title-cell {
+.virtualized-games-table-list .virtualized-table-row-wrapper:hover > div[role="row"].catalog-only-row > div.title-cell {
   color: #4ade80;
 }
 
@@ -13175,7 +13175,7 @@ body > .update-notification-popup > .update-notification-downloads:last-child:nt
 
 body:has(> .update-notification-popup) .mhg-libraries-bar,
 body:has(> .update-notification-popup) .game-detail-libraries-bar-wrapper,
-body:has(> .update-notification-popup) .igdb-game-detail-libraries-bar-wrapper {
+body:has(> .update-notification-popup) .catalog-game-detail-libraries-bar-wrapper {
  visibility: hidden !important;
  pointer-events: none !important;
 }
@@ -13196,7 +13196,7 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
 /* Wide: unchanged. Narrow (scroll area ≤720px): stack cover / meta / summary. */
 
 .game-detail-scroll-container,
-.igdb-game-detail-scroll-container,
+.catalog-game-detail-scroll-container,
 .library-item-detail-scroll {
  container-type: inline-size;
  container-name: mhg-detail-scroll;
@@ -13211,7 +13211,7 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
 }
 
 .game-detail-title,
-.igdb-game-detail-title,
+.catalog-game-detail-title,
 .library-item-detail-title {
  overflow-wrap: anywhere;
 }
@@ -13282,7 +13282,7 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
 
 @container mhg-detail-scroll (max-width: 720px) {
  .game-detail-scroll-container,
- .igdb-game-detail-scroll-container,
+ .catalog-game-detail-scroll-container,
  .library-item-detail-scroll {
   overflow-x: hidden !important;
   padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
@@ -13290,7 +13290,7 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
  }
 
  .game-detail-header,
- .igdb-game-detail-header,
+ .catalog-game-detail-header,
  .library-item-detail-hero {
   display: grid !important;
   grid-template-columns: minmax(0, 1fr);
@@ -13300,7 +13300,7 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
  }
 
  .game-detail-cover-wrapper,
- .igdb-game-detail-cover-wrapper,
+ .catalog-game-detail-cover-wrapper,
  .library-item-detail-hero-cover {
   grid-row: 1;
   justify-self: center;
@@ -13308,15 +13308,15 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
  }
 
  .game-detail-cover-wrapper .games-list-cover,
- .igdb-game-detail-cover-wrapper .games-list-cover,
+ .catalog-game-detail-cover-wrapper .games-list-cover,
  .library-item-detail-hero-cover .games-list-cover {
   width: min(256px, 100%) !important;
  }
 
  .game-detail-info-panel,
- .igdb-game-detail-info-panel,
+ .catalog-game-detail-info-panel,
  .game-detail-info-content,
- .igdb-game-detail-info-content,
+ .catalog-game-detail-info-content,
  .library-item-detail-meta {
   display: contents;
  }
@@ -13352,14 +13352,14 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
 
 @container mhg-detail-scroll (max-width: 560px) {
  .game-detail-cover-wrapper,
- .igdb-game-detail-cover-wrapper,
+ .catalog-game-detail-cover-wrapper,
  .library-item-detail-hero-cover {
   justify-self: stretch;
   width: 100%;
  }
 
  .game-detail-cover-wrapper .games-list-cover,
- .igdb-game-detail-cover-wrapper .games-list-cover,
+ .catalog-game-detail-cover-wrapper .games-list-cover,
  .library-item-detail-hero-cover .games-list-cover {
   width: 100% !important;
  }
