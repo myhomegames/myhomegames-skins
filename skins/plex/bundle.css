@@ -43,6 +43,10 @@
 
   /* Left column when settings enable persistent library shell */
   --plex-shell-sidebar-width: 280px;
+
+  /* Switch libraries bar to combobox slightly before inline tabs would overflow. */
+  --mhg-libraries-combobox-item-width: 122;
+  --mhg-libraries-combobox-anticipation: 36;
 }
 
 .cover-hover-effect {
@@ -3521,6 +3525,23 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
 
 .games-list-title-clickable:hover {
   text-decoration: underline;
+}
+
+.games-list-item--detail-current,
+.games-list-cover--detail-current {
+  cursor: default;
+}
+
+.games-list-item--detail-current .games-list-cover--detail-current:hover,
+.games-list-item--detail-current .games-list-cover--detail-current::before,
+.games-list-cover--detail-current:hover,
+.games-list-cover--detail-current::before {
+  transform: none;
+  opacity: 0;
+}
+
+.games-list-item--detail-current .games-list-title {
+  cursor: default;
 }
 
 .games-list-year {
