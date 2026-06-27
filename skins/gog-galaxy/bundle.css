@@ -3300,6 +3300,12 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
  cursor: default;
 }
 
+.games-list-cover--detail-current .games-list-edit-button,
+.games-list-cover--detail-current .games-list-dropdown-wrapper,
+.games-list-cover--detail-current .games-list-play-button {
+ display: none !important;
+}
+
 .games-list-year {
  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
  font-size: 0.75rem;
