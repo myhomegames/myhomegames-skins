@@ -49,6 +49,13 @@
   --mhg-libraries-combobox-anticipation: 36;
 }
 
+/* Wide Plex layout: keep inline library tabs (no combobox flash while widths settle). */
+@media (min-width: 1024px) {
+  :root {
+    --mhg-libraries-force-list: 1;
+  }
+}
+
 .cover-hover-effect {
   position: relative;
   cursor: pointer;
