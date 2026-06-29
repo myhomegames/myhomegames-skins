@@ -8296,8 +8296,12 @@ body[data-mhg-sidebar-search-open] > .manage-installation-modal-overlay {
 
 /*
  * Sidebar search: block interaction with the popup while a portaled sheet/menu is above it.
- * (Web also enforces this via SidebarSearchInteractionContext; these rules are a skin fallback.)
+ * Web sets data-mhg-sidebar-search-stack-active; these rules are a skin fallback.
  */
+body[data-mhg-sidebar-search-stack-active] .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-stack-active] [data-mhg-sidebar-search-dialog],
+body[data-mhg-sidebar-search-modal-action] .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-modal-action] [data-mhg-sidebar-search-dialog],
 body:has([data-mhg-sidebar-search-dialog]):has(> .dropdown-menu-popup) .mhg-sidebar-search-overlay,
 body:has([data-mhg-sidebar-search-dialog]):has(> .dropdown-menu-popup) [data-mhg-sidebar-search-dialog],
 body:has([data-mhg-sidebar-search-dialog]):has(> [data-mhg-sidebar-search-menu-stack]) .mhg-sidebar-search-overlay,
