@@ -8263,6 +8263,37 @@ fieldset.edit-game-modal-field {
  flex-shrink: 0 !important;
 }
 
+/*
+ * Sidebar search overlay uses z-index 22100 (web). Portaled ⋮ sheets must stack above it.
+ */
+body:has([data-mhg-sidebar-search-dialog]) > .dropdown-menu-popup,
+body[data-mhg-sidebar-search-open] > .dropdown-menu-popup {
+ z-index: 22200 !important;
+}
+
+body:has([data-mhg-sidebar-search-dialog]) > .add-to-collection-dropdown-menu,
+body:has([data-mhg-sidebar-search-dialog]) > .additional-executables-dropdown-menu,
+body[data-mhg-sidebar-search-open] > .add-to-collection-dropdown-menu,
+body[data-mhg-sidebar-search-open] > .additional-executables-dropdown-menu {
+ z-index: 22201 !important;
+}
+
+body:has([data-mhg-sidebar-search-dialog]) > .dropdown-menu-confirm-overlay,
+body[data-mhg-sidebar-search-open] > .dropdown-menu-confirm-overlay {
+ z-index: 22202 !important;
+}
+
+body:has([data-mhg-sidebar-search-dialog]) > .edit-game-modal-overlay,
+body:has([data-mhg-sidebar-search-dialog]) > .edit-collection-modal-overlay,
+body:has([data-mhg-sidebar-search-dialog]) > .add-to-collection-modal-overlay,
+body:has([data-mhg-sidebar-search-dialog]) > .manage-installation-modal-overlay,
+body[data-mhg-sidebar-search-open] > .edit-game-modal-overlay,
+body[data-mhg-sidebar-search-open] > .edit-collection-modal-overlay,
+body[data-mhg-sidebar-search-open] > .add-to-collection-modal-overlay,
+body[data-mhg-sidebar-search-open] > .manage-installation-modal-overlay {
+ z-index: 22203 !important;
+}
+
 /* Panel inside an overlay */
 .add-game-container,
 .dropdown-menu-confirm-container,
@@ -8913,6 +8944,10 @@ body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-section-titl
 
 .dropdown-menu-popup-in-search {
  z-index: 10007 !important;
+}
+
+.dropdown-menu-popup-in-sidebar-search {
+ z-index: 22200 !important;
 }
 
 .dropdown-menu-popup-in-games-table {
