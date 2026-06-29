@@ -8324,6 +8324,18 @@ body[data-mhg-sidebar-search-open]:has(> .manage-installation-modal-overlay) [da
 }
 
 /*
+ * Sidebar search: freeze result paints while a portaled menu/sheet is open.
+ */
+body[data-mhg-sidebar-search-stack-active] [data-mhg-sidebar-search-dialog] .search-dropdown,
+body[data-mhg-sidebar-search-stack-active] [data-mhg-sidebar-search-dialog] .search-dropdown-scroll {
+ contain: paint;
+}
+
+body[data-mhg-sidebar-search-stack-active] [data-mhg-sidebar-search-dialog] .search-dropdown-item .games-list-cover img {
+ transition: none !important;
+}
+
+/*
  * Sidebar search ⋮ menu: same full-screen overlay as Edit Game (not ::before dim).
  */
 [data-mhg-sidebar-search-menu-stack] .edit-game-modal-overlay > .dropdown-menu-popup::before {
