@@ -8323,6 +8323,23 @@ body[data-mhg-sidebar-search-open]:has(> .manage-installation-modal-overlay) [da
  pointer-events: none !important;
 }
 
+/*
+ * Sidebar search ⋮ menu: same full-screen overlay as Edit Game (not ::before dim).
+ */
+[data-mhg-sidebar-search-menu-stack] .edit-game-modal-overlay > .dropdown-menu-popup::before {
+ background: transparent !important;
+}
+
+[data-mhg-sidebar-search-interaction-shield].edit-game-modal-overlay {
+ z-index: 22150 !important;
+ pointer-events: auto !important;
+}
+
+body:has([data-mhg-sidebar-search-dialog]) > [data-mhg-sidebar-search-menu-stack],
+body[data-mhg-sidebar-search-open] > [data-mhg-sidebar-search-menu-stack] {
+ z-index: 22200 !important;
+}
+
 /* Panel inside an overlay */
 .add-game-container,
 .dropdown-menu-confirm-container,
