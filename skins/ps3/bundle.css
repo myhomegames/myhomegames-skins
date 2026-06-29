@@ -8294,6 +8294,31 @@ body[data-mhg-sidebar-search-open] > .manage-installation-modal-overlay {
  z-index: 22203 !important;
 }
 
+/*
+ * Sidebar search: block interaction with the popup while a portaled sheet/menu is above it.
+ * (Web also enforces this via SidebarSearchInteractionContext; these rules are a skin fallback.)
+ */
+body:has([data-mhg-sidebar-search-dialog]):has(> .dropdown-menu-popup) .mhg-sidebar-search-overlay,
+body:has([data-mhg-sidebar-search-dialog]):has(> .dropdown-menu-popup) [data-mhg-sidebar-search-dialog],
+body:has([data-mhg-sidebar-search-dialog]):has(> [data-mhg-sidebar-search-menu-stack]) .mhg-sidebar-search-overlay,
+body:has([data-mhg-sidebar-search-dialog]):has(> [data-mhg-sidebar-search-menu-stack]) [data-mhg-sidebar-search-dialog],
+body:has([data-mhg-sidebar-search-dialog]):has(> .add-to-collection-dropdown-menu) .mhg-sidebar-search-overlay,
+body:has([data-mhg-sidebar-search-dialog]):has(> .add-to-collection-dropdown-menu) [data-mhg-sidebar-search-dialog],
+body:has([data-mhg-sidebar-search-dialog]):has(> .additional-executables-dropdown-menu) .mhg-sidebar-search-overlay,
+body:has([data-mhg-sidebar-search-dialog]):has(> .additional-executables-dropdown-menu) [data-mhg-sidebar-search-dialog],
+body[data-mhg-sidebar-search-open]:has(> .dropdown-menu-confirm-overlay) .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-open]:has(> .dropdown-menu-confirm-overlay) [data-mhg-sidebar-search-dialog],
+body[data-mhg-sidebar-search-open]:has(> .edit-game-modal-overlay) .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-open]:has(> .edit-game-modal-overlay) [data-mhg-sidebar-search-dialog],
+body[data-mhg-sidebar-search-open]:has(> .edit-collection-modal-overlay) .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-open]:has(> .edit-collection-modal-overlay) [data-mhg-sidebar-search-dialog],
+body[data-mhg-sidebar-search-open]:has(> .add-to-collection-modal-overlay) .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-open]:has(> .add-to-collection-modal-overlay) [data-mhg-sidebar-search-dialog],
+body[data-mhg-sidebar-search-open]:has(> .manage-installation-modal-overlay) .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-open]:has(> .manage-installation-modal-overlay) [data-mhg-sidebar-search-dialog] {
+ pointer-events: none !important;
+}
+
 /* Panel inside an overlay */
 .add-game-container,
 .dropdown-menu-confirm-container,
