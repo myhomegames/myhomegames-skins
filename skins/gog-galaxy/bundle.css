@@ -3296,7 +3296,25 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
 
 .games-list-item--detail-current .games-list-cover--detail-current:hover,
 .games-list-cover--detail-current:hover {
- transform: none;
+  transform: none;
+}
+
+.games-list-item--detail-current .games-list-cover--detail-current.cover-hover-effect:hover,
+.games-list-cover--detail-current.cover-hover-effect:hover {
+  outline-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.games-list-item--detail-current .games-list-cover--detail-current.cover-hover-effect:hover::before,
+.games-list-cover--detail-current.cover-hover-effect:hover::before {
+  opacity: 0 !important;
+  background-color: transparent !important;
+}
+
+.scrollable-section-scroll .games-list-item--detail-current > .games-list-cover {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
 }
 
 .games-list-item--detail-current .games-list-title {
