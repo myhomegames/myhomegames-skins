@@ -3539,12 +3539,15 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
   cursor: default;
 }
 
-.games-list-item--detail-current .games-list-cover--detail-current:hover,
 .games-list-item--detail-current .games-list-cover--detail-current::before,
-.games-list-cover--detail-current:hover,
 .games-list-cover--detail-current::before {
   transform: none;
   opacity: 0;
+}
+
+.games-list-item--detail-current .games-list-cover--detail-current:hover,
+.games-list-cover--detail-current:hover {
+  transform: none;
 }
 
 .games-list-item--detail-current .games-list-title {

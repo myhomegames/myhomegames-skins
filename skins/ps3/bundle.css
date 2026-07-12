@@ -1965,6 +1965,32 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  background-color: rgba(0, 0, 0, 0.4) !important;
 }
 
+.games-list-item--detail-current,
+.games-list-cover--detail-current {
+ cursor: default;
+}
+
+.games-list-item--detail-current .games-list-cover--detail-current::before,
+.games-list-cover--detail-current::before {
+ transform: none;
+ opacity: 0;
+}
+
+.games-list-item--detail-current .games-list-cover--detail-current:hover,
+.games-list-cover--detail-current:hover {
+ transform: none;
+}
+
+.games-list-item--detail-current .games-list-title {
+ cursor: default;
+}
+
+.games-list-cover--detail-current .games-list-edit-button,
+.games-list-cover--detail-current .games-list-dropdown-wrapper,
+.games-list-cover--detail-current .games-list-play-button {
+ display: none !important;
+}
+
 .games-list-cover.cover-dropdown-open .games-list-play-button-detail,
 .games-list-cover-play.cover-dropdown-open .games-list-play-button-play-only {
  opacity: 1;
