@@ -1,0 +1,7 @@
+{
+  "role": "skins",
+  "requires": {
+    "minServerVersion": "1.1.2",
+    "minWebVersion": "1.1.2"
+  }
+}

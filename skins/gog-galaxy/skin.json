@@ -11,6 +11,7 @@
     "disableAlphabetNavigator": true,
     "sidebarSearchPopup": true,
     "ownedGamesFirstInGamesSidebar": true,
-    "compactCollectionLikeDetail": true
+    "compactCollectionLikeDetail": true,
+    "collapsibleLibrarySidebar": true
   }
 }

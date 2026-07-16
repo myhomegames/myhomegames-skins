@@ -43,6 +43,17 @@
 
   /* Left column when settings enable persistent library shell */
   --plex-shell-sidebar-width: 280px;
+
+  /* Switch libraries bar to combobox slightly before inline tabs would overflow. */
+  --mhg-libraries-combobox-item-width: 122;
+  --mhg-libraries-combobox-anticipation: 36;
+}
+
+/* Wide Plex layout: keep inline library tabs (no combobox flash while widths settle). */
+@media (min-width: 1024px) {
+  :root {
+    --mhg-libraries-force-list: 1;
+  }
 }
 
 .cover-hover-effect {
@@ -217,6 +228,84 @@ body {
 
 .mhg-header-button:active {
   color: rgba(255, 255, 255, 1);
+}
+
+/* Phone widths: search shrinks so header actions stay on screen (desktop resize is unaffected). */
+@media (max-width: 479px) {
+  .mhg-header-container {
+    gap: 8px;
+    padding: 0 8px;
+    min-width: 0;
+  }
+
+  .mhg-logo-button {
+    height: 40px;
+  }
+
+  .mhg-logo-button svg {
+    width: 64px;
+    height: auto;
+  }
+
+  .mhg-search-container {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .mhg-search-container-wrapper {
+    min-width: 0;
+  }
+
+  .search-bar-container {
+    min-width: 0;
+  }
+
+  .mhg-search-icon-wrapper {
+    padding-left: 8px;
+  }
+
+  .mhg-search-input {
+    padding: 6px 6px;
+    font-size: 13px;
+  }
+
+  .search-input-with-padding.has-query {
+    padding-right: 28px;
+  }
+
+  .mhg-header-actions {
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
+  .mhg-header-button,
+  .mhg-activity-spinner,
+  .update-notification-button.mhg-header-button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .mhg-header-button svg,
+  .update-notification-button.mhg-header-button svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .profile-dropdown-button.mhg-header-button {
+    width: 32px;
+    gap: 0;
+    padding: 0;
+  }
+
+  .profile-dropdown-button.mhg-header-button .profile-dropdown-arrow {
+    display: none;
+  }
+
+  .profile-dropdown-wrapper,
+  .update-notification-wrapper {
+    flex-shrink: 0;
+  }
 }
 
 /* Activity spinner */
@@ -535,7 +624,7 @@ body:has(.add-to-collection-modal-overlay) {
 
 .app-main-container[data-mhg-persistent-library-shell="true"] .library-item-detail-libraries-bar-host,
 .app-main-container[data-mhg-persistent-library-shell="true"] .game-detail-libraries-bar-wrapper,
-.app-main-container[data-mhg-persistent-library-shell="true"] .igdb-game-detail-libraries-bar-wrapper {
+.app-main-container[data-mhg-persistent-library-shell="true"] .catalog-game-detail-libraries-bar-wrapper {
   display: none !important;
 }
 
@@ -670,7 +759,7 @@ body:has(.add-to-collection-modal-overlay) {
 
 .app-main-container[data-mhg-persistent-library-shell="true"] .library-item-detail-page-shell,
 .app-main-container[data-mhg-persistent-library-shell="true"] .game-detail-container,
-.app-main-container[data-mhg-persistent-library-shell="true"] .igdb-game-detail-container {
+.app-main-container[data-mhg-persistent-library-shell="true"] .catalog-game-detail-container {
   margin-left: var(--plex-shell-sidebar-width);
   width: calc(100% - var(--plex-shell-sidebar-width));
   box-sizing: border-box;
@@ -679,9 +768,121 @@ body:has(.add-to-collection-modal-overlay) {
 
 .app-main-container[data-mhg-persistent-library-shell="true"] .library-item-detail-page-shell > .home-page-main-container.library-item-detail-main-inner,
 .app-main-container[data-mhg-persistent-library-shell="true"] .game-detail-container > .home-page-main-container.game-detail-main-container,
-.app-main-container[data-mhg-persistent-library-shell="true"] .igdb-game-detail-container > .home-page-main-container.igdb-game-detail-main-container {
+.app-main-container[data-mhg-persistent-library-shell="true"] .catalog-game-detail-container > .home-page-main-container.catalog-game-detail-main-container {
   margin-left: 0;
   width: 100%;
+}
+
+/*
+ * Collection-like detail: align padding/insets with catalog lists; scroll stays on
+ * `.library-item-detail-scroll` (no inner virtualized grid on classic detail layout).
+ */
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+) {
+  --mhg-scroll-top-inset: calc(64px + var(--mhg-top-tool-dock-band-height, 52px));
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .home-page-content {
+  padding-top: 0 !important;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-scroll,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-context-games {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  --mhg-grid-top-inset-games: var(--mhg-scroll-top-inset, 64px);
+  --mhg-grid-top-inset-collections: var(--mhg-scroll-top-inset, 64px);
+  --mhg-grid-top-inset: var(--mhg-scroll-top-inset, 64px);
+  --mhg-grid-top-inset-tag: var(--mhg-scroll-top-inset, 64px);
+  --mhg-grid-bottom-inset: 0px;
+  --mhg-grid-bottom-inset-games: 0px;
+  --mhg-grid-bottom-inset-collections: 0px;
+  --mhg-grid-bottom-inset-tag: 0px;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-content-wrapper.library-item-detail-content-wrapper--ready {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-content-wrapper.library-item-detail-content-wrapper--ready
+  .library-item-detail-scroll,
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-content-wrapper.library-item-detail-content-wrapper--ready
+  .library-item-detail-context-games {
+  --mhg-grid-top-inset-games: calc(var(--mhg-scroll-top-inset, 64px) + 32px);
+  --mhg-grid-top-inset-collections: calc(var(--mhg-scroll-top-inset, 64px) + 32px);
+  --mhg-grid-top-inset: calc(var(--mhg-scroll-top-inset, 64px) + 32px);
+  --mhg-grid-top-inset-tag: calc(var(--mhg-scroll-top-inset, 64px) + 32px);
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-scroll
+  .library-item-detail-games-list
+  > .games-list-container:not(.games-list-container--virtualized):not(
+    .games-list-container--fixed-focal
+  ),
+.app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-context-games
+  .library-item-detail-games-list
+  > .games-list-container:not(.games-list-container--virtualized):not(
+    .games-list-container--fixed-focal
+  ) {
+  padding-top: calc(var(--mhg-scroll-top-inset, 64px) + 5px);
+  box-sizing: border-box;
+}
+
+/* Vertical cover: fixed-focal games rail on detail (context-rail column 2). */
+:root[data-mhg-vertical-cover-alignment="true"]
+  .app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-scroll:not(.table-view):not(.library-item-detail-scroll--context-rail):has(
+    .games-list-container--fixed-focal
+  ),
+:root[data-mhg-vertical-cover-alignment="true"]
+  .app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-context-games:has(.fixed-focal-games-list) {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+  .app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-scroll:not(.table-view):not(.library-item-detail-scroll--context-rail):has(
+    .games-list-container--fixed-focal
+  ),
+:root[data-mhg-vertical-cover-alignment="true"]
+  .app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container.library-item-detail-main-inner
+  .library-item-detail-context-games:has(.fixed-focal-games-list) {
+  --mhg-grid-top-inset: var(--mhg-grid-top-inset-games);
+  --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-games);
 }
 
 .app-main-container[data-mhg-persistent-library-shell="true"] .background-manager-overlay {
@@ -855,6 +1056,48 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"]) [data-mh
 .edit-collection-modal-field textarea {
   resize: vertical;
   min-height: 300px;
+}
+
+.edit-game-modal-company-fields {
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-collection-modal-subsection-title {
+  margin: 0 0 16px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.edit-collection-modal-field-row {
+  display: grid;
+  grid-template-columns: minmax(110px, 140px) minmax(0, 1fr);
+  gap: 12px;
+}
+
+.edit-collection-modal-field select {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 10px 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.edit-collection-modal-field select:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.edit-collection-modal-field select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .edit-collection-modal-footer {
@@ -3291,6 +3534,50 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
   text-decoration: underline;
 }
 
+.games-list-item--detail-current,
+.games-list-cover--detail-current {
+  cursor: default;
+}
+
+.games-list-item--detail-current .games-list-cover--detail-current::before,
+.games-list-cover--detail-current::before {
+  transform: none;
+  opacity: 0;
+}
+
+.games-list-item--detail-current .games-list-cover--detail-current:hover,
+.games-list-cover--detail-current:hover {
+  transform: none;
+}
+
+.games-list-item--detail-current .games-list-cover--detail-current.cover-hover-effect:hover,
+.games-list-cover--detail-current.cover-hover-effect:hover {
+  outline-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.games-list-item--detail-current .games-list-cover--detail-current.cover-hover-effect:hover::before,
+.games-list-cover--detail-current.cover-hover-effect:hover::before {
+  opacity: 0 !important;
+  background-color: transparent !important;
+}
+
+.scrollable-section-scroll .games-list-item--detail-current > .games-list-cover {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+.games-list-item--detail-current .games-list-title {
+  cursor: default;
+}
+
+.games-list-cover--detail-current .games-list-edit-button,
+.games-list-cover--detail-current .games-list-dropdown-wrapper,
+.games-list-cover--detail-current .games-list-play-button {
+  display: none !important;
+}
+
 .games-list-year {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.75rem;
@@ -3480,7 +3767,8 @@ fieldset.edit-game-modal-field {
 }
 
 .edit-game-modal-field input,
-.edit-game-modal-field textarea {
+.edit-game-modal-field textarea,
+.edit-game-modal-field select {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -3493,14 +3781,16 @@ fieldset.edit-game-modal-field {
 }
 
 .edit-game-modal-field input:focus,
-.edit-game-modal-field textarea:focus {
+.edit-game-modal-field textarea:focus,
+.edit-game-modal-field select:focus {
   outline: none;
   border-color: rgba(255, 255, 255, 0.3);
   background-color: rgba(255, 255, 255, 0.08);
 }
 
 .edit-game-modal-field input:disabled,
-.edit-game-modal-field textarea:disabled {
+.edit-game-modal-field textarea:disabled,
+.edit-game-modal-field select:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -4054,7 +4344,7 @@ fieldset.edit-game-modal-field {
   margin-top: 12px;
 }
 
-.game-detail-similar-igdb-chip {
+.game-detail-similar-catalog-chip {
   display: inline-flex;
   align-items: center;
   gap: 0;
@@ -4070,16 +4360,16 @@ fieldset.edit-game-modal-field {
   overflow: hidden;
 }
 
-.game-detail-similar-igdb-chip:hover {
+.game-detail-similar-catalog-chip:hover {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.35);
 }
 
-.game-detail-similar-igdb-chip-name {
+.game-detail-similar-catalog-chip-name {
   padding: 6px 10px;
 }
 
-.game-detail-similar-igdb-chip-badge {
+.game-detail-similar-catalog-chip-badge {
   display: inline-block;
   padding: 4px 8px;
   background: rgba(34, 197, 94, 0.2);
@@ -4216,6 +4506,90 @@ fieldset.edit-game-modal-field {
 .game-info-list-link.game-info-list-item--platform-no-executable:hover {
   color: #6ee7a6;
   text-decoration-color: #4ade80;
+}
+
+/* --- ./components/companies/CompanyProfileBlock.css --- */
+
+.company-status-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.25em 0.7em;
+  border-radius: 999px;
+  font-family: var(--font-body-2-font-family, inherit);
+  font-size: var(--font-body-2-font-size, 0.875rem);
+  line-height: 1.35;
+  font-weight: 600;
+  border: 1px solid transparent;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  background-color: rgba(161, 161, 170, 0.18);
+  border-color: rgba(161, 161, 170, 0.45);
+  color: #d4d4d8;
+}
+
+.company-status-badge[data-status="active"] {
+  background-color: rgba(34, 197, 94, 0.18);
+  border-color: rgba(34, 197, 94, 0.5);
+  color: #4ade80;
+}
+
+.company-status-badge[data-status="defunct"] {
+  background-color: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #f87171;
+}
+
+.company-status-badge[data-status="merge"] {
+  background-color: rgba(234, 179, 8, 0.2);
+  border-color: rgba(234, 179, 8, 0.55);
+  color: #facc15;
+}
+
+.company-status-badge[data-status="renamed"] {
+  background-color: rgba(59, 130, 246, 0.18);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #60a5fa;
+}
+
+.library-item-detail-title-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+.library-item-detail-title-heading .library-item-detail-title {
+  margin: 0;
+}
+
+.library-item-detail-title-heading .company-status-badge {
+  margin-top: 6px;
+}
+
+.library-item-detail-company-meta {
+  opacity: 0.8;
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  line-height: var(--font-body-2-line-height);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  min-width: 0;
+}
+
+.library-item-detail-meta-separator {
+  opacity: 0.65;
+}
+
+.library-item-detail-company-link {
+  display: inline;
+  color: rgba(255, 255, 255, 0.8);
+  font: inherit;
+  vertical-align: baseline;
 }
 
 
@@ -4914,10 +5288,10 @@ fieldset.edit-game-modal-field {
 }
 
 /* Solo il titolo in verde per i giochi nuovi (stesso colore del badge sulle cover) */
-.games-table tbody tr.igdb-only-row > td.title-cell {
+.games-table tbody tr.catalog-only-row > td.title-cell {
   color: #4ade80;
 }
-.games-table tbody tr.igdb-only-row:hover > td.title-cell {
+.games-table tbody tr.catalog-only-row:hover > td.title-cell {
   color: #4ade80;
 }
 
@@ -5187,10 +5561,10 @@ fieldset.edit-game-modal-field {
 }
 
 /* Solo il titolo in verde per i giochi nuovi in tabella virtualizzata */
-.virtualized-games-table-list .virtualized-table-row-wrapper > div[role="row"].igdb-only-row > div.title-cell {
+.virtualized-games-table-list .virtualized-table-row-wrapper > div[role="row"].catalog-only-row > div.title-cell {
   color: #4ade80;
 }
-.virtualized-games-table-list .virtualized-table-row-wrapper:hover > div[role="row"].igdb-only-row > div.title-cell {
+.virtualized-games-table-list .virtualized-table-row-wrapper:hover > div[role="row"].catalog-only-row > div.title-cell {
   color: #4ade80;
 }
 
@@ -6915,16 +7289,23 @@ fieldset.edit-game-modal-field {
 .mhg-libraries-combobox-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: calc(100% - 200px);
+  left: 24px;
+  right: auto;
+  transform: none;
+  width: auto;
+  max-width: calc(100% - 24px - 136px);
+  overflow: hidden;
+}
+
+.mhg-libraries-bar-container:has(.mhg-libraries-menu-container) .mhg-libraries-combobox-container {
+  left: 72px;
+  max-width: calc(100% - 72px - 136px);
 }
 
 .mhg-libraries-combobox {
-  padding: 12px 24px 12px 0;
+  padding: 12px 10px 12px 0;
   background-color: transparent;
   border: none;
   border-radius: 0;
@@ -6932,13 +7313,17 @@ fieldset.edit-game-modal-field {
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
-  min-width: auto;
+  min-width: 0;
   width: auto;
+  max-width: 100%;
+  field-sizing: content;
+  text-align: left;
+  text-align-last: left;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 9L1 4h10L6 9z' fill='%23ffffff'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right center;
-  padding-right: 20px;
+  background-size: 10px 10px;
+  background-position: right 0 center;
   transition: color 0.2s ease;
 }
 
@@ -7381,9 +7766,43 @@ fieldset.edit-game-modal-field {
   box-sizing: border-box;
 }
 
-/* Hide results dropdown while a child modal is open (keeps mount/layout logic in TSX) */
+/* Hide results dropdown while a child modal is open (legacy; search keeps dropdown visible during stacked actions). */
 .search-dropdown.search-dropdown--modal-hidden {
   display: none;
+}
+
+/*
+ * Header search dropdown: action sheets above portaled ⋮ stack (10105) and menu.
+ */
+body[data-mhg-search-dropdown-modal-action] .search-dropdown {
+  pointer-events: none !important;
+}
+
+body[data-mhg-search-dropdown-modal-action] > [data-mhg-sidebar-search-menu-stack] {
+  z-index: 10105 !important;
+}
+
+/* Header search ⋮ menu: no dim, background stays interactive (stack is pointer-events: none). */
+[data-mhg-sidebar-search-menu-stack-permeable] .dropdown-menu-popup,
+[data-mhg-sidebar-search-menu-stack-permeable] .dropdown-menu-popup-in-search {
+  pointer-events: auto !important;
+}
+
+body[data-mhg-search-dropdown-modal-action] > .edit-game-modal-overlay,
+body[data-mhg-search-dropdown-modal-action] > .edit-collection-modal-overlay,
+body[data-mhg-search-dropdown-modal-action] > .dropdown-menu-confirm-overlay,
+body[data-mhg-search-dropdown-modal-action] > .add-to-collection-modal-overlay,
+body[data-mhg-search-dropdown-modal-action] > .manage-installation-modal-overlay,
+body[data-mhg-search-dropdown-modal-action] > [data-mhg-sidebar-search-menu-stack]:has(.edit-game-modal-overlay),
+body[data-mhg-search-dropdown-modal-action] > [data-mhg-sidebar-search-menu-stack]:has(.edit-collection-modal-overlay),
+body[data-mhg-search-dropdown-modal-action] > [data-mhg-sidebar-search-menu-stack]:has(.dropdown-menu-confirm-overlay) {
+  z-index: 10125 !important;
+}
+
+body[data-mhg-search-dropdown-modal-action] > .dropdown-menu-popup,
+body[data-mhg-search-dropdown-modal-action] > .add-to-collection-dropdown-menu,
+body[data-mhg-search-dropdown-modal-action] > .additional-executables-dropdown-menu {
+  z-index: 10105 !important;
 }
 
 .search-dropdown-scroll {
@@ -7851,6 +8270,48 @@ fieldset.edit-game-modal-field {
 .edit-collection-modal-field textarea {
   resize: vertical;
   min-height: 300px;
+}
+
+.edit-game-modal-company-fields {
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-collection-modal-subsection-title {
+  margin: 0 0 16px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.edit-collection-modal-field-row {
+  display: grid;
+  grid-template-columns: minmax(110px, 140px) minmax(0, 1fr);
+  gap: 12px;
+}
+
+.edit-collection-modal-field select {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 10px 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.edit-collection-modal-field select:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.edit-collection-modal-field select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .edit-collection-modal-footer {
@@ -8557,7 +9018,7 @@ fieldset.edit-game-modal-field {
   flex-direction: column;
 }
 
-/* --- ./pages/IGDBGameDetailPage.css --- */
+/* --- ./pages/CatalogGameDetailPage.css --- */
 
 
 /* Styles for IGDB Game Detail Page */
@@ -8571,18 +9032,18 @@ fieldset.edit-game-modal-field {
   box-shadow: 0 4px 12px rgba(255, 179, 0, 0.3);
 }
 
-.igdb-game-detail-not-found {
+.catalog-game-detail-not-found {
   width: 100%;
   height: 100%;
 }
 
-.igdb-game-detail-libraries-bar-wrapper {
+.catalog-game-detail-libraries-bar-wrapper {
   position: relative;
   z-index: 1000;
   pointer-events: auto;
 }
 
-.igdb-game-detail-container {
+.catalog-game-detail-container {
   position: relative;
   z-index: 2;
   height: 100vh;
@@ -8590,7 +9051,7 @@ fieldset.edit-game-modal-field {
   flex-direction: column;
 }
 
-.igdb-game-detail-main-container {
+.catalog-game-detail-main-container {
   background-color: transparent;
   position: relative;
   flex: 1;
@@ -8600,28 +9061,28 @@ fieldset.edit-game-modal-field {
   min-height: 0;
 }
 
-.igdb-game-detail-content {
+.catalog-game-detail-content {
   position: relative;
   z-index: 1;
   min-height: 0;
 }
 
-.igdb-game-detail-layout {
+.catalog-game-detail-layout {
   min-height: 0;
 }
 
-.igdb-game-detail-content-wrapper {
+.catalog-game-detail-content-wrapper {
   min-height: 0;
 }
 
-.igdb-game-detail-scroll-container {
+.catalog-game-detail-scroll-container {
   padding-left: 64px;
   padding-right: 64px;
   padding-top: 5px;
   padding-bottom: 32px;
 }
 
-.igdb-game-detail-header {
+.catalog-game-detail-header {
   display: flex;
   flex-direction: row;
   gap: 48px;
@@ -8631,11 +9092,11 @@ fieldset.edit-game-modal-field {
   margin-bottom: 48px;
 }
 
-.igdb-game-detail-cover-wrapper {
+.catalog-game-detail-cover-wrapper {
   flex-shrink: 0;
 }
 
-.igdb-game-detail-info-panel {
+.catalog-game-detail-info-panel {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -8646,14 +9107,14 @@ fieldset.edit-game-modal-field {
   visibility: visible;
 }
 
-.igdb-game-detail-info-content {
+.catalog-game-detail-info-content {
   display: flex;
   flex-direction: column;
   gap: 8px;
   visibility: visible;
 }
 
-.igdb-game-detail-title {
+.catalog-game-detail-title {
   visibility: visible;
   display: block;
   font-family: var(--font-heading-1-font-family);
@@ -8661,7 +9122,7 @@ fieldset.edit-game-modal-field {
   line-height: var(--font-heading-1-line-height);
 }
 
-.igdb-game-detail-release-date {
+.catalog-game-detail-release-date {
   opacity: 0.8;
   font-family: var(--font-body-2-font-family);
   font-size: var(--font-body-2-font-size);
@@ -8672,7 +9133,7 @@ fieldset.edit-game-modal-field {
   flex-wrap: wrap;
 }
 
-.igdb-game-detail-type-label {
+.catalog-game-detail-type-label {
   flex-shrink: 0;
   font-family: var(--font-body-2-font-family);
   font-size: var(--font-body-2-font-size);
@@ -8685,18 +9146,18 @@ fieldset.edit-game-modal-field {
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.igdb-game-detail-age-ratings-inline {
+.catalog-game-detail-age-ratings-inline {
   display: inline-flex;
   align-items: center;
   gap: 4px;
 }
 
-.igdb-game-detail-age-ratings-inline .age-ratings-list {
+.catalog-game-detail-age-ratings-inline .age-ratings-list {
   display: inline-flex;
   gap: 0;
 }
 
-.igdb-game-detail-ratings {
+.catalog-game-detail-ratings {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -8704,7 +9165,7 @@ fieldset.edit-game-modal-field {
   margin-top: 8px;
 }
 
-.igdb-game-detail-rating-item {
+.catalog-game-detail-rating-item {
   opacity: 0.8;
   font-family: var(--font-body-2-font-family);
   font-size: var(--font-body-2-font-size);
@@ -8714,11 +9175,11 @@ fieldset.edit-game-modal-field {
   gap: 8px;
 }
 
-.igdb-game-detail-rating-icon {
+.catalog-game-detail-rating-icon {
   flex-shrink: 0;
 }
 
-.igdb-game-detail-mark-owned-button {
+.catalog-game-detail-mark-owned-button {
   pointer-events: auto;
   position: relative;
   z-index: 1000;
@@ -8743,49 +9204,49 @@ fieldset.edit-game-modal-field {
   opacity: 1;
 }
 
-.igdb-game-detail-mark-owned-button:disabled {
+.catalog-game-detail-mark-owned-button:disabled {
   background-color: #666;
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.6;
 }
 
-.igdb-game-detail-mark-owned-button:hover:not(:disabled) {
+.catalog-game-detail-mark-owned-button:hover:not(:disabled) {
   background-color: #F5B041;
 }
 
-.igdb-game-detail-mark-owned-button-icon {
+.catalog-game-detail-mark-owned-button-icon {
   display: block;
 }
 
-.igdb-game-detail-media-section {
+.catalog-game-detail-media-section {
   width: 100%;
   margin-top: 48px;
   margin-bottom: 48px;
 }
 
-.igdb-game-detail-info-section {
+.catalog-game-detail-info-section {
   width: 100%;
   margin-top: 48px;
 }
 
-.igdb-game-detail-similar-section {
+.catalog-game-detail-similar-section {
   width: 100%;
   margin-top: 48px;
 }
 
-.igdb-game-detail-similar-section .scrollable-section {
+.catalog-game-detail-similar-section .scrollable-section {
   margin-bottom: 0;
 }
 
-.igdb-game-detail-similar-section .scrollable-section-header,
-.igdb-game-detail-similar-section .scrollable-section-nav {
+.catalog-game-detail-similar-section .scrollable-section-header,
+.catalog-game-detail-similar-section .scrollable-section-nav {
   padding-left: 0;
   padding-right: 0;
   margin-bottom: 12px;
 }
 
-.igdb-game-detail-similar-section .scrollable-section-title {
+.catalog-game-detail-similar-section .scrollable-section-title {
   font-family: var(--font-body-2-font-family);
   font-size: var(--font-body-2-font-size);
   line-height: var(--font-body-2-line-height);
@@ -8794,11 +9255,11 @@ fieldset.edit-game-modal-field {
   margin: 0;
 }
 
-.igdb-game-detail-similar-section .scrollable-section-scroll {
+.catalog-game-detail-similar-section .scrollable-section-scroll {
   padding-right: 0;
 }
 
-.igdb-game-detail-similar-section .scrollable-section-scroll:not(.restoring) {
+.catalog-game-detail-similar-section .scrollable-section-scroll:not(.restoring) {
   margin-left: 0;
   margin-right: 0;
 }
@@ -9793,4 +10254,184 @@ fieldset.edit-game-modal-field {
 /* Above portaled "Add to" submenus (10003) and library-bar menus (10008) */
 .add-to-collection-modal-overlay {
   z-index: 10110 !important;
+}
+
+body:has(.add-to-collection-modal-overlay) > .add-to-collection-dropdown-menu,
+body:has(.add-to-collection-modal-overlay) > .additional-executables-dropdown-menu,
+body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* --- Game & collection-like detail — responsive layout --- */
+/* Wide: unchanged. Narrow (scroll area ≤720px): stack cover / meta / summary. */
+
+.game-detail-scroll-container,
+.catalog-game-detail-scroll-container,
+.library-item-detail-scroll {
+  container-type: inline-size;
+  container-name: mhg-detail-scroll;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.game-detail-info-primary,
+.game-detail-summary,
+.library-item-detail-summary {
+  display: contents;
+}
+
+.game-detail-title,
+.catalog-game-detail-title,
+.library-item-detail-title {
+  overflow-wrap: anywhere;
+}
+
+.game-info-block {
+  min-width: 0;
+}
+
+.game-info-field {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.game-info-list,
+.inline-tag-list {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.game-info-list-item,
+.game-info-list-link,
+.inline-tag-list-item {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.game-info-list-link {
+  text-align: left;
+}
+
+.library-item-detail-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
+}
+
+.library-item-detail-title-row--with-company-info {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, min(380px, 42%));
+  column-gap: 24px;
+  align-items: stretch;
+}
+
+.library-item-detail-title-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.library-item-detail-title-column .library-item-detail-actions {
+  margin-top: 0;
+}
+
+.library-item-detail-title-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@container mhg-detail-scroll (max-width: 720px) {
+  .game-detail-scroll-container,
+  .catalog-game-detail-scroll-container,
+  .library-item-detail-scroll {
+    overflow-x: hidden !important;
+    padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
+  }
+
+  .game-detail-header,
+  .catalog-game-detail-header,
+  .library-item-detail-hero {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    row-gap: 24px;
+    width: 100%;
+  }
+
+  .game-detail-cover-wrapper,
+  .catalog-game-detail-cover-wrapper,
+  .library-item-detail-hero-cover {
+    grid-row: 1;
+    justify-self: center;
+    width: min(256px, 100%);
+  }
+
+  .game-detail-cover-wrapper .games-list-cover,
+  .catalog-game-detail-cover-wrapper .games-list-cover,
+  .library-item-detail-hero-cover .games-list-cover {
+    width: min(256px, 100%) !important;
+  }
+
+  .game-detail-info-panel,
+  .catalog-game-detail-info-panel,
+  .game-detail-info-content,
+  .catalog-game-detail-info-content,
+  .library-item-detail-meta {
+    display: contents;
+  }
+
+  .game-detail-info-primary,
+  .library-item-detail-meta-primary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    grid-row: 2;
+    width: 100%;
+    min-height: 0 !important;
+  }
+
+  .library-item-detail-title-row,
+  .library-item-detail-title-row--with-company-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .game-detail-summary,
+  .library-item-detail-summary {
+    display: block;
+    grid-row: 3;
+    width: 100%;
+  }
+
+  .game-info-block {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+@container mhg-detail-scroll (max-width: 560px) {
+  .game-detail-cover-wrapper,
+  .catalog-game-detail-cover-wrapper,
+  .library-item-detail-hero-cover {
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  .game-detail-cover-wrapper .games-list-cover,
+  .catalog-game-detail-cover-wrapper .games-list-cover,
+  .library-item-detail-hero-cover .games-list-cover {
+    width: 100% !important;
+  }
 }
