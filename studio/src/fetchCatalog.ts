@@ -34,30 +34,35 @@ function parseSkinZipFileName(fileName: string): { id: string; version?: string 
 
 /**
  * Build catalog from release asset metadata (CORS-safe JSON from GitHub API).
- * Release asset downloads redirect to a CDN without ACAO, so we never fetch zip/json bodies in the browser.
+ * Zip download URLs come from release assets. Snapshot previews use raw.githubusercontent.com
+ * (release CDN serves octet-stream/attachment, which browsers won't show in <img>).
  */
 function catalogFromReleaseAssets(assets: GitHubAsset[]): CatalogSkin[] {
-  const byName = new Map(assets.map((a) => [a.name, a]));
-
   const skins: CatalogSkin[] = [];
   for (const zipAsset of assets) {
     if (!zipAsset.name.endsWith(SKIN_ZIP_SUFFIX)) continue;
-    const parsed = parseSkinZipFileName(zipAsset.name);
+    const fileName = zipAsset.name.includes("/")
+      ? zipAsset.name.slice(zipAsset.name.lastIndexOf("/") + 1)
+      : zipAsset.name;
+    const parsed = parseSkinZipFileName(fileName);
     if (!parsed) continue;
-    const { id } = parsed;
-    const snapshotAsset = byName.get(`${id}.jpg`) ?? byName.get(`snapshots/${id}.jpg`);
     skins.push({
-      id,
-      name: id,
-      zip: zipAsset.name,
+      id: parsed.id,
+      name: parsed.id,
+      zip: fileName,
       downloadUrl: zipAsset.browser_download_url,
-      snapshotUrl: snapshotAsset?.browser_download_url,
     });
   }
   return skins;
 }
 
-async function enrichSkinNames(
+function rawSkinFileUrl(owner: string, repo: string, ref: string, skinId: string, relativePath: string): string {
+  const clean = relativePath.trim().replace(/^\.\//, "");
+  const parts = clean.split("/").filter(Boolean).map(encodeURIComponent);
+  return `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/skins/${encodeURIComponent(skinId)}/${parts.join("/")}`;
+}
+
+async function enrichSkinsFromRepo(
   skins: CatalogSkin[],
   owner: string,
   repo: string,
@@ -72,9 +77,14 @@ async function enrichSkinNames(
           `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/skins/${encodeURIComponent(skin.id)}/skin.json`
         );
         if (!res.ok) return skin;
-        const data = (await res.json()) as { name?: string };
+        const data = (await res.json()) as { name?: string; snapshot?: string };
         const name = typeof data.name === "string" && data.name.trim() ? data.name.trim() : skin.name;
-        return { ...skin, name };
+        const snapshotRel =
+          typeof data.snapshot === "string" && data.snapshot.trim() ? data.snapshot.trim() : null;
+        const snapshotUrl = snapshotRel
+          ? rawSkinFileUrl(owner, repo, ref, skin.id, snapshotRel)
+          : undefined;
+        return { ...skin, name, snapshotUrl };
       } catch {
         return skin;
       }
@@ -105,7 +115,7 @@ export async function fetchCatalog(): Promise<SkinsCatalog> {
     throw new Error("No .mhg-skin.zip assets in latest release");
   }
 
-  skins = await enrichSkinNames(skins, owner, repo, ref);
+  skins = await enrichSkinsFromRepo(skins, owner, repo, ref);
 
   return { version: tag || null, skins };
 }
