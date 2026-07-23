@@ -4,8 +4,8 @@
 }
 
 /**
-* Empty skin — no Plex theme rules.
-* Layout shell and BackgroundManager helpers (Tailwind loads from the web app build).
+* PS3 skin — theme tokens and shared layout hooks.
+* Injected with the rest of the skin bundle at runtime.
 */
 
 * {
