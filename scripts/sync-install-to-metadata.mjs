@@ -1,7 +1,7 @@
 /**
  * Copies each skins/<folder>/ (skin.json + bundle.css) into the server's * METADATA_PATH/skins/<uuid>/ layout — same result as POST /skins after upload.
  *
- * Env (first wins):
+ * Env (first wins; also loaded from repo-root `.env` if unset in the shell):
  *   MHG_METADATA_PATH — preferred for this repo
  *   METADATA_PATH — same as myhomegames-server
  *
@@ -11,10 +11,9 @@
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
-import { fileURLToPath } from "url";
+import { loadRepoEnv, REPO_ROOT } from "./load-repo-env.mjs";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.join(__dirname, "..");
+loadRepoEnv();
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const MAX_SKINS = 24;
@@ -112,7 +111,7 @@ function main() {
   const metadataPath = process.env.MHG_METADATA_PATH || process.env.METADATA_PATH || "";
   if (!metadataPath.trim()) {
     console.log(
-      "sync-install-to-metadata: skipped (set MHG_METADATA_PATH or METADATA_PATH to your server metadata directory)"
+      "sync-install-to-metadata: skipped (set MHG_METADATA_PATH or METADATA_PATH in .env or the environment)"
     );
     return;
   }

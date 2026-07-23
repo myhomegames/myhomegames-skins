@@ -9,11 +9,11 @@
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import AdmZip from "adm-zip";
+import { loadRepoEnv, REPO_ROOT } from "./load-repo-env.mjs";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.join(__dirname, "..");
+loadRepoEnv();
+
 const RELEASE_ROOT = path.join(REPO_ROOT, "dist", "release");
 const OUT_ZIPS = path.join(RELEASE_ROOT, "zips");
 
