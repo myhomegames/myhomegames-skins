@@ -232,6 +232,10 @@ body *::-webkit-scrollbar-corner {
  */
  --mhg-wheel-step-threshold-px: 120;
  /*
+ * Minimum vertical finger swipe (px) before a fixed-focal step on touch devices.
+ */
+ --mhg-touch-step-threshold-px: 48;
+ /*
 * Cover scale: only the pad nearest the focal align line is full size; all
 * others use `--mhg-cell-scale-unselected` (see useCoverScaleAroundBar).
 */
