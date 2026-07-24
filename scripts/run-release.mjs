@@ -5,6 +5,9 @@
  */
 
 import { spawnSync } from "node:child_process";
+import { loadRepoEnv } from "./load-repo-env.mjs";
+
+loadRepoEnv();
 
 if (!process.env.NODE_DEBUG?.includes("release-it")) {
   process.env.NODE_DEBUG = [process.env.NODE_DEBUG, "release-it:config"]

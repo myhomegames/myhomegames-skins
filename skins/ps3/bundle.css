@@ -4,8 +4,8 @@
 }
 
 /**
-* Empty skin — no Plex theme rules.
-* Layout shell and BackgroundManager helpers (Tailwind loads from the web app build).
+* PS3 skin — theme tokens and shared layout hooks.
+* Injected with the rest of the skin bundle at runtime.
 */
 
 * {
@@ -231,6 +231,10 @@ body *::-webkit-scrollbar-corner {
  * Higher = slower trackpad navigation; 0 = one step per wheel event.
  */
  --mhg-wheel-step-threshold-px: 120;
+ /*
+ * Minimum vertical finger swipe (px) before a fixed-focal step on touch devices.
+ */
+ --mhg-touch-step-threshold-px: 48;
  /*
 * Cover scale: only the pad nearest the focal align line is full size; all
 * others use `--mhg-cell-scale-unselected` (see useCoverScaleAroundBar).

@@ -13,7 +13,14 @@ The project uses **`release-it`** (same workflow as **myhomegames-server**) to p
 Without `GITHUB_TOKEN`, `release-it` falls back to opening the GitHub “new release” page in the browser with the entire changelog in the URL. For large histories that URL may exceed GitHub’s limit (**“Your request URL is too long”**), and skin zips are **not** uploaded automatically in that mode.
 
 1. Create a token at [github.com/settings/tokens](https://github.com/settings/tokens) → **Generate new token (classic)** → scope **`repo`**.
-2. Export it (or copy `.env.example` to `.env` and set the value there — `.env` is gitignored):
+2. Export it (or copy `.env.example` to `.env` and set the value there — `.env` is gitignored; scripts load it automatically):
+
+```bash
+# .env
+GITHUB_TOKEN=ghp_your_token_here
+```
+
+Or:
 
 ```bash
 export GITHUB_TOKEN=ghp_your_token_here
@@ -52,8 +59,12 @@ cat dist/release/skins-built.json
 
 ### Environment variables
 
+Loaded from the shell and from the repo-root **`.env`** (shell wins if both set).
+
 | Variable | Default | Meaning |
 |----------|---------|---------|
 | `GITHUB_TOKEN` | — | Recommended for `npm run release` (PAT with `repo` scope; API upload) |
 | `MHG_SKINS_GITHUB_REPO` | `myhomegames/myhomegames-skins` | `owner/repo` used in manifest URLs |
 | `GITHUB_REPOSITORY` | — | Used in CI (`owner/repo`) when set |
+| `MHG_METADATA_PATH` | — | Preferred path for `npm run sync:metadata` / `npm run build` install sync |
+| `METADATA_PATH` | — | Same as myhomegames-server; used if `MHG_METADATA_PATH` is unset |

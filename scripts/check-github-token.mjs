@@ -3,6 +3,10 @@
  * Warn when GITHUB_TOKEN is missing — release-it falls back to the GitHub web UI.
  */
 
+import { loadRepoEnv } from "./load-repo-env.mjs";
+
+loadRepoEnv();
+
 if (process.env.GITHUB_ACTIONS === "true") {
   process.exit(0);
 }
@@ -21,7 +25,7 @@ in the URL may fail with "Your request URL is too long."
 
 Recommended:
   https://github.com/settings/tokens → Generate new token (classic) → scope "repo"
-  export GITHUB_TOKEN=ghp_your_token_here
+  Put GITHUB_TOKEN=ghp_... in .env (or export it), then:
   npm run release
 
 See DEVELOPMENT.md for details.
