@@ -38,7 +38,7 @@ Never commit the token to the repository.
 npm run release
 ```
 
-`npm run release` uses `scripts/run-release.mjs`, which sets `NODE_DEBUG=release-it:config` to work around a release-it/Octokit bug (`log: null` → *Cannot read properties of null (reading 'debug')*). GitHub config uses `skipChecks: true` for the same compatibility reason.
+`npm run release` uses `scripts/run-release.mjs`, which sets `NODE_DEBUG=release-it:config` to work around a release-it/Octokit bug (`log: null` → *Cannot read properties of null (reading 'debug')*), and passes **`--ci`** so release-it skips confirmation prompts (same as **myhomegames-server**). GitHub config uses `skipChecks: true` for the same compatibility reason.
 
 This will:
 
