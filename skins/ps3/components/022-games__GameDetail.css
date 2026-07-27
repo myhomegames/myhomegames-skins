@@ -1,0 +1,628 @@
+/* --- ./components/games/GameDetail.css --- */
+
+
+.game-detail-page {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.game-detail-libraries-bar-transparent .mhg-libraries-bar {
+  background-color: transparent !important;
+}
+
+/* Overlay dock: bar floats above; detail content starts at y=0 and scrolls underneath. */
+.game-detail-libraries-bar-wrapper {
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ z-index: 50;
+ pointer-events: none;
+}
+
+.game-detail-libraries-bar-wrapper .mhg-libraries-bar,
+.game-detail-libraries-bar-wrapper .mhg-libraries-bar * {
+ pointer-events: auto;
+}
+
+/*
+ * Game detail + top dock: hide/show background belongs inside the dock chrome
+ * (via `rightActionsBeforeMainGames`), not in the empty strip row below.
+ */
+.game-detail-libraries-bar-wrapper .mhg-libraries-bar-container {
+ margin-top: 0 !important;
+ min-height: 0 !important;
+ height: 0 !important;
+ overflow: visible !important;
+ padding: 0 !important;
+ border: none !important;
+}
+
+.game-detail-libraries-bar-wrapper .mhg-libraries-actions {
+ display: none !important;
+}
+
+.game-detail-libraries-bar-wrapper .mhg-top-right-tool-dock-inner {
+ gap: 12px;
+ padding: 0 12px;
+}
+
+.game-detail-libraries-bar-wrapper .mhg-top-right-tool-dock-before-main-games,
+.game-detail-libraries-bar-wrapper
+ .mhg-top-right-tool-dock-before-main-games.mhg-libraries-actions-before-main-games {
+ display: flex !important;
+ align-items: center !important;
+ align-self: center !important;
+ flex-shrink: 0;
+}
+
+.game-detail-libraries-bar-wrapper
+ .mhg-top-right-tool-dock-before-main-games
+ .library-item-detail-compact-top-action,
+.game-detail-libraries-bar-wrapper
+ .mhg-top-right-tool-dock-before-main-games
+ .background-toggle-button {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ width: 40px;
+ height: 40px;
+ min-width: 40px;
+ min-height: 40px;
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
+ transform: translateY(0);
+}
+
+.game-detail-container {
+ position: relative;
+ z-index: 1;
+ min-height: 100vh;
+ height: 100vh;
+ display: flex;
+ flex-direction: column;
+ margin-top: 0;
+ padding-top: 0;
+}
+
+.game-detail-main-container {
+  background-color: transparent;
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.game-detail-content {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0 !important;
+}
+
+.game-detail-layout {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.game-detail-content-wrapper {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.game-detail-scroll-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100vh;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
+  padding-left: 64px;
+  padding-right: 64px;
+  padding-top: calc(var(--mhg-library-bar-effective-bottom) + 8px) !important;
+  padding-bottom: 32px;
+}
+
+.game-detail-scroll-container > .game-detail-header {
+  padding-top: 0;
+}
+
+/* Same dock pull as library rails: scroll box starts at page top, content passes under the dock. */
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .game-detail-scroll-container,
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .catalog-game-detail-scroll-container {
+ margin-top: calc(
+  35px - var(--mhg-top-tool-dock-stack, 136px) - var(--mhg-library-bar-margin-top, 0px)
+ ) !important;
+ height: calc(
+  100vh + 64px + var(--mhg-top-tool-dock-stack, 136px) + var(--mhg-library-bar-margin-top, 0px)
+ ) !important;
+}
+
+.game-detail-header {
+  display: flex;
+  flex-direction: row;
+  gap: 48px;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 48px;
+}
+
+.game-detail-cover-wrapper {
+  flex-shrink: 0;
+}
+
+.game-detail-info-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+  min-width: 0;
+  min-height: 384px;
+  visibility: visible;
+}
+
+.game-detail-info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  visibility: visible;
+}
+
+.game-detail-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px 16px;
+}
+
+.game-detail-title {
+  visibility: visible;
+  display: block;
+  margin: 0;
+  font-family: var(--font-heading-1-font-family);
+  font-size: var(--font-heading-1-font-size);
+  line-height: var(--font-heading-1-line-height);
+}
+
+.game-detail-type-label {
+  flex-shrink: 0;
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  line-height: var(--font-body-2-line-height);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  padding: 4px 10px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.game-detail-release-date {
+  opacity: 0.8;
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  line-height: var(--font-body-2-line-height);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.game-detail-age-ratings-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.game-detail-age-ratings-inline .age-ratings-list {
+  display: inline-flex;
+  gap: 0;
+}
+
+.game-detail-ratings {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.game-detail-rating-item {
+  opacity: 0.8;
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  line-height: var(--font-body-2-line-height);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.game-detail-rating-icon {
+  flex-shrink: 0;
+}
+
+.game-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.game-detail-play-button {
+  background-color: var(--mhg-primary, #22c55e);
+  color: #000000;
+  border: none;
+  border-radius: 4px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 8px;
+  padding-right: 12px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  line-height: 1.2;
+}
+
+.game-detail-play-button:hover {
+  background-color: #4ade80;
+}
+
+.game-detail-play-button-icon {
+  display: block;
+}
+
+.game-detail-link-executable-button {
+  background-color: var(--mhg-primary, #22c55e);
+  color: #000000;
+  border: none;
+  border-radius: 4px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 8px;
+  padding-right: 12px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  line-height: 1.2;
+  opacity: 1;
+}
+
+.game-detail-link-executable-button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.game-detail-link-executable-button:hover:not(:disabled) {
+  background-color: #4ade80;
+}
+
+.game-detail-link-executable-button-icon {
+  display: block;
+}
+
+.game-detail-executable-input {
+  display: none;
+}
+
+.game-detail-edit-button {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.game-detail-edit-button:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.game-detail-dropdown-menu {
+  position: relative;
+}
+
+.game-detail-dropdown-menu .dropdown-menu-button {
+  opacity: 1 !important;
+}
+
+.game-detail-media-section {
+  width: 100%;
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+.game-detail-info-section {
+  width: 100%;
+  margin-top: 48px;
+}
+
+.game-detail-collections-section,
+.game-detail-similar-section {
+  width: 100%;
+  margin-top: 48px;
+}
+
+.game-detail-section-title {
+  font-family: var(--font-heading-2-font-family);
+  font-size: var(--font-heading-2-font-size);
+  line-height: var(--font-heading-2-line-height);
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.game-detail-collections-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.game-detail-collection-group {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.game-detail-collection-group .scrollable-section,
+.game-detail-similar-section .scrollable-section {
+  margin-bottom: 0;
+}
+
+.game-detail-collection-group .scrollable-section-header,
+.game-detail-similar-section .scrollable-section-header {
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 12px;
+}
+
+.game-detail-collection-group .scrollable-section-title,
+.game-detail-similar-section .scrollable-section-title {
+  font-family: var(--font-body-2-font-family);
+  font-size: var(--font-body-2-font-size);
+  line-height: var(--font-body-2-line-height);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.game-detail-collection-group .scrollable-section-scroll,
+.game-detail-similar-section .scrollable-section-scroll {
+  padding-right: 0;
+}
+
+.game-detail-collection-group .scrollable-section-scroll:not(.restoring),
+.game-detail-similar-section .scrollable-section-scroll:not(.restoring) {
+ margin-left: 0;
+ margin-right: 0;
+}
+
+.game-detail-collection-games {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 6px 16px;
+}
+
+.game-detail-collection-games li {
+  font-size: 0.9rem;
+}
+
+.game-detail-similar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+}
+
+.game-detail-similar-not-in-library {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.game-detail-similar-catalog-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  overflow: hidden;
+}
+
+.game-detail-similar-catalog-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.game-detail-similar-catalog-chip-name {
+  padding: 6px 10px;
+}
+
+.game-detail-similar-catalog-chip-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 4px;
+  color: #4ade80;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.game-detail-similar-cover-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: inline-block;
+  padding: 4px 8px;
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 4px;
+  color: #4ade80;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.game-detail-similar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.game-detail-similar-title {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+}
+
+.button-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Narrow / phone layout (detail scroll + related breakpoints). */
+@container mhg-detail-scroll (max-width: 720px) {
+  .game-detail-scroll-container,
+  .catalog-game-detail-scroll-container,
+  .library-item-detail-scroll {
+    overflow-x: hidden !important;
+    padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
+  }
+
+  .game-detail-header,
+  .catalog-game-detail-header,
+  .library-item-detail-hero {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    row-gap: 24px;
+    width: 100%;
+  }
+
+  .game-detail-cover-wrapper,
+  .catalog-game-detail-cover-wrapper,
+  .library-item-detail-hero-cover {
+    grid-row: 1;
+    justify-self: center;
+    width: min(256px, 100%);
+  }
+
+  .game-detail-cover-wrapper .games-list-cover,
+  .catalog-game-detail-cover-wrapper .games-list-cover,
+  .library-item-detail-hero-cover .games-list-cover {
+    width: min(256px, 100%) !important;
+  }
+
+  .game-detail-info-panel,
+  .catalog-game-detail-info-panel,
+  .game-detail-info-content,
+  .catalog-game-detail-info-content,
+  .library-item-detail-meta {
+    display: contents;
+  }
+
+  .game-detail-info-primary,
+  .library-item-detail-meta-primary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    grid-row: 2;
+    width: 100%;
+    min-height: 0 !important;
+  }
+
+  .library-item-detail-title-row,
+  .library-item-detail-title-row--with-company-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .game-detail-summary,
+  .library-item-detail-summary {
+    display: block;
+    grid-row: 3;
+    width: 100%;
+  }
+
+  .game-info-block {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+@container mhg-detail-scroll (max-width: 560px) {
+  .game-detail-cover-wrapper,
+  .catalog-game-detail-cover-wrapper,
+  .library-item-detail-hero-cover {
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  .game-detail-cover-wrapper .games-list-cover,
+  .catalog-game-detail-cover-wrapper .games-list-cover,
+  .library-item-detail-hero-cover .games-list-cover {
+    width: 100% !important;
+  }
+}

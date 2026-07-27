@@ -1,0 +1,7 @@
+/* --- ./components/lists/VirtualizedCollectionsList.css --- */
+
+
+.virtualized-collections-grid {
+  overflow-x: hidden !important;
+  margin: 0 auto !important;
+}

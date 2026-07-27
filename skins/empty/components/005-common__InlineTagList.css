@@ -1,0 +1,14 @@
+/* --- ./components/common/InlineTagList.css --- */
+
+.inline-tag-list {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.inline-tag-list-item {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+  min-width: 0;
+}

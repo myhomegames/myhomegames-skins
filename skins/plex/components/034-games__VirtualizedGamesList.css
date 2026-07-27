@@ -1,0 +1,8 @@
+/* --- ./components/games/VirtualizedGamesList.css --- */
+
+
+/* Do not force width/display: react-window Grid relies on inline width + absolute cells */
+.virtualized-games-grid {
+  overflow-x: hidden !important;
+  margin: 0 auto !important;
+}

@@ -1,6 +1,6 @@
 {
   "name": "Empty (no theme CSS)",
-  "description": "Layout shell and BackgroundManager helpers only — no Plex-style component theme. Tailwind still comes from the web app build.",
-  "version": "1.0.0",
+  "description": "Minimal layout shell plus shared helpers (BackgroundManager, company badges, detail phone layout, Smart TV focus). Same CSS file codes as other skins; no full theme. Tailwind still comes from the web app build.",
+  "version": "1.0.1",
   "snapshot": "snapshot.jpg"
 }

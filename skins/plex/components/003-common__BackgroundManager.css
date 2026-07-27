@@ -1,0 +1,130 @@
+/* --- ./components/common/BackgroundManager.css --- */
+
+
+.background-manager-root {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  z-index: 0;
+}
+
+.background-manager-bg-img {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.background-manager-root--clickable {
+  cursor: pointer;
+}
+
+.background-manager-root--solid {
+  background-color: #1a1a1a;
+  cursor: default;
+}
+
+.background-manager-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  background-color: rgba(26, 26, 26, 0.85);
+  z-index: 1;
+}
+
+/* Body portal paint (BackgroundManager): same dimming as .background-manager-overlay on root. */
+.background-manager-portal-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.background-manager-portal-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(26, 26, 26, 0.85);
+  pointer-events: none;
+}
+
+[data-mhg-background-portal] {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.background-manager-foreground {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.background-manager-foreground > * {
+  pointer-events: auto;
+}
+
+/*
+ * When a backdrop is active, page shells must stay transparent so the fixed
+ * background layer (portal + background-manager-root) is visible behind the rail.
+ */
+html[data-mhg-background-visible="true"] body,
+html[data-mhg-background-visible="true"] #root,
+html[data-mhg-background-visible="true"] .app-main-container,
+html[data-mhg-background-visible="true"] .home-page-main-container,
+html[data-mhg-background-visible="true"] .home-page-content,
+html[data-mhg-background-visible="true"] .home-page-layout,
+html[data-mhg-background-visible="true"] .home-page-content-wrapper,
+html[data-mhg-background-visible="true"] .home-page-scroll-container:not(.table-view),
+html[data-mhg-background-visible="true"] .mhg-vertical-covers-page,
+html[data-mhg-background-visible="true"] .library-item-detail-page-shell--context-rail,
+html[data-mhg-background-visible="true"] .library-item-detail-scroll--context-rail {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+html[data-mhg-background-visible="true"] [data-mhg-background-portal] {
+  z-index: 0 !important;
+}
+
+html[data-mhg-background-visible="true"] .background-manager-root {
+  z-index: 0 !important;
+}
+
+html[data-mhg-background-visible="true"] .background-manager-foreground {
+  position: relative;
+  z-index: 2;
+}

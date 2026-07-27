@@ -1,0 +1,13 @@
+/* --- ./components/games/AddToCollectionModal.css --- */
+
+/* Above portaled "Add to" submenus and library-bar menus while modal is open */
+.add-to-collection-modal-overlay {
+  z-index: 10110 !important;
+}
+
+body:has(.add-to-collection-modal-overlay) > .add-to-collection-dropdown-menu,
+body:has(.add-to-collection-modal-overlay) > .additional-executables-dropdown-menu,
+body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
