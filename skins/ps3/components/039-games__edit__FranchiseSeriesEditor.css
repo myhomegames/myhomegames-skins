@@ -129,6 +129,15 @@
  padding: 0 !important;
 }
 
+/* Dim band is visual only — clicks reach the page (same idea as profile sheet). */
+.add-game-overlay {
+ pointer-events: none !important;
+}
+
+.add-game-container {
+ pointer-events: auto !important;
+}
+
 /* Above dropdown sheet (10100) and portaled submenus (10101) */
 .add-to-collection-modal-overlay {
  z-index: 10102 !important;

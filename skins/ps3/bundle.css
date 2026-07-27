@@ -4326,18 +4326,11 @@ body:has(.search-results-shell) .app-main-container {
  align-items: center;
  justify-content: center;
  z-index: 10100;
-}
-
-@keyframes mhg-add-game-fade-in {
- from {
- opacity: 0;
- }
- to {
- opacity: 1;
- }
+ pointer-events: none;
 }
 
 .add-game-container {
+ pointer-events: auto;
  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
  width: 100%;
  max-width: 900px;
