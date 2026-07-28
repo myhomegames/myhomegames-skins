@@ -110,7 +110,7 @@
   transform: translateX(100%);
  }
  to {
-  transform: translateX(0);
+  transform: none;
  }
 }
 
@@ -129,12 +129,8 @@
  padding: 0 !important;
 }
 
-/* Dim band is visual only — clicks reach the page (same idea as profile sheet). */
+/* Full-viewport overlay blocks the page underneath (dim + sheet). */
 .add-game-overlay {
- pointer-events: none !important;
-}
-
-.add-game-container {
  pointer-events: auto !important;
 }
 
@@ -343,7 +339,12 @@ body[data-mhg-sidebar-search-open] > [data-mhg-sidebar-search-menu-stack] {
  align-items: stretch !important;
 }
 
-/* Menus portaled or anchored near controls → fixed right sheet + dim band to the left */
+/*
+ * Menus → full-viewport blocker (dim left + panel right).
+ * Root must cover 100% so pointer events never reach the page; content sits in
+ * the right 40% via padding. Clicks on the dim (padding) hit the root and close
+ * via bindSheetBackdropClose (target === currentTarget).
+ */
 .filter-popup,
 .sort-popup,
 .dropdown-menu-popup,
@@ -354,28 +355,62 @@ body[data-mhg-sidebar-search-open] > [data-mhg-sidebar-search-menu-stack] {
 .profile-dropdown-popup,
 .franchise-series-dropdown {
  position: fixed !important;
+ inset: 0 !important;
  top: 0 !important;
  right: 0 !important;
- left: auto !important;
+ left: 0 !important;
  bottom: 0 !important;
  margin: 0 !important;
- width: 40% !important;
+ width: 100% !important;
  min-width: 0 !important;
  max-width: 100% !important;
  height: 100% !important;
  max-height: 100dvh !important;
+ padding-left: 60% !important;
+ box-sizing: border-box !important;
+ border: none !important;
  border-radius: 0 !important;
- border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
- box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55) !important;
+ box-shadow: none !important;
+ background:
+  linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)) left 60% top 0 / 1px 100% no-repeat,
+  linear-gradient(
+   to right,
+   rgba(0, 0, 0, 0.55) 0 60%,
+   #1a1a1a 60% 100%
+  ) !important;
  z-index: 10100 !important;
  overflow: hidden !important;
  display: flex !important;
  flex-direction: column !important;
  isolation: isolate !important;
+ pointer-events: auto !important;
  animation: mhg-ps3-sheet-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Clickable dim band (box-shadow is not hit-testable). Clicks bubble to the sheet root. */
+/* Panel edge shadow (visual only; root already blocks the page). */
+.filter-popup::after,
+.sort-popup::after,
+.dropdown-menu-popup::after,
+.games-list-toolbar-popup::after,
+.view-mode-dropdown::after,
+.view-mode-dropdown.view-mode-dropdown--portaled::after,
+.games-table-column-menu-popup::after,
+.profile-dropdown-popup::after,
+.franchise-series-dropdown::after,
+body > .add-to-collection-dropdown-menu::after,
+body > .additional-executables-dropdown-menu::after {
+ content: '';
+ position: absolute;
+ top: 0;
+ right: 0;
+ bottom: 0;
+ width: 40%;
+ box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55);
+ pointer-events: none;
+ z-index: 0;
+}
+
+/* Legacy ::before dim — root gradient covers the page now. */
 .filter-popup::before,
 .sort-popup::before,
 .dropdown-menu-popup::before,
@@ -387,11 +422,7 @@ body[data-mhg-sidebar-search-open] > [data-mhg-sidebar-search-menu-stack] {
 .franchise-series-dropdown::before,
 body > .add-to-collection-dropdown-menu::before,
 body > .additional-executables-dropdown-menu::before {
- content: '';
- position: fixed;
- inset: 0;
- background: rgba(0, 0, 0, 0.55);
- z-index: -1;
+ content: none !important;
 }
 
 .filter-popup-scrollable,
@@ -554,29 +585,37 @@ body > .additional-executables-dropdown-menu::before {
  overflow-y: auto !important;
 }
 
-/* Portaled dropdown submenus: same right sheet as the parent menu (overlay pane) */
+/* Portaled dropdown submenus: full-viewport blocker + right panel (above parent sheet) */
 body > .add-to-collection-dropdown-menu,
 body > .additional-executables-dropdown-menu {
  position: fixed !important;
+ inset: 0 !important;
  top: 0 !important;
  right: 0 !important;
- left: auto !important;
+ left: 0 !important;
  bottom: 0 !important;
- width: 40% !important;
+ width: 100% !important;
  min-width: 0 !important;
  max-width: 100% !important;
  height: 100% !important;
  max-height: 100dvh !important;
  margin: 0 !important;
- border-radius: 0 !important;
+ padding: 8px 0 8px 60% !important;
+ box-sizing: border-box !important;
  border: none !important;
- border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+ border-radius: 0 !important;
  box-shadow: none !important;
+ background:
+  linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)) left 60% top 0 / 1px 100% no-repeat,
+  linear-gradient(
+   to right,
+   rgba(0, 0, 0, 0.55) 0 60%,
+   #1a1a1a 60% 100%
+  ) !important;
  z-index: 10101 !important;
  overflow-x: hidden !important;
  overflow-y: auto !important;
- padding: 8px 0 !important;
- background-color: #1a1a1a !important;
+ pointer-events: auto !important;
  animation: mhg-ps3-sheet-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -662,7 +701,24 @@ body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-section-titl
   right: 0 !important;
   width: 100% !important;
   max-width: 100% !important;
+  padding-left: 0 !important;
   border-left: none !important;
+  box-shadow: none !important;
+  background: #1a1a1a !important;
+ }
+
+ .filter-popup::after,
+ .sort-popup::after,
+ .dropdown-menu-popup::after,
+ .games-list-toolbar-popup::after,
+ .view-mode-dropdown::after,
+ .view-mode-dropdown.view-mode-dropdown--portaled::after,
+ .games-table-column-menu-popup::after,
+ .profile-dropdown-popup::after,
+ .franchise-series-dropdown::after,
+ body > .add-to-collection-dropdown-menu::after,
+ body > .additional-executables-dropdown-menu::after {
+  width: 100% !important;
   box-shadow: none !important;
  }
 

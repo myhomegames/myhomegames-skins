@@ -4317,11 +4317,10 @@ body:has(.search-results-shell) .app-main-container {
  align-items: center;
  justify-content: center;
  z-index: 10100;
- pointer-events: none;
+ pointer-events: auto;
 }
 
 .add-game-container {
- pointer-events: auto;
  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
  width: 100%;
  max-width: 900px;
