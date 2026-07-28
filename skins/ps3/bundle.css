@@ -733,11 +733,11 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  z-index: 1;
 }
 
-.games-list-toolbar-clear-button:hover {
+.games-list-toolbar-clear-button:is(:hover, [data-mhg-tv-hover]) {
  color: #ffffff;
 }
 
-.games-list-toolbar-button:hover {
+.games-list-toolbar-button:is(:hover, [data-mhg-tv-hover]) {
  color: #ffffff;
 }
 
@@ -752,7 +752,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  transition: color 0.2s ease;
 }
 
-.games-list-toolbar-button:hover .games-list-toolbar-value {
+.games-list-toolbar-button:is(:hover, [data-mhg-tv-hover]) .games-list-toolbar-value {
  color: #ffffff;
 }
 
@@ -763,7 +763,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  margin-right: 2px;
 }
 
-.games-list-toolbar-button:hover .games-list-toolbar-sort-direction {
+.games-list-toolbar-button:is(:hover, [data-mhg-tv-hover]) .games-list-toolbar-sort-direction {
  color: rgba(255, 255, 255, 0.8);
 }
 
@@ -777,7 +777,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  transform: rotate(180deg);
 }
 
-.games-list-toolbar-button:hover .games-list-toolbar-arrow {
+.games-list-toolbar-button:is(:hover, [data-mhg-tv-hover]) .games-list-toolbar-arrow {
  color: rgba(255, 255, 255, 0.8);
 }
 
@@ -819,7 +819,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  flex-shrink: 0;
 }
 
-.games-list-toolbar-popup-back:hover {
+.games-list-toolbar-popup-back:is(:hover, [data-mhg-tv-hover]) {
  background-color: rgba(255, 255, 255, 0.1);
  color: #ffffff;
 }
@@ -889,7 +889,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  margin: 4px 0;
 }
 
-.games-list-toolbar-popup-item:hover {
+.games-list-toolbar-popup-item:is(:hover, [data-mhg-tv-hover]) {
  background-color: rgba(255, 255, 255, 0.05);
  color: #ffffff;
 }
@@ -1058,7 +1058,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  color: inherit;
 }
 
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo:hover {
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-logo:is(:hover, [data-mhg-tv-hover]) {
  opacity: 0.88;
 }
 
@@ -1225,11 +1225,11 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- .mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover .mhg-library-button-label,
+ .mhg-library-button[data-mhg-library-key="mhg-header-settings"]:is(:hover, [data-mhg-tv-hover]) .mhg-library-button-label,
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- .mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover .mhg-library-button-label,
+ .mhg-library-button[data-mhg-library-key="mhg-header-profile"]:is(:hover, [data-mhg-tv-hover]) .mhg-library-button-label,
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- .mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:hover .mhg-library-button-label,
+ .mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:is(:hover, [data-mhg-tv-hover]) .mhg-library-button-label,
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
  .mhg-library-button[data-mhg-strip-focus] .mhg-library-button-label {
  top: 54px;
@@ -1288,9 +1288,9 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  text-overflow: ellipsis;
 }
 
-.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover .mhg-library-button-label,
-.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover .mhg-library-button-label,
-.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:hover .mhg-library-button-label,
+.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:is(:hover, [data-mhg-tv-hover]) .mhg-library-button-label,
+.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:is(:hover, [data-mhg-tv-hover]) .mhg-library-button-label,
+.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:is(:hover, [data-mhg-tv-hover]) .mhg-library-button-label,
 .mhg-library-button[data-mhg-strip-focus] .mhg-library-button-label {
  display: block;
  position: absolute;
@@ -1312,11 +1312,11 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 }
 
 /*While hovering / strip-focusing Settings/Profile/Add game, visually mute previously-active library entry.*/
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover)
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:is(:hover, [data-mhg-tv-hover]))
  .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"]),
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover)
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:is(:hover, [data-mhg-tv-hover]))
  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"]),
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:hover)
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:is(:hover, [data-mhg-tv-hover]))
  .mhg-library-active:not([data-mhg-library-key="mhg-header-add-game"]),
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus])
  .mhg-library-active:not([data-mhg-strip-focus]) {
@@ -1324,11 +1324,11 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  background: transparent;
 }
 
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover)
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:is(:hover, [data-mhg-tv-hover]))
  .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"])::before,
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover)
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:is(:hover, [data-mhg-tv-hover]))
  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"])::before,
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:hover)
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:is(:hover, [data-mhg-tv-hover]))
  .mhg-library-active:not([data-mhg-library-key="mhg-header-add-game"])::before,
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus])
  .mhg-library-active:not([data-mhg-strip-focus])::before {
@@ -1336,11 +1336,11 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  text-shadow: none;
 }
 
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:hover)
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:is(:hover, [data-mhg-tv-hover]))
  .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"]) .mhg-library-button-label,
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:hover)
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:is(:hover, [data-mhg-tv-hover]))
  .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"]) .mhg-library-button-label,
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:hover)
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:is(:hover, [data-mhg-tv-hover]))
  .mhg-library-active:not([data-mhg-library-key="mhg-header-add-game"]) .mhg-library-button-label,
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus])
  .mhg-library-active:not([data-mhg-strip-focus]) .mhg-library-button-label {
@@ -1361,16 +1361,16 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  text-shadow: none;
 }
 
-.mhg-library-button:hover::before,
-.mhg-library-active:hover::before,
+.mhg-library-button:is(:hover, [data-mhg-tv-hover])::before,
+.mhg-library-active:is(:hover, [data-mhg-tv-hover])::before,
 .mhg-library-active::before,
 .mhg-library-button[data-mhg-strip-focus]::before {
  color: rgba(255, 255, 255, 1);
  text-shadow: 0 0 8px rgba(255, 255, 255, 0.55), 0 0 20px rgba(120, 180, 255, 0.45);
 }
 
-.mhg-library-button:hover,
-.mhg-library-active:hover,
+.mhg-library-button:is(:hover, [data-mhg-tv-hover]),
+.mhg-library-active:is(:hover, [data-mhg-tv-hover]),
 .mhg-library-button[data-mhg-strip-focus] {
  transform: scale(1.08);
  filter: brightness(1.15);
@@ -1548,11 +1548,11 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-.profile-dropdown-header-item:hover {
+.profile-dropdown-header-item:is(:hover, [data-mhg-tv-hover]) {
  background-color: rgba(255, 255, 255, 0.2) !important;
 }
 
-.profile-dropdown-item:hover {
+.profile-dropdown-item:is(:hover, [data-mhg-tv-hover]) {
  background-color: rgba(255, 255, 255, 0.1);
  color: rgba(255, 255, 255, 1);
 }
@@ -1561,7 +1561,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  color: rgba(255, 255, 255, 1);
 }
 
-.profile-dropdown-item-danger:hover {
+.profile-dropdown-item-danger:is(:hover, [data-mhg-tv-hover]) {
  background-color: rgba(255, 255, 255, 0.1);
  color: rgba(255, 255, 255, 1);
 }
@@ -1607,7 +1607,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  color: var(--mhg-primary, #22c55e);
 }
 
-.update-notification-button:hover .update-notification-bell {
+.update-notification-button:is(:hover, [data-mhg-tv-hover]) .update-notification-bell {
  color: #4ade80;
 }
 
@@ -1761,7 +1761,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  color: rgba(255, 255, 255, 0.7) !important;
 }
 
-.profile-dropdown-popup[data-mhg-profile-dropdown-panel="menu"] .profile-dropdown-item:hover {
+.profile-dropdown-popup[data-mhg-profile-dropdown-panel="menu"] .profile-dropdown-item:is(:hover, [data-mhg-tv-hover]) {
  background-color: rgba(255, 255, 255, 0.05) !important;
  color: #ffffff !important;
 }
@@ -1898,14 +1898,15 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  pointer-events: none;
 }
 
-.cover-hover-effect:hover,
-*:hover > .cover-hover-effect {
+.cover-hover-effect:is(:hover, [data-mhg-tv-hover]),
+*:hover > .cover-hover-effect, .cover-hover-effect[data-mhg-tv-hover] {
  outline-color: var(--mhg-play-accent, var(--mhg-primary, #22c55e));
  border-radius: 4px;
 }
 
-.cover-hover-effect:hover::before,
-*:hover > .cover-hover-effect::before {
+.cover-hover-effect:is(:hover, [data-mhg-tv-hover])::before,
+*:hover > .cover-hover-effect::before,
+.cover-hover-effect[data-mhg-tv-hover]::before {
  background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -1932,12 +1933,12 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  opacity: 0;
 }
 
-.games-list-cover:hover .games-list-play-button-detail {
+.games-list-cover:is(:hover, [data-mhg-tv-hover]) .games-list-play-button-detail {
  opacity: 1;
  background-color: rgba(0, 0, 0, 0.7);
 }
 
-.games-list-play-button-detail:hover {
+.games-list-play-button-detail:is(:hover, [data-mhg-tv-hover]) {
  background-color: var(--mhg-play-accent-soft) !important;
 }
 
@@ -1946,30 +1947,30 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  opacity: 0;
 }
 
-.games-list-cover-play:hover .games-list-play-button-play-only {
+.games-list-cover-play:is(:hover, [data-mhg-tv-hover]) .games-list-play-button-play-only {
  opacity: 1;
 }
 
-.games-list-play-button-play-only:hover {
+.games-list-play-button-play-only:is(:hover, [data-mhg-tv-hover]) {
  background-color: var(--mhg-play-accent-soft-hover);
 }
 
-.games-list-item:hover > .games-list-cover.cover-hover-effect {
+.games-list-item:is(:hover, [data-mhg-tv-hover]) > .games-list-cover.cover-hover-effect {
  outline-color: transparent;
  box-shadow: none;
 }
 
-.games-list-item:hover > .games-list-cover.cover-hover-effect::before {
+.games-list-item:is(:hover, [data-mhg-tv-hover]) > .games-list-cover.cover-hover-effect::before {
  background-color: rgba(0, 0, 0, 0);
 }
 
-.games-list-cover.cover-hover-effect:hover {
+.games-list-cover.cover-hover-effect:is(:hover, [data-mhg-tv-hover]) {
  outline-color: var(--mhg-play-accent, var(--mhg-primary, #22c55e)) !important;
  border-radius: 4px;
  box-shadow: 0 10px 20px var(--mhg-play-glow) !important;
 }
 
-.games-list-cover.cover-hover-effect:hover::before {
+.games-list-cover.cover-hover-effect:is(:hover, [data-mhg-tv-hover])::before {
  background-color: rgba(0, 0, 0, 0.4) !important;
 }
 
@@ -1994,8 +1995,8 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  opacity: 0;
 }
 
-.games-list-item--detail-current .games-list-cover--detail-current:hover,
-.games-list-cover--detail-current:hover {
+.games-list-item--detail-current .games-list-cover--detail-current:is(:hover, [data-mhg-tv-hover]),
+.games-list-cover--detail-current:is(:hover, [data-mhg-tv-hover]) {
  transform: none;
 }
 
@@ -2057,7 +2058,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  right: 8px;
 }
 
-.games-list-cover:hover .games-list-edit-button {
+.games-list-cover:is(:hover, [data-mhg-tv-hover]) .games-list-edit-button {
  opacity: 1;
 }
 
@@ -2068,7 +2069,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  transition: color 0.2s ease;
 }
 
-.games-list-edit-button:hover svg {
+.games-list-edit-button:is(:hover, [data-mhg-tv-hover]) svg {
  color: #ffffff;
 }
 
@@ -2085,7 +2086,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  right: 8px;
 }
 
-.games-list-cover:hover .games-list-dropdown-wrapper .dropdown-menu-button {
+.games-list-cover:is(:hover, [data-mhg-tv-hover]) .games-list-dropdown-wrapper .dropdown-menu-button {
  opacity: 1;
 }
 
@@ -2124,163 +2125,163 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-item.mhg-cover-scale-selected:hover
+ .fixed-focal-tag-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-item.mhg-cover-scale-selected:hover
+ .fixed-focal-tag-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .cover-hover-effect,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-collections-item.mhg-cover-scale-selected:hover
+ .fixed-focal-collections-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect,
 .mhg-library-vertical-covers
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect,
 .library-item-detail-scroll--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect,
 .tag-games-page-shell--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect,
 .recommended-section-detail-scroll--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect {
  outline-color: var(--mhg-play-accent, var(--mhg-primary, #22c55e)) !important;
  box-shadow: 0 10px 20px var(--mhg-play-glow) !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-item.mhg-cover-scale-selected:hover
+ .fixed-focal-tag-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-item.mhg-cover-scale-selected:hover
+ .fixed-focal-tag-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .cover-hover-effect::before,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-collections-item.mhg-cover-scale-selected:hover
+ .fixed-focal-collections-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before,
 .mhg-library-vertical-covers
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before,
 .library-item-detail-scroll--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before,
 .tag-games-page-shell--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before,
 .recommended-section-detail-scroll--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before {
  background-color: rgba(0, 0, 0, 0.4) !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-play-button-detail,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-play-button-play-only,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-edit-button,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-dropdown-wrapper
  .dropdown-menu-button,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-collections-item.mhg-cover-scale-selected:hover
+ .fixed-focal-collections-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-play-button-detail,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-collections-item.mhg-cover-scale-selected:hover
+ .fixed-focal-collections-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-edit-button,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-collections-item.mhg-cover-scale-selected:hover
+ .fixed-focal-collections-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-dropdown-wrapper
  .dropdown-menu-button,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-item.mhg-cover-scale-selected:hover
+ .fixed-focal-tag-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-edit-button,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-item.mhg-cover-scale-selected:hover
+ .fixed-focal-tag-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-upload-button,
 .mhg-library-vertical-covers
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-play-button-detail,
 .mhg-library-vertical-covers
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-play-button-play-only,
 .mhg-library-vertical-covers
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-edit-button,
 .mhg-library-vertical-covers
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-dropdown-wrapper
  .dropdown-menu-button,
 .library-item-detail-scroll--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-play-button-detail,
 .library-item-detail-scroll--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-play-button-play-only,
 .library-item-detail-scroll--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-edit-button,
 .library-item-detail-scroll--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-dropdown-wrapper
  .dropdown-menu-button,
 .tag-games-page-shell--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-play-button-detail,
 .tag-games-page-shell--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-play-button-play-only,
 .tag-games-page-shell--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-edit-button,
 .tag-games-page-shell--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-dropdown-wrapper
  .dropdown-menu-button,
 .recommended-section-detail-scroll--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-play-button-detail,
 .recommended-section-detail-scroll--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-play-button-play-only,
 .recommended-section-detail-scroll--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-edit-button,
 .recommended-section-detail-scroll--context-rail
- .fixed-focal-games-item.mhg-cover-scale-selected:hover
+ .fixed-focal-games-item.mhg-cover-scale-selected:is(:hover, [data-mhg-tv-hover])
  .games-list-cover
  .games-list-dropdown-wrapper
  .dropdown-menu-button {
@@ -2353,61 +2354,61 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
  .cover-hover-effect,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .cover-hover-effect,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
  .games-list-cover.cover-hover-effect,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-tag-item:not(.mhg-cover-scale-selected)
  .cover-hover-effect,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .cover-hover-effect,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-tag-item:not(.mhg-cover-scale-selected)
  .games-list-cover,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
  .cover-hover-effect,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-collections-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .cover-hover-effect,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
  .games-list-cover.cover-hover-effect,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-collections-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect,
 .mhg-library-vertical-covers
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
  .games-list-cover.cover-hover-effect,
 .mhg-library-vertical-covers
- .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect,
 .library-item-detail-scroll--context-rail
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
  .games-list-cover.cover-hover-effect,
 .library-item-detail-scroll--context-rail
- .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect,
 .tag-games-page-shell--context-rail
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
  .games-list-cover.cover-hover-effect,
 .tag-games-page-shell--context-rail
- .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect,
 .recommended-section-detail-scroll--context-rail
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
  .games-list-cover.cover-hover-effect,
 .recommended-section-detail-scroll--context-rail
- .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect {
  outline-color: transparent !important;
  box-shadow: none !important;
@@ -2419,93 +2420,93 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
  .cover-hover-effect::before,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .cover-hover-effect::before,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
  .games-list-cover.cover-hover-effect::before,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-tag-item:not(.mhg-cover-scale-selected)
  .cover-hover-effect::before,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .cover-hover-effect::before,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-tag-item:not(.mhg-cover-scale-selected)
  .games-list-cover::before,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-tag-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover::before,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
  .cover-hover-effect::before,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-collections-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .cover-hover-effect::before,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
  .games-list-cover.cover-hover-effect::before,
 :root[data-mhg-vertical-cover-alignment="true"]
- .fixed-focal-collections-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before,
 .mhg-library-vertical-covers
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
  .games-list-cover.cover-hover-effect::before,
 .mhg-library-vertical-covers
- .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before,
 .library-item-detail-scroll--context-rail
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
  .games-list-cover.cover-hover-effect::before,
 .library-item-detail-scroll--context-rail
- .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before,
 .tag-games-page-shell--context-rail
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
  .games-list-cover.cover-hover-effect::before,
 .tag-games-page-shell--context-rail
- .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before,
 .recommended-section-detail-scroll--context-rail
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
  .games-list-cover.cover-hover-effect::before,
 .recommended-section-detail-scroll--context-rail
- .fixed-focal-games-item:not(.mhg-cover-scale-selected):hover
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected):is(:hover, [data-mhg-tv-hover])
  .games-list-cover.cover-hover-effect::before {
  background-color: rgba(0, 0, 0, 0) !important;
 }
 
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
- .games-list-cover:hover
+ .games-list-cover:is(:hover, [data-mhg-tv-hover])
  .games-list-play-button-detail,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
- .games-list-cover:hover
+ .games-list-cover:is(:hover, [data-mhg-tv-hover])
  .games-list-play-button-play-only,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
- .games-list-cover:hover
+ .games-list-cover:is(:hover, [data-mhg-tv-hover])
  .games-list-edit-button,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-games-item:not(.mhg-cover-scale-selected)
- .games-list-cover:hover
+ .games-list-cover:is(:hover, [data-mhg-tv-hover])
  .games-list-dropdown-wrapper
  .dropdown-menu-button,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
- .games-list-cover:hover
+ .games-list-cover:is(:hover, [data-mhg-tv-hover])
  .games-list-play-button-detail,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
- .games-list-cover:hover
+ .games-list-cover:is(:hover, [data-mhg-tv-hover])
  .games-list-edit-button,
 :root[data-mhg-vertical-cover-alignment="true"]
  .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
- .games-list-cover:hover
+ .games-list-cover:is(:hover, [data-mhg-tv-hover])
  .games-list-dropdown-wrapper
  .dropdown-menu-button {
  opacity: 0 !important;
@@ -2586,10 +2587,10 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 
 .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
  .mhg-libraries-actions-right-extra
- .mhg-libraries-shell-action-button:hover,
+ .mhg-libraries-shell-action-button:is(:hover, [data-mhg-tv-hover]),
 .mhg-libraries-bar[data-mhg-library-bar-header-actions="true"]
  .mhg-libraries-actions-right-extra
- .profile-dropdown-button:hover {
+ .profile-dropdown-button:is(:hover, [data-mhg-tv-hover]) {
  transform: scale(1.08);
  filter: brightness(1.15);
  color: rgba(255, 255, 255, 1);
@@ -3228,7 +3229,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
 }
 
-.settings-button:hover:not(:disabled) {
+.settings-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
  background-color: #4ade80;
  transform: translateY(-1px);
 }
@@ -3419,7 +3420,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  cursor: pointer;
 }
 
-.settings-skin-remove:hover {
+.settings-skin-remove:is(:hover, [data-mhg-tv-hover]) {
  background: rgba(248, 113, 113, 0.12);
 }
 
@@ -3645,7 +3646,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  box-sizing: border-box;
 }
 
-.mhg-dropdown-item:hover {
+.mhg-dropdown-item:is(:hover, [data-mhg-tv-hover]) {
  background-color: rgba(255, 255, 255, 0.08);
 }
 
@@ -3703,7 +3704,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  transition: color 0.2s ease;
 }
 
-.search-clear-button:hover {
+.search-clear-button:is(:hover, [data-mhg-tv-hover]) {
  color: rgba(255, 255, 255, 1);
 }
 
@@ -3711,7 +3712,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  color: rgba(0, 0, 0, 0.6);
 }
 
-.search-bar-wrapper.search-focused .search-clear-button:hover {
+.search-bar-wrapper.search-focused .search-clear-button:is(:hover, [data-mhg-tv-hover]) {
  color: rgba(0, 0, 0, 1);
 }
 
@@ -3781,7 +3782,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  margin-left: auto;
 }
 
-.search-recent-remove:hover {
+.search-recent-remove:is(:hover, [data-mhg-tv-hover]) {
  color: rgba(255, 255, 255, 1);
 }
 
@@ -3808,7 +3809,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  transition: all 0.2s ease;
 }
 
-.search-view-all-button:hover {
+.search-view-all-button:is(:hover, [data-mhg-tv-hover]) {
  background-color: #4ade80;
  border-color: #4ade80;
 }
@@ -3868,7 +3869,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.search-results-list-item:hover {
+.search-results-list-item:is(:hover, [data-mhg-tv-hover]) {
  background-color: rgba(255, 255, 255, 0.05);
 }
 
@@ -3925,8 +3926,8 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  cursor: pointer;
 }
 
-.search-dropdown-item .games-list-title-clickable:hover,
-.search-results-list-item .games-list-title-clickable:hover {
+.search-dropdown-item .games-list-title-clickable:is(:hover, [data-mhg-tv-hover]),
+.search-results-list-item .games-list-title-clickable:is(:hover, [data-mhg-tv-hover]) {
  text-decoration: none;
 }
 
@@ -4043,9 +4044,9 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  color: rgba(255, 255, 255, 0.75);
 }
 
-.mhg-libraries-menu-dropdown .dropdown-menu-button:hover svg,
-.mhg-top-right-tool-dock-menu .dropdown-menu-button:hover svg,
-.library-item-detail-dropdown-menu .dropdown-menu-button:hover svg {
+.mhg-libraries-menu-dropdown .dropdown-menu-button:is(:hover, [data-mhg-tv-hover]) svg,
+.mhg-top-right-tool-dock-menu .dropdown-menu-button:is(:hover, [data-mhg-tv-hover]) svg,
+.library-item-detail-dropdown-menu .dropdown-menu-button:is(:hover, [data-mhg-tv-hover]) svg {
  color: #ffffff;
 }
 
@@ -4080,7 +4081,7 @@ body:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .home-page-con
  height: 40px;
 }
 
-.search-result-play-button:hover {
+.search-result-play-button:is(:hover, [data-mhg-tv-hover]) {
  color: #ffffff;
  border-color: #ffffff;
 }
@@ -4241,7 +4242,7 @@ body:has(.search-results-shell) .app-main-container {
  border-radius: 0;
 }
 
-.search-results-content::-webkit-scrollbar-thumb:hover {
+.search-results-content::-webkit-scrollbar-thumb:is(:hover, [data-mhg-tv-hover]) {
  background-color: rgba(34, 197, 94, 0.5);
 }
 
@@ -4271,7 +4272,7 @@ body:has(.search-results-shell) .app-main-container {
  border-bottom: none;
 }
 
-.search-results-page .search-results-list-item:hover {
+.search-results-page .search-results-list-item:is(:hover, [data-mhg-tv-hover]) {
  background-color: rgba(255, 255, 255, 0.05);
 }
 
@@ -4428,7 +4429,7 @@ body:has(.search-results-shell) .app-main-container {
  transition: all 0.2s ease;
 }
 
-.add-game-create-btn:hover:not(:disabled) {
+.add-game-create-btn:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
  background: linear-gradient(135deg, #4ade80 0%, var(--mhg-primary) 100%);
  transform: translateY(-1px);
  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.35);
@@ -4556,14 +4557,14 @@ body:has(.search-results-shell) .app-main-container {
  transition: opacity 0.2s ease;
 }
 
-.add-game-result-item:hover {
+.add-game-result-item:is(:hover, [data-mhg-tv-hover]) {
  background: rgba(42, 42, 42, 0.9);
  border-color: rgba(34, 197, 94, 0.3);
  transform: translateY(-2px);
  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(34, 197, 94, 0.2);
 }
 
-.add-game-result-item:hover::before {
+.add-game-result-item:is(:hover, [data-mhg-tv-hover])::before {
  opacity: 1;
 }
 
@@ -4716,7 +4717,7 @@ body:has(.search-results-shell) .app-main-container {
  transition: background-color 0.2s ease;
 }
 
-.login-page-twitch-btn:hover {
+.login-page-twitch-btn:is(:hover, [data-mhg-tv-hover]) {
  background-color: #772ce8;
 }
 
@@ -4760,7 +4761,7 @@ body:has(.search-results-shell) .app-main-container {
  display: inline-block;
 }
 
-.login-page-settings-cta:hover {
+.login-page-settings-cta:is(:hover, [data-mhg-tv-hover]) {
  background-color: #f5b041;
 }
 
@@ -4771,13 +4772,9 @@ body:has(.search-results-shell) .app-main-container {
  * overlays had no positioning and rendered invisible behind the UI chrome.
  * ========================================================================== */
 
-/* Smart TV focus outline */
+/* Smart TV: no browser/default yellow focus ring — skins use their own focus UI */
 html[data-mhg-tv="1"] :focus,
-html[data-mhg-tv="1"] :focus-visible {
-  outline: 3px solid #e5a00d;
-  outline-offset: 3px;
-}
-
+html[data-mhg-tv="1"] :focus-visible,
 html[data-mhg-tv="1"] a:focus,
 html[data-mhg-tv="1"] a:focus-visible,
 html[data-mhg-tv="1"] button:focus,
@@ -4786,14 +4783,6 @@ html[data-mhg-tv="1"] [role="button"]:focus,
 html[data-mhg-tv="1"] [role="button"]:focus-visible,
 html[data-mhg-tv="1"] [tabindex]:focus,
 html[data-mhg-tv="1"] [tabindex]:focus-visible {
-  outline: 3px solid #e5a00d;
-  outline-offset: 3px;
-}
-
-html[data-mhg-tv="1"] .mhg-logo-button:focus,
-html[data-mhg-tv="1"] .mhg-logo-button:focus-visible,
-html[data-mhg-tv="1"] .mhg-top-right-tool-dock-logo:focus,
-html[data-mhg-tv="1"] .mhg-top-right-tool-dock-logo:focus-visible {
   outline: none;
 }
 

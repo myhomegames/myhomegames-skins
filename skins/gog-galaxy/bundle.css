@@ -83,14 +83,15 @@
  pointer-events: none;
 }
 
-.cover-hover-effect:hover,
-*:hover > .cover-hover-effect {
+.cover-hover-effect:is(:hover, [data-mhg-tv-hover]),
+*:hover > .cover-hover-effect, .cover-hover-effect[data-mhg-tv-hover] {
  outline-color: #e5a00d;
  border-radius: 4px;
 }
 
-.cover-hover-effect:hover::before,
-*:hover > .cover-hover-effect::before {
+.cover-hover-effect:is(:hover, [data-mhg-tv-hover])::before,
+*:hover > .cover-hover-effect::before,
+.cover-hover-effect[data-mhg-tv-hover]::before {
  background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -285,7 +286,7 @@ body {
  transition: opacity 0.2s ease;
 }
 
-.mhg-logo-button:hover {
+.mhg-logo-button:is(:hover, [data-mhg-tv-hover]) {
  opacity: 0.8;
 }
 
@@ -336,7 +337,7 @@ body {
 }
 
 
-.mhg-header-button:hover {
+.mhg-header-button:is(:hover, [data-mhg-tv-hover]) {
  color: var(--mhg-text-main);
  background: rgba(11, 18, 30, 0.55);
 }
@@ -445,7 +446,7 @@ body:has(.add-to-collection-modal-overlay) .mhg-header {
  box-sizing: border-box;
 }
 
-.mhg-dropdown-item:hover {
+.mhg-dropdown-item:is(:hover, [data-mhg-tv-hover]) {
  background-color: rgba(255, 255, 255, 0.08);
 }
 
@@ -587,7 +588,7 @@ body:has(.add-to-collection-modal-overlay) .mhg-header {
  box-sizing: border-box;
 }
 
-.mhg-library-button:hover {
+.mhg-library-button:is(:hover, [data-mhg-tv-hover]) {
  color: rgba(255, 255, 255, 1);
 }
 
@@ -614,7 +615,7 @@ body:has(.add-to-collection-modal-overlay) .mhg-header {
  transition: background-color 0.2s ease;
 }
 
-.mhg-library-active:hover::after {
+.mhg-library-active:is(:hover, [data-mhg-tv-hover])::after {
  background-color: rgba(255, 255, 255, 1);
 }
 
@@ -661,13 +662,9 @@ body:has(.add-to-collection-modal-overlay) .mhg-header {
  padding-top: 64px;
 }
 
-/* Smart TV focus outline */
+/* Smart TV: no browser/default yellow focus ring — skins use their own focus UI */
 html[data-mhg-tv="1"] :focus,
-html[data-mhg-tv="1"] :focus-visible {
-  outline: 3px solid #e5a00d;
-  outline-offset: 3px;
-}
-
+html[data-mhg-tv="1"] :focus-visible,
 html[data-mhg-tv="1"] a:focus,
 html[data-mhg-tv="1"] a:focus-visible,
 html[data-mhg-tv="1"] button:focus,
@@ -676,14 +673,6 @@ html[data-mhg-tv="1"] [role="button"]:focus,
 html[data-mhg-tv="1"] [role="button"]:focus-visible,
 html[data-mhg-tv="1"] [tabindex]:focus,
 html[data-mhg-tv="1"] [tabindex]:focus-visible {
-  outline: 3px solid #e5a00d;
-  outline-offset: 3px;
-}
-
-html[data-mhg-tv="1"] .mhg-logo-button:focus,
-html[data-mhg-tv="1"] .mhg-logo-button:focus-visible,
-html[data-mhg-tv="1"] .mhg-top-right-tool-dock-logo:focus,
-html[data-mhg-tv="1"] .mhg-top-right-tool-dock-logo:focus-visible {
   outline: none;
 }
 
