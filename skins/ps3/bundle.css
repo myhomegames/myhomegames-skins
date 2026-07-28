@@ -1225,11 +1225,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- .mhg-library-button[data-mhg-library-key="mhg-header-settings"]:is(:hover, [data-mhg-tv-hover]) .mhg-library-button-label,
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- .mhg-library-button[data-mhg-library-key="mhg-header-profile"]:is(:hover, [data-mhg-tv-hover]) .mhg-library-button-label,
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- .mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:is(:hover, [data-mhg-tv-hover]) .mhg-library-button-label,
+ .mhg-library-button[data-mhg-library-key^="mhg-header-"]:is(:hover, [data-mhg-tv-hover], [data-mhg-strip-focus]) .mhg-library-button-label,
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
  .mhg-library-button[data-mhg-strip-focus] .mhg-library-button-label {
  top: 54px;
@@ -1288,10 +1284,9 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  text-overflow: ellipsis;
 }
 
-.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:is(:hover, [data-mhg-tv-hover]) .mhg-library-button-label,
-.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:is(:hover, [data-mhg-tv-hover]) .mhg-library-button-label,
-.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:is(:hover, [data-mhg-tv-hover]) .mhg-library-button-label,
-.mhg-library-button[data-mhg-strip-focus] .mhg-library-button-label {
+/* Header strip icons without a list (Add Game, Settings, Profile, Search): hover / TV snap-focus only — no page change until OK. */
+.mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):is(:hover, [data-mhg-tv-hover], [data-mhg-strip-focus]) .mhg-library-button-label,
+.mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list]) .mhg-library-button-label {
  display: block;
  position: absolute;
  top: 62px;
@@ -1311,38 +1306,26 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  text-overflow: ellipsis;
 }
 
-/*While hovering / strip-focusing Settings/Profile/Add game, visually mute previously-active library entry.*/
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:is(:hover, [data-mhg-tv-hover]))
- .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"]),
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:is(:hover, [data-mhg-tv-hover]))
- .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"]),
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:is(:hover, [data-mhg-tv-hover]))
- .mhg-library-active:not([data-mhg-library-key="mhg-header-add-game"]),
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus])
+/*While hovering / strip-focusing header icons without a list, visually mute the active library tab.*/
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):is(:hover, [data-mhg-tv-hover], [data-mhg-strip-focus]))
+ .mhg-library-active:not([data-mhg-strip-focus]),
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list]))
  .mhg-library-active:not([data-mhg-strip-focus]) {
  color: rgba(255, 255, 255, 0.78);
  background: transparent;
 }
 
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:is(:hover, [data-mhg-tv-hover]))
- .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"])::before,
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:is(:hover, [data-mhg-tv-hover]))
- .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"])::before,
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:is(:hover, [data-mhg-tv-hover]))
- .mhg-library-active:not([data-mhg-library-key="mhg-header-add-game"])::before,
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus])
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):is(:hover, [data-mhg-tv-hover], [data-mhg-strip-focus]))
+ .mhg-library-active:not([data-mhg-strip-focus])::before,
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list]))
  .mhg-library-active:not([data-mhg-strip-focus])::before {
  color: rgba(255, 255, 255, 0.78);
  text-shadow: none;
 }
 
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-settings"]:is(:hover, [data-mhg-tv-hover]))
- .mhg-library-active:not([data-mhg-library-key="mhg-header-settings"]) .mhg-library-button-label,
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-profile"]:is(:hover, [data-mhg-tv-hover]))
- .mhg-library-active:not([data-mhg-library-key="mhg-header-profile"]) .mhg-library-button-label,
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key="mhg-header-add-game"]:is(:hover, [data-mhg-tv-hover]))
- .mhg-library-active:not([data-mhg-library-key="mhg-header-add-game"]) .mhg-library-button-label,
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus])
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):is(:hover, [data-mhg-tv-hover], [data-mhg-strip-focus]))
+ .mhg-library-active:not([data-mhg-strip-focus]) .mhg-library-button-label,
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list]))
  .mhg-library-active:not([data-mhg-strip-focus]) .mhg-library-button-label {
  display: none;
 }
@@ -1364,14 +1347,16 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 .mhg-library-button:is(:hover, [data-mhg-tv-hover])::before,
 .mhg-library-active:is(:hover, [data-mhg-tv-hover])::before,
 .mhg-library-active::before,
-.mhg-library-button[data-mhg-strip-focus]::before {
+.mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):is([data-mhg-strip-focus], [data-mhg-tv-hover])::before,
+.mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list])::before {
  color: rgba(255, 255, 255, 1);
  text-shadow: 0 0 8px rgba(255, 255, 255, 0.55), 0 0 20px rgba(120, 180, 255, 0.45);
 }
 
 .mhg-library-button:is(:hover, [data-mhg-tv-hover]),
 .mhg-library-active:is(:hover, [data-mhg-tv-hover]),
-.mhg-library-button[data-mhg-strip-focus] {
+.mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):is([data-mhg-strip-focus], [data-mhg-tv-hover]),
+.mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list]) {
  transform: scale(1.08);
  filter: brightness(1.15);
 }
