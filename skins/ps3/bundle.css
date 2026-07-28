@@ -1225,10 +1225,18 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- .mhg-library-button[data-mhg-library-key^="mhg-header-"]:is(:hover, [data-mhg-tv-hover], [data-mhg-strip-focus]) .mhg-library-button-label,
-.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
- .mhg-library-button[data-mhg-strip-focus] .mhg-library-button-label {
+ .mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list]) .mhg-library-button-label {
  top: 54px;
+}
+
+/* Strip row: one skin focus style — no browser default ring on web keyboard/mouse. */
+.mhg-libraries-container .mhg-library-button:focus,
+.mhg-libraries-container .mhg-library-button:focus-visible,
+.mhg-libraries-container .profile-dropdown-button--library:focus,
+.mhg-libraries-container .profile-dropdown-button--library:focus-visible,
+.mhg-libraries-container .mhg-collection-shortcut-button:focus,
+.mhg-libraries-container .mhg-collection-shortcut-button:focus-visible {
+ outline: none;
 }
 
 .mhg-library-button,
@@ -1284,8 +1292,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  text-overflow: ellipsis;
 }
 
-/* Header strip icons without a list (Add Game, Settings, Profile, Search): hover / TV snap-focus only — no page change until OK. */
-.mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):is(:hover, [data-mhg-tv-hover], [data-mhg-strip-focus]) .mhg-library-button-label,
+/* Non-list strip icons: label follows strip-focus (mouseenter sets it); not :hover alone — avoids duplicate titles while wheel-stepping with the pointer still over the previous tile. */
 .mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list]) .mhg-library-button-label {
  display: block;
  position: absolute;
@@ -1306,28 +1313,29 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  text-overflow: ellipsis;
 }
 
-/*While hovering / strip-focusing header icons without a list, visually mute the active library tab.*/
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):is(:hover, [data-mhg-tv-hover], [data-mhg-strip-focus]))
- .mhg-library-active:not([data-mhg-strip-focus]),
+/*While strip-focusing a non-list icon, visually mute the active library tab.*/
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list]))
  .mhg-library-active:not([data-mhg-strip-focus]) {
  color: rgba(255, 255, 255, 0.78);
  background: transparent;
 }
 
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):is(:hover, [data-mhg-tv-hover], [data-mhg-strip-focus]))
- .mhg-library-active:not([data-mhg-strip-focus])::before,
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list]))
  .mhg-library-active:not([data-mhg-strip-focus])::before {
  color: rgba(255, 255, 255, 0.78);
  text-shadow: none;
 }
 
-.mhg-libraries-container:has(.mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):is(:hover, [data-mhg-tv-hover], [data-mhg-strip-focus]))
- .mhg-library-active:not([data-mhg-strip-focus]) .mhg-library-button-label,
 .mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list]))
  .mhg-library-active:not([data-mhg-strip-focus]) .mhg-library-button-label {
  display: none;
+}
+
+/* Pointer still over a non-list tile after wheel-step: dim stale :hover glow when focus moved. */
+.mhg-libraries-container:has(.mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list]))
+ .mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):hover:not([data-mhg-strip-focus])::before {
+ color: rgba(255, 255, 255, 0.78);
+ text-shadow: none;
 }
 
 /*Generic icon fallback + per-page icon hints.*/
@@ -1347,16 +1355,13 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
 .mhg-library-button:is(:hover, [data-mhg-tv-hover])::before,
 .mhg-library-active:is(:hover, [data-mhg-tv-hover])::before,
 .mhg-library-active::before,
-.mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):is([data-mhg-strip-focus], [data-mhg-tv-hover])::before,
 .mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list])::before {
  color: rgba(255, 255, 255, 1);
  text-shadow: 0 0 8px rgba(255, 255, 255, 0.55), 0 0 20px rgba(120, 180, 255, 0.45);
 }
 
 .mhg-library-button:is(:hover, [data-mhg-tv-hover]),
-.mhg-library-active:is(:hover, [data-mhg-tv-hover]),
-.mhg-library-button[data-mhg-library-key^="mhg-header-"]:not([data-mhg-strip-has-list]):is([data-mhg-strip-focus], [data-mhg-tv-hover]),
-.mhg-library-button[data-mhg-strip-focus]:not([data-mhg-strip-has-list]) {
+.mhg-library-active:is(:hover, [data-mhg-tv-hover]) {
  transform: scale(1.08);
  filter: brightness(1.15);
 }
