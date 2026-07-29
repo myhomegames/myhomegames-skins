@@ -592,6 +592,10 @@ body:has(.add-to-collection-modal-overlay) .mhg-header {
  color: rgba(255, 255, 255, 1);
 }
 
+.mhg-collection-shortcut-button:is(:hover, [data-mhg-tv-hover]) {
+ color: rgba(255, 255, 255, 1);
+}
+
 .mhg-library-active {
  color: var(--mhg-accent);
  border-bottom: none !important;

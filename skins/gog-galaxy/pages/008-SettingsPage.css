@@ -721,7 +721,7 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  color: rgba(255, 255, 255, 1);
 }
 
-.mhg-libraries-bar .mhg-library-button[data-mhg-library-key]:hover:not(.mhg-library-active) {
+.mhg-libraries-bar .mhg-library-button[data-mhg-library-key]:is(:hover, [data-mhg-tv-hover]):not(.mhg-library-active) {
  color: rgba(255, 255, 255, 0.82);
 }
 
@@ -933,7 +933,7 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  mask-image: var(--mhg-lib-mask-default);
 }
 
-.mhg-libraries-bar .mhg-library-button:hover:not(.mhg-library-active)[data-mhg-library-key]::before {
+.mhg-libraries-bar .mhg-library-button:is(:hover, [data-mhg-tv-hover]):not(.mhg-library-active)[data-mhg-library-key]::before {
  opacity: 0.88;
 }
 
@@ -1277,11 +1277,11 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
 
 .mhg-libraries-bar .mhg-collection-shortcut-button:is(:hover, [data-mhg-tv-hover]):not(.mhg-collection-shortcut-button--selected) {
  background: transparent !important;
- color: rgba(255, 255, 255, 0.82);
+ color: #fff;
 }
 
 .mhg-libraries-bar .mhg-collection-shortcut-button:is(:hover, [data-mhg-tv-hover]):not(.mhg-collection-shortcut-button--selected)::before {
- opacity: 0.88;
+ opacity: 1;
 }
 
 /*Raccolta corrente: più luminosa dell’hover*/
