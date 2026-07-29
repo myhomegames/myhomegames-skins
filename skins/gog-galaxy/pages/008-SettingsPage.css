@@ -1275,12 +1275,12 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  mask-size: contain;
 }
 
-.mhg-libraries-bar .mhg-collection-shortcut-button:hover:not(.mhg-collection-shortcut-button--selected) {
+.mhg-libraries-bar .mhg-collection-shortcut-button:is(:hover, [data-mhg-tv-hover]):not(.mhg-collection-shortcut-button--selected) {
  background: transparent !important;
  color: rgba(255, 255, 255, 0.82);
 }
 
-.mhg-libraries-bar .mhg-collection-shortcut-button:hover:not(.mhg-collection-shortcut-button--selected)::before {
+.mhg-libraries-bar .mhg-collection-shortcut-button:is(:hover, [data-mhg-tv-hover]):not(.mhg-collection-shortcut-button--selected)::before {
  opacity: 0.88;
 }
 
@@ -1294,11 +1294,11 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  opacity: 1;
 }
 
-.mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected:hover {
+.mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected:is(:hover, [data-mhg-tv-hover]) {
  color: #fff;
 }
 
-.mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected:hover::before {
+.mhg-libraries-bar .mhg-collection-shortcut-button.mhg-collection-shortcut-button--selected:is(:hover, [data-mhg-tv-hover])::before {
  opacity: 1;
 }
 

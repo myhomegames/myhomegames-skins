@@ -121,7 +121,7 @@ button.mhg-collections-shortcuts-title:focus-visible {
  text-overflow: ellipsis;
 }
 
-.mhg-collection-shortcut-button:hover {
+.mhg-collection-shortcut-button:is(:hover, [data-mhg-tv-hover]) {
  background: rgba(255, 255, 255, 0.08);
  color: #fff;
 }
