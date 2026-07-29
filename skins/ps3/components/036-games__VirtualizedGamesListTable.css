@@ -239,6 +239,19 @@
 :root[data-mhg-vertical-cover-alignment="true"]
  .scrollable-section--classic-covers
  .scrollable-section-scroll
+ .games-list-item--cover-sized,
+/* Beat `.home-page-scroll-container … .games-list-item--cover-sized` (480px rail
+ * column). Game detail collections live inside that scroll container, so equal-
+ * specificity classic-covers rules lost to SortPopup and covers grew to ~480px. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view)
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .game-detail-collection-group
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
  .games-list-item--cover-sized {
  display: block !important;
  flex: 0 0 auto !important;
@@ -265,6 +278,18 @@
  .scrollable-section--classic-covers
  .scrollable-section-scroll
  .games-list-item--cover-sized
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view)
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .game-detail-collection-group
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized
  .games-list-cover {
  flex: none !important;
  width: 100% !important;
@@ -286,6 +311,18 @@
  .scrollable-section--classic-covers
  .scrollable-section-scroll
  .games-list-item--cover-sized.mhg-cover-scale-selected
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view)
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .game-detail-collection-group
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized
  .games-list-title-wrapper {
  display: block !important;
  position: static !important;
