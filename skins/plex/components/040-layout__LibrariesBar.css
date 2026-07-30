@@ -21,11 +21,16 @@
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-libraries-bar-container {
   display: flex;
-  /* Strip sizes to tabs; in-flow min-height so the row never collapses to 0. */
+  /* Strip row fills the bar width so the tab strip can scroll inside a bounded slot. */
   flex: 0 0 auto;
   flex-grow: 0;
   flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   min-height: 64px;
+  overflow: hidden;
 }
 
 /* Persistent shell: sidebar has a defined height — grow below the tool dock; avoid min-height:0-only (collapses strip). */
@@ -37,23 +42,111 @@
   min-height: 120px;
   height: auto;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /*
- * Horizontal top strip only (no persistent shell). Shell sidebars use their own `.mhg-libraries-container` rules.
+ * Horizontal top strip (dock or classic): in-flow scroll slot beside right-side actions.
+ * Never position:absolute — that painted tabs under the icon cluster.
  */
 .app-main-container:not([data-mhg-persistent-library-shell="true"])
-  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-bar:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar:not(.mhg-libraries-bar--vertical-page-tabs)
   .mhg-libraries-container {
   position: relative;
   left: auto;
   transform: none;
-  width: auto;
-  max-width: min(86vw, 1180px);
-  flex: 1 1 auto;
+  /* Remaining width after actions / menu — do not size to tab content. */
+  flex: 1 1 0%;
+  width: 0;
   min-width: 0;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   justify-content: center;
+  justify-content: safe center;
+}
+
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-container::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-actions {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  margin-left: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-menu-container {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* Tabs keep intrinsic width so the strip overflows and scrolls. */
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-container
+  > .mhg-library-button,
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-container
+  > .mhg-library-active,
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-container
+  .mhg-collections-shortcuts,
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-container
+  .mhg-collection-shortcut-button,
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-container
+  .profile-dropdown-wrapper {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  min-width: auto;
+}
+
+.app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-container
+  .mhg-library-button-label {
+  flex: 0 0 auto;
+  min-width: auto;
+  max-width: none;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock {
@@ -325,7 +418,7 @@
 html[data-mhg-tv="1"] .mhg-libraries-container,
 html[data-mhg-tv="1"]
   .app-main-container:not([data-mhg-persistent-library-shell="true"])
-  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-bar:not(.mhg-libraries-bar--vertical-page-tabs)
   .mhg-libraries-container {
   justify-content: flex-start;
 }

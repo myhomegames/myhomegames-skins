@@ -44,16 +44,8 @@
   /* Left column when settings enable persistent library shell */
   --plex-shell-sidebar-width: 280px;
 
-  /* Switch libraries bar to combobox slightly before inline tabs would overflow. */
-  --mhg-libraries-combobox-item-width: 122;
-  --mhg-libraries-combobox-anticipation: 36;
-}
-
-/* Wide Plex layout: keep inline library tabs (no combobox flash while widths settle). */
-@media (min-width: 1024px) {
-  :root {
-    --mhg-libraries-force-list: 1;
-  }
+  /* Keep page tabs as a horizontal strip (scroll when tight); never switch to combobox. */
+  --mhg-libraries-force-list: 1;
 }
 
 .cover-hover-effect {
@@ -430,27 +422,56 @@ body:has(.add-to-collection-modal-overlay) {
 .mhg-libraries-bar-container {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
   max-width: 1920px;
   margin: 0 auto;
   padding: 0 24px;
   min-height: 64px;
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .mhg-libraries-container {
   display: flex;
   align-items: center;
   justify-content: center;
+  justify-content: safe center;
+  flex-wrap: nowrap;
   gap: 0;
   padding: 0;
   overflow-x: auto;
+  overflow-y: hidden;
   -ms-overflow-style: none;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: calc(100% - 200px);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  /* In-flow by default so the strip shares the row with right-side actions (no overlay). */
+  position: relative;
+  left: auto;
+  transform: none;
+  flex: 1 1 0%;
+  width: 0;
+  min-width: 0;
+  max-width: none;
+  box-sizing: border-box;
+}
+
+.mhg-libraries-container::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Absolute (non-dock) strip: keep tab intrinsic width so overflow-x can scroll. */
+.mhg-libraries-container > .mhg-library-button,
+.mhg-libraries-container > .mhg-library-active,
+.mhg-libraries-container .mhg-collection-shortcut-button,
+.mhg-libraries-container .profile-dropdown-wrapper {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  min-width: auto;
 }
 
 /* Vertical library tabs for top-strip skins (`libraryPagesVerticalList` && !`persistentLibraryShell`). */
@@ -533,8 +554,11 @@ body:has(.add-to-collection-modal-overlay) {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex: 0 0 auto;
   flex-shrink: 0;
-  margin-left: auto;
+  margin-left: 0;
+  position: relative;
+  z-index: 2;
 }
 
 .mhg-library-button {
