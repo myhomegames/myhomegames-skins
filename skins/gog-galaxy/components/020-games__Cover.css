@@ -504,7 +504,41 @@
  cursor: not-allowed;
 }
 
-/* Phone + Smart TV: long-press opens the context menu; no overlay buttons on the cover. */
+/* Phone cover context menu: bottom action sheet (replaces browser image menu). */
+.dropdown-menu-phone-sheet-overlay {
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 10050;
+}
+
+.dropdown-menu-popup--phone-sheet {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  border-radius: 12px 12px 0 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  max-height: min(70vh, 480px);
+  overflow-y: auto;
+  padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+}
+
+.dropdown-menu-popup--phone-sheet .dropdown-menu-item {
+  font-size: 16px;
+  padding: 14px 20px;
+  justify-content: center;
+}
+
+.games-list-cover--compact-chrome img {
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
 .games-list-cover--compact-chrome .dropdown-menu-button--hidden-anchor {
  position: absolute;
  right: 4px;
