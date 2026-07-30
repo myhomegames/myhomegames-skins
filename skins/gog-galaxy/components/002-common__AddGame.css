@@ -129,8 +129,20 @@
 }
 
 .add-game-create-btn:disabled {
- opacity: 0.5;
- cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Smart TV: Create stays focusable when aria-disabled; show remote focus. */
+html[data-mhg-tv="1"] .add-game-create-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+html[data-mhg-tv="1"] .add-game-create-btn:focus,
+html[data-mhg-tv="1"] .add-game-create-btn[data-mhg-tv-hover] {
+  outline: none;
+  box-shadow: 0 0 0 3px #e5a00d;
 }
 
 .add-game-create-error {

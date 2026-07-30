@@ -636,9 +636,14 @@ body > .additional-executables-dropdown-menu .additional-executables-dropdown-it
 }
 
 body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item:hover,
-body > .additional-executables-dropdown-menu .additional-executables-dropdown-item:hover {
+body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item[data-mhg-tv-hover],
+body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item:focus,
+body > .additional-executables-dropdown-menu .additional-executables-dropdown-item:hover,
+body > .additional-executables-dropdown-menu .additional-executables-dropdown-item[data-mhg-tv-hover],
+body > .additional-executables-dropdown-menu .additional-executables-dropdown-item:focus {
  background-color: rgba(255, 255, 255, 0.05) !important;
  color: #ffffff !important;
+ outline: none !important;
 }
 
 body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-divider {

@@ -167,18 +167,24 @@ body > .additional-executables-dropdown-menu {
  text-overflow: ellipsis;
 }
 
-.dropdown-menu-item:hover {
+.dropdown-menu-item:hover,
+.dropdown-menu-item[data-mhg-tv-hover],
+.dropdown-menu-item:focus {
  background-color: rgba(255, 255, 255, 0.05);
  color: rgba(255, 255, 255, 1);
+ outline: none;
 }
 
 .dropdown-menu-item-danger {
  color: rgba(255, 255, 255, 0.7);
 }
 
-.dropdown-menu-item-danger:hover {
+.dropdown-menu-item-danger:hover,
+.dropdown-menu-item-danger[data-mhg-tv-hover],
+.dropdown-menu-item-danger:focus {
  background-color: rgba(239, 68, 68, 0.9);
  color: rgba(255, 255, 255, 1);
+ outline: none;
 }
 
 .dropdown-menu-item svg {
@@ -221,6 +227,56 @@ body > .additional-executables-dropdown-menu {
  height: 1px;
  background-color: rgba(255, 255, 255, 0.1);
  margin: 4px 0;
+}
+
+/* Phone + Smart TV: long-press opens the context menu; no overlay buttons on the cover. */
+.games-list-cover--compact-chrome img {
+ -webkit-touch-callout: none;
+ user-select: none;
+}
+
+.games-list-cover--compact-chrome .dropdown-menu-button--hidden-anchor {
+ position: absolute;
+ right: 4px;
+ bottom: 4px;
+ width: 1px;
+ height: 1px;
+ margin: 0;
+ padding: 0;
+ border: 0;
+ opacity: 0;
+ pointer-events: none;
+ overflow: hidden;
+}
+
+/* Cover context menu: bottom action sheet for phone + Smart TV. */
+.dropdown-menu-phone-sheet-overlay {
+ align-items: flex-end;
+ justify-content: center;
+ z-index: 10050;
+}
+
+.dropdown-menu-popup--phone-sheet {
+ position: relative;
+ top: auto;
+ right: auto;
+ bottom: auto;
+ left: auto;
+ width: 100%;
+ max-width: 100%;
+ margin: 0;
+ border-radius: 12px 12px 0 0;
+ border: none;
+ border-top: 1px solid rgba(255, 255, 255, 0.1);
+ max-height: min(70vh, 480px);
+ overflow-y: auto;
+ padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+}
+
+.dropdown-menu-popup--phone-sheet .dropdown-menu-item {
+ font-size: 16px;
+ padding: 14px 20px;
+ justify-content: center;
 }
 
 /*--- View mode dropdown (ViewModeSelector) ---*/

@@ -99,18 +99,24 @@ body > .additional-executables-dropdown-menu {
   text-overflow: ellipsis;
 }
 
-.dropdown-menu-item:hover {
+.dropdown-menu-item:hover,
+.dropdown-menu-item[data-mhg-tv-hover],
+.dropdown-menu-item:focus {
   background-color: rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 1);
+  outline: none;
 }
 
 .dropdown-menu-item-danger {
   color: rgba(255, 255, 255, 0.7);
 }
 
-.dropdown-menu-item-danger:hover {
+.dropdown-menu-item-danger:hover,
+.dropdown-menu-item-danger[data-mhg-tv-hover],
+.dropdown-menu-item-danger:focus {
   background-color: rgba(239, 68, 68, 0.9);
   color: rgba(255, 255, 255, 1);
+  outline: none;
 }
 
 .dropdown-menu-item svg {
