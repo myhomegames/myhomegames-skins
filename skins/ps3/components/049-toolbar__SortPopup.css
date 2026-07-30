@@ -279,6 +279,45 @@ body > .additional-executables-dropdown-menu {
  justify-content: center;
 }
 
+/*
+ * Cover / phone bottom sheet: do not apply the PS3 full-viewport right sheet to the
+ * nested popup — the overlay already owns the chrome. Keep a simple vertical list.
+ */
+.dropdown-menu-phone-sheet-overlay > .dropdown-menu-popup,
+.dropdown-menu-phone-sheet-overlay > .dropdown-menu-popup--phone-sheet {
+ position: relative !important;
+ inset: auto !important;
+ top: auto !important;
+ right: auto !important;
+ left: auto !important;
+ bottom: auto !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ height: auto !important;
+ max-height: min(70vh, 480px) !important;
+ margin: 0 !important;
+ padding: 8px 0 max(8px, env(safe-area-inset-bottom, 0px)) !important;
+ padding-left: 0 !important;
+ border: none !important;
+ border-radius: 12px 12px 0 0 !important;
+ border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+ background: #1a1a1a !important;
+ box-shadow: none !important;
+ overflow-x: hidden !important;
+ overflow-y: auto !important;
+ display: flex !important;
+ flex-direction: column !important;
+ z-index: 1 !important;
+ animation: none !important;
+}
+
+.dropdown-menu-phone-sheet-overlay > .dropdown-menu-popup::before,
+.dropdown-menu-phone-sheet-overlay > .dropdown-menu-popup::after {
+ content: none !important;
+ display: none !important;
+}
+
 /*--- View mode dropdown (ViewModeSelector) ---*/
 
 .view-mode-dropdown {
