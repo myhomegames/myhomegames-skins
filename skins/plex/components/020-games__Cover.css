@@ -129,7 +129,9 @@
   background-color: rgba(229, 160, 13, 0.9);
 }
 
-/* Override global cover-hover-effect rule - disable parent hover effect */
+/* Override global cover-hover-effect rule - disable parent hover effect (mouse only).
+ * Do not include [data-mhg-tv-hover] here: on Smart TV the item is focused and must
+ * still show this skin's cover hover (same as mouse-over on the cover). */
 .games-list-item:hover > .games-list-cover.cover-hover-effect {
   outline-color: transparent;
   box-shadow: none;
@@ -139,20 +141,23 @@
   background-color: rgba(0, 0, 0, 0);
 }
 
-/* Only apply hover effect when directly hovering the cover */
-.games-list-cover.cover-hover-effect:hover {
-  outline-color: #E5A00D !important;
+/* Same graphics as mouse :hover — Smart TV mirrors via [data-mhg-tv-hover].
+ * Full `outline` shorthand + !important so it wins over html[data-mhg-tv] :focus { outline: none }. */
+.games-list-cover.cover-hover-effect:is(:hover, [data-mhg-tv-hover]) {
+  outline: 3px solid #E5A00D !important;
+  outline-offset: -3px !important;
   border-radius: 4px;
   box-shadow: 0 10px 20px rgba(229, 160, 13, 0.2) !important;
 }
 
-.games-list-cover.cover-hover-effect:hover::before {
+.games-list-cover.cover-hover-effect:is(:hover, [data-mhg-tv-hover])::before {
   background-color: rgba(0, 0, 0, 0.4) !important;
 }
 
 /* Maintain hover effect when dropdown is open */
 .games-list-cover.cover-hover-effect.cover-dropdown-open {
-  outline-color: #E5A00D !important;
+  outline: 3px solid #E5A00D !important;
+  outline-offset: -3px !important;
   border-radius: 4px;
   box-shadow: 0 10px 20px rgba(229, 160, 13, 0.2) !important;
 }
@@ -202,12 +207,12 @@
 }
 
 /* no-click mode (no detail, no play, and no upload): disable hover effects */
-.games-list-cover:not(.games-list-cover-detail):not(.games-list-cover-play):not(.games-list-cover-upload).cover-hover-effect:hover {
+.games-list-cover:not(.games-list-cover-detail):not(.games-list-cover-play):not(.games-list-cover-upload).cover-hover-effect:is(:hover, [data-mhg-tv-hover]) {
   outline-color: transparent !important;
   box-shadow: none !important;
 }
 
-.games-list-cover:not(.games-list-cover-detail):not(.games-list-cover-play):not(.games-list-cover-upload).cover-hover-effect:hover::before {
+.games-list-cover:not(.games-list-cover-detail):not(.games-list-cover-play):not(.games-list-cover-upload).cover-hover-effect:is(:hover, [data-mhg-tv-hover])::before {
   background-color: rgba(0, 0, 0, 0) !important;
 }
 
@@ -406,19 +411,19 @@
   opacity: 0;
 }
 
-.games-list-item--detail-current .games-list-cover--detail-current:hover,
-.games-list-cover--detail-current:hover {
+.games-list-item--detail-current .games-list-cover--detail-current:is(:hover, [data-mhg-tv-hover]),
+.games-list-cover--detail-current:is(:hover, [data-mhg-tv-hover]) {
   transform: none;
 }
 
-.games-list-item--detail-current .games-list-cover--detail-current.cover-hover-effect:hover,
-.games-list-cover--detail-current.cover-hover-effect:hover {
+.games-list-item--detail-current .games-list-cover--detail-current.cover-hover-effect:is(:hover, [data-mhg-tv-hover]),
+.games-list-cover--detail-current.cover-hover-effect:is(:hover, [data-mhg-tv-hover]) {
   outline-color: transparent !important;
   box-shadow: none !important;
 }
 
-.games-list-item--detail-current .games-list-cover--detail-current.cover-hover-effect:hover::before,
-.games-list-cover--detail-current.cover-hover-effect:hover::before {
+.games-list-item--detail-current .games-list-cover--detail-current.cover-hover-effect:is(:hover, [data-mhg-tv-hover])::before,
+.games-list-cover--detail-current.cover-hover-effect:is(:hover, [data-mhg-tv-hover])::before {
   opacity: 0 !important;
   background-color: transparent !important;
 }
