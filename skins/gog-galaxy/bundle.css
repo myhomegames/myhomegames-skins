@@ -797,3 +797,35 @@ html[data-mhg-tv="1"] .mhg-tv-exit-confirm .dropdown-menu-confirm-delete {
   min-height: 3rem;
   font-size: 1.1rem;
 }
+
+/*
+ * Smart TV: hide every scrollbar (wheel / D-pad / touch scroll still works).
+ */
+html[data-mhg-tv="1"],
+html[data-mhg-tv="1"] body,
+html[data-mhg-tv="1"] body * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html[data-mhg-tv="1"]::-webkit-scrollbar,
+html[data-mhg-tv="1"] body::-webkit-scrollbar,
+html[data-mhg-tv="1"] body *::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  background: transparent !important;
+}
+
+html[data-mhg-tv="1"]::-webkit-scrollbar-track,
+html[data-mhg-tv="1"] body::-webkit-scrollbar-track,
+html[data-mhg-tv="1"] body *::-webkit-scrollbar-track,
+html[data-mhg-tv="1"]::-webkit-scrollbar-thumb,
+html[data-mhg-tv="1"] body::-webkit-scrollbar-thumb,
+html[data-mhg-tv="1"] body *::-webkit-scrollbar-thumb,
+html[data-mhg-tv="1"]::-webkit-scrollbar-corner,
+html[data-mhg-tv="1"] body::-webkit-scrollbar-corner,
+html[data-mhg-tv="1"] body *::-webkit-scrollbar-corner {
+  display: none !important;
+  background: transparent !important;
+}

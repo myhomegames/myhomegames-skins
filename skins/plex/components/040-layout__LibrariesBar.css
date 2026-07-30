@@ -318,3 +318,14 @@
   color: rgba(255, 255, 255, 0.9);
   padding: 8px;
 }
+
+/*
+ * Smart TV: linear header-tab scroll (overrides justify-content:center above).
+ */
+html[data-mhg-tv="1"] .mhg-libraries-container,
+html[data-mhg-tv="1"]
+  .app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]:not(.mhg-libraries-bar--vertical-page-tabs)
+  .mhg-libraries-container {
+  justify-content: flex-start;
+}
