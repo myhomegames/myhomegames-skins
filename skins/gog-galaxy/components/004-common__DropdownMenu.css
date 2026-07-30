@@ -75,6 +75,71 @@ body > .additional-executables-dropdown-menu {
  z-index: 10003 !important;
 }
 
+/*
+ * Second-level menus above the phone/TV action sheet (z-index 10050).
+ * Flyouts beside a full-width sheet row are unreachable with the D-pad.
+ */
+body:has(.dropdown-menu-phone-sheet-overlay) > .add-to-collection-dropdown-menu,
+body:has(.dropdown-menu-phone-sheet-overlay) > .additional-executables-dropdown-menu {
+ position: fixed !important;
+ top: auto !important;
+ right: 0 !important;
+ bottom: 0 !important;
+ left: 0 !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ max-height: min(70vh, 480px) !important;
+ margin: 0 !important;
+ padding: 8px 0 max(8px, env(safe-area-inset-bottom, 0px)) !important;
+ border: none !important;
+ border-radius: 12px 12px 0 0 !important;
+ border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+ box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.45) !important;
+ z-index: 10060 !important;
+ overflow-x: hidden !important;
+ overflow-y: auto !important;
+ opacity: 1 !important;
+ visibility: visible !important;
+ pointer-events: auto !important;
+}
+
+body:has(.dropdown-menu-phone-sheet-overlay) > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item,
+body:has(.dropdown-menu-phone-sheet-overlay) > .additional-executables-dropdown-menu .additional-executables-dropdown-item {
+ font-size: 16px;
+ padding: 14px 20px;
+}
+
+body:has(.dropdown-menu-phone-sheet-overlay) > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item:hover,
+body:has(.dropdown-menu-phone-sheet-overlay) > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item[data-mhg-tv-hover],
+body:has(.dropdown-menu-phone-sheet-overlay) > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item:focus,
+body:has(.dropdown-menu-phone-sheet-overlay) > .additional-executables-dropdown-menu .additional-executables-dropdown-item:hover,
+body:has(.dropdown-menu-phone-sheet-overlay) > .additional-executables-dropdown-menu .additional-executables-dropdown-item[data-mhg-tv-hover],
+body:has(.dropdown-menu-phone-sheet-overlay) > .additional-executables-dropdown-menu .additional-executables-dropdown-item:focus {
+ background-color: rgba(255, 255, 255, 0.05);
+ color: #ffffff;
+ outline: none;
+}
+
+/* Nested collection-like "Add to" inside the phone sheet covers the parent list. */
+.dropdown-menu-popup--phone-sheet .dropdown-menu-collectionlike-submenu {
+ position: absolute !important;
+ inset: 0 !important;
+ top: 0 !important;
+ left: 0 !important;
+ right: 0 !important;
+ bottom: 0 !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-height: none !important;
+ margin: 0 !important;
+ border: none !important;
+ border-radius: 12px 12px 0 0 !important;
+ box-shadow: none !important;
+ z-index: 5 !important;
+ overflow-y: auto !important;
+}
+
 .dropdown-menu-item {
  display: flex;
  align-items: center;
