@@ -76,16 +76,16 @@
  padding-right: 4px;
 }
 
-.update-notification-changelog-body::-webkit-scrollbar {
+html:not([data-mhg-tv="1"]) .update-notification-changelog-body::-webkit-scrollbar {
  width: 6px;
 }
 
-.update-notification-changelog-body::-webkit-scrollbar-track {
+html:not([data-mhg-tv="1"]) .update-notification-changelog-body::-webkit-scrollbar-track {
  background: rgba(255, 255, 255, 0.05);
  border-radius: 3px;
 }
 
-.update-notification-changelog-body::-webkit-scrollbar-thumb {
+html:not([data-mhg-tv="1"]) .update-notification-changelog-body::-webkit-scrollbar-thumb {
  background: rgba(255, 255, 255, 0.2);
  border-radius: 3px;
 }

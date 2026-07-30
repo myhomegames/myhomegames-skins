@@ -8,6 +8,9 @@
  overflow-x: auto;
  overflow-y: hidden;
  padding-bottom: 8px;
+}
+
+html:not([data-mhg-tv="1"]) .media-gallery-strip {
  scrollbar-width: thin;
  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
