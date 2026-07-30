@@ -38,6 +38,9 @@
   color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
 }
-.alphabet-button:not(:disabled):hover {
+.alphabet-button:not(:disabled):hover,
+.alphabet-button:not(:disabled)[data-mhg-tv-hover],
+.alphabet-button:not(:disabled):focus {
   color: rgba(255, 255, 255, 1);
+  outline: none;
 }

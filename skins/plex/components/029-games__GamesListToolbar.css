@@ -63,12 +63,17 @@
   z-index: 1;
 }
 
-.games-list-toolbar-clear-button:hover {
+.games-list-toolbar-clear-button:hover,
+.games-list-toolbar-clear-button[data-mhg-tv-hover],
+.games-list-toolbar-clear-button:focus {
   color: #ffffff;
 }
 
-.games-list-toolbar-button:hover {
+.games-list-toolbar-button:hover,
+.games-list-toolbar-button[data-mhg-tv-hover],
+.games-list-toolbar-button:focus {
   color: #ffffff;
+  outline: none;
 }
 
 .games-list-toolbar-label {
@@ -82,7 +87,9 @@
   transition: color 0.2s ease;
 }
 
-.games-list-toolbar-button:hover .games-list-toolbar-value {
+.games-list-toolbar-button:hover .games-list-toolbar-value,
+.games-list-toolbar-button[data-mhg-tv-hover] .games-list-toolbar-value,
+.games-list-toolbar-button:focus .games-list-toolbar-value {
   color: #ffffff;
 }
 
@@ -93,7 +100,9 @@
   margin-right: 2px;
 }
 
-.games-list-toolbar-button:hover .games-list-toolbar-sort-direction {
+.games-list-toolbar-button:hover .games-list-toolbar-sort-direction,
+.games-list-toolbar-button[data-mhg-tv-hover] .games-list-toolbar-sort-direction,
+.games-list-toolbar-button:focus .games-list-toolbar-sort-direction {
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -107,7 +116,9 @@
   transform: rotate(180deg);
 }
 
-.games-list-toolbar-button:hover .games-list-toolbar-arrow {
+.games-list-toolbar-button:hover .games-list-toolbar-arrow,
+.games-list-toolbar-button[data-mhg-tv-hover] .games-list-toolbar-arrow,
+.games-list-toolbar-button:focus .games-list-toolbar-arrow {
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -149,9 +160,12 @@
   flex-shrink: 0;
 }
 
-.games-list-toolbar-popup-back:hover {
+.games-list-toolbar-popup-back:hover,
+.games-list-toolbar-popup-back[data-mhg-tv-hover],
+.games-list-toolbar-popup-back:focus {
   background-color: rgba(255, 255, 255, 0.1);
   color: #ffffff;
+  outline: none;
 }
 
 .games-list-toolbar-popup-header-title {
@@ -238,9 +252,12 @@ html:not([data-mhg-tv="1"]) .games-list-toolbar-popup-scrollable::-webkit-scroll
   margin: 4px 0;
 }
 
-.games-list-toolbar-popup-item:hover {
+.games-list-toolbar-popup-item:hover,
+.games-list-toolbar-popup-item[data-mhg-tv-hover],
+.games-list-toolbar-popup-item:focus {
   background-color: rgba(255, 255, 255, 0.05);
   color: #ffffff;
+  outline: none;
 }
 
 .games-list-toolbar-popup-item.selected {
@@ -263,4 +280,10 @@ html:not([data-mhg-tv="1"]) .games-list-toolbar-popup-scrollable::-webkit-scroll
   color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
   margin-left: 8px;
+}
+
+.games-list-toolbar-count[data-mhg-tv-hover],
+.games-list-toolbar-count:focus {
+  color: #ffffff;
+  outline: none;
 }

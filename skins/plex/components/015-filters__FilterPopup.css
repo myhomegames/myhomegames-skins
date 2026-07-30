@@ -38,9 +38,12 @@
   flex-shrink: 0;
 }
 
-.filter-popup-back:hover {
+.filter-popup-back:hover,
+.filter-popup-back[data-mhg-tv-hover],
+.filter-popup-back:focus {
   background-color: rgba(255, 255, 255, 0.1);
   color: #ffffff;
+  outline: none;
 }
 
 .filter-popup-header-title {
@@ -121,9 +124,12 @@ html:not([data-mhg-tv="1"]) .filter-popup-scrollable::-webkit-scrollbar-thumb:ho
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.filter-popup-item:hover {
+.filter-popup-item:hover,
+.filter-popup-item[data-mhg-tv-hover],
+.filter-popup-item:focus {
   background-color: rgba(255, 255, 255, 0.05);
   color: #ffffff;
+  outline: none;
 }
 
 .filter-popup-item.selected {

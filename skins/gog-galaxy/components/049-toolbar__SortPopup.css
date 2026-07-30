@@ -30,9 +30,12 @@
  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.sort-popup-item:hover {
- background-color: rgba(255, 255, 255, 0.05);
- color: #ffffff;
+.sort-popup-item:hover,
+.sort-popup-item[data-mhg-tv-hover],
+.sort-popup-item:focus {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  outline: none;
 }
 
 .sort-popup-item.selected {
