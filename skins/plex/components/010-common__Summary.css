@@ -30,7 +30,12 @@
   transition: opacity 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
 }
 
-.summary-text--toggleable:is(:hover, [data-mhg-tv-hover], :focus-visible) {
+.summary-text--toggleable:hover {
+  opacity: 1;
+}
+
+/* Smart TV focus mirror only — gold ring not used on desktop/phone mouse. */
+html[data-mhg-tv="1"] .summary-text--toggleable[data-mhg-tv-hover] {
   opacity: 1;
   outline: none;
   box-shadow: 0 0 0 2px rgba(229, 160, 13, 0.9);
@@ -51,7 +56,11 @@
   gap: 4px;
 }
 
-.summary-toggle:is(:hover, [data-mhg-tv-hover], :focus-visible) {
+.summary-toggle:hover {
+  color: #f5b041;
+}
+
+html[data-mhg-tv="1"] .summary-toggle[data-mhg-tv-hover] {
   color: #f5b041;
   outline: none;
 }
@@ -81,4 +90,32 @@ html[data-mhg-tv="1"] .game-detail-summary .summary-toggle,
 html[data-mhg-tv="1"] .catalog-game-detail-summary .summary-toggle,
 html[data-mhg-tv="1"] .library-item-detail-summary .summary-toggle {
   display: none;
+}
+
+/*
+ * Smart TV (Plex detail): half-width description.
+ * Must override `display: contents` on `.game-detail-summary` (pages CSS) —
+ * width on a contents box is ignored.
+ */
+html[data-mhg-tv="1"] .game-detail-summary,
+html[data-mhg-tv="1"] .catalog-game-detail-summary,
+html[data-mhg-tv="1"] .library-item-detail-summary {
+  display: block !important;
+  width: 50% !important;
+  max-width: 50% !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+html[data-mhg-tv="1"] .game-detail-summary .summary-root,
+html[data-mhg-tv="1"] .catalog-game-detail-summary .summary-root,
+html[data-mhg-tv="1"] .library-item-detail-summary .summary-root,
+html[data-mhg-tv="1"] .game-detail-summary .summary-text,
+html[data-mhg-tv="1"] .catalog-game-detail-summary .summary-text,
+html[data-mhg-tv="1"] .library-item-detail-summary .summary-text {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }

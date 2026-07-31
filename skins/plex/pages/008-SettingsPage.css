@@ -399,6 +399,22 @@ body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
   display: contents;
 }
 
+/*
+ * Smart TV: `display: contents` drops the summary box — restore a real box and
+ * limit width to half the scroll pane (readable line length on large TVs).
+ */
+html[data-mhg-tv="1"] .game-detail-summary,
+html[data-mhg-tv="1"] .catalog-game-detail-summary,
+html[data-mhg-tv="1"] .library-item-detail-summary {
+  display: block;
+  width: 50%;
+  max-width: 50%;
+  margin-left: 0;
+  margin-right: auto;
+  box-sizing: border-box;
+  text-align: left;
+}
+
 .game-detail-title,
 .catalog-game-detail-title,
 .library-item-detail-title {

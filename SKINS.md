@@ -75,6 +75,8 @@ The zip must contain **`skin.json`** in one of these places:
 - `ownedGamesFirstInGamesSidebar`: when `true`, removes the main games library (`library`) from the **top** sidebar list and renders it as the **first row** under the collections-shortcuts block (the block whose heading skins often restyle as “Games”), with the label **Owned games**. Use with `collectionsShortcutList` for GOG-style sidebars.
 - `detailBackdropLayout`: when `true`, the web app marks the game/catalog detail backdrop with `data-mhg-background-layout="detail"` (and a phone scroll-fade CSS variable). Skin CSS decides the visual layout; without matching rules the portal stays full-bleed.
 - `staticInlineTagListOnTvPhone`: when `true`, on Smart TV and narrow/phone viewports `InlineTagList` items are not navigable and the “and more” truncation is off (all tags shown).
+- `tvSummaryOverlay`: when `true`, on Smart TV activating the game/catalog detail Summary opens a full-screen overlay (full-height cover + full description + GameInfoBlock) instead of expanding the text in place.
+- `disableTitleTooltips`: when `true`, hover tooltips are not shown.
 
 **CSS** (next to `skin.json` in that folder):
 

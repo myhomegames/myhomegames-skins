@@ -5,6 +5,7 @@
   "snapshot": "snapshot.jpg",
   "web": {
     "detailBackdropLayout": true,
-    "staticInlineTagListOnTvPhone": true
+    "staticInlineTagListOnTvPhone": true,
+    "tvSummaryOverlay": true
   }
 }

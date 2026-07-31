@@ -580,6 +580,19 @@ html[data-mhg-tv="1"] .game-info-block {
   display: none !important;
 }
 
+/* Smart TV: summary half-width (override display:contents + full-bleed). */
+html[data-mhg-tv="1"] .game-detail-summary,
+html[data-mhg-tv="1"] .catalog-game-detail-summary,
+html[data-mhg-tv="1"] .library-item-detail-summary {
+  display: block !important;
+  width: 50% !important;
+  max-width: 50% !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  box-sizing: border-box;
+  text-align: left;
+}
+
 /* Smart TV: no Edit on game detail; ⋮ menu keeps Delete only. */
 html[data-mhg-tv="1"] .game-detail-edit-button {
   display: none !important;

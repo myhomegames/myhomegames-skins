@@ -286,7 +286,12 @@ body {
  transition: opacity 0.2s ease;
 }
 
-.mhg-logo-button:is(:hover, [data-mhg-tv-hover]) {
+.mhg-logo-button:hover {
+ opacity: 0.8;
+}
+
+/* Smart TV focus mirror only — not desktop mouse hover. */
+html[data-mhg-tv="1"] .mhg-logo-button[data-mhg-tv-hover] {
  opacity: 1;
  outline: none;
  filter: drop-shadow(0 0 6px rgba(229, 160, 13, 0.9));
