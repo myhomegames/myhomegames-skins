@@ -6,6 +6,7 @@
   "web": {
     "detailBackdropLayout": true,
     "staticInlineTagListOnTvPhone": true,
-    "tvSummaryOverlay": true
+    "tvSummaryOverlay": true,
+    "tvStarRatingOverlay": true
   }
 }

@@ -76,6 +76,7 @@ The zip must contain **`skin.json`** in one of these places:
 - `detailBackdropLayout`: when `true`, the web app marks the game/catalog detail backdrop with `data-mhg-background-layout="detail"` (and a phone scroll-fade CSS variable). Skin CSS decides the visual layout; without matching rules the portal stays full-bleed.
 - `staticInlineTagListOnTvPhone`: when `true`, on Smart TV and narrow/phone viewports `InlineTagList` items are not navigable and the “and more” truncation is off (all tags shown).
 - `tvSummaryOverlay`: when `true`, on Smart TV activating the game/catalog detail Summary opens a full-screen overlay (full-height cover + full description + GameInfoBlock) instead of expanding the text in place.
+- `tvStarRatingOverlay`: when `true`, on Smart TV the detail star rating is a single focus target; OK opens a full-screen overlay (title + interactive stars + Done) instead of editing stars in place.
 - `disableTitleTooltips`: when `true`, hover tooltips are not shown.
 
 **CSS** (next to `skin.json` in that folder):

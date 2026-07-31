@@ -87,3 +87,50 @@
     transform: translate(-50%, -50%);
   }
 }
+
+/*
+ * Smart TV detail (overlay trigger): hover/focus on the whole control —
+ * white floating panel; filled star parts black, empty stars white + black outline.
+ */
+html[data-mhg-tv="1"] .star-rating--overlay-trigger {
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin: -8px -10px;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+html[data-mhg-tv="1"]
+  .star-rating--overlay-trigger:is(:hover, [data-mhg-tv-hover], :focus-visible) {
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* Empty star silhouette: white body, black border. */
+html[data-mhg-tv="1"]
+  .star-rating--overlay-trigger:is(:hover, [data-mhg-tv-hover], :focus-visible)
+  .star-rating-star-svg-bg {
+  fill: #fff !important;
+  stroke: #111 !important;
+  stroke-width: 1.5;
+  filter: none;
+}
+
+/* Filled / half-filled overlays → black (transparent half stays empty). */
+html[data-mhg-tv="1"]
+  .star-rating--overlay-trigger:is(:hover, [data-mhg-tv-hover], :focus-visible)
+  .star-rating-star-svg-overlay {
+  filter: brightness(0);
+  stroke: #111;
+}
+
+html[data-mhg-tv="1"]
+  .star-rating--overlay-trigger
+  .star-rating-star--interactive:is(:hover, [data-mhg-tv-hover], :focus-visible),
+html[data-mhg-tv="1"]
+  .star-rating--overlay-trigger
+  .star-rating-star:is(:hover, [data-mhg-tv-hover], :focus-visible) {
+  transform: none;
+  filter: none;
+}

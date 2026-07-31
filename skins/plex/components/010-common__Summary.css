@@ -27,18 +27,24 @@
 .summary-text--toggleable {
   cursor: pointer;
   border-radius: 4px;
-  transition: opacity 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+  transition: opacity 0.15s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
 .summary-text--toggleable:hover {
   opacity: 1;
 }
 
-/* Smart TV focus mirror only — gold ring not used on desktop/phone mouse. */
-html[data-mhg-tv="1"] .summary-text--toggleable[data-mhg-tv-hover] {
+/*
+ * Smart TV: slightly lighter fill on the text box only — no padding/margin
+ * (those broke -webkit-line-clamp and showed a clipped extra line).
+ */
+html[data-mhg-tv="1"] .summary-text--toggleable[data-mhg-tv-hover],
+html[data-mhg-tv="1"] .summary-text--toggleable:focus-visible {
   opacity: 1;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(229, 160, 13, 0.9);
+  box-shadow: none;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .summary-toggle {
