@@ -31,7 +31,26 @@
   flex-shrink: 0;
 }
 
+.websites-list-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .websites-list-item:hover {
   text-decoration: underline;
   color: rgba(255, 255, 255, 1);
+}
+
+/* Smart TV: icons only, not activatable via remote. */
+.websites-list-item--static,
+html[data-mhg-tv="1"] .websites-list-item--static {
+  cursor: default;
+  pointer-events: none;
+}
+
+.websites-list-item--static:hover,
+html[data-mhg-tv="1"] .websites-list-item--static:hover {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
 }
