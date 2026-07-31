@@ -3077,12 +3077,16 @@ html.mhg-context-rail-activation-lock-global #root * {
 
 .star-rating-star--interactive {
  cursor: pointer;
+ touch-action: manipulation;
+ -webkit-tap-highlight-color: transparent;
 }
 
-.star-rating-star-svg-bg {
+.star-rating-star-svg-bg,
+.star-rating-star-svg-overlay {
  position: absolute;
  top: 0;
  left: 0;
+ pointer-events: none;
 }
 
 .star-rating-star-half-hit {
@@ -3100,13 +3104,6 @@ html.mhg-context-rail-activation-lock-global #root * {
 
 .star-rating-star-half-hit--right {
  right: 0;
-}
-
-.star-rating-star-svg-overlay {
- position: absolute;
- top: 0;
- left: 0;
- pointer-events: none;
 }
 
 /* Summary truncation (line-clamp); missing from PS3 bundle. */

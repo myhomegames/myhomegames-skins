@@ -24,6 +24,18 @@
  text-overflow: clip;
 }
 
+.summary-text--toggleable {
+ cursor: pointer;
+ border-radius: 4px;
+ transition: opacity 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.summary-text--toggleable:is(:hover, [data-mhg-tv-hover], :focus-visible) {
+ opacity: 1;
+ outline: none;
+ box-shadow: 0 0 0 2px rgba(229, 160, 13, 0.9);
+}
+
 .summary-toggle {
  margin-top: 8px;
  background-color: transparent;
@@ -37,6 +49,11 @@
  display: flex;
  align-items: center;
  gap: 4px;
+}
+
+.summary-toggle:is(:hover, [data-mhg-tv-hover], :focus-visible) {
+ color: #f5b041;
+ outline: none;
 }
 
 .summary-toggle-chevron {
