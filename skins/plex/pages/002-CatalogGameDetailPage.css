@@ -191,7 +191,7 @@
   opacity: 0.6;
 }
 
-.catalog-game-detail-mark-owned-button:hover:not(:disabled) {
+.catalog-game-detail-mark-owned-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
   background-color: #F5B041;
 }
 

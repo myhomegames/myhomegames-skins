@@ -24,9 +24,15 @@ html:not([data-mhg-tv="1"]) .media-gallery-strip {
  transition: opacity 0.2s ease, transform 0.2s ease;
  position: relative;
  overflow: hidden;
+ padding: 0;
+ border: none;
+ background: transparent;
+ display: block;
+ color: inherit;
+ font: inherit;
 }
 
-.media-gallery-tile:hover {
+.media-gallery-tile:is(:hover, [data-mhg-tv-hover]) {
  opacity: 0.8;
  transform: scale(1.02);
 }
@@ -36,12 +42,28 @@ html:not([data-mhg-tv="1"]) .media-gallery-strip {
  height: 100%;
  border: none;
  border-radius: 4px;
+ pointer-events: none;
+}
+
+.media-gallery-thumb-button {
+ flex-shrink: 0;
+ padding: 0;
+ border: none;
+ background: transparent;
+ cursor: pointer;
+ display: block;
+ color: inherit;
+ font: inherit;
+ border-radius: 4px;
+ width: 300px;
+ aspect-ratio: 16 / 9;
+ overflow: hidden;
 }
 
 .media-gallery-thumb {
- flex-shrink: 0;
- width: 300px;
- height: auto;
+ display: block;
+ width: 100%;
+ height: 100%;
  border-radius: 4px;
  cursor: pointer;
  object-fit: cover;
@@ -49,6 +71,8 @@ html:not([data-mhg-tv="1"]) .media-gallery-strip {
  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.media-gallery-thumb-button:is(:hover, [data-mhg-tv-hover]) .media-gallery-thumb,
+.media-gallery-tile:is(:hover, [data-mhg-tv-hover]),
 .media-gallery-thumb:hover {
  opacity: 0.8;
  transform: scale(1.02);

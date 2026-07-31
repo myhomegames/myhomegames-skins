@@ -117,7 +117,7 @@
   gap: 6px;
 }
 
-.library-item-detail-play-btn:hover {
+.library-item-detail-play-btn:is(:hover, [data-mhg-tv-hover]) {
   background-color: #f5b041;
 }
 
@@ -202,7 +202,7 @@
   transition: color 0.2s ease;
 }
 
-.library-item-detail-edit-button:hover {
+.library-item-detail-edit-button:is(:hover, [data-mhg-tv-hover]) {
   color: rgba(255, 255, 255, 1);
 }
 

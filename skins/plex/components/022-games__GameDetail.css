@@ -190,7 +190,7 @@
   line-height: 1.2;
 }
 
-.game-detail-play-button:hover {
+.game-detail-play-button:is(:hover, [data-mhg-tv-hover]) {
   background-color: #F5B041;
 }
 
@@ -226,7 +226,7 @@
   opacity: 0.6;
 }
 
-.game-detail-link-executable-button:hover:not(:disabled) {
+.game-detail-link-executable-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
   background-color: #F5B041;
 }
 
@@ -250,7 +250,7 @@
   transition: color 0.2s ease;
 }
 
-.game-detail-edit-button:hover {
+.game-detail-edit-button:is(:hover, [data-mhg-tv-hover]) {
   color: rgba(255, 255, 255, 1);
 }
 
@@ -479,20 +479,72 @@
   }
 
   .game-detail-info-primary,
+  .catalog-game-detail-info-primary,
   .library-item-detail-meta-primary {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 8px;
     grid-row: 1;
     width: 100%;
     min-height: 0 !important;
+    text-align: center;
   }
 
+  /* Phone: center title / meta / tags / stars / Play (game + catalog). */
+  .game-detail-title-row,
+  .catalog-game-detail-title-row,
   .library-item-detail-title-row,
   .library-item-detail-title-row--with-company-info {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 16px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .game-detail-title,
+  .catalog-game-detail-title,
+  .library-item-detail-title {
+    text-align: center;
+    width: 100%;
+  }
+
+  .game-detail-release-date,
+  .catalog-game-detail-release-date,
+  .library-item-detail-release-date {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .game-detail-header .inline-tag-list,
+  .catalog-game-detail-header .inline-tag-list,
+  .library-item-detail-hero .inline-tag-list {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .game-detail-ratings,
+  .catalog-game-detail-ratings,
+  .library-item-detail-ratings {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .game-detail-actions,
+  .catalog-game-detail-actions,
+  .library-item-detail-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .catalog-game-detail-mark-owned-button {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .game-detail-summary,
@@ -525,5 +577,16 @@ html[data-mhg-tv="1"] .library-item-detail-hero-cover {
 html[data-mhg-tv="1"] .game-detail-info-section,
 html[data-mhg-tv="1"] .catalog-game-detail-info-section,
 html[data-mhg-tv="1"] .game-info-block {
+  display: none !important;
+}
+
+/* Smart TV: no Edit on game detail; ⋮ menu keeps Delete only. */
+html[data-mhg-tv="1"] .game-detail-edit-button {
+  display: none !important;
+}
+
+html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-item:not(.dropdown-menu-item-danger),
+html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-divider,
+html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-collectionlike-submenu {
   display: none !important;
 }

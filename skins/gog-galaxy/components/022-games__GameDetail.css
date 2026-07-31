@@ -190,8 +190,8 @@
  line-height: 1.2;
 }
 
-.game-detail-play-button:hover {
- background-color: #F5B041;
+.game-detail-play-button:is(:hover, [data-mhg-tv-hover]) {
+  background-color: #F5B041;
 }
 
 .game-detail-play-button-icon {
@@ -226,8 +226,8 @@
  opacity: 0.6;
 }
 
-.game-detail-link-executable-button:hover:not(:disabled) {
- background-color: #F5B041;
+.game-detail-link-executable-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
+  background-color: #F5B041;
 }
 
 .game-detail-link-executable-button-icon {
@@ -250,8 +250,8 @@
  transition: color 0.2s ease;
 }
 
-.game-detail-edit-button:hover {
- color: rgba(255, 255, 255, 1);
+.game-detail-edit-button:is(:hover, [data-mhg-tv-hover]) {
+  color: rgba(255, 255, 255, 1);
 }
 
 .game-detail-dropdown-menu {

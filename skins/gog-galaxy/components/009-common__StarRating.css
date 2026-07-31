@@ -12,6 +12,12 @@
  width: var(--sr-star-size, 16px);
  height: var(--sr-star-size, 16px);
  cursor: default;
+ padding: 0;
+ border: none;
+ background: transparent;
+ color: inherit;
+ font: inherit;
+ display: inline-block;
 }
 
 .star-rating-star--interactive {

@@ -31,7 +31,7 @@
   transition: color 0.2s ease;
 }
 
-.dropdown-menu-button:hover svg {
+.dropdown-menu-button:is(:hover, [data-mhg-tv-hover]) svg {
   color: #ffffff;
 }
 
