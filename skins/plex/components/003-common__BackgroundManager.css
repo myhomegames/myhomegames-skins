@@ -99,7 +99,7 @@
 /*
  * Game detail backdrop variants (web sets data-mhg-detail-backdrop on portal + <html>
  * when web.detailBackdropLayout is on):
- * - tv: art top-right (½×½) with soft edges; rest of the page is tinted with
+ * - tv: art top-right (⅔ × ⅔) with soft edges; rest of the page is tinted with
  *       blurred edge colors of the same image
  * - narrow: top ⅖ hero; page content starts below; hero shrinks on scroll
  * - wide: full-bleed (default portal rules)
@@ -141,10 +141,11 @@ html[data-mhg-detail-backdrop="tv"]
   inset: auto !important;
   top: 0 !important;
   right: 0 !important;
-  left: 50% !important;
+  left: calc(100% / 3) !important;
   bottom: auto !important;
-  width: 50% !important;
-  height: 50% !important;
+  /* Top-right slot: two-thirds width × two-thirds height. */
+  width: calc(200% / 3) !important;
+  height: calc(200% / 3) !important;
   max-width: none !important;
   max-height: none !important;
   box-sizing: border-box !important;

@@ -24,6 +24,10 @@
   text-overflow: clip;
 }
 
+.summary-text--toggleable {
+  cursor: pointer;
+}
+
 .summary-toggle {
   margin-top: 8px;
   background-color: transparent;
@@ -46,4 +50,22 @@
 
 .summary-toggle-chevron--expanded {
   transform: rotate(180deg);
+}
+
+/*
+ * Phone + Smart TV (game / catalog / library-item detail): no "More" label —
+ * expand/collapse by activating the description text itself.
+ */
+@media (max-width: 720px) {
+  .game-detail-summary .summary-toggle,
+  .catalog-game-detail-summary .summary-toggle,
+  .library-item-detail-summary .summary-toggle {
+    display: none;
+  }
+}
+
+html[data-mhg-tv="1"] .game-detail-summary .summary-toggle,
+html[data-mhg-tv="1"] .catalog-game-detail-summary .summary-toggle,
+html[data-mhg-tv="1"] .library-item-detail-summary .summary-toggle {
+  display: none;
 }
