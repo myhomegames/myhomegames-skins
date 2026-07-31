@@ -73,6 +73,7 @@ The zip must contain **`skin.json`** in one of these places:
 - `disableAlphabetNavigator`: when `true`, hides the A–Z sidebar navigator on library, tag games, collection-like lists, and tag index pages that normally show it.
 - `sidebarSearchPopup`: when `true`, adds a **Search** row in the main libraries sidebar (vertical list) that opens a modal with the global **SearchBar** (games, collections, developers, publishers). Use with skins that set `headerTitleFilter` so global search still has an entry point. If the key is **omitted** but `headerTitleFilter` is `true`, the web app treats `sidebarSearchPopup` as `true` unless you set `"sidebarSearchPopup": false` explicitly.
 - `ownedGamesFirstInGamesSidebar`: when `true`, removes the main games library (`library`) from the **top** sidebar list and renders it as the **first row** under the collections-shortcuts block (the block whose heading skins often restyle as “Games”), with the label **Owned games**. Use with `collectionsShortcutList` for GOG-style sidebars.
+- `detailBackdropLayout`: when `true`, the web app marks the game/catalog detail backdrop with `data-mhg-background-layout="detail"` (and a phone scroll-fade CSS variable). Skin CSS decides the visual layout; without matching rules the portal stays full-bleed.
 
 **CSS** (next to `skin.json` in that folder):
 

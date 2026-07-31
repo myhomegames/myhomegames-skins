@@ -52,6 +52,7 @@
 }
 
 /* Body portal paint (BackgroundManager): same dimming as .background-manager-overlay on root. */
+.background-manager-portal-bg-fill,
 .background-manager-portal-bg {
   position: absolute;
   inset: 0;
@@ -59,6 +60,19 @@
   height: 100%;
   z-index: 0;
   pointer-events: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Ambient fill stays under the sharp crop (TV detail). Default: hidden. */
+.background-manager-portal-bg-fill {
+  display: none;
+  z-index: 0;
+}
+
+.background-manager-portal-bg {
+  z-index: 1;
 }
 
 .background-manager-portal-overlay {
@@ -66,7 +80,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 2;
   background-color: rgba(26, 26, 26, 0.85);
   pointer-events: none;
 }
@@ -79,6 +93,292 @@
   min-height: 100vh;
   pointer-events: none;
   z-index: 0;
+  --mhg-bg-scroll-fade: 1;
+}
+
+/*
+ * Game detail backdrop variants (web sets data-mhg-detail-backdrop on portal + <html>
+ * when web.detailBackdropLayout is on):
+ * - tv: art top-right (½×½) with soft edges; rest of the page is tinted with
+ *       blurred edge colors of the same image
+ * - narrow: top ⅖ hero; page content starts below; hero shrinks on scroll
+ * - wide: full-bleed (default portal rules)
+ */
+[data-mhg-background-portal][data-mhg-detail-backdrop="tv"],
+html[data-mhg-detail-backdrop="tv"] [data-mhg-background-portal] {
+  /* Base tint while the fill paints; avoids a flat #1a1a1a flash. */
+  background-color: #1a1a1a;
+  overflow: hidden;
+}
+
+[data-mhg-background-portal][data-mhg-detail-backdrop="tv"]
+  .background-manager-portal-bg-fill,
+html[data-mhg-detail-backdrop="tv"]
+  [data-mhg-background-portal]
+  .background-manager-portal-bg-fill {
+  display: block !important;
+  inset: -12% !important;
+  width: 124% !important;
+  height: 124% !important;
+  background-size: cover !important;
+  background-position: center !important;
+  /* Heavy blur + boost so the room is painted with the art’s edge colors. */
+  filter: blur(72px) saturate(1.45) brightness(0.92);
+  transform: none;
+  opacity: 1;
+  z-index: 0;
+}
+
+[data-mhg-background-portal][data-mhg-detail-backdrop="tv"]
+  .background-manager-portal-bg,
+html[data-mhg-detail-backdrop="tv"]
+  [data-mhg-background-portal]
+  .background-manager-portal-bg {
+  /*
+   * Fixed hero slot = right half × top half of the portal (full viewport).
+   * Prefer % of the portal over vw/vh so the box is truly half×half.
+   */
+  inset: auto !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 50% !important;
+  bottom: auto !important;
+  width: 50% !important;
+  height: 50% !important;
+  max-width: none !important;
+  max-height: none !important;
+  box-sizing: border-box !important;
+  /*
+   * Fill the fixed half×half slot without distorting aspect ratio.
+   * (`100% 100%` stretched the art; avoid that.)
+   */
+  background-size: cover !important;
+  background-position: top right !important;
+  background-repeat: no-repeat !important;
+  filter: none;
+  transform: none;
+  opacity: 1;
+  z-index: 1;
+  /* Soft dissolve only on the inner edges into the ambient fill. */
+  -webkit-mask-image:
+    linear-gradient(to left, #000 0%, #000 88%, transparent 100%),
+    linear-gradient(to bottom, #000 0%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to left, #000 0%, #000 88%, transparent 100%),
+    linear-gradient(to bottom, #000 0%, #000 88%, transparent 100%);
+  mask-composite: intersect;
+}
+
+[data-mhg-background-portal][data-mhg-detail-backdrop="tv"]
+  .background-manager-portal-overlay,
+html[data-mhg-detail-backdrop="tv"]
+  [data-mhg-background-portal]
+  .background-manager-portal-overlay {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  /*
+   * Keep the ambient edge colors readable: almost clear over the hero,
+   * only a light veil toward the text side (bottom-left).
+   */
+  background: linear-gradient(
+    to bottom left,
+    rgba(26, 26, 26, 0.05) 0%,
+    rgba(26, 26, 26, 0.12) 35%,
+    rgba(26, 26, 26, 0.38) 70%,
+    rgba(26, 26, 26, 0.55) 100%
+  ) !important;
+  opacity: 1;
+  z-index: 2;
+}
+
+/* TV detail: page chrome must not paint opaque over the ambient fill. */
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .game-detail-container,
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .game-detail-main-container,
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .game-detail-content,
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .game-detail-layout,
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .game-detail-content-wrapper,
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .game-detail-scroll-container,
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .catalog-game-detail-container,
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .catalog-game-detail-main-container,
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .catalog-game-detail-scroll-container,
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .app-main-container {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+[data-mhg-background-portal][data-mhg-detail-backdrop="narrow"] {
+  /* Same ambient as the fill — never a flat black behind transparent UI. */
+  background-color: transparent;
+}
+
+/*
+ * Ambient page tint from the art’s bottom-edge colors (blurred fill), so the
+ * solid content panel blends into the hero instead of a hard #1a1a1a cut.
+ */
+[data-mhg-background-portal][data-mhg-detail-backdrop="narrow"]
+  .background-manager-portal-bg-fill,
+html[data-mhg-detail-backdrop="narrow"]
+  [data-mhg-background-portal]
+  .background-manager-portal-bg-fill {
+  display: block !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-size: cover !important;
+  background-position: center bottom !important;
+  filter: blur(64px) saturate(1.4) brightness(0.88);
+  transform: scale(1.28);
+  opacity: 1;
+  z-index: 0;
+}
+
+[data-mhg-background-portal][data-mhg-detail-backdrop="narrow"]
+  .background-manager-portal-bg,
+html[data-mhg-detail-backdrop="narrow"]
+  [data-mhg-background-portal]
+  .background-manager-portal-bg {
+  inset: auto !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: auto !important;
+  width: 100% !important;
+  /* Collapses on scroll via --mhg-bg-hero-height (JS). */
+  height: var(--mhg-bg-hero-height, 40vh) !important;
+  max-height: var(--mhg-bg-hero-slot, 40vh) !important;
+  background-size: cover !important;
+  background-position: top center !important;
+  opacity: 1;
+  z-index: 1;
+  overflow: hidden;
+  /* Dissolve into the ambient fill / page panel. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+}
+
+[data-mhg-background-portal][data-mhg-detail-backdrop="narrow"]
+  .background-manager-portal-overlay,
+html[data-mhg-detail-backdrop="narrow"]
+  [data-mhg-background-portal]
+  .background-manager-portal-overlay {
+  inset: auto !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: auto !important;
+  width: 100% !important;
+  height: var(--mhg-bg-hero-height, 40vh) !important;
+  max-height: var(--mhg-bg-hero-slot, 40vh) !important;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 26, 26, 0.08) 0%,
+    rgba(26, 26, 26, 0.18) 45%,
+    rgba(26, 26, 26, 0.05) 100%
+  ) !important;
+  opacity: 1;
+  z-index: 2;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+}
+
+/*
+ * Phone detail: content starts higher (overlaps hero bottom). Page chrome stays
+ * transparent so the blurred edge-color fill tints the whole screen — no solid
+ * black panels on sections/cards.
+ */
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-scroll-container,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .catalog-game-detail-scroll-container {
+  padding-top: var(--mhg-bg-content-offset, 28vh) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-header,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .catalog-game-detail-header,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-info-section,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-media-section,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-collections-section,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-summary,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-info-panel,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .catalog-game-detail-info-panel,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .scrollable-section,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .catalog-game-detail-info-section {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none;
+}
+
+/*
+ * Keep the normal Plex panel risalto (same values as GameInfoBlock / GameDetail.css)
+ * on info block, collection groups, and similar games.
+ */
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-info-block {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px;
+}
+
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-collection-group {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 6px;
+}
+
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-similar-section,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .catalog-game-detail-similar-section {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 6px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-container,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-main-container,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-content,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-layout,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .game-detail-content-wrapper,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .catalog-game-detail-container,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .catalog-game-detail-main-container,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .app-main-container {
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 .background-manager-foreground {

@@ -458,16 +458,23 @@
   .library-item-detail-hero {
     display: grid !important;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
     row-gap: 24px;
     width: 100%;
   }
 
-  /* Phone: no top-left locandina (desktop-only). */
   .game-detail-cover-wrapper,
   .catalog-game-detail-cover-wrapper,
   .library-item-detail-hero-cover {
-    display: none !important;
+    grid-row: 1;
+    justify-self: center;
+    width: min(256px, 100%);
+  }
+
+  .game-detail-cover-wrapper .games-list-cover,
+  .catalog-game-detail-cover-wrapper .games-list-cover,
+  .library-item-detail-hero-cover .games-list-cover {
+    width: min(256px, 100%) !important;
   }
 
   .game-detail-info-panel,
@@ -483,7 +490,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    grid-row: 1;
+    grid-row: 2;
     width: 100%;
     min-height: 0 !important;
   }
@@ -498,7 +505,7 @@
   .game-detail-summary,
   .library-item-detail-summary {
     display: block;
-    grid-row: 2;
+    grid-row: 3;
     width: 100%;
   }
 
@@ -507,9 +514,17 @@
   }
 }
 
-/* Smart TV: same as phone — hide detail locandina (desktop web only). */
-html[data-mhg-tv="1"] .game-detail-cover-wrapper,
-html[data-mhg-tv="1"] .catalog-game-detail-cover-wrapper,
-html[data-mhg-tv="1"] .library-item-detail-hero-cover {
-  display: none !important;
+@container mhg-detail-scroll (max-width: 560px) {
+  .game-detail-cover-wrapper,
+  .catalog-game-detail-cover-wrapper,
+  .library-item-detail-hero-cover {
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  .game-detail-cover-wrapper .games-list-cover,
+  .catalog-game-detail-cover-wrapper .games-list-cover,
+  .library-item-detail-hero-cover .games-list-cover {
+    width: 100% !important;
+  }
 }
