@@ -114,8 +114,17 @@
   font-weight: 400;
 }
 
-.view-mode-option:not(.active):hover {
+.view-mode-option:not(.active):is(:hover, [data-mhg-tv-hover]) {
   background: rgba(255, 255, 255, 0.05);
+}
+
+.view-mode-button:is(:hover, [data-mhg-tv-hover]):not(.disabled):not(:disabled) {
+  color: rgba(255, 255, 255, 1);
+}
+
+.view-mode-button:is(:hover, [data-mhg-tv-hover]):not(.disabled):not(:disabled)
+  .view-mode-icon {
+  opacity: 0.7;
 }
 
 .view-mode-option-icon {

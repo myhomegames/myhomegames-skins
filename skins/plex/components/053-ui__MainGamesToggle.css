@@ -15,7 +15,7 @@
   transition: color 0.2s ease;
 }
 
-.main-games-toggle-button:hover:not(:disabled) {
+.main-games-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
   color: #f5b041;
 }
 

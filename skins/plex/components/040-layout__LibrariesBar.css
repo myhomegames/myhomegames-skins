@@ -422,3 +422,24 @@ html[data-mhg-tv="1"]
   .mhg-libraries-container {
   justify-content: flex-start;
 }
+
+/*
+ * Smart TV: trailing libraries-bar icons (background / new / main / view)
+ * mirror mouse :hover when focused via D-pad (`data-mhg-tv-hover`).
+ */
+html[data-mhg-tv="1"]
+  .mhg-libraries-actions
+  .background-toggle-button[data-mhg-tv-hover]:not(:disabled),
+html[data-mhg-tv="1"]
+  .mhg-libraries-actions
+  .new-games-toggle-button[data-mhg-tv-hover]:not(:disabled),
+html[data-mhg-tv="1"]
+  .mhg-libraries-actions
+  .main-games-toggle-button[data-mhg-tv-hover]:not(:disabled),
+html[data-mhg-tv="1"]
+  .mhg-libraries-actions
+  .view-mode-button[data-mhg-tv-hover]:not(.disabled):not(:disabled) {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+}
