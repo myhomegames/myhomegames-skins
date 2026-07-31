@@ -505,11 +505,25 @@
   .game-info-block {
     grid-template-columns: minmax(0, 1fr) !important;
   }
+
+  /* Phone: hide GameInfoBlock (desktop / large layout only). */
+  .game-detail-info-section,
+  .catalog-game-detail-info-section,
+  .game-info-block {
+    display: none !important;
+  }
 }
 
 /* Smart TV: same as phone — hide detail locandina (desktop web only). */
 html[data-mhg-tv="1"] .game-detail-cover-wrapper,
 html[data-mhg-tv="1"] .catalog-game-detail-cover-wrapper,
 html[data-mhg-tv="1"] .library-item-detail-hero-cover {
+  display: none !important;
+}
+
+/* Smart TV: hide GameInfoBlock (desktop web only). */
+html[data-mhg-tv="1"] .game-detail-info-section,
+html[data-mhg-tv="1"] .catalog-game-detail-info-section,
+html[data-mhg-tv="1"] .game-info-block {
   display: none !important;
 }
