@@ -18,7 +18,7 @@
   opacity: 1;
 }
 
-.background-toggle-button:hover:not(:disabled) {
+.background-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
   color: #F5B041;
   opacity: 1;
 }
