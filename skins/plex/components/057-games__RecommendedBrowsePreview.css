@@ -11,9 +11,16 @@ html[data-mhg-tv="1"] .mhg-recommended-browse-preview {
   flex: 0 0 auto;
   padding: 8px 24px 12px;
   box-sizing: border-box;
-  max-height: min(42vh, 420px);
+  max-height: min(48vh, 520px);
   overflow: hidden;
   pointer-events: none;
+  --font-heading-1-font-size: clamp(2.75rem, 4.5vw, 3.75rem);
+  --font-heading-1-line-height: 1.12;
+  --font-body-1-font-size: clamp(1.45rem, 2.3vw, 1.85rem);
+  --font-body-1-line-height: 1.4;
+  --font-body-2-font-size: clamp(1.2rem, 1.9vw, 1.5rem);
+  --font-body-2-line-height: 1.35;
+  --summary-font-size: clamp(1.45rem, 2.3vw, 1.85rem);
 }
 
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview--empty {
@@ -43,6 +50,7 @@ html[data-mhg-tv="1"] .mhg-recommended-browse-preview-host > .recommended-page-s
 }
 
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview-title {
-  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+  font-size: var(--font-heading-1-font-size);
+  line-height: var(--font-heading-1-line-height);
   margin: 0;
 }

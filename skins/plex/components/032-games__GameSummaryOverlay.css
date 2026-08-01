@@ -133,10 +133,64 @@ html[data-mhg-summary-overlay="1"] .background-manager-bg-img {
   margin-top: 8px;
 }
 
+/*
+ * Smart TV: large type that always fits the viewport page.
+ * Web sets --mhg-summary-fit-scale (< 1) when title + summary + info would overflow.
+ */
+html[data-mhg-tv="1"] .game-summary-overlay-panel {
+  --mhg-summary-fit-scale: 1;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding:
+    calc(36px * var(--mhg-summary-fit-scale))
+    calc(44px * var(--mhg-summary-fit-scale))
+    calc(32px * var(--mhg-summary-fit-scale));
+  --font-heading-1-font-size: calc(
+    clamp(2.75rem, 4.5vw, 3.75rem) * var(--mhg-summary-fit-scale)
+  );
+  --font-heading-1-line-height: 1.12;
+  --font-body-1-font-size: calc(
+    clamp(1.45rem, 2.3vw, 1.9rem) * var(--mhg-summary-fit-scale)
+  );
+  --font-body-1-line-height: 1.35;
+  --font-body-2-font-size: calc(
+    clamp(1.2rem, 1.9vw, 1.55rem) * var(--mhg-summary-fit-scale)
+  );
+  --font-body-2-line-height: 1.3;
+}
+
+html[data-mhg-tv="1"] .game-summary-overlay-title {
+  flex: 0 0 auto;
+  margin: 0 0 calc(16px * var(--mhg-summary-fit-scale));
+}
+
+html[data-mhg-tv="1"] .game-summary-overlay-text {
+  flex: 0 0 auto;
+  margin: 0 0 calc(18px * var(--mhg-summary-fit-scale));
+}
+
+html[data-mhg-tv="1"] .game-summary-overlay-info {
+  flex: 0 0 auto;
+  margin-top: 0;
+  min-height: 0;
+}
+
 /* Beat page-level TV hide of GameInfoBlock. */
 html[data-mhg-tv="1"] .game-summary-overlay .game-info-block,
 .game-summary-overlay .game-info-block {
   display: grid !important;
+}
+
+html[data-mhg-tv="1"] .game-summary-overlay .game-info-block {
+  padding: calc(18px * var(--mhg-summary-fit-scale));
+  gap: calc(16px * var(--mhg-summary-fit-scale));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+}
+
+html[data-mhg-tv="1"] .game-summary-overlay .game-info-field {
+  gap: calc(4px * var(--mhg-summary-fit-scale));
 }
 
 html[data-mhg-tv="1"] .game-summary-overlay .game-detail-info-section,

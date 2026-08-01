@@ -62,6 +62,12 @@ html[data-mhg-star-rating-overlay="1"] .background-manager-bg-img {
   outline: none;
 }
 
+html[data-mhg-tv="1"] .game-star-rating-overlay-panel {
+  --font-heading-1-font-size: clamp(3.25rem, 5.5vw, 4.5rem);
+  --font-heading-2-font-size: clamp(1.75rem, 2.8vw, 2.25rem);
+  --font-body-1-font-size: clamp(1.65rem, 2.6vw, 2.05rem);
+}
+
 /* Larger than the game title. */
 .game-star-rating-overlay-eyebrow {
   margin: 0;

@@ -603,3 +603,46 @@ html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-m
 html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-collectionlike-submenu {
   display: none !important;
 }
+
+/*
+ * Smart TV: much larger type on game / catalog / library-item detail.
+ * Living-room distance — bump tokens so title, meta, tags and summary all scale.
+ */
+html[data-mhg-tv="1"] .game-detail-scroll-container,
+html[data-mhg-tv="1"] .catalog-game-detail-scroll-container,
+html[data-mhg-tv="1"] .library-item-detail-scroll {
+  --font-heading-1-font-size: clamp(3.25rem, 5.5vw, 4.5rem);
+  --font-heading-1-line-height: 1.12;
+  --font-heading-2-font-size: clamp(1.75rem, 2.8vw, 2.25rem);
+  --font-heading-2-line-height: 1.25;
+  --font-body-1-font-size: clamp(1.65rem, 2.6vw, 2.05rem);
+  --font-body-1-line-height: 1.4;
+  --font-body-2-font-size: clamp(1.35rem, 2.1vw, 1.7rem);
+  --font-body-2-line-height: 1.35;
+  --summary-font-size: clamp(1.65rem, 2.6vw, 2.05rem);
+}
+
+html[data-mhg-tv="1"] .game-detail-play-button,
+html[data-mhg-tv="1"] .game-detail-link-executable-button,
+html[data-mhg-tv="1"] .catalog-game-detail-mark-owned-button,
+html[data-mhg-tv="1"] .library-item-detail-play-btn {
+  font-size: clamp(1.65rem, 2.4vw, 2rem);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 14px;
+  padding-right: 18px;
+  gap: 10px;
+}
+
+html[data-mhg-tv="1"] .game-detail-play-button-icon,
+html[data-mhg-tv="1"] .game-detail-link-executable-button-icon,
+html[data-mhg-tv="1"] .catalog-game-detail-mark-owned-button-icon {
+  width: 1.35em;
+  height: 1.35em;
+}
+
+html[data-mhg-tv="1"] .game-detail-header .inline-tag-list,
+html[data-mhg-tv="1"] .catalog-game-detail-header .inline-tag-list,
+html[data-mhg-tv="1"] .library-item-detail-hero .inline-tag-list {
+  gap: 12px;
+}
