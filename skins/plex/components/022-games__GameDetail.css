@@ -566,11 +566,25 @@
   }
 }
 
-/* Smart TV: same as phone — hide detail locandina (desktop web only). */
+/* Smart TV: hide game/catalog locandina (desktop web only). Collection detail keeps cover. */
 html[data-mhg-tv="1"] .game-detail-cover-wrapper,
-html[data-mhg-tv="1"] .catalog-game-detail-cover-wrapper,
-html[data-mhg-tv="1"] .library-item-detail-hero-cover {
+html[data-mhg-tv="1"] .catalog-game-detail-cover-wrapper {
   display: none !important;
+}
+
+html[data-mhg-tv="1"] .library-item-detail-hero-cover {
+  display: flex !important;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+/* Smart TV collection detail: fixed locandina (400×533 proportion, scaled down). */
+html[data-mhg-tv="1"] .library-item-detail-hero-cover .games-list-cover {
+  width: 320px !important;
+  height: 426px !important;
+  aspect-ratio: 400 / 533;
+  margin-bottom: 0;
+  box-sizing: border-box;
 }
 
 /* Smart TV: hide GameInfoBlock (desktop web only). */
@@ -598,6 +612,12 @@ html[data-mhg-tv="1"] .game-detail-edit-button {
   display: none !important;
 }
 
+/* Smart TV collection-like detail: no Edit and no ⋮ (horizontal) menu. */
+html[data-mhg-tv="1"] .library-item-detail-edit-button,
+html[data-mhg-tv="1"] .library-item-detail-dropdown-menu {
+  display: none !important;
+}
+
 /* Smart TV: only Play — hide Add / Link executable. */
 html[data-mhg-tv="1"] .game-detail-link-executable-button,
 html[data-mhg-tv="1"] .catalog-game-detail-mark-owned-button {
@@ -605,26 +625,36 @@ html[data-mhg-tv="1"] .catalog-game-detail-mark-owned-button {
 }
 
 /* Background toggle beside Play on Smart TV / phone (web moves it into actions). */
-.game-detail-background-toggle {
+.game-detail-background-toggle,
+.library-item-detail-background-toggle,
+.library-item-detail-main-games-toggle {
   display: flex;
   align-items: center;
 }
 
-.game-detail-actions .game-detail-background-toggle .background-toggle-button {
+.game-detail-actions .game-detail-background-toggle .background-toggle-button,
+.library-item-detail-actions .library-item-detail-background-toggle .background-toggle-button,
+.library-item-detail-actions .library-item-detail-main-games-toggle .main-games-toggle-button {
   transform: none;
   padding: 6px 10px;
   color: rgba(255, 255, 255, 0.85);
 }
 
-.game-detail-actions .game-detail-background-toggle .background-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
+.game-detail-actions .game-detail-background-toggle .background-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled),
+.library-item-detail-actions .library-item-detail-background-toggle .background-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled),
+.library-item-detail-actions .library-item-detail-main-games-toggle .main-games-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
   color: #fff;
 }
 
-html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-button {
+html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-button,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-background-toggle .background-toggle-button,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-main-games-toggle .main-games-toggle-button {
   padding: 10px 12px;
 }
 
-html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-button svg {
+html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-button svg,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-background-toggle .background-toggle-button svg,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-main-games-toggle .main-games-toggle-button svg {
   width: 1.35em;
   height: 1.35em;
 }
