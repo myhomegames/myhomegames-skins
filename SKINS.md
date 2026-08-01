@@ -77,6 +77,8 @@ The zip must contain **`skin.json`** in one of these places:
 - `staticInlineTagListOnTvPhone`: when `true`, on Smart TV and narrow/phone viewports `InlineTagList` items are not navigable and the “and more” truncation is off (all tags shown).
 - `tvSummaryOverlay`: when `true`, on Smart TV activating the game/catalog detail Summary opens a full-screen overlay (full-height cover + full description + GameInfoBlock) instead of expanding the text in place.
 - `tvStarRatingOverlay`: when `true`, on Smart TV the detail star rating is a single focus target; OK opens a full-screen overlay (title + interactive stars + Done) instead of editing stars in place.
+- `tvDetailSummaryBeforeActions`: when `true`, on Smart TV game/catalog/collection-like detail the Summary is rendered above the Play/actions row (TV focus ladder follows that order).
+- `tvRecommendedBrowsePreview`: when `true`, on Smart TV Recommended (horizontal strips) a top panel shows the focused game’s detail through Summary; the first cover is auto-selected and the panel updates as the remote moves between covers.
 - `disableTitleTooltips`: when `true`, hover tooltips are not shown.
 
 **CSS** (next to `skin.json` in that folder):

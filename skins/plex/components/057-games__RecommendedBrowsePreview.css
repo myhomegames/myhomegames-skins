@@ -1,0 +1,48 @@
+/* Smart TV Recommended: top browse panel (detail through summary) above horizontal strips. */
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview-host {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview {
+  flex: 0 0 auto;
+  padding: 8px 24px 12px;
+  box-sizing: border-box;
+  max-height: min(42vh, 420px);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview--empty {
+  min-height: 120px;
+}
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview-info {
+  max-width: 720px;
+}
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview .game-detail-summary {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 8px 0 0;
+  pointer-events: none;
+}
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview .summary-toggle {
+  display: none !important;
+}
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview-host > .recommended-page-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-top: 8px;
+}
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview-title {
+  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+  margin: 0;
+}

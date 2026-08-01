@@ -7,6 +7,8 @@
     "detailBackdropLayout": true,
     "staticInlineTagListOnTvPhone": true,
     "tvSummaryOverlay": true,
-    "tvStarRatingOverlay": true
+    "tvStarRatingOverlay": true,
+    "tvDetailSummaryBeforeActions": true,
+    "tvRecommendedBrowsePreview": true
   }
 }
