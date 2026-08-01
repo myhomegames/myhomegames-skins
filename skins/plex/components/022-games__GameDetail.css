@@ -598,6 +598,12 @@ html[data-mhg-tv="1"] .game-detail-edit-button {
   display: none !important;
 }
 
+/* Smart TV: only Play — hide Add / Link executable. */
+html[data-mhg-tv="1"] .game-detail-link-executable-button,
+html[data-mhg-tv="1"] .catalog-game-detail-mark-owned-button {
+  display: none !important;
+}
+
 html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-item:not(.dropdown-menu-item-danger),
 html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-divider,
 html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-collectionlike-submenu {
@@ -623,8 +629,6 @@ html[data-mhg-tv="1"] .library-item-detail-scroll {
 }
 
 html[data-mhg-tv="1"] .game-detail-play-button,
-html[data-mhg-tv="1"] .game-detail-link-executable-button,
-html[data-mhg-tv="1"] .catalog-game-detail-mark-owned-button,
 html[data-mhg-tv="1"] .library-item-detail-play-btn {
   font-size: clamp(1.65rem, 2.4vw, 2rem);
   padding-top: 10px;
@@ -634,9 +638,7 @@ html[data-mhg-tv="1"] .library-item-detail-play-btn {
   gap: 10px;
 }
 
-html[data-mhg-tv="1"] .game-detail-play-button-icon,
-html[data-mhg-tv="1"] .game-detail-link-executable-button-icon,
-html[data-mhg-tv="1"] .catalog-game-detail-mark-owned-button-icon {
+html[data-mhg-tv="1"] .game-detail-play-button-icon {
   width: 1.35em;
   height: 1.35em;
 }

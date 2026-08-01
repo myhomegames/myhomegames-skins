@@ -79,6 +79,7 @@ The zip must contain **`skin.json`** in one of these places:
 - `tvStarRatingOverlay`: when `true`, on Smart TV the detail star rating is a single focus target; OK opens a full-screen overlay (title + interactive stars + Done) instead of editing stars in place.
 - `tvDetailSummaryBeforeActions`: when `true`, on Smart TV game/catalog/collection-like detail the Summary is rendered above the Play/actions row (TV focus ladder follows that order).
 - `tvRecommendedBrowsePreview`: when `true`, on Smart TV Recommended (horizontal strips) a top panel shows the focused game’s detail through Summary; the first cover is auto-selected and the panel updates as the remote moves between covers.
+- `phoneDetailBackBesideBackground`: when `true`, on phone game/catalog detail a **Back** control is shown beside the hide/show background toggle in the libraries bar actions.
 - `disableTitleTooltips`: when `true`, hover tooltips are not shown.
 
 **CSS** (next to `skin.json` in that folder):

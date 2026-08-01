@@ -337,6 +337,7 @@
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
+  gap: 2px;
 }
 
 .mhg-libraries-actions-new-games-container {

@@ -1,0 +1,42 @@
+/* --- ./components/ui/DetailBackButton.css --- */
+
+.detail-back-button {
+  padding: 6px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: #e5a00d;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(3px);
+  opacity: 1;
+}
+
+.detail-back-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
+  color: #f5b041;
+  opacity: 1;
+}
+
+.detail-back-button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.detail-back-button svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.mhg-libraries-actions-detail-back-container {
+  display: flex;
+  align-items: center;
+}
