@@ -97,7 +97,8 @@
   .mhg-libraries-actions {
   flex: 0 0 auto;
   flex-shrink: 0;
-  margin-left: 0;
+  /* Keep icons on the right even when the tab strip is absent (e.g. game detail). */
+  margin-left: auto;
   position: relative;
   z-index: 2;
 }

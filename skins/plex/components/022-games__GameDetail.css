@@ -604,6 +604,31 @@ html[data-mhg-tv="1"] .catalog-game-detail-mark-owned-button {
   display: none !important;
 }
 
+/* Background toggle beside Play on Smart TV / phone (web moves it into actions). */
+.game-detail-background-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.game-detail-actions .game-detail-background-toggle .background-toggle-button {
+  transform: none;
+  padding: 6px 10px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.game-detail-actions .game-detail-background-toggle .background-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
+  color: #fff;
+}
+
+html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-button {
+  padding: 10px 12px;
+}
+
+html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-button svg {
+  width: 1.35em;
+  height: 1.35em;
+}
+
 html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-item:not(.dropdown-menu-item-danger),
 html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-divider,
 html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-collectionlike-submenu {

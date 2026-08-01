@@ -563,7 +563,7 @@ body:has(.add-to-collection-modal-overlay) {
   gap: 8px;
   flex: 0 0 auto;
   flex-shrink: 0;
-  margin-left: 0;
+  margin-left: auto;
   position: relative;
   z-index: 2;
 }

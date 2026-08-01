@@ -36,7 +36,13 @@
   height: 24px;
 }
 
-.mhg-libraries-actions-detail-back-container {
+/* Phone game/catalog detail: Back stays on the left of the libraries row. */
+.mhg-libraries-detail-back-container {
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
+  margin-left: 0;
+  margin-right: auto;
+  position: relative;
+  z-index: 2;
 }
