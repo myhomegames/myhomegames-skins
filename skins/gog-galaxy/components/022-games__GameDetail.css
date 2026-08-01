@@ -262,6 +262,32 @@
  opacity: 1 !important;
 }
 
+/* Hide/show background beside Play (phone / Smart TV): match edit / collection icons. */
+.game-detail-background-toggle {
+ display: flex;
+ align-items: center;
+}
+
+.game-detail-actions .game-detail-background-toggle .background-toggle-button {
+ transform: none;
+ padding: 8px;
+ color: rgba(255, 255, 255, 0.8);
+ background: transparent;
+ border-radius: 0;
+ width: auto;
+ height: auto;
+ min-width: 0;
+}
+
+.game-detail-actions .game-detail-background-toggle .background-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
+ color: rgba(255, 255, 255, 1);
+}
+
+.game-detail-actions .game-detail-background-toggle .background-toggle-button svg {
+ width: 24px;
+ height: 24px;
+}
+
 .game-detail-media-section {
  width: 100%;
  margin-top: 48px;
