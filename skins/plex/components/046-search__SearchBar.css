@@ -185,7 +185,7 @@ body[data-mhg-search-dropdown-modal-action] > .additional-executables-dropdown-m
   transition: all 0.2s ease;
 }
 
-.search-view-all-button:hover {
+.search-view-all-button:is(:hover, [data-mhg-tv-hover]) {
   background-color: #F5B041;
   border-color: #F5B041;
 }
