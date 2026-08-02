@@ -10,6 +10,8 @@
   align-items: center;
   flex: 0 0 auto;
   margin-left: 8px;
+  /* Slight nudge toward the icon optical center (toggles use +3px). */
+  transform: translateY(2px);
   pointer-events: none;
 }
 
@@ -20,10 +22,10 @@
   box-sizing: border-box;
   padding: 0 4px 0 8px;
   color: rgba(255, 255, 255, 0.92);
-  font-size: 1.35rem;
+  font-size: 1.05rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   line-height: 1;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
   white-space: nowrap;
@@ -33,6 +35,7 @@
 
 .mhg-smart-tv-clock time {
   display: block;
+  line-height: 1;
 }
 
 /* Hide with other shell chrome during full-screen TV overlays. */
