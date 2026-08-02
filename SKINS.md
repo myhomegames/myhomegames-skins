@@ -226,6 +226,10 @@ Component and page CSS files use **stable numeric codes** as filename prefixes. 
 | 053 | `ui__MainGamesToggle` |
 | 054 | `ui__NewGamesToggle` |
 | 055 | `ui__ViewModeSelector` |
+| 056 | `games__GameStarRatingOverlay` |
+| 057 | `games__RecommendedBrowsePreview` |
+| 058 | `ui__DetailBackButton` |
+| 059 | `ui__SmartTvClock` |
 
 **Pages** (`pages/` — codes start at `001`, independent from components):
 
