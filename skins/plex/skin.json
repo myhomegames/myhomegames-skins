@@ -10,6 +10,7 @@
     "tvStarRatingOverlay": true,
     "tvDetailSummaryBeforeActions": true,
     "tvRecommendedBrowsePreview": true,
+    "tvHideAppHeader": true,
     "phoneDetailBackBesideBackground": true
   }
 }

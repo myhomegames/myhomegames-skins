@@ -1,0 +1,67 @@
+/* --- ./pages/TvHideAppHeader.css --- */
+
+/*
+ * Skin `web.tvHideAppHeader`: on Smart TV the app header (logo / search / settings)
+ * is not rendered. Collapse the usual 64px header band so the libraries bar and
+ * page content shift to the top of the viewport.
+ */
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .mhg-libraries-bar {
+  top: 0;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .app-content-wrapper {
+  padding-top: 0;
+}
+
+/* Classic home: was header (64) + libraries strip (64) → strip only. */
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .home-page-content {
+  padding-top: 64px;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]:has(
+    .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  )
+  .app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .home-page-main-container
+  .home-page-content {
+  padding-top: calc(64px + var(--mhg-top-tool-dock-band-height, 52px));
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .app-main-container[data-mhg-persistent-library-shell="true"]
+  .home-page-main-container
+  .home-page-content {
+  padding-top: 0;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .app-main-container[data-mhg-persistent-library-shell="true"]:has(
+    .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  )
+  .home-page-main-container
+  .home-page-content {
+  padding-top: var(--mhg-top-tool-dock-band-height, 52px);
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .app-main-container[data-mhg-persistent-library-shell="true"]
+  .mhg-libraries-bar-container {
+  padding-top: 12px;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .app-main-container[data-mhg-persistent-library-shell="true"]:has(
+    .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  ) {
+  --mhg-scroll-top-inset: var(--mhg-top-tool-dock-band-height, 52px);
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .settings-page {
+  margin-top: 0;
+  height: 100vh;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .profile-page,
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .search-results-page {
+  padding-top: 0;
+}
