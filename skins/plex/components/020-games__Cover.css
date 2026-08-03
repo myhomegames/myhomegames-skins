@@ -155,31 +155,34 @@
 }
 
 /*
- * Smart TV: focused cover stays slightly larger than neighbors.
- * overflow:visible so scale is not clipped by .cover-hover-effect { overflow: hidden }.
+ * Smart TV: focused cover is visibly larger than neighbors.
+ * Scale the item (not only the cover) and keep overflow visible so it is not
+ * clipped into a same-size “zoom crop”.
  */
-html[data-mhg-tv="1"] .games-list-cover.cover-hover-effect {
-  transform-origin: center center;
-  transition:
-    transform 0.2s ease,
-    outline-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-html[data-mhg-tv="1"]
-  .games-list-cover.cover-hover-effect:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]),
-html[data-mhg-tv="1"] .games-list-cover.cover-hover-effect.cover-dropdown-open,
-html[data-mhg-tv="1"]
-  .games-list-item[data-mhg-tv-hover]
-  > .games-list-cover.cover-hover-effect {
-  transform: scale(1.08);
-  z-index: 3;
+html[data-mhg-tv="1"] .games-list-item--cover-sized {
   overflow: visible;
+  padding: 10px 8px 6px;
+  box-sizing: content-box;
+  transform-origin: center center;
+  transition: transform 0.2s ease;
 }
 
-html[data-mhg-tv="1"] .games-list-item:has(> .games-list-cover[data-mhg-tv-hover]),
-html[data-mhg-tv="1"] .games-list-item[data-mhg-tv-hover] {
-  z-index: 2;
+html[data-mhg-tv="1"] .games-list-item--cover-sized .games-list-cover {
+  transform-origin: center center;
+  transition: transform 0.2s ease;
+  /* Tailwind overflow-hidden on the cover would crop the scale. */
+  overflow: visible !important;
+}
+
+html[data-mhg-tv="1"]
+  .games-list-item--cover-sized:has(
+    > .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover])
+  ),
+html[data-mhg-tv="1"] .games-list-item--cover-sized[data-mhg-tv-hover],
+html[data-mhg-tv="1"]
+  .games-list-item--cover-sized:has(> .games-list-cover.cover-dropdown-open) {
+  transform: scale(1.14) !important;
+  z-index: 8;
   position: relative;
 }
 

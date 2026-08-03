@@ -113,6 +113,11 @@ html[data-mhg-tv="1"] .scrollable-section-scroll .games-list-title {
 
 /* Room for the focused cover scale so neighbors don’t clip it as hard. */
 html[data-mhg-tv="1"] .scrollable-section-scroll {
-  padding-top: 10px;
-  padding-bottom: 14px;
+  padding-top: 18px !important;
+  padding-bottom: 22px !important;
+}
+
+html[data-mhg-tv="1"] .scrollable-section-scroll .games-list-container {
+  align-items: center;
+  overflow: visible;
 }
