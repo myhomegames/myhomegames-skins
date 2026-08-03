@@ -84,15 +84,10 @@
   }
 }
 
-/* Remounted when backgroundUrl changes (see BackgroundManager key). */
-.background-manager-portal-bg--enter {
-  animation: mhg-background-fade-in 0.5s ease-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .background-manager-portal-bg--enter {
-    animation: none;
-  }
+/* Fallback if inline reveal styles are missing; primary path is BackgroundManager opacity. */
+.background-manager-portal-bg,
+.background-manager-portal-bg-fill {
+  transition: opacity 0.55s ease-out;
 }
 
 .background-manager-portal-overlay {
@@ -145,7 +140,6 @@ html[data-mhg-detail-backdrop="tv"]
   /* Heavy blur + boost so the room is painted with the art’s edge colors. */
   filter: blur(72px) saturate(1.45) brightness(0.92);
   transform: none;
-  opacity: 1;
   z-index: 0;
 }
 
@@ -178,7 +172,7 @@ html[data-mhg-detail-backdrop="tv"]
   background-repeat: no-repeat !important;
   filter: none;
   transform: none;
-  opacity: 1;
+  /* Opacity is driven inline by BackgroundManager for fade-in on URL change. */
   z-index: 1;
   /* Soft dissolve only on the inner edges into the ambient fill. */
   -webkit-mask-image:
@@ -261,7 +255,6 @@ html[data-mhg-detail-backdrop="narrow"]
   background-position: center bottom !important;
   filter: blur(64px) saturate(1.4) brightness(0.88);
   transform: scale(1.28);
-  opacity: 1;
   z-index: 0;
 }
 
@@ -281,7 +274,6 @@ html[data-mhg-detail-backdrop="narrow"]
   max-height: var(--mhg-bg-hero-slot, 40vh) !important;
   background-size: cover !important;
   background-position: top center !important;
-  opacity: 1;
   z-index: 1;
   overflow: hidden;
   /* Dissolve into the ambient fill / page panel. */
