@@ -105,6 +105,17 @@
   line-height: var(--font-heading-1-line-height);
 }
 
+/* Game logo in title row: phone-only (see container query below). */
+.game-detail-logo {
+  display: none;
+  max-width: min(100%, 420px);
+  max-height: 88px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
 .game-detail-type-label {
   flex-shrink: 0;
   font-family: var(--font-body-2-font-family);
@@ -510,6 +521,16 @@
   .library-item-detail-title {
     text-align: center;
     width: 100%;
+  }
+
+  /* Phone: logo replaces title when present. */
+  .game-detail-logo {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .game-detail-title-row:has(.game-detail-logo) .game-detail-title--logo-fallback {
+    display: none;
   }
 
   .game-detail-release-date,
