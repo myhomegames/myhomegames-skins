@@ -65,3 +65,147 @@ html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .profile-page,
 html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .search-results-page {
   padding-top: 0;
 }
+
+/*
+ * Search + profile pinned to the right of the libraries strip (not inside the
+ * scrollable/combobox tab row — otherwise they disappear when tabs overflow).
+ */
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .mhg-libraries-tv-header-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  margin-left: 8px;
+  margin-right: 4px;
+  position: relative;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+/* Search + profile: 3px lower than the main-games toggle beside them. */
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .mhg-libraries-tv-header-actions
+  > .mhg-header-button,
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .mhg-libraries-tv-header-actions
+  > .profile-dropdown-wrapper {
+  transform: translateY(3px);
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .mhg-libraries-tv-header-actions
+  .mhg-header-button,
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .mhg-libraries-tv-header-actions
+  .profile-dropdown-button {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  color: rgba(255, 255, 255, 0.75);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .mhg-libraries-tv-header-actions
+  .mhg-header-button:is(:hover, :focus-visible, [data-mhg-tv-hover]),
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .mhg-libraries-tv-header-actions
+  .profile-dropdown-button:is(:hover, :focus-visible, [data-mhg-tv-hover]),
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .mhg-libraries-tv-header-actions
+  .mhg-libraries-tv-header-action--active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/*
+ * Dedicated search page when the app header is hidden: host SearchBar on the page
+ * (strip button navigates here; profile stays last on the libraries strip).
+ */
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .search-results-page-empty--with-search {
+  justify-content: flex-start;
+  padding-top: 48px;
+  gap: 28px;
+  box-sizing: border-box;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .search-results-inline-search {
+  width: min(720px, calc(100vw - 48px));
+  margin: 0 auto;
+  padding: 16px 24px 0;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .search-results-page
+  > .search-results-inline-search {
+  padding-top: 24px;
+}
+
+/* Search results with libraries strip (in-flow bar, list below). */
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] body:has(.search-results-shell) .app-main-container,
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]:has(.search-results-shell) .app-main-container {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .search-results-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .search-results-shell > .mhg-libraries-bar {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  z-index: 2;
+  flex: 0 0 auto;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .search-results-shell > .search-results-page,
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .search-results-shell > .search-results-page-empty {
+  flex: 1 1 0%;
+  min-height: 0;
+  max-height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0;
+  margin-top: 0;
+  box-sizing: border-box;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .search-results-shell
+  .mhg-libraries-bar
+  > .search-results-inline-search,
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .search-results-shell
+  .mhg-libraries-bar
+  > .search-results-header {
+  width: min(720px, calc(100vw - 48px));
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
