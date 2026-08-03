@@ -110,3 +110,9 @@ html[data-mhg-tv="1"] .scrollable-section-scroll .games-list-title {
   font-size: 1.05rem;
   font-weight: 600;
 }
+
+/* Room for the focused cover scale so neighbors don’t clip it as hard. */
+html[data-mhg-tv="1"] .scrollable-section-scroll {
+  padding-top: 10px;
+  padding-bottom: 14px;
+}

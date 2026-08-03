@@ -154,6 +154,35 @@
   background-color: rgba(0, 0, 0, 0.4) !important;
 }
 
+/*
+ * Smart TV: focused cover stays slightly larger than neighbors.
+ * overflow:visible so scale is not clipped by .cover-hover-effect { overflow: hidden }.
+ */
+html[data-mhg-tv="1"] .games-list-cover.cover-hover-effect {
+  transform-origin: center center;
+  transition:
+    transform 0.2s ease,
+    outline-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html[data-mhg-tv="1"]
+  .games-list-cover.cover-hover-effect:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]),
+html[data-mhg-tv="1"] .games-list-cover.cover-hover-effect.cover-dropdown-open,
+html[data-mhg-tv="1"]
+  .games-list-item[data-mhg-tv-hover]
+  > .games-list-cover.cover-hover-effect {
+  transform: scale(1.08);
+  z-index: 3;
+  overflow: visible;
+}
+
+html[data-mhg-tv="1"] .games-list-item:has(> .games-list-cover[data-mhg-tv-hover]),
+html[data-mhg-tv="1"] .games-list-item[data-mhg-tv-hover] {
+  z-index: 2;
+  position: relative;
+}
+
 /* Maintain hover effect when dropdown is open */
 .games-list-cover.cover-hover-effect.cover-dropdown-open {
   outline: 3px solid #E5A00D !important;
