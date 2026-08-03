@@ -9,14 +9,14 @@ html[data-mhg-tv="1"] .mhg-recommended-browse-preview-host {
 }
 
 /*
- * Detail takes all leftover height above the cover rail.
+ * Detail panel = half the viewport; cover rail fills the bottom half.
  * Overflow hidden so summary length never pushes the strips.
  */
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview {
-  flex: 1 1 auto;
-  min-height: 0;
-  height: auto;
-  max-height: none;
+  flex: 0 0 50vh;
+  height: 50vh;
+  max-height: 50vh;
+  min-height: 50vh;
   padding: 8px 24px 16px;
   box-sizing: border-box;
   overflow: hidden;
@@ -31,11 +31,12 @@ html[data-mhg-tv="1"] .mhg-recommended-browse-preview {
 }
 
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview--empty {
-  min-height: 0;
+  min-height: 50vh;
 }
 
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview-info {
-  max-width: 720px;
+  width: 50vw;
+  max-width: 50vw;
   max-height: 100%;
   overflow: hidden;
 }
@@ -53,15 +54,14 @@ html[data-mhg-tv="1"] .mhg-recommended-browse-preview .summary-toggle {
 }
 
 /*
- * Fixed-height cover rail at the bottom of the viewport.
- * Keyword snap keeps the active strip aligned here so D-pad Up/Down
- * does not bounce the slide vertically.
+ * Cover rail in the bottom half — height follows leftover space under the 50vh detail.
+ * Keyword snap keeps the active strip aligned so D-pad Up/Down does not bounce the slide.
  */
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview-host > .recommended-page-scroll {
-  flex: 0 0 clamp(280px, 36vh, 400px);
-  height: clamp(280px, 36vh, 400px);
-  max-height: clamp(280px, 36vh, 400px);
+  flex: 1 1 auto;
   min-height: 0;
+  height: auto;
+  max-height: none;
   padding-top: 4px !important;
   padding-bottom: 12px;
   box-sizing: border-box;
