@@ -155,10 +155,17 @@
 }
 
 /*
- * Smart TV: focused tile is larger; scale the whole item (cover + title) so the
- * title stays under the cover at a constant gap (cover-only scale painted over it).
+ * Smart TV: focused tile is larger on every cover grid/list (games rails,
+ * tags, collections, similar, detail subcollections). Scale the whole item
+ * (cover + title) so the title keeps a constant gap under the cover.
+ * Virtualized cell pads wrap an inner --cover-sized / collections item — do
+ * not scale the pad itself (fixed-focal already uses --mhg-cell-scale).
  */
-html[data-mhg-tv="1"] .games-list-item--cover-sized {
+html[data-mhg-tv="1"] .games-list-item--cover-sized,
+html[data-mhg-tv="1"] .tag-list-item,
+html[data-mhg-tv="1"] .collections-list-item--sized,
+html[data-mhg-tv="1"] .collections-list-item.library-item-detail-subcollection-cell,
+html[data-mhg-tv="1"] .similar-games-cover-cell {
   overflow: visible;
   padding: 10px 8px 14px;
   box-sizing: content-box;
@@ -166,31 +173,65 @@ html[data-mhg-tv="1"] .games-list-item--cover-sized {
   transition: transform 0.2s ease;
 }
 
-html[data-mhg-tv="1"] .games-list-item--cover-sized .games-list-cover {
+html[data-mhg-tv="1"] .games-list-item--cover-sized .games-list-cover,
+html[data-mhg-tv="1"] .tag-list-item .games-list-cover,
+html[data-mhg-tv="1"] .collections-list-item .games-list-cover,
+html[data-mhg-tv="1"] .similar-games-cover-cell .games-list-cover {
   /* Do not scale the cover alone — that grows over the title. */
   transform: none !important;
   overflow: hidden;
 }
 
 html[data-mhg-tv="1"] .games-list-item--cover-sized[data-mhg-tv-hover],
+html[data-mhg-tv="1"] .tag-list-item[data-mhg-tv-hover],
+html[data-mhg-tv="1"] .collections-list-item--sized[data-mhg-tv-hover],
+html[data-mhg-tv="1"]
+  .collections-list-item.library-item-detail-subcollection-cell[data-mhg-tv-hover],
+html[data-mhg-tv="1"] .similar-games-cover-cell[data-mhg-tv-hover],
 html[data-mhg-tv="1"]
   .games-list-item--cover-sized:has(
     > .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover])
   ),
 html[data-mhg-tv="1"]
-  .games-list-item--cover-sized:has(> .games-list-cover.cover-dropdown-open) {
+  .tag-list-item:has(
+    > .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover])
+  ),
+html[data-mhg-tv="1"]
+  .collections-list-item--sized:has(
+    > .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover])
+  ),
+html[data-mhg-tv="1"]
+  .collections-list-item.library-item-detail-subcollection-cell:has(
+    .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover])
+  ),
+html[data-mhg-tv="1"]
+  .similar-games-cover-cell:has(
+    .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover])
+  ),
+html[data-mhg-tv="1"]
+  .games-list-item--cover-sized:has(> .games-list-cover.cover-dropdown-open),
+html[data-mhg-tv="1"]
+  .tag-list-item:has(> .games-list-cover.cover-dropdown-open),
+html[data-mhg-tv="1"]
+  .collections-list-item--sized:has(> .games-list-cover.cover-dropdown-open) {
   transform: scale(1.14) !important;
   z-index: 8;
   position: relative;
 }
 
-html[data-mhg-tv="1"] .games-list-item--cover-sized .games-list-title-wrapper {
+html[data-mhg-tv="1"] .games-list-item--cover-sized .games-list-title-wrapper,
+html[data-mhg-tv="1"] .tag-list-item .games-list-title-wrapper,
+html[data-mhg-tv="1"] .collections-list-item .games-list-title-wrapper,
+html[data-mhg-tv="1"] .similar-games-cover-cell .games-list-title-wrapper {
   display: flex;
   margin-top: 8px;
   overflow: visible;
 }
 
-html[data-mhg-tv="1"] .games-list-item--cover-sized .games-list-title {
+html[data-mhg-tv="1"] .games-list-item--cover-sized .games-list-title,
+html[data-mhg-tv="1"] .tag-list-item .games-list-title,
+html[data-mhg-tv="1"] .collections-list-item .games-list-title,
+html[data-mhg-tv="1"] .similar-games-cover-cell .games-list-title {
   display: block;
   opacity: 1;
   visibility: visible;
