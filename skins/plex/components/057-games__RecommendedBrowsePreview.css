@@ -1,19 +1,24 @@
-/* Smart TV Recommended: top browse panel (detail through summary) above horizontal strips. */
+/* Smart TV Recommended: detail panel on top, cover rail pinned at the bottom. */
 
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview-host {
   display: flex;
   flex-direction: column;
   min-height: 0;
   flex: 1;
+  height: 100%;
 }
 
+/*
+ * Detail takes all leftover height above the cover rail.
+ * Overflow hidden so summary length never pushes the strips.
+ */
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview {
-  flex: 0 0 auto;
-  padding: 8px 24px 12px;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+  max-height: none;
+  padding: 8px 24px 16px;
   box-sizing: border-box;
-  /* Fixed slot so summary swaps do not reflow the cover strips under D-pad. */
-  height: min(42vh, 440px);
-  max-height: min(42vh, 440px);
   overflow: hidden;
   pointer-events: none;
   --font-heading-1-font-size: clamp(2.75rem, 4.5vw, 3.75rem);
@@ -26,11 +31,13 @@ html[data-mhg-tv="1"] .mhg-recommended-browse-preview {
 }
 
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview--empty {
-  min-height: 120px;
+  min-height: 0;
 }
 
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview-info {
   max-width: 720px;
+  max-height: 100%;
+  overflow: hidden;
 }
 
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview .game-detail-summary {
@@ -45,14 +52,47 @@ html[data-mhg-tv="1"] .mhg-recommended-browse-preview .summary-toggle {
   display: none !important;
 }
 
+/*
+ * Fixed-height cover rail at the bottom of the viewport.
+ * Keyword snap keeps the active strip aligned here so D-pad Up/Down
+ * does not bounce the slide vertically.
+ */
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview-host > .recommended-page-scroll {
-  flex: 1 1 auto;
+  flex: 0 0 clamp(280px, 36vh, 400px);
+  height: clamp(280px, 36vh, 400px);
+  max-height: clamp(280px, 36vh, 400px);
   min-height: 0;
-  padding-top: 8px;
+  padding-top: 4px !important;
+  padding-bottom: 12px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 html[data-mhg-tv="1"] .mhg-recommended-browse-preview-title {
   font-size: var(--font-heading-1-font-size);
   line-height: var(--font-heading-1-line-height);
   margin: 0;
+}
+
+/* Tighter strip chrome inside the pinned rail so one keyword row fits cleanly. */
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .scrollable-section {
+  margin-bottom: 28px;
+}
+
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .scrollable-section-header {
+  margin-bottom: 12px;
+}
+
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .scrollable-section-nav {
+  display: none;
 }
