@@ -155,36 +155,46 @@
 }
 
 /*
- * Smart TV: focused cover is visibly larger than neighbors.
- * Prefer scaling the cover; item gets z-index/overflow so the scale is not cropped.
+ * Smart TV: focused tile is larger; scale the whole item (cover + title) so the
+ * title stays under the cover at a constant gap (cover-only scale painted over it).
  */
 html[data-mhg-tv="1"] .games-list-item--cover-sized {
   overflow: visible;
-  padding: 10px 8px 6px;
+  padding: 10px 8px 14px;
   box-sizing: content-box;
+  transform-origin: center center;
+  transition: transform 0.2s ease;
+}
+
+html[data-mhg-tv="1"] .games-list-item--cover-sized .games-list-cover {
+  /* Do not scale the cover alone — that grows over the title. */
+  transform: none !important;
+  overflow: hidden;
 }
 
 html[data-mhg-tv="1"] .games-list-item--cover-sized[data-mhg-tv-hover],
 html[data-mhg-tv="1"]
   .games-list-item--cover-sized:has(
     > .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover])
-  ) {
-  z-index: 8;
-  position: relative;
-}
-
-html[data-mhg-tv="1"] .games-list-cover {
-  transform-origin: center center;
-  transition: transform 0.2s ease;
-}
-
-html[data-mhg-tv="1"] .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover]),
-html[data-mhg-tv="1"] .games-list-cover.cover-dropdown-open {
+  ),
+html[data-mhg-tv="1"]
+  .games-list-item--cover-sized:has(> .games-list-cover.cover-dropdown-open) {
   transform: scale(1.14) !important;
   z-index: 8;
   position: relative;
-  /* Tailwind overflow-hidden would crop the scale into a same-size zoom. */
-  overflow: visible !important;
+}
+
+html[data-mhg-tv="1"] .games-list-item--cover-sized .games-list-title-wrapper {
+  display: flex;
+  margin-top: 8px;
+  overflow: visible;
+}
+
+html[data-mhg-tv="1"] .games-list-item--cover-sized .games-list-title {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  color: #f8f8f8;
 }
 
 /* Maintain hover effect when dropdown is open */

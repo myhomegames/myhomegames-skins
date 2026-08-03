@@ -111,13 +111,24 @@ html[data-mhg-tv="1"] .scrollable-section-scroll .games-list-title {
   font-weight: 600;
 }
 
-/* Room for the focused cover scale so neighbors don’t clip it as hard. */
+/* Room for cover titles + focused tile scale. */
 html[data-mhg-tv="1"] .scrollable-section-scroll {
   padding-top: 18px !important;
-  padding-bottom: 22px !important;
+  padding-bottom: 28px !important;
 }
 
 html[data-mhg-tv="1"] .scrollable-section-scroll .games-list-container {
-  align-items: center;
+  align-items: flex-start;
   overflow: visible;
+  padding-bottom: 4px;
+}
+
+/* Recommended TV rail: keep titles under covers visible in the bottom strip. */
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .scrollable-section-scroll {
+  overflow-x: auto;
+  overflow-y: visible;
+  min-height: calc(var(--games-list-cover-size, 150px) + 3.25rem);
 }
