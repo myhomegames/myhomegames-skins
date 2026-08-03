@@ -11,7 +11,9 @@ html[data-mhg-tv="1"] .mhg-recommended-browse-preview {
   flex: 0 0 auto;
   padding: 8px 24px 12px;
   box-sizing: border-box;
-  max-height: min(48vh, 520px);
+  /* Fixed slot so summary swaps do not reflow the cover strips under D-pad. */
+  height: min(42vh, 440px);
+  max-height: min(42vh, 440px);
   overflow: hidden;
   pointer-events: none;
   --font-heading-1-font-size: clamp(2.75rem, 4.5vw, 3.75rem);
