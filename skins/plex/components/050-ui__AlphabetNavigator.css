@@ -44,3 +44,21 @@
   color: rgba(255, 255, 255, 1);
   outline: none;
 }
+
+/* Smart TV: larger A–Z letters for living-room distance. */
+html[data-mhg-tv="1"] .home-page-alphabet-container {
+  width: 40px;
+  padding-right: 6px;
+}
+
+html[data-mhg-tv="1"] .alphabet-navigator {
+  gap: 2px;
+}
+
+html[data-mhg-tv="1"] .alphabet-button {
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 3px 4px;
+  min-width: 28px;
+  line-height: 1.15;
+}

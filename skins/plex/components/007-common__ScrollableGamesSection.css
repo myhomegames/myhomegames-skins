@@ -99,3 +99,14 @@ html:not([data-mhg-tv="1"]) .scrollable-section-scroll::-webkit-scrollbar-thumb:
   margin-left: 20px;
   margin-right: 20px;
 }
+
+/* Smart TV Recommended (and other horizontal strips): larger section + cover titles. */
+html[data-mhg-tv="1"] .scrollable-section-title {
+  font-size: 1.75rem;
+  line-height: 1.25;
+}
+
+html[data-mhg-tv="1"] .scrollable-section-scroll .games-list-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
