@@ -166,9 +166,9 @@ html[data-mhg-tv="1"] .tag-list-item,
 html[data-mhg-tv="1"] .collections-list-item--sized,
 html[data-mhg-tv="1"] .collections-list-item.library-item-detail-subcollection-cell,
 html[data-mhg-tv="1"] .similar-games-cover-cell {
+  /* Keep layout box stable — padding here overlaps virtualized/grid rows and
+   * breaks D-pad Up/Down geometry. Room for scale comes from section padding. */
   overflow: visible;
-  padding: 10px 8px 14px;
-  box-sizing: content-box;
   transform-origin: center center;
   transition: transform 0.2s ease;
 }
