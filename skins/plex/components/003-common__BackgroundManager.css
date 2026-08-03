@@ -75,6 +75,26 @@
   z-index: 1;
 }
 
+@keyframes mhg-background-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Remounted when backgroundUrl changes (see BackgroundManager key). */
+.background-manager-portal-bg--enter {
+  animation: mhg-background-fade-in 0.5s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background-manager-portal-bg--enter {
+    animation: none;
+  }
+}
+
 .background-manager-portal-overlay {
   position: absolute;
   inset: 0;
