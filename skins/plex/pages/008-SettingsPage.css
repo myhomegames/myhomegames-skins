@@ -195,6 +195,14 @@
   transform: translateY(-1px);
 }
 
+/* Smart TV: D-pad focus uses data-mhg-tv-hover (outline is suppressed). */
+html[data-mhg-tv="1"] .settings-button[data-mhg-tv-hover]:not(:disabled),
+html[data-mhg-tv="1"] .settings-button:focus-visible:not(:disabled) {
+  background-color: #F5B041;
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.45);
+}
+
 .settings-button:disabled {
   background-color: #E5A00D;
   color: #000000;
