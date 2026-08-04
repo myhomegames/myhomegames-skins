@@ -622,8 +622,10 @@ html[data-mhg-tv="1"] .library-item-detail-summary {
   display: block !important;
   width: 50% !important;
   max-width: 50% !important;
-  margin-left: 0 !important;
-  margin-right: auto !important;
+  margin-left: 1.5rem !important;
+  margin-right: 1.5rem !important;
+  padding-left: 0.25rem;
+  padding-right: 1rem;
   box-sizing: border-box;
   text-align: left;
 }
