@@ -105,6 +105,10 @@ html[data-mhg-tv="1"]
 html[data-mhg-tv="1"]
   .mhg-recommended-browse-preview-host
   .recommended-page-scroll
-  .games-list-title {
+  .games-list-title,
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .games-list-year {
   display: none !important;
 }
