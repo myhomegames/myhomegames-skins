@@ -1,0 +1,255 @@
+/* Plex Smart TV dedicated search page (keyboard + recent + results). */
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] body:has([data-mhg-tv-search-page]) .app-main-container,
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]:has([data-mhg-tv-search-page]) .app-main-container {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+html[data-mhg-tv="1"] .tv-search-page {
+  display: grid;
+  grid-template-columns: minmax(320px, 38vw) 1fr;
+  gap: 28px;
+  width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  box-sizing: border-box;
+  padding: 28px 32px 24px;
+  overflow: hidden;
+  background: #1a1a1a;
+  color: #fff;
+}
+
+html[data-mhg-tv="1"] .tv-search-page-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+html[data-mhg-tv="1"] .tv-search-query-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 64px;
+  padding: 14px 20px;
+  box-sizing: border-box;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+html[data-mhg-tv="1"] .tv-search-query-box:focus,
+html[data-mhg-tv="1"] .tv-search-query-box:focus-visible,
+html[data-mhg-tv="1"] .tv-search-query-box[data-mhg-tv-hover] {
+  outline: none;
+  border-color: #e5a00d;
+  box-shadow: 0 0 0 2px rgba(229, 160, 13, 0.35);
+}
+
+html[data-mhg-tv="1"] .tv-search-query-text {
+  font-size: 1.35rem;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+html[data-mhg-tv="1"] .tv-search-query-text--placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+html[data-mhg-tv="1"] .tv-search-keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+html[data-mhg-tv="1"] .tv-search-keyboard-row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+html[data-mhg-tv="1"] .tv-search-keyboard-key {
+  min-width: 42px;
+  min-height: 48px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+html[data-mhg-tv="1"] .tv-search-keyboard-key:focus,
+html[data-mhg-tv="1"] .tv-search-keyboard-key:focus-visible,
+html[data-mhg-tv="1"] .tv-search-keyboard-key[data-mhg-tv-hover] {
+  outline: none;
+  border-color: #e5a00d;
+  background: rgba(229, 160, 13, 0.28);
+  color: #fff;
+}
+
+html[data-mhg-tv="1"] .tv-search-keyboard-key--wide {
+  min-width: 72px;
+}
+
+html[data-mhg-tv="1"] .tv-search-keyboard-key--space {
+  flex: 1 1 auto;
+  min-width: 120px;
+}
+
+html[data-mhg-tv="1"] .tv-search-keyboard-row--actions {
+  margin-top: 2px;
+}
+
+html[data-mhg-tv="1"] .tv-search-recent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+html[data-mhg-tv="1"] .tv-search-recent-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+}
+
+html[data-mhg-tv="1"] .tv-search-recent-empty {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.95rem;
+}
+
+html[data-mhg-tv="1"] .tv-search-recent-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+html[data-mhg-tv="1"] .tv-search-recent-item {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+}
+
+html[data-mhg-tv="1"] .tv-search-recent-button {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  text-align: left;
+  font-size: 1.05rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+html[data-mhg-tv="1"] .tv-search-recent-remove {
+  flex: 0 0 auto;
+  min-width: 48px;
+  min-height: 48px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+html[data-mhg-tv="1"] .tv-search-recent-button:focus,
+html[data-mhg-tv="1"] .tv-search-recent-button:focus-visible,
+html[data-mhg-tv="1"] .tv-search-recent-button[data-mhg-tv-hover],
+html[data-mhg-tv="1"] .tv-search-recent-remove:focus,
+html[data-mhg-tv="1"] .tv-search-recent-remove:focus-visible,
+html[data-mhg-tv="1"] .tv-search-recent-remove[data-mhg-tv-hover] {
+  outline: none;
+  border-color: #e5a00d;
+  background: rgba(229, 160, 13, 0.28);
+}
+
+html[data-mhg-tv="1"] .tv-search-page-right {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  padding-left: 28px;
+}
+
+html[data-mhg-tv="1"] .tv-search-results-header {
+  flex-shrink: 0;
+  margin-bottom: 12px;
+}
+
+html[data-mhg-tv="1"] .tv-search-results-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.35;
+}
+
+html[data-mhg-tv="1"] .tv-search-results-count {
+  margin-top: 4px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+html[data-mhg-tv="1"] .tv-search-results-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+}
+
+html[data-mhg-tv="1"] .tv-search-results-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 160px;
+  padding: 32px;
+  text-align: center;
+}
+
+html[data-mhg-tv="1"] .tv-search-results-empty-message {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.4;
+}
+
+/* Results list: use full right column width (no desktop max-width). */
+html[data-mhg-tv="1"] .tv-search-page-right .search-results-list-container {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
