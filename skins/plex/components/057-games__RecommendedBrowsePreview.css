@@ -96,3 +96,15 @@ html[data-mhg-tv="1"]
   .scrollable-section-nav {
   display: none;
 }
+
+/* Recommended TV: no title/subtitle under covers (detail panel already shows the name). */
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .games-list-title-wrapper,
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .games-list-title {
+  display: none !important;
+}
