@@ -84,10 +84,13 @@ html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"] .mhg-libraries-tv-header-
   pointer-events: auto;
 }
 
-/* Search + profile: 3px lower than the main-games toggle beside them. */
+/* Search + profile + update: 3px lower than the main-games toggle beside them. */
 html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
   .mhg-libraries-tv-header-actions
   > .mhg-header-button,
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .mhg-libraries-tv-header-actions
+  > .update-notification-wrapper,
 html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
   .mhg-libraries-tv-header-actions
   > .profile-dropdown-wrapper {
@@ -125,6 +128,29 @@ html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
   .mhg-libraries-tv-header-actions
   .mhg-libraries-tv-header-action--active {
   color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .mhg-libraries-tv-header-actions
+  .update-notification-wrapper {
+  margin: 0;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .mhg-libraries-tv-header-actions
+  .update-notification-button.mhg-header-button {
+  color: #e5a00d;
+}
+
+html[data-mhg-tv="1"][data-mhg-tv-hide-app-header="1"]
+  .mhg-libraries-tv-header-actions
+  .update-notification-button.mhg-header-button:is(
+    :hover,
+    :focus-visible,
+    [data-mhg-tv-hover]
+  ) {
+  color: #f5b041;
   background: rgba(255, 255, 255, 0.12);
 }
 
