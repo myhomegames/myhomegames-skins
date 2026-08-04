@@ -112,11 +112,11 @@ html[data-mhg-tv="1"] .scrollable-section-scroll .games-list-title {
 }
 
 /* Room for focused tile scale (keep overflow-y hidden so D-pad Up/Down does
- * not trap vertical scroll inside the horizontal strip). Left padding matters:
- * scale(1.14) on the first cover grows past the scrollport edge and was clipped. */
+ * not trap vertical scroll inside the horizontal strip). Edge padding matters:
+ * scale(1.14) grows past the scrollport on the first tile and along the top. */
 html[data-mhg-tv="1"] .scrollable-section-scroll {
-  padding-top: 18px !important;
-  padding-bottom: 28px !important;
+  padding-top: calc(var(--games-list-cover-size, 150px) * 0.14) !important;
+  padding-bottom: calc(var(--games-list-cover-size, 150px) * 0.14 + 12px) !important;
   padding-left: calc(var(--games-list-cover-size, 150px) * 0.12) !important;
   padding-right: max(
     64px,
@@ -139,10 +139,10 @@ html[data-mhg-tv="1"]
   .scrollable-section-scroll {
   overflow-x: auto;
   overflow-y: hidden;
-  padding-top: 14px !important;
-  padding-bottom: 18px !important;
+  padding-top: calc(var(--games-list-cover-size, 150px) * 0.14) !important;
+  padding-bottom: calc(var(--games-list-cover-size, 150px) * 0.14) !important;
   padding-left: calc(var(--games-list-cover-size, 150px) * 0.14) !important;
-  min-height: calc(var(--games-list-cover-size, 150px) * 1.14 + 0.5rem);
+  min-height: calc(var(--games-list-cover-size, 150px) * 1.28 + 0.5rem);
 }
 
 /* Keep keyword titles aligned with the inset cover rail. */

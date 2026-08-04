@@ -345,13 +345,18 @@
 }
 
 /*
- * Smart TV: first focused cover scales past the strip edge — keep left/right
+ * Smart TV: focused cover scales past the strip edge — keep top/left/right
  * inset even though detail strips zero the desktop margin.
  */
 html[data-mhg-tv="1"] .game-detail-collection-group .scrollable-section-scroll,
 html[data-mhg-tv="1"] .game-detail-similar-section .scrollable-section-scroll {
-  padding-top: 14px !important;
-  padding-bottom: 20px !important;
+  padding-top: calc(
+    max(var(--games-list-cover-size, 150px), var(--similar-cover-size, 150px)) * 0.14
+  ) !important;
+  padding-bottom: calc(
+    max(var(--games-list-cover-size, 150px), var(--similar-cover-size, 150px)) * 0.14 +
+      8px
+  ) !important;
   padding-left: calc(
     max(var(--games-list-cover-size, 150px), var(--similar-cover-size, 150px)) * 0.14
   ) !important;

@@ -278,8 +278,8 @@ html[data-mhg-tv="1"] .game-detail-collection-group .scrollable-section-scroll,
 html[data-mhg-tv="1"]
   .library-item-detail-page-shell
   .scrollable-section-scroll {
-  padding-top: 14px !important;
-  padding-bottom: 20px !important;
+  padding-top: calc(var(--games-list-cover-size, 150px) * 0.14) !important;
+  padding-bottom: calc(var(--games-list-cover-size, 150px) * 0.14 + 8px) !important;
   padding-left: calc(var(--games-list-cover-size, 150px) * 0.14) !important;
   padding-right: max(
     48px,

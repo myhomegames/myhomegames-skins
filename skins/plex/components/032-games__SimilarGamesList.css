@@ -15,7 +15,7 @@
 
 /* Smart TV: room for focused tile scale inside the similar-games row. */
 html[data-mhg-tv="1"] .similar-games-inline-row {
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: calc(var(--similar-cover-size, 150px) * 0.14);
+  padding-bottom: calc(var(--similar-cover-size, 150px) * 0.14);
   overflow: visible;
 }

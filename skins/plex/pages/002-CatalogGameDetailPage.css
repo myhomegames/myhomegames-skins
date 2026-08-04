@@ -245,8 +245,13 @@
 }
 
 html[data-mhg-tv="1"] .catalog-game-detail-similar-section .scrollable-section-scroll {
-  padding-top: 14px !important;
-  padding-bottom: 20px !important;
+  padding-top: calc(
+    max(var(--games-list-cover-size, 150px), var(--similar-cover-size, 150px)) * 0.14
+  ) !important;
+  padding-bottom: calc(
+    max(var(--games-list-cover-size, 150px), var(--similar-cover-size, 150px)) * 0.14 +
+      8px
+  ) !important;
   padding-left: calc(
     max(var(--games-list-cover-size, 150px), var(--similar-cover-size, 150px)) * 0.14
   ) !important;

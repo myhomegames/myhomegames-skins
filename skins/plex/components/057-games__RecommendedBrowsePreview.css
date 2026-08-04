@@ -62,7 +62,8 @@ html[data-mhg-tv="1"] .mhg-recommended-browse-preview-host > .recommended-page-s
   min-height: 0;
   height: auto;
   max-height: none;
-  padding-top: 4px !important;
+  /* Room above the snapped keyword so scale(1.14) covers are not clipped. */
+  padding-top: calc(var(--games-list-cover-size, 150px) * 0.1) !important;
   padding-bottom: 20px;
   box-sizing: border-box;
   overflow-x: hidden;
