@@ -227,7 +227,10 @@ html[data-mhg-tv="1"] .tv-search-results-scroll {
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-right: 8px;
+  /* Room so focus rings on first/last/left edges are not clipped by overflow. */
+  padding: 8px 10px 12px 8px;
+  scroll-padding: 8px 10px 12px 8px;
+  box-sizing: border-box;
 }
 
 html[data-mhg-tv="1"] .tv-search-results-empty {
@@ -252,4 +255,23 @@ html[data-mhg-tv="1"] .tv-search-page-right .search-results-list-container {
   margin: 0;
   padding: 0;
   width: 100%;
+  box-sizing: border-box;
+}
+
+/* Search result covers omit cover-hover-effect — make D-pad focus visible.
+   Draw the ring inside the row so overflow parents cannot clip left/top/bottom. */
+html[data-mhg-tv="1"] .tv-search-page-right .search-results-list-item:has(
+  .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover])
+),
+html[data-mhg-tv="1"] .tv-search-page-right .search-results-list-item:has(
+  .search-result-play-button:is(:focus, :focus-visible, [data-mhg-tv-hover])
+) {
+  background-color: rgba(255, 255, 255, 0.08);
+  outline: 2px solid #e5a00d;
+  outline-offset: -2px;
+}
+
+html[data-mhg-tv="1"] .tv-search-page-right .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover]),
+html[data-mhg-tv="1"] .tv-search-page-right .search-result-play-button:is(:focus, :focus-visible, [data-mhg-tv-hover]) {
+  outline: none;
 }
