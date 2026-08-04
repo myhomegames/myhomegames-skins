@@ -136,7 +136,26 @@ html[data-mhg-summary-overlay="1"] .background-manager-bg-img {
 /*
  * Smart TV: large type that always fits the viewport page.
  * Web sets --mhg-summary-fit-scale (< 1) when title + summary + info would overflow.
+ * Inset the whole page (cover + text) from the screen edges.
  */
+html[data-mhg-tv="1"] .game-summary-overlay {
+  padding: 28px 32px;
+  box-sizing: border-box;
+}
+
+html[data-mhg-tv="1"] .game-summary-overlay-layout {
+  /* Cover width follows the inset content height, not full viewport. */
+  grid-template-columns: minmax(0, calc((100dvh - 56px) * 2 / 3)) minmax(0, 1fr);
+  gap: 28px;
+  height: 100%;
+  min-height: 0;
+}
+
+html[data-mhg-tv="1"] .game-summary-overlay-cover {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
 html[data-mhg-tv="1"] .game-summary-overlay-panel {
   --mhg-summary-fit-scale: 1;
   height: 100%;
@@ -144,9 +163,10 @@ html[data-mhg-tv="1"] .game-summary-overlay-panel {
   display: flex;
   flex-direction: column;
   padding:
-    calc(36px * var(--mhg-summary-fit-scale))
-    calc(44px * var(--mhg-summary-fit-scale))
-    calc(32px * var(--mhg-summary-fit-scale));
+    calc(12px * var(--mhg-summary-fit-scale))
+    calc(20px * var(--mhg-summary-fit-scale))
+    calc(12px * var(--mhg-summary-fit-scale))
+    calc(8px * var(--mhg-summary-fit-scale));
   --font-heading-1-font-size: calc(
     clamp(2.75rem, 4.5vw, 3.75rem) * var(--mhg-summary-fit-scale)
   );

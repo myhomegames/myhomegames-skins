@@ -102,7 +102,6 @@ html[data-mhg-tv="1"] .library-item-detail-summary .summary-toggle {
  * Smart TV (Plex detail): half-screen description (viewport, not parent %).
  * Must override `display: contents` on `.game-detail-summary` (pages CSS) —
  * width on a contents box is ignored.
- * Inset from the screen edges so the copy is not flush to the bezel.
  */
 html[data-mhg-tv="1"] .game-detail-summary,
 html[data-mhg-tv="1"] .catalog-game-detail-summary,
@@ -110,10 +109,8 @@ html[data-mhg-tv="1"] .library-item-detail-summary {
   display: block !important;
   width: 50vw !important;
   max-width: 50vw !important;
-  margin-left: 1.5rem !important;
-  margin-right: 1.5rem !important;
-  padding-left: 0.25rem;
-  padding-right: 1rem;
+  margin-left: 0 !important;
+  margin-right: auto !important;
   box-sizing: border-box;
   text-align: left;
 }
