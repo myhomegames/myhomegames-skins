@@ -273,3 +273,25 @@
   margin-left: 0;
   margin-right: 0;
 }
+
+html[data-mhg-tv="1"] .game-detail-collection-group .scrollable-section-scroll,
+html[data-mhg-tv="1"]
+  .library-item-detail-page-shell
+  .scrollable-section-scroll {
+  padding-top: 14px !important;
+  padding-bottom: 20px !important;
+  padding-left: calc(var(--games-list-cover-size, 150px) * 0.14) !important;
+  padding-right: max(
+    48px,
+    calc(var(--games-list-cover-size, 150px) * 0.14 + 24px)
+  ) !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+html[data-mhg-tv="1"] .game-detail-collection-group .scrollable-section-header,
+html[data-mhg-tv="1"]
+  .library-item-detail-page-shell
+  .scrollable-section-header {
+  padding-left: calc(var(--games-list-cover-size, 150px) * 0.14);
+}

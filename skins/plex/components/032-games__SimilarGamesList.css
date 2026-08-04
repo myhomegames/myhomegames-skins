@@ -12,3 +12,10 @@
   width: var(--similar-cover-size, 150px);
   min-width: var(--similar-cover-size, 150px);
 }
+
+/* Smart TV: room for focused tile scale inside the similar-games row. */
+html[data-mhg-tv="1"] .similar-games-inline-row {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  overflow: visible;
+}

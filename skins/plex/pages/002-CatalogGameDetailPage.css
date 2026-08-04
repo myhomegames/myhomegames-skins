@@ -244,6 +244,29 @@
   margin-right: 0;
 }
 
+html[data-mhg-tv="1"] .catalog-game-detail-similar-section .scrollable-section-scroll {
+  padding-top: 14px !important;
+  padding-bottom: 20px !important;
+  padding-left: calc(
+    max(var(--games-list-cover-size, 150px), var(--similar-cover-size, 150px)) * 0.14
+  ) !important;
+  padding-right: max(
+    48px,
+    calc(
+      max(var(--games-list-cover-size, 150px), var(--similar-cover-size, 150px)) * 0.14 +
+        24px
+    )
+  ) !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+html[data-mhg-tv="1"] .catalog-game-detail-similar-section .scrollable-section-header {
+  padding-left: calc(
+    max(var(--games-list-cover-size, 150px), var(--similar-cover-size, 150px)) * 0.14
+  );
+}
+
 /* Badge "New" on similar games not in library */
 .game-detail-similar-cover-badge {
   position: absolute;

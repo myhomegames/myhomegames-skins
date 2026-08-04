@@ -111,11 +111,17 @@ html[data-mhg-tv="1"] .scrollable-section-scroll .games-list-title {
   font-weight: 600;
 }
 
-/* Room for cover titles + focused tile scale (keep overflow-y hidden so D-pad
- * Up/Down does not trap vertical scroll inside the horizontal strip). */
+/* Room for focused tile scale (keep overflow-y hidden so D-pad Up/Down does
+ * not trap vertical scroll inside the horizontal strip). Left padding matters:
+ * scale(1.14) on the first cover grows past the scrollport edge and was clipped. */
 html[data-mhg-tv="1"] .scrollable-section-scroll {
   padding-top: 18px !important;
   padding-bottom: 28px !important;
+  padding-left: calc(var(--games-list-cover-size, 150px) * 0.12) !important;
+  padding-right: max(
+    64px,
+    calc(var(--games-list-cover-size, 150px) * 0.12 + 40px)
+  ) !important;
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -133,6 +139,18 @@ html[data-mhg-tv="1"]
   .scrollable-section-scroll {
   overflow-x: auto;
   overflow-y: hidden;
+  padding-top: 14px !important;
   padding-bottom: 18px !important;
-  min-height: calc(var(--games-list-cover-size, 150px) + 1.25rem);
+  padding-left: calc(var(--games-list-cover-size, 150px) * 0.14) !important;
+  min-height: calc(var(--games-list-cover-size, 150px) * 1.14 + 0.5rem);
+}
+
+/* Keep keyword titles aligned with the inset cover rail. */
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .scrollable-section-header {
+  padding-left: calc(
+    20px + var(--games-list-cover-size, 150px) * 0.14
+  );
 }

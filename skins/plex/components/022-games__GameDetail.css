@@ -344,6 +344,35 @@
   margin-right: 0;
 }
 
+/*
+ * Smart TV: first focused cover scales past the strip edge — keep left/right
+ * inset even though detail strips zero the desktop margin.
+ */
+html[data-mhg-tv="1"] .game-detail-collection-group .scrollable-section-scroll,
+html[data-mhg-tv="1"] .game-detail-similar-section .scrollable-section-scroll {
+  padding-top: 14px !important;
+  padding-bottom: 20px !important;
+  padding-left: calc(
+    max(var(--games-list-cover-size, 150px), var(--similar-cover-size, 150px)) * 0.14
+  ) !important;
+  padding-right: max(
+    48px,
+    calc(
+      max(var(--games-list-cover-size, 150px), var(--similar-cover-size, 150px)) * 0.14 +
+        24px
+    )
+  ) !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+html[data-mhg-tv="1"] .game-detail-collection-group .scrollable-section-header,
+html[data-mhg-tv="1"] .game-detail-similar-section .scrollable-section-header {
+  padding-left: calc(
+    max(var(--games-list-cover-size, 150px), var(--similar-cover-size, 150px)) * 0.14
+  );
+}
+
 .game-detail-collection-games {
   list-style: none;
   padding: 0;
