@@ -404,6 +404,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  z-index: 2;
 }
 
+.background-manager-portal-bg-fill,
 .background-manager-portal-bg {
  position: absolute;
  inset: 0;
@@ -411,6 +412,19 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  height: 100%;
  z-index: 0;
  pointer-events: none;
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+}
+
+/* PS3 has no detail-backdrop crop; keep a single full-bleed layer. */
+.background-manager-portal-bg-fill {
+ display: none;
+ z-index: 0;
+}
+
+.background-manager-portal-bg {
+ z-index: 1;
 }
 
 .background-manager-portal-overlay {
@@ -418,7 +432,7 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  inset: 0;
  width: 100%;
  height: 100%;
- z-index: 1;
+ z-index: 2;
  background-color: rgba(26, 26, 26, 0.85);
  pointer-events: none;
 }
