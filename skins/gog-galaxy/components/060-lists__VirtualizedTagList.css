@@ -1,0 +1,7 @@
+/*--- ./components/lists/VirtualizedTagList.css ---*/
+
+
+.virtualized-tags-grid {
+ overflow-x: hidden !important;
+ margin: 0 auto !important;
+}
