@@ -160,14 +160,25 @@
  * (cover + title) so the title keeps a constant gap under the cover.
  * Virtualized cell pads wrap an inner --cover-sized / collections item — do
  * not scale the pad itself (fixed-focal already uses --mhg-cell-scale).
+ *
+ * scale(1.14) grows ~7% past the layout box on each side. Horizontal strips
+ * already pad for that; catalog grids must too or edge tiles clip under
+ * overflow-x:hidden scrollports (library / collections / tags / collection-like).
+ * `--vgrid-gap-half` is read by react-window lists and `.virtualized-grid-cell-pad`.
  */
+html[data-mhg-tv="1"] {
+  /* ~7% of a large tile + outline; also drives virtualized cell pads via JS */
+  --mhg-tv-cover-scale-pad: 36px;
+  --vgrid-gap-half: var(--mhg-tv-cover-scale-pad);
+}
+
 html[data-mhg-tv="1"] .games-list-item--cover-sized,
 html[data-mhg-tv="1"] .tag-list-item,
 html[data-mhg-tv="1"] .collections-list-item--sized,
 html[data-mhg-tv="1"] .collections-list-item.library-item-detail-subcollection-cell,
 html[data-mhg-tv="1"] .similar-games-cover-cell {
   /* Keep layout box stable — padding here overlaps virtualized/grid rows and
-   * breaks D-pad Up/Down geometry. Room for scale comes from section padding. */
+   * breaks D-pad Up/Down geometry. Room for scale: --vgrid-gap-half + list padding. */
   overflow: visible;
   transform-origin: center center;
   transition: transform 0.2s ease;
@@ -217,6 +228,36 @@ html[data-mhg-tv="1"]
   transform: scale(1.14) !important;
   z-index: 8;
   position: relative;
+}
+
+/* Non-virtualized catalog grids: inset + gap so edge hover/focus is not clipped. */
+html[data-mhg-tv="1"]
+  .games-list-container:not(.games-list-container--virtualized):not(
+    .games-list-container--fixed-focal
+  ),
+html[data-mhg-tv="1"]
+  .collections-list-container:not(.collections-list-container--virtualized):not(
+    .collections-list-container--fixed-focal
+  ),
+html[data-mhg-tv="1"]
+  .tag-list-container:not(.tag-list-container--virtualized):not(
+    .tag-list-container--fixed-focal
+  ),
+html[data-mhg-tv="1"] .library-item-detail-subcollections-grid {
+  gap: calc(var(--mhg-tv-cover-scale-pad, 36px) * 2);
+  padding-left: var(--mhg-tv-cover-scale-pad, 36px);
+  padding-right: var(--mhg-tv-cover-scale-pad, 36px);
+  padding-bottom: var(--mhg-tv-cover-scale-pad, 36px);
+  box-sizing: border-box;
+}
+
+/* Virtualized grids scroll themselves — scroll-padding keeps focused tiles inset. */
+html[data-mhg-tv="1"] .virtualized-games-grid,
+html[data-mhg-tv="1"] .virtualized-collections-grid,
+html[data-mhg-tv="1"] .virtualized-tags-grid,
+html[data-mhg-tv="1"] .home-page-scroll-container:not(.table-view),
+html[data-mhg-tv="1"] .library-item-detail-scroll:not(.table-view) {
+  scroll-padding: var(--mhg-tv-cover-scale-pad, 36px);
 }
 
 html[data-mhg-tv="1"] .games-list-item--cover-sized .games-list-title-wrapper,
