@@ -73,7 +73,7 @@ html:not([data-mhg-tv="1"]) .scrollable-section-scroll::-webkit-scrollbar-thumb:
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.scrollable-section-scroll .games-list-container:not(.games-list-container--virtualized-strip) {
+.scrollable-section-scroll .games-list-container {
   display: -webkit-box !important;
   flex-direction: row !important;
   gap: 24px;
@@ -126,9 +126,7 @@ html[data-mhg-tv="1"] .scrollable-section-scroll {
   overflow-y: hidden;
 }
 
-html[data-mhg-tv="1"]
-  .scrollable-section-scroll
-  .games-list-container:not(.games-list-container--virtualized-strip) {
+html[data-mhg-tv="1"] .scrollable-section-scroll .games-list-container {
   align-items: flex-start;
   overflow: visible;
   padding-bottom: 4px;
