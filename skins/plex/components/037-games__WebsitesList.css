@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: center;
   gap: 4px;
 }
 
@@ -25,6 +26,7 @@
 }
 
 .websites-list-favicon {
+  display: block;
   width: 16px;
   height: 16px;
   border-radius: 3px;
