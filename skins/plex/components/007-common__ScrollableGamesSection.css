@@ -129,6 +129,10 @@ html[data-mhg-tv="1"] .scrollable-section-scroll {
 html[data-mhg-tv="1"] .scrollable-section-scroll .games-list-container {
   align-items: flex-start;
   overflow: visible;
+  /* Keep strip spacing; do not inherit catalog-grid TV gap/padding. */
+  gap: 24px;
+  padding-left: 0;
+  padding-right: 0;
   padding-bottom: 4px;
 }
 

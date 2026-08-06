@@ -161,15 +161,14 @@
  * Virtualized cell pads wrap an inner --cover-sized / collections item — do
  * not scale the pad itself (fixed-focal already uses --mhg-cell-scale).
  *
- * scale(1.14) grows ~7% past the layout box on each side. Horizontal strips
- * already pad for that; catalog grids must too or edge tiles clip under
- * overflow-x:hidden scrollports (library / collections / tags / collection-like).
- * `--vgrid-gap-half` is read by react-window lists and `.virtualized-grid-cell-pad`.
+ * scale(1.14) grows ~7% past the layout box on each side. Edge room comes from
+ * list/scrollport padding (`--mhg-tv-cover-scale-pad`) and scroll-padding — not
+ * from widening the gap between covers. Keep `--vgrid-gap-half` at half the
+ * normal grid gap (matches GamesList `gap: 40px`).
  */
 html[data-mhg-tv="1"] {
-  /* ~7% of a large tile + outline; also drives virtualized cell pads via JS */
   --mhg-tv-cover-scale-pad: 36px;
-  --vgrid-gap-half: var(--mhg-tv-cover-scale-pad);
+  --vgrid-gap-half: 20px;
 }
 
 html[data-mhg-tv="1"] .games-list-item--cover-sized,
@@ -230,9 +229,12 @@ html[data-mhg-tv="1"]
   position: relative;
 }
 
-/* Non-virtualized catalog grids: inset + gap so edge hover/focus is not clipped. */
+/* Non-virtualized catalog grids: edge inset only so scale(1.14) is not clipped.
+ * Do not inflate inter-cover gap (keep GamesList / list defaults).
+ * Skip .scrollable-section-scroll children — rails already inset via section padding. */
 html[data-mhg-tv="1"]
-  .games-list-container:not(.games-list-container--virtualized):not(
+  :not(.scrollable-section-scroll)
+  > .games-list-container:not(.games-list-container--virtualized):not(
     .games-list-container--fixed-focal
   ),
 html[data-mhg-tv="1"]
@@ -244,7 +246,6 @@ html[data-mhg-tv="1"]
     .tag-list-container--fixed-focal
   ),
 html[data-mhg-tv="1"] .library-item-detail-subcollections-grid {
-  gap: calc(var(--mhg-tv-cover-scale-pad, 36px) * 2);
   padding-left: var(--mhg-tv-cover-scale-pad, 36px);
   padding-right: var(--mhg-tv-cover-scale-pad, 36px);
   padding-bottom: var(--mhg-tv-cover-scale-pad, 36px);
