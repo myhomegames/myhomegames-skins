@@ -91,13 +91,6 @@ html[data-mhg-tv="1"]
   margin-bottom: 12px;
 }
 
-html[data-mhg-tv="1"]
-  .mhg-recommended-browse-preview-host
-  .recommended-page-scroll
-  .scrollable-section-nav {
-  display: none;
-}
-
 /* Recommended TV: no title/subtitle under covers (detail panel already shows the name). */
 html[data-mhg-tv="1"]
   .mhg-recommended-browse-preview-host
