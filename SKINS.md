@@ -217,6 +217,7 @@ Component and page CSS files use **stable numeric codes** as filename prefixes. 
 | 044 | `lists__TagList` |
 | 045 | `lists__VirtualizedCollectionsList` |
 | 060 | `lists__VirtualizedTagList` |
+| 061 | `games__VirtualizedHorizontalGamesStrip` |
 | 046 | `search__SearchBar` |
 | 047 | `search__SearchResultsList` |
 | 048 | `tags__EditTagModal` |
