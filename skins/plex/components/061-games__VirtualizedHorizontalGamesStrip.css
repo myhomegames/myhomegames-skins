@@ -36,6 +36,7 @@
   padding-right: var(--mhg-strip-gap, 24px);
   display: flex;
   align-items: flex-start;
+  overflow: visible;
 }
 
 .virtualized-horizontal-games-strip-placeholder {
@@ -46,6 +47,33 @@
 .scrollable-section-scroll:has(.games-list-container--virtualized-strip) {
   overflow-x: hidden;
   overflow-y: hidden;
+}
+
+/*
+ * Smart TV: room for focused scale(1.14). Vertical pad is also applied in the
+ * Grid rowHeight; section host may stay overflow-y hidden — pad lives inside
+ * the strip so edges are not clipped. scroll-padding keeps L/R focus inset.
+ */
+html[data-mhg-tv="1"] .virtualized-horizontal-games-strip {
+  scroll-padding-inline: max(
+    var(--mhg-tv-cover-scale-pad, 36px),
+    calc(var(--games-list-cover-size, 150px) * 0.14)
+  );
+  padding-left: max(
+    var(--mhg-tv-cover-scale-pad, 36px),
+    calc(var(--games-list-cover-size, 150px) * 0.14)
+  );
+  padding-right: max(
+    var(--mhg-tv-cover-scale-pad, 36px),
+    calc(var(--games-list-cover-size, 150px) * 0.14)
+  );
+  box-sizing: border-box;
+}
+
+html[data-mhg-tv="1"]
+  .scrollable-section-scroll:has(.games-list-container--virtualized-strip) {
+  /* Let scaled tiles use the section’s TV padding instead of clipping mid-tile. */
+  overflow-y: visible;
 }
 
 html:not([data-mhg-tv="1"]) .virtualized-horizontal-games-strip {

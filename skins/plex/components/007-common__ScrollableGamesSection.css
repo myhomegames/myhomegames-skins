@@ -44,6 +44,14 @@
   text-underline-offset: 3px;
 }
 
+/* Smart TV: make collection strip titles focusable / visible under D-pad. */
+html[data-mhg-tv="1"] .scrollable-section-title-link:is(:focus, :focus-visible, [data-mhg-tv-hover]) {
+  outline: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: #e5a00d;
+}
+
 .scrollable-section-scroll {
   overflow-x: auto;
   overflow-y: hidden;

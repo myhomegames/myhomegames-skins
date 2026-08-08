@@ -228,6 +228,12 @@ html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
 html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
   .catalog-game-detail-scroll-container,
 html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .library-item-detail-page-shell,
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .library-item-detail-main-inner,
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
+  .library-item-detail-scroll,
+html[data-mhg-detail-backdrop="tv"][data-mhg-background-visible="true"]
   .app-main-container {
   background: transparent !important;
   background-color: transparent !important;
@@ -314,7 +320,9 @@ html[data-mhg-detail-backdrop="narrow"]
 html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
   .game-detail-scroll-container,
 html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
-  .catalog-game-detail-scroll-container {
+  .catalog-game-detail-scroll-container,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .library-item-detail-scroll {
   padding-top: var(--mhg-bg-content-offset, 28vh) !important;
   background: transparent !important;
   background-color: transparent !important;
@@ -325,6 +333,8 @@ html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
 html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
   .catalog-game-detail-header,
 html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .library-item-detail-hero,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
   .game-detail-info-section,
 html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
   .game-detail-media-section,
@@ -332,6 +342,14 @@ html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
   .game-detail-collections-section,
 html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
   .game-detail-summary,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .library-item-detail-summary,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .library-item-detail-meta,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .library-item-detail-section-full,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .library-item-detail-subsection,
 html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
   .game-detail-info-panel,
 html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
@@ -389,6 +407,12 @@ html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
 html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
   .catalog-game-detail-main-container,
 html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .library-item-detail-page-shell,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .library-item-detail-main-inner,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
+  .library-item-detail-content-wrapper,
+html[data-mhg-detail-backdrop="narrow"][data-mhg-background-visible="true"]
   .app-main-container {
   background: transparent !important;
   background-color: transparent !important;
@@ -423,7 +447,9 @@ html[data-mhg-background-visible="true"] .home-page-layout,
 html[data-mhg-background-visible="true"] .home-page-content-wrapper,
 html[data-mhg-background-visible="true"] .home-page-scroll-container:not(.table-view),
 html[data-mhg-background-visible="true"] .mhg-vertical-covers-page,
+html[data-mhg-background-visible="true"] .library-item-detail-page-shell,
 html[data-mhg-background-visible="true"] .library-item-detail-page-shell--context-rail,
+html[data-mhg-background-visible="true"] .library-item-detail-scroll,
 html[data-mhg-background-visible="true"] .library-item-detail-scroll--context-rail {
   background: transparent !important;
   background-color: transparent !important;
