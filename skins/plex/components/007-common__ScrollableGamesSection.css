@@ -73,7 +73,7 @@ html:not([data-mhg-tv="1"]) .scrollable-section-scroll::-webkit-scrollbar-thumb:
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.scrollable-section-scroll .games-list-container {
+.scrollable-section-scroll .games-list-container:not(.games-list-container--virtualized-strip) {
   display: -webkit-box !important;
   flex-direction: row !important;
   gap: 24px;
@@ -130,7 +130,9 @@ html[data-mhg-tv="1"] .scrollable-section-scroll {
   overflow-y: hidden;
 }
 
-html[data-mhg-tv="1"] .scrollable-section-scroll .games-list-container {
+html[data-mhg-tv="1"]
+  .scrollable-section-scroll
+  .games-list-container:not(.games-list-container--virtualized-strip) {
   align-items: flex-start;
   overflow: visible;
   /* Keep strip spacing; do not inherit catalog-grid TV gap/padding. */

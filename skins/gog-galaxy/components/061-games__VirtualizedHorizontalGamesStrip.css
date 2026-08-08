@@ -1,0 +1,67 @@
+/* --- ./components/games/VirtualizedHorizontalGamesStrip.css --- */
+
+:root {
+  --mhg-strip-gap: 24px;
+}
+
+.games-list-container--virtualized-strip {
+  display: block !important;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0 !important;
+  gap: 0 !important;
+  grid-template-columns: none !important;
+  -webkit-box-orient: unset !important;
+  flex-direction: unset !important;
+}
+
+.virtualized-horizontal-games-strip {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  margin: 0 !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.virtualized-horizontal-games-strip-cell {
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.virtualized-horizontal-games-strip-cell-pad {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding-right: var(--mhg-strip-gap, 24px);
+  display: flex;
+  align-items: flex-start;
+}
+
+.virtualized-horizontal-games-strip-placeholder {
+  width: 100%;
+}
+
+/* When the strip Grid owns scrollLeft, keep the section host from nested-scrolling. */
+.scrollable-section-scroll:has(.games-list-container--virtualized-strip) {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+html:not([data-mhg-tv="1"]) .virtualized-horizontal-games-strip {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) #1a1a1a;
+}
+
+html:not([data-mhg-tv="1"]) .virtualized-horizontal-games-strip::-webkit-scrollbar {
+  height: 8px;
+}
+
+html:not([data-mhg-tv="1"]) .virtualized-horizontal-games-strip::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+html:not([data-mhg-tv="1"]) .virtualized-horizontal-games-strip::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
