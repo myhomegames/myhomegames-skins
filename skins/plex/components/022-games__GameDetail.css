@@ -504,7 +504,7 @@ html[data-mhg-tv="1"] .game-detail-similar-section .scrollable-section-header {
     display: grid !important;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto auto;
-    row-gap: 24px;
+    row-gap: 16px;
     width: 100%;
   }
 
@@ -521,6 +521,8 @@ html[data-mhg-tv="1"] .game-detail-similar-section .scrollable-section-header {
   .catalog-game-detail-info-content,
   .library-item-detail-meta {
     display: contents;
+    /* Cover height must not leave empty space under the summary on phone. */
+    min-height: 0 !important;
   }
 
   .game-detail-info-primary,
@@ -607,6 +609,20 @@ html[data-mhg-tv="1"] .game-detail-similar-section .scrollable-section-header {
     display: block;
     grid-row: 2;
     width: 100%;
+  }
+
+  /* Collection detail: keep summary → games list tight (no desktop cover-height gap). */
+  .library-item-detail-hero {
+    margin-bottom: 8px !important;
+  }
+
+  .library-item-detail-games-heading-block {
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+
+  .library-item-detail-subsection {
+    margin-bottom: 20px;
   }
 
   .game-info-block {

@@ -295,3 +295,26 @@ html[data-mhg-tv="1"]
   .scrollable-section-header {
   padding-left: calc(var(--games-list-cover-size, 150px) * 0.14);
 }
+
+/*
+ * Phone fallback (viewport, not only @container): kill cover-height min on meta
+ * so summary sits close to the games list when the locandina is hidden.
+ */
+@media (max-width: 720px) {
+  .library-item-detail-meta {
+    display: contents;
+    min-height: 0 !important;
+  }
+
+  .library-item-detail-hero {
+    margin-bottom: 8px;
+  }
+
+  .library-item-detail-hero.pt-8 {
+    padding-top: 1rem;
+  }
+
+  .library-item-detail-games-heading-block {
+    margin-bottom: 12px;
+  }
+}
