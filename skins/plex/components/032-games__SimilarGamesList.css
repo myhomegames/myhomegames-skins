@@ -1,0 +1,21 @@
+/* --- ./components/games/SimilarGamesList.css --- */
+
+
+.similar-games-inline-row {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.similar-games-cover-cell {
+  flex-shrink: 0;
+  width: var(--similar-cover-size, 150px);
+  min-width: var(--similar-cover-size, 150px);
+}
+
+/* Smart TV: room for focused tile scale inside the similar-games row. */
+html[data-mhg-tv="1"] .similar-games-inline-row {
+  padding-top: calc(var(--similar-cover-size, 150px) * 0.14);
+  padding-bottom: calc(var(--similar-cover-size, 150px) * 0.14);
+  overflow: visible;
+}

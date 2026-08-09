@@ -73,11 +73,25 @@ The zip must contain **`skin.json`** in one of these places:
 - `disableAlphabetNavigator`: when `true`, hides the A–Z sidebar navigator on library, tag games, collection-like lists, and tag index pages that normally show it.
 - `sidebarSearchPopup`: when `true`, adds a **Search** row in the main libraries sidebar (vertical list) that opens a modal with the global **SearchBar** (games, collections, developers, publishers). Use with skins that set `headerTitleFilter` so global search still has an entry point. If the key is **omitted** but `headerTitleFilter` is `true`, the web app treats `sidebarSearchPopup` as `true` unless you set `"sidebarSearchPopup": false` explicitly.
 - `ownedGamesFirstInGamesSidebar`: when `true`, removes the main games library (`library`) from the **top** sidebar list and renders it as the **first row** under the collections-shortcuts block (the block whose heading skins often restyle as “Games”), with the label **Owned games**. Use with `collectionsShortcutList` for GOG-style sidebars.
+- `detailBackdropLayout`: when `true`, the web app marks the game/catalog detail backdrop with `data-mhg-background-layout="detail"` (and a phone scroll-fade CSS variable). Skin CSS decides the visual layout; without matching rules the portal stays full-bleed.
+- `staticInlineTagListOnTvPhone`: when `true`, on Smart TV and narrow/phone viewports `InlineTagList` items are not navigable and the “and more” truncation is off (all tags shown).
+- `tvSummaryOverlay`: when `true`, on Smart TV activating the game/catalog detail Summary opens a full-screen overlay (full-height cover + full description + GameInfoBlock) instead of expanding the text in place.
+- `tvStarRatingOverlay`: when `true`, on Smart TV the detail star rating is a single focus target; OK opens a full-screen overlay (title + interactive stars + Done) instead of editing stars in place.
+- `tvDetailSummaryBeforeActions`: when `true`, on Smart TV game/catalog/collection-like detail the Summary is rendered above the Play/actions row (TV focus ladder follows that order).
+- `tvRecommendedBrowsePreview`: when `true`, on Smart TV Recommended (horizontal strips) a top panel shows the focused game’s detail through Summary; the first cover is auto-selected and the panel updates as the remote moves between covers.
+- `tvHideAppHeader`: when `true`, on Smart TV the app header (logo / search / settings) is not rendered; skin CSS should collapse the usual 64px top offsets (`html[data-mhg-tv-hide-app-header="1"]`) so content shifts up.
+- `phoneDetailBackBesideBackground`: when `true`, on phone game/catalog detail a **Back** control is shown beside the hide/show background toggle in the libraries bar actions.
+- `disableTitleTooltips`: when `true`, hover tooltips are not shown.
 
 **CSS** (next to `skin.json` in that folder):
 
-- Prefer **`bundle.css`** as one file containing the **entire** theme, or  
-- Any **`.css`** files in that tree; if `bundle.css` is missing, the server concatenates all `.css` files in **sorted relative path** order (still a full replacement — order matters).
+- Prefer a small **`bundle.css`** (shell / tokens / layout / global TV focus) plus optional companions:
+  - **`components/`** — numbered widget styles (`001-….css`, …) loaded after `bundle.css`
+  - **`pages/`** — page-level blocks (`001-AddGamePage.css`, …) loaded after components
+- Legacy: a single monolithic **`bundle.css`**, or any set of **`.css`** files.
+- On `GET /skins/:id/bundle.css` the server **concatenates** all `.css` files in load order:
+  `bundle.css` → `components/**` → `pages/**` → other `.css` (sorted within each group).
+  The response is still a full theme replacement — order matters.
 
 After install, the server writes an updated `skin.json` including `id` (UUID) and `installedAt`.
 
@@ -108,9 +122,9 @@ Skin ids are **UUIDs** (v4-style folder names).
 
 ## Creating a skin
 
-1. Author a **complete** **`bundle.css`** for your theme (replace the whole UI, not a partial override unless you inlined a full baseline yourself).
+1. Author theme CSS as **`bundle.css`** plus optional **`components/`** and **`pages/`** (complete UI replacement when concatenated).
 2. Add **`skin.json`** with a display `name`.
-3. Zip the two files (root or single top-level folder), or publish via **`npm run release`** in **myhomegames-skins**.
+3. Zip the folder (root or single top-level folder), or publish via **`npm run release`** in **myhomegames-skins**.
 4. Install via Settings, or copy the extracted folder manually into `METADATA_PATH/skins/<uuid>/`.
 
 ### Live-ish iteration: symlink a repo folder into the server skins directory
@@ -146,6 +160,93 @@ You can point the server at a skin folder **inside this repository** so you edit
 ### Theme without server zips (rare)
 
 If a theme must ship entirely inside **myhomegames-web** (no zip install), add a dedicated CSS injection path and wire it through `SkinContext` / `skinRuntime` / `main.tsx`. The normal path is: ship themes as zips from **myhomegames-skins** and install them on the server.
+
+---
+
+## CSS file codes registry
+
+Component and page CSS files use **stable numeric codes** as filename prefixes. The same code always identifies the same component/page across all skins — this makes it easy to find and compare the same style across different themes.
+
+**Components** (`components/` — codes start at `001`):
+
+| Code | Name |
+|------|------|
+| 001 | `collections__EditCollectionLikeModal` |
+| 002 | `common__AddGame` |
+| 003 | `common__BackgroundManager` |
+| 004 | `common__DropdownMenu` |
+| 005 | `common__InlineTagList` |
+| 006 | `common__LaunchModal` |
+| 007 | `common__ScrollableGamesSection` |
+| 008 | `common__ScrollableGamesSectionNav` |
+| 009 | `common__StarRating` |
+| 010 | `common__Summary` |
+| 011 | `common__TagEditor` |
+| 012 | `common__Tooltip` |
+| 013 | `common__virtualized-common` |
+| 014 | `companies__CompanyProfileBlock` |
+| 015 | `filters__FilterPopup` |
+| 016 | `games__AddToCollectionDropdown` |
+| 017 | `games__AddToCollectionModal` |
+| 018 | `games__AdditionalExecutablesDropdown` |
+| 019 | `games__AgeRatings` |
+| 020 | `games__Cover` |
+| 021 | `games__EditGameModal` |
+| 022 | `games__GameDetail` |
+| 023 | `games__GameInfoBlock` |
+| 024 | `games__GameSearchModal` |
+| 025 | `games__GamesList` |
+| 026 | `games__GamesListDetail` |
+| 027 | `games__GamesListPageContent` |
+| 028 | `games__GamesListTable` |
+| 029 | `games__GamesListToolbar` |
+| 030 | `games__ManageInstallationModal` |
+| 031 | `games__MediaGallery` |
+| 032 | `games__SimilarGamesList` |
+| 033 | `games__TableRow` |
+| 034 | `games__VirtualizedGamesList` |
+| 035 | `games__VirtualizedGamesListDetail` |
+| 036 | `games__VirtualizedGamesListTable` |
+| 037 | `games__WebsitesList` |
+| 038 | `games__edit__EditGameMediaTab` |
+| 039 | `games__edit__FranchiseSeriesEditor` |
+| 040 | `layout__LibrariesBar` |
+| 041 | `layout__ProfileDropdown` |
+| 042 | `layout__UpdateNotification` |
+| 043 | `lists__CollectionsList` |
+| 044 | `lists__TagList` |
+| 045 | `lists__VirtualizedCollectionsList` |
+| 060 | `lists__VirtualizedTagList` |
+| 061 | `games__VirtualizedHorizontalGamesStrip` |
+| 046 | `search__SearchBar` |
+| 047 | `search__SearchResultsList` |
+| 048 | `tags__EditTagModal` |
+| 049 | `toolbar__SortPopup` |
+| 050 | `ui__AlphabetNavigator` |
+| 051 | `ui__BackgroundToggle` |
+| 052 | `ui__CoverSizeSlider` |
+| 053 | `ui__MainGamesToggle` |
+| 054 | `ui__NewGamesToggle` |
+| 055 | `ui__ViewModeSelector` |
+| 056 | `games__GameStarRatingOverlay` |
+| 057 | `games__RecommendedBrowsePreview` |
+| 058 | `ui__DetailBackButton` |
+| 059 | `ui__SmartTvClock` |
+
+**Pages** (`pages/` — codes start at `001`, independent from components):
+
+| Code | Name |
+|------|------|
+| 001 | `AddGamePage` |
+| 002 | `CatalogGameDetailPage` |
+| 003 | `HomePage` |
+| 004 | `LibraryItemDetail` |
+| 005 | `LoginPage` |
+| 006 | `ProfilePage` |
+| 007 | `SearchResultsPage` |
+| 008 | `SettingsPage` |
+
+A skin only needs to include files for the components/pages it actually styles. New components/pages should be assigned the next available code in that folder and added to this table.
 
 ---
 

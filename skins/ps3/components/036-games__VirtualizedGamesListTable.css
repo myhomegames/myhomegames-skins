@@ -1,0 +1,527 @@
+/* --- ./components/games/VirtualizedGamesListTable.css --- */
+
+
+.virtualized-table-scroll {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.virtualized-games-table-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden !important;
+}
+
+/* Override react-window's inline position:relative so the first row isn't hidden under the sticky header */
+.virtualized-games-table-list {
+  position: absolute !important;
+  width: 100%;
+  height: 100%;
+  min-width: 520px;
+  overflow-x: hidden !important;
+}
+
+/* Elemento scrollabile interno di react-window (override overflow inline) */
+.virtualized-games-table-list > div {
+  overflow-x: hidden !important;
+  display: table;
+  width: 100%;
+  min-width: 520px;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.virtualized-table-row-wrapper {
+  display: table-row;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-content-wrapper:has(.home-page-scroll-container.table-view) {
+ flex: 1 1 auto;
+ display: flex;
+ flex-direction: column;
+ min-height: 100dvh;
+ overflow: hidden;
+}
+
+.mhg-library-vertical-covers.home-page-content:has(.home-page-scroll-container.table-view),
+.mhg-library-vertical-covers .home-page-layout:has(.home-page-scroll-container.table-view) {
+ flex: 1 1 auto;
+ display: flex;
+ flex-direction: column;
+ min-height: 100dvh;
+}
+
+.home-page-main-container:has(.home-page-scroll-container.table-view) {
+ display: flex;
+ flex-direction: column;
+ flex: 1 1 auto;
+ min-height: 100dvh;
+ overflow: hidden;
+}
+
+.home-page-scroll-container.table-view {
+ padding-bottom: 0;
+ overflow: hidden !important;
+ overflow-x: hidden !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .games-table-header-section {
+ margin-left: max(
+  0px,
+  var(
+   --mhg-detail-view-align-x,
+   calc(
+    var(--mhg-active-library-icon-center-x, 180px) -
+    var(--mhg-vertical-rail-align-half-width, 180px) +
+    var(--mhg-vertical-column-shift-x, 0px)
+   )
+  )
+ ) !important;
+ margin-right: auto !important;
+ max-width: none;
+ padding-left: 0;
+ padding-right: 24px;
+ padding-top: var(
+  --mhg-table-view-top-inset,
+  var(--mhg-grid-top-inset-games, var(--mhg-grid-top-inset))
+ );
+ background-color: transparent;
+ border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+ box-sizing: border-box;
+ flex: 0 0 auto;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container.table-view
+ .games-table-container {
+ margin-left: max(
+  0px,
+  var(
+   --mhg-detail-view-align-x,
+   calc(
+    var(--mhg-active-library-icon-center-x, 180px) -
+    var(--mhg-vertical-rail-align-half-width, 180px) +
+    var(--mhg-vertical-column-shift-x, 0px)
+   )
+  )
+ ) !important;
+ margin-right: auto !important;
+ max-width: none;
+ height: 100%;
+ flex: 1 1 auto;
+ min-height: 0;
+ margin-bottom: 0;
+ padding-left: 0;
+ padding-right: 24px;
+ padding-bottom: 24px;
+ box-sizing: border-box;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container.table-view {
+ flex: 1 1 0;
+ min-height: calc(
+  100dvh - var(--mhg-table-view-top-inset, var(--mhg-grid-top-inset-games, 420px)) - 48px
+ );
+ height: calc(
+  100dvh - var(--mhg-table-view-top-inset, var(--mhg-grid-top-inset-games, 420px)) - 48px
+ ) !important;
+ padding-top: 0 !important;
+ padding-bottom: 0 !important;
+ overflow: hidden !important;
+}
+
+.mhg-library-vertical-covers .home-page-scroll-container.table-view,
+.mhg-vertical-covers-page .home-page-scroll-container.table-view {
+ flex: 1 1 0;
+ min-height: calc(
+  100dvh - var(--mhg-table-view-top-inset, var(--mhg-grid-top-inset-games, 420px)) - 48px
+ );
+ height: calc(
+  100dvh - var(--mhg-table-view-top-inset, var(--mhg-grid-top-inset-games, 420px)) - 48px
+ ) !important;
+ overflow: hidden !important;
+}
+
+.mhg-library-vertical-covers
+ .home-page-content-wrapper.games-list-page-fade
+ .home-page-scroll-container.table-view,
+.mhg-library-vertical-covers
+ .mhg-vertical-covers-page
+ .home-page-scroll-container.table-view {
+ padding-top: 0 !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-table-header-table
+ th.sorted,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-table-header-table
+ th.title-cell.sorted,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-table-header-table
+ th.game-type-cell.sorted,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-table-header-table
+ th.date-cell.sorted,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-table-header-table
+ th.stars-cell.sorted,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-table-header-table
+ th.year-cell.sorted,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-table-header-table
+ th.critic-rating-cell.sorted,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-table-header-table
+ th.age-rating-cell.sorted {
+ background-color: rgba(34, 197, 94, 0.2);
+ color: var(--mhg-primary, #22c55e);
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .games-table-header-table th {
+ background-color: rgba(34, 197, 94, 0.08);
+}
+
+/* Vista Tabella: column picker stays above the scrollable body layer. */
+:root[data-mhg-vertical-cover-alignment="true"] .games-table-header-section {
+ position: relative;
+ z-index: 4;
+ overflow: visible;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container.table-view {
+ position: relative;
+ z-index: 1;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .games-table-header-table thead {
+ background-color: transparent;
+}
+
+/*=============================================================================
+ * Horizontal cover carousels (game detail collections): Plex slider layout.
+ * `.scrollable-section--classic-covers` from web when vertical alignment is off
+ * for that section. Placed last so it wins over vertical-rail globals (32px gap,
+ * 360px column width, title beside cover).
+ * ==========================================================================*/
+
+.scrollable-section--classic-covers .scrollable-section-scroll {
+ overflow-x: auto !important;
+ overflow-y: hidden !important;
+}
+
+.scrollable-section--classic-covers .scrollable-section-scroll .games-list-container,
+.scrollable-section--classic-covers .scrollable-section-scroll .games-list-container:not(.games-list-container--virtualized):not(.games-list-container--fixed-focal) {
+ display: -webkit-box !important;
+ display: flex !important;
+ flex-direction: row !important;
+ flex-wrap: nowrap !important;
+ align-items: flex-start !important;
+ gap: 24px !important;
+ column-gap: 24px !important;
+ padding-bottom: 8px !important;
+ padding-left: 0 !important;
+ grid-template-columns: none !important;
+ grid-auto-flow: unset !important;
+ margin-top: 0 !important;
+}
+
+.scrollable-section--classic-covers .scrollable-section-scroll .games-list-item {
+ flex-shrink: 0 !important;
+}
+
+.scrollable-section--classic-covers .scrollable-section-scroll .games-list-item--cover-sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized,
+/* Beat `.home-page-scroll-container … .games-list-item--cover-sized` (480px rail
+ * column). Game detail collections live inside that scroll container, so equal-
+ * specificity classic-covers rules lost to SortPopup and covers grew to ~480px. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view)
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .game-detail-collection-group
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized {
+ display: block !important;
+ flex: 0 0 auto !important;
+ width: var(--games-list-cover-size, 150px) !important;
+ min-width: var(--games-list-cover-size, 150px) !important;
+ max-width: var(--games-list-cover-size, 150px) !important;
+ gap: 0 !important;
+ column-gap: 0 !important;
+ row-gap: 0 !important;
+ transform: none !important;
+ position: static !important;
+ z-index: auto !important;
+ height: auto !important;
+ min-height: 0 !important;
+ box-sizing: border-box !important;
+}
+
+.scrollable-section--classic-covers .scrollable-section-scroll .games-list-item--cover-sized.mhg-cover-scale-selected {
+ z-index: auto !important;
+}
+
+.scrollable-section--classic-covers .scrollable-section-scroll .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view)
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .game-detail-collection-group
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized
+ .games-list-cover {
+ flex: none !important;
+ width: 100% !important;
+ max-width: 100% !important;
+ height: auto !important;
+ aspect-ratio: 3 / 4 !important;
+ transform: none !important;
+ transform-origin: 50% 0% !important;
+ align-self: auto !important;
+}
+
+.scrollable-section--classic-covers .scrollable-section-scroll .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized.mhg-cover-scale-selected
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view)
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .game-detail-collection-group
+ .scrollable-section--classic-covers
+ .scrollable-section-scroll
+ .games-list-item--cover-sized
+ .games-list-title-wrapper {
+ display: block !important;
+ position: static !important;
+ top: auto !important;
+ left: auto !important;
+ right: auto !important;
+ width: 100% !important;
+ max-width: 100% !important;
+ margin-top: 0 !important;
+ transform: none !important;
+ flex: none !important;
+}
+
+.scrollable-section--classic-covers .scrollable-section-scroll .games-list-title {
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .scrollable-section--classic-covers .scrollable-section-nav {
+ display: flex !important;
+}
+
+/*=============================================================================
+* Update notification (portaled to body on PS3): full-viewport dim + right sheet.
+*============================================================================*/
+
+body > .update-notification-popup {
+ position: fixed !important;
+ inset: 0 !important;
+ top: 0 !important;
+ right: 0 !important;
+ left: 0 !important;
+ bottom: 0 !important;
+ margin: 0 !important;
+ padding: 0 !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ height: 100% !important;
+ max-height: 100dvh !important;
+ border: none !important;
+ border-radius: 0 !important;
+ background-color: rgba(0, 0, 0, 0.55) !important;
+ box-shadow: none !important;
+ z-index: 10110 !important;
+ overflow: hidden !important;
+ display: grid !important;
+ grid-template-columns: 1fr min(40%, 100%) !important;
+ grid-template-rows: auto 1fr auto !important;
+ animation: mhg-ps3-sheet-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+body > .update-notification-popup > .update-notification-header {
+ grid-column: 2 !important;
+ grid-row: 1 !important;
+ background-color: #1a1a1a !important;
+ border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+ box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55) !important;
+}
+
+body > .update-notification-popup > .update-notification-changelog {
+ grid-column: 2 !important;
+ grid-row: 2 !important;
+ background-color: #1a1a1a !important;
+ border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+body > .update-notification-popup > .update-notification-downloads {
+ grid-column: 2 !important;
+ grid-row: 3 !important;
+ background-color: #1a1a1a !important;
+ border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+ box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55) !important;
+}
+
+body > .update-notification-popup > .update-notification-downloads:last-child:nth-child(2) {
+ grid-row: 2 !important;
+}
+
+@media (max-width: 720px) {
+ body > .update-notification-popup {
+  grid-template-columns: 1fr !important;
+ }
+
+ body > .update-notification-popup > .update-notification-header,
+ body > .update-notification-popup > .update-notification-changelog,
+ body > .update-notification-popup > .update-notification-downloads,
+ body > .update-notification-popup > .update-notification-skin-updates,
+ body > .update-notification-popup > .update-notification-skin-update {
+  grid-column: 1 !important;
+  border-left: none !important;
+  box-shadow: none !important;
+ }
+}
+
+body:has(> .update-notification-popup) .mhg-libraries-bar,
+body:has(> .update-notification-popup) .game-detail-libraries-bar-wrapper,
+body:has(> .update-notification-popup) .catalog-game-detail-libraries-bar-wrapper {
+ visibility: hidden !important;
+ pointer-events: none !important;
+}
+
+/* Above portaled "Add to" submenus (10003) and library-bar menus (10008) */
+.add-to-collection-modal-overlay {
+ z-index: 10110 !important;
+}
+
+body:has(.add-to-collection-modal-overlay) > .add-to-collection-dropdown-menu,
+body:has(.add-to-collection-modal-overlay) > .additional-executables-dropdown-menu,
+body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
+ visibility: hidden !important;
+ pointer-events: none !important;
+}
+
+/*--- Game & collection-like detail — responsive layout ---*/
+/* Wide: unchanged. Narrow (scroll area ≤720px): stack cover / meta / summary. */
+
+.game-detail-scroll-container,
+.catalog-game-detail-scroll-container,
+.library-item-detail-scroll {
+ container-type: inline-size;
+ container-name: mhg-detail-scroll;
+ max-width: 100%;
+ box-sizing: border-box;
+}
+
+.game-detail-info-primary,
+.game-detail-summary,
+.library-item-detail-summary {
+ display: contents;
+}
+
+.game-detail-title,
+.catalog-game-detail-title,
+.library-item-detail-title {
+ overflow-wrap: anywhere;
+}
+
+.game-info-block {
+ min-width: 0;
+}
+
+.game-info-field {
+ min-width: 0;
+ max-width: 100%;
+}
+
+.game-info-list,
+.inline-tag-list {
+ min-width: 0;
+ max-width: 100%;
+}
+
+.game-info-list-item,
+.game-info-list-link,
+.inline-tag-list-item {
+ white-space: normal;
+ overflow-wrap: anywhere;
+ word-break: break-word;
+ max-width: 100%;
+ min-width: 0;
+}
+
+.game-info-list-link {
+ text-align: left;
+}
+
+.library-item-detail-title-row {
+ display: flex;
+ align-items: flex-start;
+ justify-content: space-between;
+ gap: 24px;
+ width: 100%;
+ min-width: 0;
+}
+
+.library-item-detail-title-row--with-company-info {
+ display: grid;
+ grid-template-columns: minmax(0, 1fr) minmax(160px, min(380px, 42%));
+ column-gap: 24px;
+ align-items: stretch;
+}
+
+.library-item-detail-title-column {
+ display: flex;
+ flex-direction: column;
+ gap: 16px;
+ min-width: 0;
+}
+
+.library-item-detail-title-column .library-item-detail-actions {
+ margin-top: 0;
+}
+
+.library-item-detail-title-main {
+ flex: 1;
+ min-width: 0;
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+}

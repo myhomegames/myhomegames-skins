@@ -1,6 +1,7 @@
 /**
  * Empty skin — no Plex theme rules.
- * Layout shell and BackgroundManager helpers (Tailwind loads from the web app build).
+ * Layout shell only (Tailwind loads from the web app build).
+ * Components / pages / phone / smarttv live in sibling files (same codes as other skins).
  */
 
 * {
@@ -30,343 +31,7 @@ body {
   overflow: hidden;
 }
 
-.background-manager-root {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-  max-width: none;
-  max-height: none;
-  z-index: 0;
-}
-
-.background-manager-bg-img {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-  border: 0;
-  padding: 0;
-  object-fit: cover;
-  object-position: center;
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-}
-
-.background-manager-root--clickable {
-  cursor: pointer;
-}
-
-.background-manager-root--solid {
-  background-color: #1a1a1a;
-  cursor: default;
-}
-
-.background-manager-overlay {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-  max-width: none;
-  max-height: none;
-  background-color: rgba(26, 26, 26, 0.85);
-  z-index: 1;
-}
-
-.background-manager-foreground {
-  position: relative;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.background-manager-foreground > * {
-  pointer-events: auto;
-}
-
-/* Force cover images to fill assigned boxes (stretch if needed) */
-.games-list-cover > img {
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  object-position: center;
-  display: block;
-}
-
-/* Above portaled "Add to" submenus and library-bar menus while modal is open */
-.add-to-collection-modal-overlay {
-  z-index: 10110 !important;
-}
-
-body:has(.add-to-collection-modal-overlay) > .add-to-collection-dropdown-menu,
-body:has(.add-to-collection-modal-overlay) > .additional-executables-dropdown-menu,
-body:has(.add-to-collection-modal-overlay) .dropdown-menu-popup {
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-
-/* --- ./components/companies/CompanyProfileBlock.css --- */
-
-.company-status-badge {
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
-  max-width: 100%;
-  padding: 0.25em 0.7em;
-  border-radius: 999px;
-  font-size: 0.875rem;
-  line-height: 1.35;
-  font-weight: 600;
-  border: 1px solid transparent;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  background-color: rgba(161, 161, 170, 0.18);
-  border-color: rgba(161, 161, 170, 0.45);
-  color: #d4d4d8;
-}
-
-.company-status-badge[data-status="active"] {
-  background-color: rgba(34, 197, 94, 0.18);
-  border-color: rgba(34, 197, 94, 0.5);
-  color: #4ade80;
-}
-
-.company-status-badge[data-status="defunct"] {
-  background-color: rgba(239, 68, 68, 0.18);
-  border-color: rgba(239, 68, 68, 0.5);
-  color: #f87171;
-}
-
-.company-status-badge[data-status="merge"] {
-  background-color: rgba(234, 179, 8, 0.2);
-  border-color: rgba(234, 179, 8, 0.55);
-  color: #facc15;
-}
-
-.company-status-badge[data-status="renamed"] {
-  background-color: rgba(59, 130, 246, 0.18);
-  border-color: rgba(59, 130, 246, 0.5);
-  color: #60a5fa;
-}
-
-.library-item-detail-title-heading {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 16px;
-}
-
-.library-item-detail-title-heading .library-item-detail-title {
-  margin: 0;
-}
-
-.library-item-detail-title-heading .company-status-badge {
-  margin-top: 6px;
-}
-
-.library-item-detail-company-meta {
-  opacity: 0.8;
-  font-family: var(--font-body-2-font-family);
-  font-size: var(--font-body-2-font-size);
-  line-height: var(--font-body-2-line-height);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px;
-  min-width: 0;
-}
-
-.library-item-detail-meta-separator {
-  opacity: 0.65;
-}
-
-.library-item-detail-company-link {
-  display: inline;
-  color: rgba(255, 255, 255, 0.8);
-  font: inherit;
-  vertical-align: baseline;
-}
-
-/* --- Game & collection-like detail — responsive layout --- */
-/* Wide: unchanged. Narrow (scroll area ≤720px): stack cover / meta / summary. */
-
-.game-detail-scroll-container,
-.catalog-game-detail-scroll-container,
-.library-item-detail-scroll {
-  container-type: inline-size;
-  container-name: mhg-detail-scroll;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.game-detail-info-primary,
-.game-detail-summary,
-.library-item-detail-summary {
-  display: contents;
-}
-
-.game-detail-title,
-.catalog-game-detail-title,
-.library-item-detail-title {
-  overflow-wrap: anywhere;
-}
-
-.game-info-block {
-  min-width: 0;
-}
-
-.game-info-field {
-  min-width: 0;
-  max-width: 100%;
-}
-
-.game-info-list,
-.inline-tag-list {
-  min-width: 0;
-  max-width: 100%;
-}
-
-.game-info-list-item,
-.game-info-list-link,
-.inline-tag-list-item {
-  white-space: normal;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  max-width: 100%;
-  min-width: 0;
-}
-
-.game-info-list-link {
-  text-align: left;
-}
-
-.library-item-detail-title-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-  width: 100%;
-  min-width: 0;
-}
-
-.library-item-detail-title-row--with-company-info {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(160px, min(380px, 42%));
-  column-gap: 24px;
-  align-items: stretch;
-}
-
-.library-item-detail-title-column {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  min-width: 0;
-}
-
-.library-item-detail-title-column .library-item-detail-actions {
-  margin-top: 0;
-}
-
-.library-item-detail-title-main {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-@container mhg-detail-scroll (max-width: 720px) {
-  .game-detail-scroll-container,
-  .catalog-game-detail-scroll-container,
-  .library-item-detail-scroll {
-    overflow-x: hidden !important;
-    padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
-    padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
-  }
-
-  .game-detail-header,
-  .catalog-game-detail-header,
-  .library-item-detail-hero {
-    display: grid !important;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto auto;
-    row-gap: 24px;
-    width: 100%;
-  }
-
-  .game-detail-cover-wrapper,
-  .catalog-game-detail-cover-wrapper,
-  .library-item-detail-hero-cover {
-    grid-row: 1;
-    justify-self: center;
-    width: min(256px, 100%);
-  }
-
-  .game-detail-cover-wrapper .games-list-cover,
-  .catalog-game-detail-cover-wrapper .games-list-cover,
-  .library-item-detail-hero-cover .games-list-cover {
-    width: min(256px, 100%) !important;
-  }
-
-  .game-detail-info-panel,
-  .catalog-game-detail-info-panel,
-  .game-detail-info-content,
-  .catalog-game-detail-info-content,
-  .library-item-detail-meta {
-    display: contents;
-  }
-
-  .game-detail-info-primary,
-  .library-item-detail-meta-primary {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    grid-row: 2;
-    width: 100%;
-    min-height: 0 !important;
-  }
-
-  .library-item-detail-title-row,
-  .library-item-detail-title-row--with-company-info {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .game-detail-summary,
-  .library-item-detail-summary {
-    display: block;
-    grid-row: 3;
-    width: 100%;
-  }
-
-  .game-info-block {
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
-}
-
-@container mhg-detail-scroll (max-width: 560px) {
-  .game-detail-cover-wrapper,
-  .catalog-game-detail-cover-wrapper,
-  .library-item-detail-hero-cover {
-    justify-self: stretch;
-    width: 100%;
-  }
-
-  .game-detail-cover-wrapper .games-list-cover,
-  .catalog-game-detail-cover-wrapper .games-list-cover,
-  .library-item-detail-hero-cover .games-list-cover {
-    width: 100% !important;
-  }
-}
-/* ========== Shared: Smart TV focus, device pairing, exit confirm ========== */
+/* Smart TV focus outline */
 html[data-mhg-tv="1"] :focus,
 html[data-mhg-tv="1"] :focus-visible {
   outline: 3px solid #e5a00d;
@@ -391,6 +56,9 @@ html[data-mhg-tv="1"] .mhg-top-right-tool-dock-logo:focus,
 html[data-mhg-tv="1"] .mhg-top-right-tool-dock-logo:focus-visible {
   outline: none;
 }
+
+
+/* --- ./pages/DevicePairingPage.css --- */
 
 .mhg-device-pairing {
   display: flex;
@@ -487,6 +155,9 @@ html[data-mhg-tv="1"] .mhg-device-pairing__retry:focus-visible {
   outline-offset: 4px;
 }
 
+
+/* --- ./components/common/TvExitConfirm.css --- */
+
 html[data-mhg-tv="1"] .mhg-tv-exit-confirm {
   z-index: 40000;
 }
@@ -503,4 +174,3 @@ html[data-mhg-tv="1"] .mhg-tv-exit-confirm .dropdown-menu-confirm-delete {
   min-height: 3rem;
   font-size: 1.1rem;
 }
-

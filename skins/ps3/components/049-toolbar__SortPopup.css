@@ -1,0 +1,3312 @@
+/*--- ./components/toolbar/SortPopup.css ---*/
+
+.sort-popup {
+ position: absolute;
+ top: 100%;
+ left: 0;
+ margin-top: 4px;
+ background-color: #2a2a2a;
+ border: 1px solid rgba(255, 255, 255, 0.1);
+ border-radius: 4px;
+ min-width: 180px;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+ z-index: 1000;
+ overflow: hidden;
+}
+
+.sort-popup-item {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ width: 100%;
+ padding: 12px 16px;
+ background: none;
+ border: none;
+ color: rgba(255, 255, 255, 0.8);
+ text-align: left;
+ cursor: pointer;
+ font-size: 0.875rem;
+ transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sort-popup-item:hover {
+ background-color: rgba(255, 255, 255, 0.05);
+ color: #ffffff;
+}
+
+.sort-popup-item.selected {
+ color: var(--mhg-primary);
+}
+
+.sort-popup-sort-direction {
+ color: var(--mhg-primary);
+ flex-shrink: 0;
+ margin-left: 8px;
+}
+
+/*
+* Top dock (`web.topRightToolDock`): when `GamesListToolbar` uses
+* `dockToolbarPopups`, it sets `data-mhg-toolbar-popup-fixed` and
+* `--mhg-toolbar-popup-*` on the filter/sort row; these rules pin panels to
+* the viewport under that row.
+*/
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+ .filter-popup,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+ .sort-popup {
+ position: fixed;
+ top: var(--mhg-toolbar-popup-top);
+ left: var(--mhg-toolbar-popup-left);
+ margin-top: 0;
+ right: auto;
+ bottom: auto;
+ z-index: 10020;
+ max-height: calc(100dvh - var(--mhg-toolbar-popup-top, 120px) - 12px);
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+ .filter-popup .filter-popup-scrollable {
+ max-height: min(400px, calc(100dvh - var(--mhg-toolbar-popup-top, 120px) - 56px));
+}
+
+/*--- ./components/common/DropdownMenu.css (subset) ---*/
+
+.dropdown-menu-wrapper {
+ position: relative;
+ display: inline-block;
+}
+
+.dropdown-menu-button {
+ background: none;
+ border: none;
+ cursor: pointer;
+ padding: 4px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border-radius: 4px;
+ transition: opacity 0.2s ease, background-color 0.2s ease;
+ opacity: 0;
+}
+
+.dropdown-menu-button svg {
+ width: 16px;
+ height: 16px;
+ color: rgba(255, 255, 255, 0.5);
+ transition: color 0.2s ease;
+}
+
+.dropdown-menu-button:hover svg {
+ color: #ffffff;
+}
+
+.dropdown-menu-popup {
+ position: absolute;
+ top: 100%;
+ right: 0;
+ margin-top: 4px;
+ background-color: #1a1a1a;
+ border: 1px solid rgba(255, 255, 255, 0.1);
+ border-radius: 4px;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+ z-index: 1000;
+ min-width: 200px;
+ padding: 4px 0;
+}
+
+.search-result-dropdown-menu .dropdown-menu-popup {
+ z-index: 10004;
+}
+
+.dropdown-menu-popup-in-search {
+ z-index: 10007 !important;
+}
+
+.dropdown-menu-popup-in-sidebar-search {
+ z-index: 22200 !important;
+}
+
+.dropdown-menu-popup-in-games-table {
+ z-index: 10002 !important;
+}
+
+.dropdown-menu-popup-in-libraries-top {
+ z-index: 10008 !important;
+}
+
+body > .add-to-collection-dropdown-menu,
+body > .additional-executables-dropdown-menu {
+ z-index: 10101 !important;
+}
+
+.dropdown-menu-item {
+ display: flex;
+ align-items: center;
+ font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+ font-size: 13px;
+ padding: 8px 24px;
+ margin: 2px 0;
+ text-align: left;
+ width: 100%;
+ background: none;
+ border: none;
+ cursor: pointer;
+ color: rgba(255, 255, 255, 0.7);
+ transition: background-color 0.15s ease, color 0.15s ease;
+ white-space: nowrap;
+}
+
+.dropdown-menu-item span {
+ flex: 1;
+ width: 100%;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+
+.dropdown-menu-item:hover,
+.dropdown-menu-item[data-mhg-tv-hover],
+.dropdown-menu-item:focus {
+ background-color: rgba(255, 255, 255, 0.05);
+ color: rgba(255, 255, 255, 1);
+ outline: none;
+}
+
+.dropdown-menu-item-danger {
+ color: rgba(255, 255, 255, 0.7);
+}
+
+.dropdown-menu-item-danger:hover,
+.dropdown-menu-item-danger[data-mhg-tv-hover],
+.dropdown-menu-item-danger:focus {
+ background-color: rgba(239, 68, 68, 0.9);
+ color: rgba(255, 255, 255, 1);
+ outline: none;
+}
+
+.dropdown-menu-item svg {
+ flex-shrink: 0;
+}
+
+.dropdown-menu-item-with-submenu {
+ position: relative;
+}
+
+.dropdown-menu-collectionlike-submenu {
+ position: absolute;
+ top: -4px;
+ left: calc(100% - 1px);
+ background-color: #1a1a1a;
+ border: 1px solid rgba(255, 255, 255, 0.1);
+ border-radius: 4px;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+ z-index: 1002;
+ min-width: 220px;
+ padding: 4px 0;
+}
+
+.dropdown-menu-collectionlike-submenu-title {
+ padding: 8px 24px 4px 24px;
+ font-size: 11px;
+ font-weight: 600;
+ color: rgba(255, 255, 255, 0.5);
+ text-transform: uppercase;
+ letter-spacing: 0.5px;
+ text-align: left;
+}
+
+.dropdown-menu-item-with-submenu svg {
+ margin-left: auto;
+ opacity: 0.5;
+}
+
+.dropdown-menu-divider {
+ height: 1px;
+ background-color: rgba(255, 255, 255, 0.1);
+ margin: 4px 0;
+}
+
+/* Phone + Smart TV: long-press opens the context menu; no overlay buttons on the cover. */
+.games-list-cover--compact-chrome img {
+ -webkit-touch-callout: none;
+ user-select: none;
+}
+
+.games-list-cover--compact-chrome .dropdown-menu-button--hidden-anchor {
+ position: absolute;
+ right: 4px;
+ bottom: 4px;
+ width: 1px;
+ height: 1px;
+ margin: 0;
+ padding: 0;
+ border: 0;
+ opacity: 0;
+ pointer-events: none;
+ overflow: hidden;
+}
+
+/* Cover context menu: bottom action sheet for phone + Smart TV. */
+.dropdown-menu-phone-sheet-overlay {
+ align-items: flex-end;
+ justify-content: center;
+ z-index: 10050;
+}
+
+.dropdown-menu-popup--phone-sheet {
+ position: relative;
+ top: auto;
+ right: auto;
+ bottom: auto;
+ left: auto;
+ width: 100%;
+ max-width: 100%;
+ margin: 0;
+ border-radius: 12px 12px 0 0;
+ border: none;
+ border-top: 1px solid rgba(255, 255, 255, 0.1);
+ max-height: min(70vh, 480px);
+ overflow-y: auto;
+ padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+}
+
+.dropdown-menu-popup--phone-sheet .dropdown-menu-item {
+ font-size: 16px;
+ padding: 14px 20px;
+ justify-content: center;
+}
+
+/*
+ * Cover / phone bottom sheet: do not apply the PS3 full-viewport right sheet to the
+ * nested popup — the overlay already owns the chrome. Keep a simple vertical list.
+ */
+.dropdown-menu-phone-sheet-overlay > .dropdown-menu-popup,
+.dropdown-menu-phone-sheet-overlay > .dropdown-menu-popup--phone-sheet {
+ position: relative !important;
+ inset: auto !important;
+ top: auto !important;
+ right: auto !important;
+ left: auto !important;
+ bottom: auto !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ height: auto !important;
+ max-height: min(70vh, 480px) !important;
+ margin: 0 !important;
+ padding: 8px 0 max(8px, env(safe-area-inset-bottom, 0px)) !important;
+ padding-left: 0 !important;
+ border: none !important;
+ border-radius: 12px 12px 0 0 !important;
+ border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+ background: #1a1a1a !important;
+ box-shadow: none !important;
+ overflow-x: hidden !important;
+ overflow-y: auto !important;
+ display: flex !important;
+ flex-direction: column !important;
+ z-index: 1 !important;
+ animation: none !important;
+}
+
+.dropdown-menu-phone-sheet-overlay > .dropdown-menu-popup::before,
+.dropdown-menu-phone-sheet-overlay > .dropdown-menu-popup::after {
+ content: none !important;
+ display: none !important;
+}
+
+/*--- View mode dropdown (ViewModeSelector) ---*/
+
+.view-mode-dropdown {
+ position: absolute;
+ top: 100%;
+ right: 24px;
+ margin-top: 8px;
+ background: #1a1a1a;
+ border: 1px solid rgba(255, 255, 255, 0.1);
+ border-radius: 6px;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+ z-index: 10000;
+ min-width: 200px;
+ overflow: hidden;
+}
+
+.view-mode-option {
+ width: 100%;
+ padding: 10px 16px;
+ background: transparent;
+ border: none;
+ cursor: pointer;
+ font-size: 14px;
+ transition: all 0.15s ease;
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ text-align: left;
+}
+
+.view-mode-option.active {
+ background: rgba(255, 255, 255, 0.1);
+ color: #ffffff;
+ font-weight: 600;
+}
+
+.view-mode-option:not(.active) {
+ color: rgba(255, 255, 255, 0.7);
+ font-weight: 400;
+}
+
+.view-mode-option:not(.active):hover {
+ background: rgba(255, 255, 255, 0.05);
+}
+
+.view-mode-option-icon {
+ font-size: 16px;
+}
+
+/*---------- Sidebar search popup (GameSearchModal) ----------
+* Triggered by `web.sidebarSearchPopup`. The skin previously had no styling
+* for `.game-search-modal*`, so the popup rendered with no chrome at all.
+* Mirror the Galaxy modal so the popup is visible and usable in .
+*/
+.game-search-modal-overlay {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background-color: rgba(0, 0, 0, 0.75);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ z-index: 10100;
+ pointer-events: auto;
+}
+
+.game-search-modal {
+ background-color: #1a1a1a;
+ border-radius: 8px;
+ width: 90%;
+ max-width: 500px;
+ height: 500px;
+ max-height: 85vh;
+ display: flex;
+ flex-direction: column;
+ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.game-search-modal-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 20px 24px;
+ border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-search-modal-header h2 {
+ margin: 0;
+ color: #ffffff;
+ font-size: 1.25rem;
+ font-weight: 600;
+}
+
+.game-search-modal-close {
+ background: transparent;
+ border: none;
+ color: rgba(255, 255, 255, 0.6);
+ font-size: 2rem;
+ cursor: pointer;
+ padding: 0;
+ width: 32px;
+ height: 32px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border-radius: 4px;
+ transition: color 0.2s ease;
+}
+
+.game-search-modal-close:hover {
+ color: #ffffff;
+}
+
+.game-search-modal-search {
+ position: relative;
+ padding: 16px 24px;
+ border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-search-modal-search input {
+ width: 100%;
+ padding: 10px 12px;
+ background-color: rgba(255, 255, 255, 0.05);
+ border: 1px solid rgba(255, 255, 255, 0.1);
+ border-radius: 4px;
+ color: white;
+ font-size: 0.875rem;
+ outline: none;
+ transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.game-search-modal-search input:focus {
+ border-color: rgba(255, 255, 255, 0.3);
+ background-color: rgba(255, 255, 255, 0.08);
+}
+
+.game-search-modal-search input::placeholder {
+ color: rgba(255, 255, 255, 0.4);
+}
+
+.game-search-modal-list {
+ flex: 1;
+ overflow-y: auto;
+ padding: 8px 0;
+ min-height: 200px;
+}
+
+.game-search-modal-empty {
+ padding: 40px 24px;
+ text-align: center;
+ color: rgba(255, 255, 255, 0.5);
+ font-size: 0.875rem;
+}
+
+.game-search-modal-sr-only {
+ position: absolute;
+ width: 1px;
+ height: 1px;
+ padding: 0;
+ margin: -1px;
+ overflow: hidden;
+ clip: rect(0, 0, 0, 0);
+ white-space: nowrap;
+ border: 0;
+}
+
+/*============================================================================
+* Page lists flow from the very top of the page; the libraries bar overlays
+* them as a fixed-position band so items can occupy the area above and below
+* the bar (visually "splitting" around it). The bar gets a solid background
+* so items passing behind it are hidden — this is what the user requested:
+* "gli elenchi devono partire dall'alto della pagina e scomporsi per non
+* coprire la library bar".
+* =========================================================================*/
+
+/*Anchor for the absolute libraries bar.*/
+.home-page-main-container {
+ position: relative;
+}
+
+/*
+ * Core page flex/scroll chain (Plex `HomePage.css` — omitted from the PS3 bundle).
+ * Without this, `.home-page-scroll-container` never gets a bounded height or
+ * `overflow-y: auto`, so game detail and other full-page scroll areas break.
+ */
+.home-page-content {
+ flex: 1;
+ min-height: 0;
+ overflow: hidden;
+ display: flex;
+ flex-direction: column;
+ padding-top: 0;
+}
+
+.home-page-layout {
+ flex: 1;
+ min-height: 0;
+ display: flex;
+ flex-direction: row;
+ overflow: hidden;
+}
+
+.home-page-content-wrapper {
+ flex: 1;
+ min-height: 0;
+ display: flex;
+ flex-direction: column;
+ overflow: hidden;
+}
+
+.home-page-scroll-container {
+ flex: 1 1 auto;
+ min-height: 0;
+ overflow-y: auto;
+ overflow-x: hidden;
+ overscroll-behavior: contain;
+}
+
+/*Pull the libraries bar out of normal flow so the content area underneath
+* starts at y=0 of the page. The bar stays on top (z-index 50) so its
+* icons remain clickable, but its background is transparent: the cover
+* columns scrolling through the same band become VISIBLE behind the bar
+* (they "pass over" it) instead of being clipped by an opaque overlay.
+*/
+.mhg-libraries-bar {
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ z-index: 50;
+ background: transparent;
+}
+
+/*When the top-right tool dock is enabled the bar is taller (dock + strip);
+* the overlay still anchors to the top and stays transparent.
+*/
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] {
+ background: transparent;
+}
+
+/*Library page: the outer `<main>` no longer needs the legacy padding that
+* mirrored a secondary in-JSX bar — the top inset that places the first
+* cover BELOW the (overlay) libraries bar is now applied to the scroll
+* container directly (see rule below). Keep the main flush at y=0 so the
+* scroll container can host the full viewport height.
+*/
+.mhg-library-vertical-covers.home-page-content {
+ padding-top: 0 !important;
+}
+
+/*Pin the page-level scroll container to the viewport height so the games
+* column reaches the page bottom (`height: 100%` chains up to `flex-1
+* main` which collapses to `auto` without a fixed height somewhere in the
+* chain). NO padding-top here — pushing the scroll container down would
+* clip the virtualized grid at its top edge and prevent covers from
+* rising INTO the bar area as the user scrolls. The "first cover below
+* the bar" offset is instead injected INSIDE the grid as an empty leading
+* row (`--mhg-grid-top-inset` consumed by `VirtualizedGamesList` /
+* `VirtualizedCollectionsList`) so the grid still extends from y=0 of
+* the page and scrolled-up covers remain visible behind the transparent
+* bar overlay.
+*/
+.mhg-vertical-covers-page .home-page-scroll-container:not(.table-view),
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-vertical-covers-page .home-page-scroll-container:not(.table-view),
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-library-vertical-covers .home-page-scroll-container:not(.table-view),
+.mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) {
+ margin-top: 0 !important;
+ height: 100vh !important;
+}
+
+/*Per-page `--mhg-grid-top-inset` overrides. The variable is read from the
+* scroll container's computed style by `VirtualizedGamesList` /
+* `VirtualizedCollectionsList` (see `readGridTopInset` in those files),
+* so setting it here cascades down the React tree but is ALSO inherited
+* via CSS for the non-virtualized padding rule below.*/
+.mhg-library-vertical-covers .home-page-scroll-container,
+.mhg-library-vertical-covers.home-page-content,
+.mhg-vertical-covers-page .home-page-scroll-container {
+ --mhg-grid-top-inset: var(--mhg-grid-top-inset-games);
+ --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-games);
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:has(.collections-list-container) {
+ --mhg-grid-top-inset: var(--mhg-grid-top-inset-collections);
+ --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-collections);
+ --mhg-grid-last-cover-raise: var(--mhg-grid-last-cover-raise-collections);
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll {
+ --mhg-grid-top-inset: var(--mhg-grid-top-inset-recommended);
+ --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-recommended);
+}
+
+/*Tag/collection-like/Recommended pages scroll the page-level container
+* (not a virtualized grid). Push their content down via `padding-top` by
+* the SAME `--mhg-grid-top-inset` used in the virtualized grid so the
+* first item lines up with the virtualized rail. The variable is the
+* per-page value above (or the `:root` default for tag pages). Since this
+* container is the actual scroller, the padding becomes part of the
+* scroll content and the items remain visible behind the bar as they
+* scroll up.*/
+/* Fixed-focal collection-like: inset via JS, not scroll padding. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view):has(.collections-list-container--fixed-focal) {
+ padding-top: 0 !important;
+ padding-bottom: var(--mhg-grid-bottom-inset-collections) !important;
+ overflow-y: visible !important;
+}
+
+/* Library games fixed-focal: covers may draw behind the top tool dock band. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-library-vertical-covers
+ .home-page-scroll-container:not(.table-view):has(.games-list-container--fixed-focal) {
+ overflow-y: visible !important;
+ overflow-x: hidden !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view):has(.tag-list-container:not(.fixed-focal-tag-list)),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view):has(.collections-list-container:not(.collections-list-container--virtualized):not(.collections-list-container--fixed-focal)),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view):has(.library-item-detail-subcollections-grid) {
+ padding-top: var(--mhg-grid-top-inset) !important;
+ padding-bottom: var(--mhg-grid-bottom-inset) !important;
+}
+
+/* Fixed-focal tag rail positions via JS (`readGridTopInsetPx`); no scroll padding. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view):has(.fixed-focal-tag-list) {
+ --mhg-grid-top-inset: var(--mhg-grid-top-inset-tag);
+ --mhg-grid-bottom-inset: var(--mhg-grid-bottom-inset-tag);
+ padding-top: 0 !important;
+ padding-bottom: 0 !important;
+ overflow-y: visible !important;
+ height: 100vh !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll {
+ padding-top: var(--mhg-grid-top-inset) !important;
+ padding-bottom: var(--mhg-grid-bottom-inset) !important;
+}
+
+/*Inner virtualized rail: reset the legacy compensations so the rail starts
+* at y=0 inside the scroll container.
+*/
+.mhg-library-vertical-covers .games-list-container--virtualized .virtualized-list-fade,
+.mhg-vertical-covers-page .games-list-container--virtualized .virtualized-list-fade,
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-vertical-covers-page .games-list-container--virtualized .virtualized-list-fade,
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-container--virtualized .virtualized-list-fade,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view)
+ .collections-list-container--virtualized
+ .virtualized-list-fade {
+ margin-top: 0 !important;
+ min-height: 100% !important;
+}
+
+/*Inner grid: no extra top spacing — first item sits at y=0 of the rail.*/
+.mhg-library-vertical-covers .games-list-container--virtualized .virtualized-games-grid,
+.mhg-vertical-covers-page .games-list-container--virtualized .virtualized-games-grid,
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-container--virtualized .virtualized-games-grid {
+ margin-top: 0 !important;
+}
+
+/*Non-virtualized fallback grids: no negative pull, no extra top margin.*/
+.mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) .games-list-container:not(.games-list-container--virtualized),
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]) .mhg-library-vertical-covers .home-page-scroll-container:not(.table-view) .games-list-container:not(.games-list-container--virtualized),
+:root[data-mhg-vertical-cover-alignment="true"] .recommended-page-scroll .scrollable-section-scroll .games-list-container:not(.games-list-container--virtualized) {
+ margin-top: 0 !important;
+}
+
+/*Non-virtualized tag/collection-like containers: align flush with the top.*/
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .tag-list-container,
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .collections-list-container:not(.collections-list-container--virtualized):not(.collections-list-container--fixed-focal),
+:root[data-mhg-vertical-cover-alignment="true"] .home-page-scroll-container:not(.table-view) .library-item-detail-subcollections-grid {
+ margin-top: 0 !important;
+}
+
+/*=============================================================================
+* Keep the first cover row BELOW the libraries bar.
+*
+* Earlier iterations pulled the rail UP with `margin-top: calc(-64px - bar
+* margin-top)` plus a matching `height: calc(100% + ...)` so the scaled rows
+* could sit above and behind the libraries bar. That conflicted with the
+* current direction ("i primi elementi delle colonne devono poter arrivare
+* sotto la library bar"), so we now keep `margin-top: 0` on those
+* containers and let the in-flow `.home-page-content` padding (Library
+* page) and the secondary in-JSX library bar (tag / collection-like /
+* recommended pages) provide the natural offset that places each rail's
+* first element just below the global bar.
+*
+* The `--mhg-library-bar-effective-bottom` custom property is preserved
+* so downstream rules (and `useStepScrollAroundBar`, if wired up later) can
+* still read the bar's effective height in a single place.
+* ==========================================================================*/
+
+/*============================================================================
+* Depth-style cover scaling around the libraries bar.
+*
+* Goal: covers shrink continuously to a fraction of their normal size as they
+* scroll up "behind" the (overlay) libraries bar, and stay at 100% while
+* sitting fully below it — exactly the dynamic effect the user wants.
+*
+* The per-cell visual position cannot be tracked from pure CSS while
+* react-window 2.x positions cells via `transform: translate(...)` (CSS
+* `view()` timelines read the layout box, which is the same for every cell).
+* Instead, the React-side hook `useCoverScaleAroundBar` measures each pad's
+* `getBoundingClientRect()` against the bar's bottom edge on every scroll
+* (rAF-throttled, capture-phase so ancestor scrolls also count) and writes
+* a `--mhg-cell-scale` CSS variable per pad — `1` when fully below the bar,
+* the configured floor (`SCALE_MIN` in the hook) when fully above,
+* interpolated linearly in between while crossing.
+*
+* Transform target: `.virtualized-grid-cell-pad` (the inner pad div), never
+* the cell wrapper — the wrapper carries `transform: translate(...)` for
+* positioning and a `scale` on the same element would overwrite it.
+*
+* Skins that don't ship the React hook simply have no variable set; the
+* fallback `var(--mhg-cell-scale, 1)` keeps covers at full size.
+* =========================================================================*/
+/*
+* Anchor the scale at the TOP of the cell (transform-origin: 50% 0%): when a
+* cover sits in/above the libraries bar at SCALE_MIN, the shrunk cover keeps
+* its TOP edge glued to the cell's top, so the cells closest to the page top
+* (above the bar) don't leave a "black" empty strip between the page edge and
+* the cover. With `50% 50%` (center origin) the scaled cover would float in
+* the middle of its cell and leave the bar's margin-top area visibly empty.
+*/
+.virtualized-grid-cell-pad {
+ transform: scale(var(--mhg-cell-scale, 1));
+ transform-origin: 50% 0%;
+ position: relative;
+ z-index: 1;
+ /* Snap + selected-only scale: no post-scroll transform easing. */
+ transition-property: background-color, border-color, color, opacity, box-shadow, filter;
+}
+
+.virtualized-grid-cell-pad.mhg-cover-scale-selected {
+ z-index: 3;
+}
+
+/*GameListItem always carries `games-list-item--cover-sized`; inside virtualized
+* cells the pad above already applies bar-relative scale. A second transform here
+* would compound and (worse) still not shrink react-window row height — only skip
+* the pad hook would leave inner items shrunk with giant gaps.*/
+.virtualized-grid-cell-pad .games-list-item--cover-sized {
+ transform: none;
+}
+
+/*Non-virtualized cover items (tag list, non-virtualized collections rail,
+* library item detail subcollection cells, non-virtualized games-list items).
+* `useGlobalCoverScaleAroundBar` writes `--mhg-cell-scale` on each as it
+* crosses the bar; without the variable set the fallback keeps them at 1.
+*/
+.tag-list-item,
+.collections-list-item--sized,
+.library-item-detail-subcollection-cell,
+.games-list-item--cover-sized {
+ transform: scale(var(--mhg-cell-scale, 1));
+ transform-origin: 50% 0%;
+ position: relative;
+ z-index: 1;
+ transition-property: background-color, border-color, color, opacity, box-shadow, filter;
+}
+
+.tag-list-item.mhg-cover-scale-selected,
+.collections-list-item--sized.mhg-cover-scale-selected,
+.library-item-detail-subcollection-cell.mhg-cover-scale-selected,
+.games-list-item--cover-sized.mhg-cover-scale-selected {
+ z-index: 3;
+}
+
+/*=============================================================================
+ * Grid view: title to the right of the cover (vertical rail / PS3 XMB).
+ * Scale applies to the cover only so the label stays readable.
+ * ==========================================================================*/
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view)
+ .games-list-item--cover-sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view)
+ .collections-list-item--sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view)
+ .library-item-detail-subcollection-cell,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-container
+ .tag-list-item,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item
+ .tag-list-item,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad
+ .games-list-item--cover-sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad
+ .collections-list-item--sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item
+ .games-list-item--cover-sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item
+ .collections-list-item--sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .recommended-page-scroll
+ .scrollable-section-scroll
+ .games-list-item--cover-sized {
+ display: flex !important;
+ flex-direction: row !important;
+ /* Keep cover top on the focal line; title wraps beside/below without shifting the tile. */
+ align-items: flex-start !important;
+ gap: var(--mhg-vertical-rail-cover-title-gap, 32px);
+ width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
+ min-width: 0 !important;
+ max-width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
+ box-sizing: border-box;
+ transform: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-games-item,
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item {
+ width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-tag-item {
+ width: min(
+  var(--mhg-tag-vertical-column-width, var(--mhg-vertical-column-width, 360px)),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))
+ ) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-container
+ .tag-list-item,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item
+ .tag-list-item {
+ width: min(
+  var(--mhg-tag-vertical-column-width, var(--mhg-vertical-column-width, 360px)),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))
+ ) !important;
+ min-width: min(
+  var(--mhg-tag-vertical-column-width, var(--mhg-vertical-column-width, 360px)),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))
+ ) !important;
+ max-width: min(
+  var(--mhg-tag-vertical-column-width, var(--mhg-vertical-column-width, 360px)),
+  calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))
+ ) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad:has(.games-list-item--cover-sized),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad:has(.collections-list-item--sized) {
+ transform: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad
+ .games-list-item--cover-sized
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-list-item--cover-sized
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .collections-list-item--sized
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad
+ .collections-list-item--sized
+ .games-list-cover {
+ flex: 0 0 auto;
+ /* Center origin: unselected covers shrink on the same axis as the focal tile. */
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 50% 50% !important;
+ width: var(--games-list-cover-size, var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px))) !important;
+ max-width: var(--games-list-cover-size, var(--mhg-fixed-focal-cover-size, var(--collections-list-cover-size, 240px))) !important;
+ aspect-ratio: 3 / 4 !important;
+ height: auto !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .collections-list-item--sized
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad
+ .collections-list-item--sized
+ .games-list-cover {
+ width: var(--collections-list-cover-size, var(--mhg-fixed-focal-cover-size, 240px)) !important;
+ max-width: var(--collections-list-cover-size, var(--mhg-fixed-focal-cover-size, 240px)) !important;
+}
+
+/* Tag index only: 16:9 tiles beside titles (not game/collection portrait covers). */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-container
+ .tag-list-item
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item
+ .tag-list-item
+ .games-list-cover {
+ flex: 0 0 auto;
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 50% 50% !important;
+ width: var(--tag-list-cover-size, 150px) !important;
+ max-width: var(--tag-list-cover-size, 150px) !important;
+ height: auto !important;
+ aspect-ratio: 16 / 9 !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-container:not(.fixed-focal-tag-list)
+ .tag-list-item:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .library-item-detail-subcollections-grid
+ .collections-list-item--sized:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper {
+ display: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-grid-cell-pad.mhg-cover-scale-selected
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-games-item.mhg-cover-scale-selected
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item.mhg-cover-scale-selected
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-item--cover-sized
+ > .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .collections-list-item--sized
+ > .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .library-item-detail-subcollections-grid
+ .collections-list-item--sized.mhg-cover-scale-selected
+ .games-list-title-wrapper {
+ position: absolute !important;
+ top: 50% !important;
+ transform: translateY(calc(-50% + var(--mhg-vertical-rail-title-nudge-portrait, 0px))) !important;
+ left: calc(
+  var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) +
+  var(--mhg-vertical-rail-cover-title-gap, 32px)
+ ) !important;
+ right: 0 !important;
+ width: auto !important;
+ max-width: calc(
+  100% - var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) -
+  var(--mhg-vertical-rail-cover-title-gap, 32px)
+ ) !important;
+ display: flex !important;
+ flex-direction: column !important;
+ flex: none;
+ min-width: 0;
+ margin-top: 0 !important;
+ gap: 2px;
+ justify-content: center;
+ align-items: flex-start;
+ text-align: left;
+ overflow: hidden;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .collections-list-item--sized
+ .games-list-title-wrapper {
+ transform: translateY(calc(-50% + var(--mhg-vertical-rail-title-nudge-portrait, 0px))) !important;
+ left: calc(
+  var(--collections-list-cover-size, var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px))) +
+  var(--mhg-vertical-rail-cover-title-gap, 32px)
+ ) !important;
+ max-width: calc(
+  100% -
+  var(--collections-list-cover-size, var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px))) -
+  var(--mhg-vertical-rail-cover-title-gap, 32px)
+ ) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item.mhg-cover-scale-selected
+ .tag-list-item
+ > .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-list
+ .fixed-focal-tag-item.mhg-cover-scale-selected
+ .tag-list-item
+ > .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-list
+ .tag-list-item.mhg-cover-scale-selected
+ > .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-container:not(.fixed-focal-tag-list)
+ .tag-list-item.mhg-cover-scale-selected
+ > .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-item.mhg-cover-scale-selected
+ > .games-list-title-wrapper {
+ position: absolute !important;
+ top: 50% !important;
+ transform: translateY(calc(-50% + var(--mhg-vertical-rail-title-nudge-tag, 0px))) !important;
+ left: calc(var(--tag-list-cover-size, 150px) + var(--mhg-vertical-rail-cover-title-gap, 32px)) !important;
+ right: 0 !important;
+ width: auto !important;
+ max-width: calc(
+  100% - var(--tag-list-cover-size, 150px) - var(--mhg-vertical-rail-cover-title-gap, 32px)
+ ) !important;
+ display: flex !important;
+ flex-direction: column !important;
+ flex: none;
+ min-width: 0;
+ margin-top: 0 !important;
+ gap: 2px;
+ justify-content: center;
+ align-items: flex-start;
+ text-align: left;
+ overflow: hidden;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item.mhg-cover-scale-selected
+ .tag-list-item,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-item--cover-sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .collections-list-item--sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .tag-list-item {
+ position: relative !important;
+ display: flex !important;
+ flex-direction: row !important;
+ align-items: flex-start !important;
+ height: 100% !important;
+ min-height: 0 !important;
+ box-sizing: border-box;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-cover {
+ flex: 0 0 auto;
+ align-self: flex-start !important;
+}
+
+/* Tag fixed-focal: title beside 16:9 cover; selection on item + wrapper. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-list
+ .fixed-focal-tag-item:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-list
+ .tag-list-item:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper {
+ display: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-list
+ .tag-list-item.mhg-cover-scale-selected
+ .games-list-title-wrapper
+ .tooltip-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-container:not(.fixed-focal-tag-list)
+ .tag-list-item.mhg-cover-scale-selected
+ .games-list-title-wrapper
+ .tooltip-wrapper {
+ display: block;
+ min-width: 0;
+ flex: 1 1 auto;
+ width: 100%;
+ max-width: none !important;
+ overflow: hidden;
+ text-align: left;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item
+ .tag-list-item
+ .games-list-title-wrapper
+ .tooltip-wrapper {
+ display: block;
+ min-width: 0;
+ flex: 1 1 auto;
+ width: 100%;
+ overflow: hidden;
+ text-align: left;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-title-wrapper
+ .tooltip-wrapper {
+ display: block;
+ min-width: 0;
+ flex: 1 1 auto;
+ width: 100%;
+ max-width: none !important;
+ overflow: hidden;
+ text-align: left;
+}
+
+/* Games / collection-like / subcollection rails: wrap long titles like tag tiles. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-title,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-title.truncate,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .truncate.games-list-title {
+ font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+ font-size: var(--mhg-vertical-rail-title-font-size, 1.3rem) !important;
+ font-weight: var(--mhg-vertical-rail-title-font-weight, 600) !important;
+ line-height: 1.2;
+ color: rgba(255, 255, 255, 0.92);
+ white-space: normal !important;
+ display: -webkit-box !important;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp: var(--mhg-vertical-rail-title-line-clamp, 6);
+ line-clamp: var(--mhg-vertical-rail-title-line-clamp, 6);
+ overflow: hidden;
+ text-overflow: ellipsis;
+ word-break: break-word;
+ overflow-wrap: anywhere;
+ text-align: left !important;
+ width: 100%;
+ max-width: 100%;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-year {
+ font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+ font-size: var(--mhg-vertical-rail-year-font-size, 1rem);
+ color: rgba(255, 255, 255, 0.55);
+ text-align: left;
+ width: 100%;
+}
+
+/* Uniform horizontal gap between cover and title on every vertical-rail cell. */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-list-item--cover-sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .collections-list-item--sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .library-item-detail-subcollection-cell,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-container
+ .tag-list-item,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-tag-item
+ .tag-list-item {
+ gap: var(--mhg-vertical-rail-cover-title-gap, 32px) !important;
+ column-gap: var(--mhg-vertical-rail-cover-title-gap, 32px) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-list-item--cover-sized
+ > .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .collections-list-item--sized
+ > .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .library-item-detail-subcollection-cell
+ > .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-item
+ > .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-list-item--cover-sized
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .collections-list-item--sized
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .library-item-detail-subcollection-cell
+ .games-list-title-wrapper,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-list-item
+ .games-list-title-wrapper {
+ margin: 0 !important;
+ padding: 0 !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected
+ .games-list-cover,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-cover-scale-selected.tag-list-item
+ > .games-list-cover {
+ align-self: flex-start !important;
+ flex-shrink: 0;
+}
+
+/* Legacy below-cover title spacing (collections fixed-focal). */
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .games-list-cover {
+ margin-bottom: 0 !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item:not(.mhg-cover-scale-selected)
+ .games-list-title-wrapper {
+ margin-top: 0 !important;
+ max-width: none !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container:not(.table-view)
+ .collections-list-item--sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .fixed-focal-collections-item
+ .collections-list-item--sized,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .virtualized-collections-grid
+ .collections-list-item--sized {
+ width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
+ max-width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .fixed-focal-collections-item {
+ width: min(var(--mhg-vertical-column-width, 360px), calc(100vw - var(--mhg-vertical-column-viewport-margin, 72px))) !important;
+}
+
+/*=============================================================================
+* Collection-like detail (compact + vertical covers): dock on top; column 1 =
+* library tab icon + opened cover (left); column 2 = scrollable games list.
+* =============================================================================*/
+.library-item-detail-page-shell--context-rail {
+ /*
+* Decoupled layout:
+* - `--mhg-detail-dock-stack`: pull the shell under the bar host (column 2 = full viewport).
+* - `--mhg-detail-rail-top`: column 1 only (first-cover line on collection-like pages).
+*/
+ --mhg-detail-rail-icon-cover-gap: 12px;
+ --mhg-context-rail-cover-top: calc(
+  var(--mhg-detail-rail-top, 204px) + var(--mhg-context-rail-col1-icon, 96px) + var(--mhg-detail-rail-icon-cover-gap, 12px)
+ );
+ --mhg-context-rail-bridge-offset: 28px;
+ margin-top: calc(-1* var(--mhg-detail-dock-stack)) !important;
+ height: 100vh !important;
+ height: 100dvh !important;
+ max-height: 100vh !important;
+ max-height: 100dvh !important;
+ overflow: hidden !important;
+ position: relative;
+ box-sizing: border-box;
+}
+
+.library-item-detail-page-shell--context-rail:has(.mhg-context-rail-index-peek) {
+ overflow-y: visible !important;
+}
+
+.library-item-detail-libraries-bar-host--dock-only {
+ position: relative;
+}
+
+.library-item-detail-libraries-bar-host--dock-only .mhg-libraries-container,
+.library-item-detail-libraries-bar-host--dock-only .mhg-collections-shortcuts {
+ display: none !important;
+}
+
+/* Dock band only: page actions live inside `.mhg-top-right-tool-dock-inner`. */
+.library-item-detail-libraries-bar-host--dock-only
+ > .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"],
+.tag-games-libraries-bar-host--dock-only
+ > .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] {
+ display: block !important;
+ margin-bottom: 0 !important;
+}
+
+.library-item-detail-libraries-bar-host--dock-only .mhg-top-right-tool-dock,
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock {
+ min-width: 0;
+ width: 100%;
+}
+
+.library-item-detail-libraries-bar-host--dock-only .mhg-top-right-tool-dock-inner {
+ gap: 12px;
+ padding: 0 12px;
+}
+
+.library-item-detail-libraries-bar-host--dock-only .mhg-top-right-tool-dock-before-main-games,
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-before-main-games.mhg-libraries-actions-before-main-games {
+ display: flex !important;
+ align-items: center !important;
+ align-self: center !important;
+ flex-shrink: 0;
+}
+
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-before-main-games
+ .library-item-detail-compact-top-action,
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-new-games
+ .library-item-detail-compact-top-action,
+.tag-games-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-new-games
+ .library-item-detail-compact-top-action {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ width: 40px;
+ height: 40px;
+ margin: 0;
+ padding: 0;
+ transform: none;
+}
+
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-before-main-games
+ .library-item-detail-edit-button,
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-before-main-games
+ .library-item-detail-dropdown-menu {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ width: 40px;
+ height: 40px;
+ min-width: 40px;
+ min-height: 40px;
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+
+.library-item-detail-libraries-bar-host--dock-only .mhg-top-right-tool-dock-new-games,
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-new-games {
+ display: flex !important;
+ align-items: center !important;
+ align-self: center !important;
+ flex-shrink: 0;
+}
+
+.library-item-detail-libraries-bar-host--dock-only .mhg-top-right-tool-dock-main-games,
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-main-games {
+ display: flex !important;
+ align-items: center !important;
+ align-self: center !important;
+ flex-shrink: 0;
+}
+
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-new-games
+ .new-games-toggle-button,
+.tag-games-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-new-games
+ .new-games-toggle-button {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ width: 40px;
+ height: 40px;
+ min-width: 40px;
+ min-height: 40px;
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
+}
+
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-main-games
+ .main-games-toggle-button,
+.tag-games-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-main-games
+ .main-games-toggle-button {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ width: 40px;
+ height: 40px;
+ min-width: 40px;
+ min-height: 40px;
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
+ transform: translateY(0);
+}
+
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-before-main-games
+ .background-toggle-button {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ width: 40px;
+ height: 40px;
+ min-width: 40px;
+ min-height: 40px;
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
+}
+
+/*View mode is a no-op on collection detail; hide the dead control.*/
+.library-item-detail-libraries-bar-host--dock-only .mhg-top-right-tool-dock-view {
+ display: none !important;
+}
+
+.library-item-detail-libraries-bar-host--dock-only .mhg-libraries-bar-container,
+.tag-games-libraries-bar-host--dock-only .mhg-libraries-bar-container {
+ display: none !important;
+}
+
+.library-item-detail-libraries-bar-host--dock-only .mhg-libraries-actions {
+ position: static !important;
+ top: auto !important;
+ right: auto !important;
+ z-index: auto;
+ margin: 0 !important;
+ padding: 0 !important;
+ display: flex !important;
+ flex-direction: row !important;
+ flex-wrap: nowrap !important;
+ align-items: center !important;
+ align-self: center !important;
+ gap: 10px !important;
+}
+
+.library-item-detail-libraries-bar-host--dock-only .mhg-libraries-actions-right-extra {
+ display: inline-flex !important;
+ flex-direction: row !important;
+ flex-wrap: nowrap !important;
+ align-items: center !important;
+ gap: 10px !important;
+}
+
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-libraries-actions-right-extra
+ .library-item-detail-compact-top-action {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+ width: 40px;
+ height: 40px;
+ margin: 0;
+ padding: 0;
+ transform: none;
+}
+
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-slider
+ .cover-size-slider,
+.library-item-detail-libraries-bar-host--dock-only
+ .mhg-top-right-tool-dock-main-games {
+ flex-shrink: 0;
+}
+
+.library-item-detail-page-shell--context-rail .library-item-detail-main-inner,
+.library-item-detail-page-shell--context-rail .library-item-detail-layout-min-h,
+.library-item-detail-page-shell--context-rail .library-item-detail-content-wrapper,
+.library-item-detail-page-shell--context-rail .library-item-detail-main-min-h {
+ height: 100% !important;
+ min-height: 0 !important;
+ max-height: 100vh !important;
+}
+
+.library-item-detail-page-shell--context-rail .library-item-detail-scroll {
+ display: flex !important;
+ flex-direction: column !important;
+ flex: 1 1 auto !important;
+ height: 100% !important;
+ max-height: 100vh !important;
+ min-height: 0 !important;
+ overflow: hidden !important;
+}
+
+.library-item-detail-scroll--context-rail {
+ overflow: hidden !important;
+}
+
+.library-item-detail-scroll--context-rail.home-page-scroll-container:focus,
+.library-item-detail-scroll--context-rail.home-page-scroll-container:focus-visible {
+ outline: none !important;
+ border: none !important;
+ box-shadow: none !important;
+}
+
+.library-item-detail-scroll--context-rail .library-item-detail-section-full.library-item-detail-context-layout {
+ flex: 1 1 auto;
+ min-height: 0;
+ height: 100%;
+}
+
+.library-item-detail-context-layout {
+ display: flex;
+ flex-direction: row;
+ align-items: stretch;
+ justify-content: flex-start;
+ width: 100%;
+ min-width: 0;
+ height: 100%;
+ min-height: 100%;
+ box-sizing: border-box;
+ padding-left: var(--mhg-context-rail-layout-padding, calc(20px + 8px));
+ gap: var(--mhg-context-rail-layout-gap, 24px);
+}
+
+.library-item-detail-context-rail {
+ flex: 0 1 auto;
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ align-self: flex-start;
+ flex-shrink: 1;
+ min-width: 0;
+ max-width: calc(
+  max(
+   var(--mhg-context-rail-col1-icon, 96px),
+   var(--mhg-context-rail-col1-cover-max, var(--lid-cover-size, 240px))
+  )
+ );
+ padding-top: var(--mhg-detail-rail-top, 204px);
+ gap: var(--mhg-detail-rail-icon-cover-gap, 12px);
+ z-index: 2;
+}
+
+.library-item-detail-context-rail-library.mhg-library-button,
+.library-item-detail-context-rail-library.mhg-library-active {
+ width: var(--mhg-context-rail-col1-icon, 96px);
+ min-width: var(--mhg-context-rail-col1-icon, 96px);
+ height: var(--mhg-context-rail-col1-icon, 96px);
+ overflow: visible;
+}
+
+.library-item-detail-context-games {
+ flex: 1 1 0;
+ min-width: var(--mhg-context-rail-games-min, 88px);
+ width: 0;
+ min-height: 0;
+ height: 100%;
+ max-height: 100%;
+ overflow-y: auto !important;
+ overflow-x: hidden !important;
+ overscroll-behavior: contain;
+ -webkit-overflow-scrolling: touch;
+ align-self: stretch;
+ margin: 0 !important;
+ padding: 0 !important;
+ box-sizing: border-box;
+ outline: none !important;
+ border: none !important;
+ box-shadow: none !important;
+ scrollbar-width: none;
+ -ms-overflow-style: none;
+ container-type: inline-size;
+ container-name: mhg-context-rail-games;
+ --mhg-context-rail-focal-cover-cap: min(
+  var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)),
+  clamp(44px, 36cqw, 168px)
+ );
+ --mhg-vertical-rail-cover-title-gap: clamp(4px, 3cqw, 20px);
+ --mhg-vertical-rail-title-font-size: clamp(0.68rem, 5.2cqw, 1.3rem);
+ --mhg-vertical-rail-year-font-size: clamp(0.58rem, 4cqw, 1rem);
+ --mhg-vertical-rail-title-line-clamp: 4;
+ --mhg-vertical-rail-title-nudge-portrait: clamp(-10px, -1.5cqw, -32px);
+ --mhg-vertical-column-width: var(--mhg-context-rail-games-column-width, min(480px, 100%));
+ --mhg-context-rail-cover-top: calc(
+  var(--mhg-detail-rail-top, 204px) + var(--mhg-context-rail-col1-icon, 96px) + var(--mhg-detail-rail-icon-cover-gap, 12px)
+ );
+ /*
+ * Leading space via list wrapper padding (virtualized grid scrolls inside).
+ * Tag column uses grid top inset instead — see `.tag-games-context-games`.
+ */
+ --mhg-grid-top-inset: 0px;
+ --mhg-grid-top-inset-games: 0px;
+ --mhg-grid-top-inset-collections: 0px;
+ --mhg-grid-top-inset-tag: 0px;
+ --mhg-grid-bottom-inset: calc(100dvh - var(--mhg-context-rail-cover-top));
+ --mhg-grid-bottom-inset-games: var(--mhg-grid-bottom-inset);
+ --mhg-grid-bottom-inset-collections: 0px;
+ --mhg-grid-bottom-inset-tag: 0px;
+ --mhg-step-scroll-rows: 1;
+}
+
+.library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ > .library-item-detail-games-list {
+ padding-top: var(--mhg-context-rail-cover-top);
+ box-sizing: border-box;
+}
+
+/*Arrow between context cover (col 1) and scrollable games (col 2).*/
+.mhg-context-rail-bridge {
+ flex: 0 1 var(--mhg-context-rail-bridge-width, 20px);
+ align-self: flex-start;
+ margin-top: calc(
+  var(--mhg-context-rail-cover-top) + var(--mhg-context-rail-bridge-offset, 28px)
+ );
+ width: var(--mhg-context-rail-bridge-width, 20px);
+ min-width: 0;
+ max-width: var(--mhg-context-rail-bridge-width, 20px);
+ display: flex;
+ align-items: flex-start;
+ justify-content: center;
+ pointer-events: none;
+ flex-shrink: 1;
+}
+
+.mhg-context-rail-bridge::after {
+ content: "";
+ display: block;
+ width: 10px;
+ height: 10px;
+ margin-right: -2px;
+ border-left: 2px solid rgba(255, 255, 255, 0.55);
+ border-bottom: 2px solid rgba(255, 255, 255, 0.55);
+ transform: rotate(45deg);
+}
+
+/* Tag + collection-like detail: same context-rail chevron (size, stroke, row). */
+.library-item-detail-page-shell--context-rail .mhg-context-rail-bridge,
+.tag-games-page-shell--context-rail .mhg-context-rail-bridge {
+ flex: 0 1 var(--mhg-context-rail-bridge-width, 20px);
+ align-self: flex-start;
+ margin-top: calc(
+  var(--mhg-context-rail-cover-top) + var(--mhg-context-rail-bridge-offset, 28px)
+ ) !important;
+ width: var(--mhg-context-rail-bridge-width, 20px) !important;
+ min-width: 0 !important;
+ max-width: var(--mhg-context-rail-bridge-width, 20px) !important;
+ padding: 0 !important;
+ display: flex !important;
+ align-items: flex-start !important;
+ justify-content: center !important;
+ pointer-events: none;
+ position: relative;
+ z-index: 2;
+ box-sizing: border-box;
+ flex-shrink: 1;
+}
+
+.library-item-detail-page-shell--context-rail .mhg-context-rail-bridge::after,
+.tag-games-page-shell--context-rail .mhg-context-rail-bridge::after {
+ content: "" !important;
+ display: block !important;
+ width: 10px !important;
+ height: 10px !important;
+ margin-right: -2px !important;
+ margin-left: 0 !important;
+ border-left: 2px solid rgba(255, 255, 255, 0.55) !important;
+ border-bottom: 2px solid rgba(255, 255, 255, 0.55) !important;
+ border-top: none !important;
+ border-right: none !important;
+ background: transparent !important;
+ transform: rotate(45deg) !important;
+}
+
+/* Index column ghost between arrow and games column (tag / collection-like detail). */
+.library-item-detail-page-shell--context-rail,
+.tag-games-page-shell--context-rail {
+ --mhg-context-rail-index-peek-width: clamp(28px, 7vw, 168px);
+ --mhg-context-rail-index-peek-gap-after: clamp(2px, 0.6vw, 24px);
+ --mhg-context-rail-layout-padding: clamp(4px, 1vw, 28px);
+ --mhg-context-rail-layout-gap: clamp(2px, 0.6vw, 24px);
+ --mhg-context-rail-bridge-width: clamp(0px, 1vw, 20px);
+ --mhg-context-rail-col1-icon: clamp(36px, 7vw, 96px);
+ --mhg-context-rail-games-min: clamp(104px, 28vw, 9999px);
+ --mhg-context-rail-games-column-width: min(var(--mhg-vertical-column-width, 480px), 100%);
+}
+
+@media (max-width: 900px) {
+ .library-item-detail-page-shell--context-rail {
+  --mhg-detail-rail-icon-cover-gap: clamp(32px, 7.5vw, 48px);
+ }
+
+ .tag-games-page-shell--context-rail {
+  --mhg-tag-rail-icon-cover-gap: clamp(54px, 12vw, 74px);
+ }
+
+ .library-item-detail-context-rail-library.mhg-library-active .mhg-library-button-label {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 22px;
+  max-width: max(calc(var(--mhg-context-rail-col1-icon, 96px) * 1.35), 72px);
+  font-size: clamp(9px, 2.5vw, 12px);
+  line-height: 1.15;
+  white-space: nowrap;
+ }
+
+ .tag-games-context-rail-library.mhg-library-active .mhg-library-button-label {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 18px;
+  max-width: max(calc(var(--mhg-context-rail-col1-icon, 96px) * 1.35), 72px);
+  font-size: clamp(9px, 2.5vw, 12px);
+  line-height: 1.15;
+  white-space: nowrap;
+ }
+
+ .library-item-detail-page-shell--context-rail {
+  --mhg-context-rail-col1-cover-max: clamp(
+   36px,
+   8vw,
+   min(var(--lid-cover-size, 240px), 120px)
+  );
+ }
+
+ .tag-games-page-shell--context-rail {
+  --mhg-context-rail-tag-cover-max: clamp(
+   36px,
+   8vw,
+   var(--tag-list-cover-size, 150px)
+  );
+ }
+
+ .library-item-detail-context-rail-cover {
+  margin-top: 0;
+ }
+
+ .tag-games-context-rail .tag-games-context-rail-cover.tag-list-item {
+  margin-top: 24px;
+ }
+}
+
+@media (max-width: 720px) {
+ .library-item-detail-page-shell--context-rail {
+  --mhg-context-rail-index-peek-width: clamp(24px, 6vw, 120px);
+  --mhg-context-rail-index-peek-gap-after: clamp(0px, 0.4vw, 12px);
+  --mhg-context-rail-layout-padding: clamp(2px, 0.6vw, 16px);
+  --mhg-context-rail-layout-gap: clamp(0px, 0.4vw, 12px);
+  --mhg-context-rail-bridge-width: 0px;
+  --mhg-context-rail-col1-icon: clamp(32px, 6vw, 72px);
+  --mhg-context-rail-games-min: clamp(112px, 34vw, 9999px);
+  --mhg-detail-rail-icon-cover-gap: clamp(40px, 9vw, 56px);
+ }
+
+ .tag-games-page-shell--context-rail {
+  --mhg-context-rail-index-peek-width: clamp(24px, 6vw, 120px);
+  --mhg-context-rail-index-peek-gap-after: clamp(0px, 0.4vw, 12px);
+  --mhg-context-rail-layout-padding: clamp(2px, 0.6vw, 16px);
+  --mhg-context-rail-layout-gap: clamp(0px, 0.4vw, 12px);
+  --mhg-context-rail-bridge-width: 0px;
+  --mhg-context-rail-col1-icon: clamp(32px, 6vw, 72px);
+  --mhg-context-rail-games-min: clamp(112px, 34vw, 9999px);
+  --mhg-tag-rail-icon-cover-gap: clamp(64px, 14vw, 84px);
+ }
+
+ .library-item-detail-context-rail-library.mhg-library-active .mhg-library-button-label {
+  margin-top: 28px;
+ }
+
+ .tag-games-context-rail-library.mhg-library-active .mhg-library-button-label {
+  top: 100%;
+  margin-top: 24px;
+ }
+
+ .library-item-detail-page-shell--context-rail {
+  --mhg-context-rail-col1-cover-max: clamp(24px, 4.5vw, 56px);
+  --mhg-context-rail-games-min: clamp(120px, 36vw, 9999px);
+ }
+
+ .tag-games-page-shell--context-rail {
+  --mhg-context-rail-tag-cover-max: clamp(36px, 8vw, 100px);
+ }
+
+ .library-item-detail-context-rail-cover {
+  margin-top: 0;
+ }
+
+ .tag-games-context-rail .tag-games-context-rail-cover.tag-list-item {
+  margin-top: 32px;
+ }
+
+ .library-item-detail-page-shell--context-rail .mhg-context-rail-bridge,
+ .tag-games-page-shell--context-rail .mhg-context-rail-bridge {
+  display: none !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+ }
+}
+
+.mhg-context-rail-index-peek {
+ flex: 0 1 var(--mhg-context-rail-index-peek-width, 168px);
+ width: var(--mhg-context-rail-index-peek-width, 168px);
+ min-width: 0;
+ max-width: var(--mhg-context-rail-index-peek-width, 168px);
+ align-self: stretch;
+ margin-top: calc(-1 * var(--mhg-context-rail-peek-lift, 0px)) !important;
+ margin-right: var(--mhg-context-rail-index-peek-gap-after, 24px);
+ min-height: 100%;
+ height: auto;
+ overflow-x: hidden !important;
+ overflow-y: visible !important;
+ pointer-events: none !important;
+ z-index: 1;
+ position: relative;
+ box-sizing: border-box;
+ flex-shrink: 1;
+}
+
+.tag-games-page-shell--context-rail .mhg-context-rail-index-peek {
+ margin-top: calc(-1 * var(--mhg-context-rail-peek-lift, 0px)) !important;
+ min-height: 100%;
+ height: auto;
+}
+
+.mhg-context-rail-index-peek-host {
+ width: 100%;
+ height: 100%;
+ min-height: 100%;
+ overflow: visible !important;
+ pointer-events: none !important;
+ filter: blur(5px) saturate(0.78) brightness(0.68);
+ opacity: 0.92;
+}
+
+.mhg-context-rail-index-peek,
+.mhg-context-rail-index-peek * {
+ pointer-events: none !important;
+ cursor: default !important;
+ user-select: none !important;
+}
+
+.mhg-context-rail-index-peek-stack {
+ position: relative;
+ width: 100%;
+ min-height: 100%;
+ box-sizing: border-box;
+}
+
+.mhg-context-rail-index-peek-tile {
+ position: absolute;
+ left: 0;
+ width: 100%;
+ max-width: 100%;
+ min-width: 0;
+ box-sizing: border-box;
+ display: flex;
+ justify-content: flex-start;
+ overflow: visible !important;
+}
+
+.mhg-context-rail-index-peek-tile .tag-list-item,
+.mhg-context-rail-index-peek-tile .games-list-cover {
+ width: 100% !important;
+ max-width: 100% !important;
+ min-width: 0 !important;
+ pointer-events: none !important;
+}
+
+.mhg-context-rail-index-peek-tile .games-list-cover {
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 50% 50% !important;
+}
+
+.library-item-detail-context-games,
+.tag-games-context-games {
+ position: relative;
+ z-index: 2;
+}
+
+.library-item-detail-context-layout,
+.tag-games-context-layout {
+ overflow-x: hidden !important;
+ overflow-y: hidden !important;
+}
+
+.library-item-detail-context-layout:has(.mhg-context-rail-index-peek),
+.tag-games-context-layout:has(.mhg-context-rail-index-peek) {
+ overflow-y: visible !important;
+}
+
+/* Motion: games column slides in; optional shared-element cover transition. */
+@keyframes mhg-context-rail-games-column-enter {
+ from {
+  opacity: 0;
+  transform: translateX(40px);
+ }
+ to {
+  opacity: 1;
+  transform: translateX(0);
+ }
+}
+
+.library-item-detail-page-shell--context-rail.mhg-context-rail-motion-enter
+ .library-item-detail-context-games,
+.tag-games-page-shell--context-rail.mhg-context-rail-motion-enter
+ .tag-games-context-games {
+ animation: mhg-context-rail-games-column-enter 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes mhg-context-rail-peek-fade-enter {
+ from {
+  opacity: 0;
+ }
+ to {
+  opacity: 1;
+ }
+}
+
+.library-item-detail-page-shell--context-rail.mhg-context-rail-motion-enter
+ .mhg-context-rail-index-peek,
+.tag-games-page-shell--context-rail.mhg-context-rail-motion-enter
+ .mhg-context-rail-index-peek {
+ animation: mhg-context-rail-peek-fade-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes mhg-context-rail-rail-slide-enter {
+ from {
+  opacity: 0.92;
+  transform: translateX(72px);
+ }
+ to {
+  opacity: 1;
+  transform: translateX(0);
+ }
+}
+
+/* Icon + cover column: always slide in from index navigation (also when View Transitions fail). */
+.library-item-detail-page-shell--context-rail.mhg-context-rail-motion-enter
+ .library-item-detail-context-rail,
+.tag-games-page-shell--context-rail.mhg-context-rail-motion-enter
+ .tag-games-context-rail {
+ animation: mhg-context-rail-rail-slide-enter 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes mhg-context-rail-rail-slide-return {
+ from {
+  opacity: 0.92;
+  transform: translateX(56px);
+ }
+ to {
+  opacity: 1;
+  transform: translateX(0);
+ }
+}
+
+/* Index list: return from context-rail detail (icon + cover morph back to focal column). */
+.home-page-content-wrapper.mhg-context-rail-motion-return .fixed-focal-tag-list,
+.home-page-content-wrapper.mhg-context-rail-motion-return .fixed-focal-collections-list {
+ animation: mhg-context-rail-rail-slide-return 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Full-page input freeze after context-rail return (ghost click / history). */
+html.mhg-context-rail-activation-lock-global,
+html.mhg-context-rail-activation-lock-global body,
+html.mhg-context-rail-activation-lock-global #root,
+html.mhg-context-rail-activation-lock-global #root * {
+ pointer-events: none !important;
+ user-select: none !important;
+ cursor: default !important;
+}
+
+/* Ignore stray mouseup on the focal cover right after context-rail return. */
+.fixed-focal-tag-list.mhg-context-rail-activation-locked,
+.fixed-focal-collections-list.mhg-context-rail-activation-locked,
+.fixed-focal-tag-list.mhg-context-rail-activation-locked .fixed-focal-tag-item,
+.fixed-focal-collections-list.mhg-context-rail-activation-locked .fixed-focal-collections-item,
+.fixed-focal-tag-list.mhg-context-rail-activation-locked .fixed-focal-tag-item *,
+.fixed-focal-collections-list.mhg-context-rail-activation-locked .fixed-focal-collections-item * {
+ pointer-events: none !important;
+ cursor: default !important;
+}
+
+.tag-games-context-rail-library,
+.tag-games-context-rail-cover,
+.library-item-detail-context-rail-library,
+.library-item-detail-context-rail-cover {
+ contain: layout;
+}
+
+@supports (view-transition-name: none) {
+ /* Let shared cover/library morph; avoid full-page crossfade masking the slide. */
+ ::view-transition-old(root),
+ ::view-transition-new(root) {
+  animation: none;
+ }
+
+ ::view-transition-group(mhg-context-rail-cover),
+ ::view-transition-group(mhg-context-rail-library) {
+  animation-duration: 0.42s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+ }
+
+ ::view-transition-old(mhg-context-rail-cover),
+ ::view-transition-new(mhg-context-rail-cover),
+ ::view-transition-old(mhg-context-rail-library),
+ ::view-transition-new(mhg-context-rail-library) {
+  animation-duration: 0.42s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  mix-blend-mode: normal;
+ }
+}
+
+.library-item-detail-context-games:focus,
+.library-item-detail-context-games:focus-visible,
+.library-item-detail-context-games:focus-within {
+ outline: none !important;
+ border: none !important;
+ box-shadow: none !important;
+}
+
+.library-item-detail-context-games::-webkit-scrollbar,
+.library-item-detail-context-games *::-webkit-scrollbar,
+.tag-games-context-games::-webkit-scrollbar,
+.tag-games-context-games *::-webkit-scrollbar,
+.virtualized-games-grid::-webkit-scrollbar,
+.virtualized-collections-grid::-webkit-scrollbar {
+ width: 0 !important;
+ height: 0 !important;
+ display: none !important;
+ background: transparent !important;
+}
+
+.library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ .virtualized-games-grid,
+.library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ .virtualized-games-grid:focus,
+.library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ .virtualized-games-grid:focus-visible {
+ outline: none !important;
+ border: none !important;
+ box-shadow: none !important;
+}
+
+
+.library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ .virtualized-grid-cell-pad
+ .games-list-item--cover-sized {
+ width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ box-sizing: border-box !important;
+}
+
+.library-item-detail-context-rail-library.mhg-library-active .mhg-library-button-label,
+.tag-games-context-rail-library.mhg-library-active .mhg-library-button-label {
+ display: block;
+}
+
+.library-item-detail-context-rail-cover {
+ width: min(var(--lid-cover-size, 150px), var(--mhg-context-rail-col1-cover-max, var(--lid-cover-size, 240px)));
+ max-width: var(--mhg-context-rail-col1-cover-max, min(var(--lid-cover-size, 150px), 40vw));
+ box-sizing: border-box;
+}
+
+.library-item-detail-context-rail-cover .cover-container,
+.library-item-detail-context-rail-cover .games-list-cover,
+.library-item-detail-context-rail-cover img {
+ width: 100% !important;
+ max-width: 100% !important;
+ height: auto !important;
+}
+
+/* Static context-rail cover: wheel UX is for the games column, not this tile. */
+.library-item-detail-context-rail,
+.tag-games-context-rail {
+ position: relative;
+ z-index: 4;
+}
+
+.library-item-detail-context-rail-cover .games-list-cover-play:hover .games-list-play-button-play-only,
+.library-item-detail-context-rail-cover .games-list-play-button-play-only:hover,
+.tag-games-context-rail-cover .games-list-cover-play:hover .games-list-play-button-play-only,
+.tag-games-context-rail-cover .games-list-play-button-play-only:hover {
+ opacity: 1 !important;
+ pointer-events: auto !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .library-item-detail-context-rail-cover
+ .games-list-cover-play:hover
+ .games-list-play-button-play-only,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-games-context-rail-cover
+ .games-list-cover-play:hover
+ .games-list-play-button-play-only {
+ opacity: 1 !important;
+ pointer-events: auto !important;
+}
+
+/*Detail games column: left-aligned rail; no global icon-center margin shift.*/
+.library-item-detail-scroll--context-rail .library-item-detail-context-games .library-item-detail-games-list,
+.library-item-detail-scroll--context-rail .library-item-detail-context-games .games-list-container,
+.library-item-detail-scroll--context-rail .library-item-detail-context-games .games-list-container--virtualized,
+.library-item-detail-scroll--context-rail .library-item-detail-context-games .virtualized-games-grid,
+.library-item-detail-scroll--context-rail .library-item-detail-context-games .virtualized-list-fade,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ .virtualized-games-grid,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ .games-list-container:not(.games-list-container--virtualized),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-vertical-covers-page
+ .library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ .virtualized-games-grid {
+ margin-left: 0 !important;
+ margin-right: 0 !important;
+ align-items: flex-start !important;
+}
+
+.library-item-detail-scroll--context-rail .library-item-detail-context-games .games-list-container,
+.library-item-detail-scroll--context-rail .library-item-detail-context-games .games-list-container--virtualized,
+.library-item-detail-scroll--context-rail .library-item-detail-context-games .games-list-container--virtualized .virtualized-list-fade {
+ width: 100% !important;
+ min-height: 0 !important;
+ height: auto !important;
+}
+
+.library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ .games-list-container--virtualized
+ .virtualized-list-fade {
+ padding-left: 0 !important;
+ padding-right: 0 !important;
+}
+
+/*Detail/tag column 2: no Library vertical-covers bottom pad / min-height bleed.*/
+.library-item-detail-scroll--context-rail .library-item-detail-context-games .mhg-vertical-covers-page,
+.library-item-detail-scroll--context-rail .library-item-detail-context-games .mhg-vertical-covers-page .home-page-scroll-container,
+.tag-games-page-shell--context-rail .tag-games-context-games .mhg-vertical-covers-page,
+.tag-games-page-shell--context-rail .tag-games-context-games .mhg-vertical-covers-page .home-page-scroll-container {
+ --mhg-grid-bottom-inset: 0px !important;
+ padding-top: 0 !important;
+ padding-bottom: 0 !important;
+ margin-top: 0 !important;
+ margin-bottom: 0 !important;
+}
+
+.library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ .mhg-vertical-covers-page
+ .games-list-container--virtualized
+ .virtualized-list-fade,
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .mhg-vertical-covers-page
+ .games-list-container--virtualized
+ .virtualized-list-fade {
+ min-height: 0 !important;
+}
+
+/* Context-rail games column: fixed Y slots — selected cover on col-1 cover line. */
+.library-item-detail-scroll--context-rail
+ .library-item-detail-context-games:has(.fixed-focal-games-list) {
+ --mhg-grid-top-inset: var(--mhg-context-rail-cover-top);
+ --mhg-grid-top-inset-games: var(--mhg-context-rail-cover-top);
+ --mhg-grid-bottom-inset: calc(100dvh - var(--mhg-context-rail-cover-top));
+ --mhg-grid-bottom-inset-games: var(--mhg-grid-bottom-inset);
+ overflow-x: hidden !important;
+ overflow-y: hidden !important;
+ overscroll-behavior: none;
+ touch-action: none;
+}
+
+.library-item-detail-scroll--context-rail
+ .library-item-detail-context-games:has(.fixed-focal-games-list)
+ > .library-item-detail-games-list {
+ padding-top: 0 !important;
+}
+
+.library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ .games-list-container--fixed-focal {
+ height: 100%;
+ min-height: 100%;
+}
+
+.library-item-detail-scroll--context-rail
+ .library-item-detail-context-games
+ .games-list-container--fixed-focal
+ .fixed-focal-games-list {
+ position: relative;
+ display: block !important;
+ overflow: visible !important;
+ touch-action: none;
+ min-height: 100vh;
+ height: 100%;
+ margin-left: 0 !important;
+ margin-right: auto !important;
+ gap: 0 !important;
+}
+
+.library-item-detail-scroll--context-rail .fixed-focal-games-item.virtualized-grid-cell-pad {
+ transform: none !important;
+}
+
+.library-item-detail-scroll--context-rail .fixed-focal-games-item {
+ position: absolute;
+ z-index: 1;
+}
+
+.library-item-detail-scroll--context-rail .fixed-focal-games-item.mhg-cover-scale-selected {
+ z-index: 3;
+}
+
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected) {
+ z-index: 0;
+}
+
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item
+ .games-list-item--cover-sized {
+ transform: none !important;
+ width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+ min-width: 0 !important;
+ max-width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+ margin: 0 !important;
+}
+
+.library-item-detail-scroll--context-rail
+ .fixed-focal-games-item
+ .games-list-cover {
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 50% 50% !important;
+ transition: none !important;
+ width: var(--mhg-context-rail-focal-cover-cap, min(var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)), 100%)) !important;
+ max-width: var(--mhg-context-rail-focal-cover-cap, min(var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)), 100%)) !important;
+ aspect-ratio: 3 / 4 !important;
+ height: auto !important;
+}
+
+/* Context-rail games column: cap cover width so the selected title stays beside it. */
+.library-item-detail-page-shell--context-rail
+ .library-item-detail-context-games
+ .mhg-cover-scale-selected
+ .games-list-title-wrapper,
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .mhg-cover-scale-selected
+ .games-list-title-wrapper {
+ left: calc(
+  var(--mhg-context-rail-focal-cover-cap, var(--mhg-fixed-focal-cover-size, 240px)) +
+  var(--mhg-vertical-rail-cover-title-gap, 12px)
+ ) !important;
+ max-width: calc(
+  100% -
+  var(--mhg-context-rail-focal-cover-cap, var(--mhg-fixed-focal-cover-size, 240px)) -
+  var(--mhg-vertical-rail-cover-title-gap, 12px)
+ ) !important;
+ transform: translateY(calc(-50% + var(--mhg-vertical-rail-title-nudge-portrait, 0px))) !important;
+}
+
+.library-item-detail-page-shell--context-rail
+ .library-item-detail-context-games
+ .mhg-cover-scale-selected
+ .games-list-item--cover-sized,
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .mhg-cover-scale-selected
+ .games-list-item--cover-sized {
+ gap: var(--mhg-vertical-rail-cover-title-gap, 12px) !important;
+ column-gap: var(--mhg-vertical-rail-cover-title-gap, 12px) !important;
+}
+
+/*=============================================================================
+* Tag detail layout (tag-games-* only — do not reuse library-item-detail-*).
+* =============================================================================*/
+.tag-games-page-shell--context-rail {
+ --mhg-tag-rail-icon-cover-gap: 12px;
+ --mhg-context-rail-cover-top: calc(
+  var(--mhg-tag-rail-top, 204px) + var(--mhg-context-rail-col1-icon, 96px) + var(--mhg-tag-rail-icon-cover-gap, 12px)
+ );
+ --mhg-context-rail-bridge-offset: 28px;
+ margin-top: calc(-1* var(--mhg-tag-dock-stack)) !important;
+ height: 100vh !important;
+ height: 100dvh !important;
+ max-height: 100vh !important;
+ max-height: 100dvh !important;
+ overflow: hidden !important;
+ position: relative;
+ box-sizing: border-box;
+}
+
+.tag-games-page-shell--context-rail:has(.mhg-context-rail-index-peek) {
+ overflow-y: visible !important;
+}
+
+.tag-games-libraries-bar-host--dock-only {
+ position: relative;
+}
+
+.tag-games-libraries-bar-host--dock-only .mhg-libraries-container,
+.tag-games-libraries-bar-host--dock-only .mhg-collections-shortcuts {
+ display: none !important;
+}
+
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-inner {
+ gap: 12px;
+ padding: 0 12px;
+}
+
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-view,
+.tag-games-libraries-bar-host--dock-only .mhg-top-right-tool-dock-slider {
+ display: none !important;
+}
+
+.tag-games-page-shell--context-rail .home-page-content,
+.tag-games-page-shell--context-rail .tag-games-page-layout-min-h {
+ height: 100% !important;
+ min-height: 0 !important;
+ max-height: 100vh !important;
+ max-height: 100dvh !important;
+}
+
+.tag-games-page-layout-min-h {
+ display: flex !important;
+ flex-direction: column !important;
+ flex: 1 1 auto !important;
+ min-height: 0 !important;
+ height: 100% !important;
+ overflow: hidden !important;
+}
+
+.tag-games-context-layout {
+ display: flex;
+ flex-direction: row;
+ align-items: stretch;
+ justify-content: flex-start;
+ width: 100%;
+ min-width: 0;
+ height: 100%;
+ min-height: 100%;
+ box-sizing: border-box;
+ padding-left: var(--mhg-context-rail-layout-padding, calc(20px + 8px));
+ gap: var(--mhg-context-rail-layout-gap, 24px);
+}
+
+.tag-games-context-rail {
+ flex: 0 1 auto;
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ align-self: flex-start;
+ flex-shrink: 1;
+ min-width: 0;
+ max-width: calc(
+  max(
+   var(--mhg-context-rail-col1-icon, 96px),
+   var(--mhg-context-rail-tag-cover-max, var(--tag-list-cover-size, 150px))
+  )
+ );
+ padding-top: var(--mhg-tag-rail-top, 204px);
+ gap: var(--mhg-tag-rail-icon-cover-gap, 12px);
+ z-index: 2;
+}
+
+.tag-games-context-rail-library.mhg-library-button,
+.tag-games-context-rail-library.mhg-library-active {
+ width: var(--mhg-context-rail-col1-icon, 96px);
+ min-width: var(--mhg-context-rail-col1-icon, 96px);
+ height: var(--mhg-context-rail-col1-icon, 96px);
+ overflow: visible;
+}
+
+/*Match tag list tile: 16:9 at --tag-list-cover-size, not collection portrait width.*/
+.tag-games-context-rail .tag-games-context-rail-cover.tag-list-item {
+ width: fit-content;
+ max-width: 100%;
+}
+
+.tag-games-context-rail .tag-games-context-rail-cover.tag-list-item .games-list-cover {
+ width: min(
+  var(--tag-list-cover-size, var(--lid-cover-size, 150px)),
+  var(--mhg-context-rail-tag-cover-max, var(--tag-list-cover-size, var(--lid-cover-size, 150px)))
+ ) !important;
+ max-width: var(--mhg-context-rail-tag-cover-max, 100%) !important;
+}
+
+.tag-games-context-games {
+ flex: 1 1 0;
+ min-width: var(--mhg-context-rail-games-min, 88px);
+ width: 0;
+ min-height: 0;
+ height: 100%;
+ max-height: 100%;
+ overflow-y: auto !important;
+ overflow-x: hidden !important;
+ overscroll-behavior: contain;
+ -webkit-overflow-scrolling: touch;
+ align-self: stretch;
+ margin: 0 !important;
+ padding: 0 !important;
+ box-sizing: border-box;
+ container-type: inline-size;
+ container-name: mhg-context-rail-games;
+ --mhg-context-rail-focal-cover-cap: min(
+  var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)),
+  clamp(44px, 36cqw, 168px)
+ );
+ --mhg-vertical-rail-cover-title-gap: clamp(4px, 3cqw, 20px);
+ --mhg-vertical-rail-title-font-size: clamp(0.68rem, 5.2cqw, 1.3rem);
+ --mhg-vertical-rail-year-font-size: clamp(0.58rem, 4cqw, 1rem);
+ --mhg-vertical-rail-title-line-clamp: 4;
+ --mhg-vertical-rail-title-nudge-portrait: clamp(-10px, -1.5cqw, -32px);
+ --mhg-vertical-column-width: var(--mhg-context-rail-games-column-width, min(480px, 100%));
+ --mhg-grid-top-inset: var(--mhg-context-rail-cover-top);
+ --mhg-grid-top-inset-games: var(--mhg-context-rail-cover-top);
+ --mhg-grid-top-inset-collections: 0px;
+ --mhg-grid-top-inset-tag: 0px;
+ --mhg-grid-bottom-inset: calc(100dvh - var(--mhg-context-rail-cover-top));
+ --mhg-grid-bottom-inset-games: var(--mhg-grid-bottom-inset);
+ --mhg-grid-bottom-inset-collections: 0px;
+ --mhg-grid-bottom-inset-tag: 0px;
+ --mhg-step-scroll-rows: 1;
+}
+
+@container mhg-context-rail-games (max-width: 220px) {
+ .library-item-detail-context-games,
+ .tag-games-context-games {
+  --mhg-context-rail-focal-cover-cap: min(
+   var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)),
+   clamp(36px, 30cqw, 112px)
+  );
+  --mhg-vertical-rail-cover-title-gap: clamp(2px, 2.5cqw, 12px);
+  --mhg-vertical-rail-title-font-size: clamp(0.62rem, 6cqw, 1rem);
+  --mhg-vertical-rail-title-line-clamp: 5;
+ }
+}
+
+
+.tag-games-context-games .virtualized-grid-cell-pad .games-list-item--cover-sized {
+ width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ box-sizing: border-box !important;
+}
+
+.tag-games-page-shell--context-rail .tag-games-context-games .games-list-container,
+.tag-games-page-shell--context-rail .tag-games-context-games .games-list-container--virtualized,
+.tag-games-page-shell--context-rail .tag-games-context-games .virtualized-games-grid,
+.tag-games-page-shell--context-rail .tag-games-context-games .virtualized-list-fade,
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .mhg-vertical-covers-page
+ .games-list-container--virtualized
+ .virtualized-games-grid,
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .mhg-vertical-covers-page
+ .games-list-container:not(.games-list-container--virtualized),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .virtualized-games-grid,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .games-list-container:not(.games-list-container--virtualized),
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-vertical-covers-page
+ .tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .virtualized-games-grid {
+ margin-left: 0 !important;
+ margin-right: 0 !important;
+ align-items: flex-start !important;
+}
+
+.tag-games-page-shell--context-rail .tag-games-context-games .games-list-container,
+.tag-games-page-shell--context-rail .tag-games-context-games .games-list-container--virtualized,
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .games-list-container--virtualized
+ .virtualized-list-fade {
+ width: 100% !important;
+ min-height: 0 !important;
+ height: auto !important;
+}
+
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .games-list-container--virtualized
+ .virtualized-list-fade {
+ padding-left: 0 !important;
+ padding-right: 0 !important;
+}
+
+.tag-games-context-games .home-page-scroll-container {
+ overflow: visible !important;
+ min-height: 0 !important;
+ height: auto !important;
+}
+
+/* Tag detail context-rail: narrow games column — cap cover width, give titles room. */
+.tag-games-page-shell--context-rail
+ .tag-games-context-games:has(.fixed-focal-games-list) {
+ overflow-x: hidden !important;
+ overflow-y: hidden !important;
+ overscroll-behavior: none;
+ touch-action: none;
+}
+
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .games-list-container--fixed-focal {
+ height: 100%;
+ min-height: 100%;
+}
+
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .games-list-container--fixed-focal
+ .fixed-focal-games-list {
+ position: relative;
+ display: block !important;
+ overflow: visible !important;
+ touch-action: none;
+ min-height: 100vh;
+ height: 100%;
+ margin-left: 0 !important;
+ margin-right: auto !important;
+ gap: 0 !important;
+}
+
+.tag-games-page-shell--context-rail .tag-games-context-games .fixed-focal-games-item {
+ position: absolute;
+ z-index: 1;
+ overflow: visible !important;
+}
+
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item.mhg-cover-scale-selected {
+ z-index: 3;
+}
+
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected) {
+ z-index: 0;
+}
+
+.tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item
+ .games-list-item--cover-sized {
+ transform: none !important;
+ width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+ min-width: 0 !important;
+ max-width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+ margin: 0 !important;
+ box-sizing: border-box;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .tag-games-page-shell--context-rail
+ .tag-games-context-games
+ .fixed-focal-games-item
+ .games-list-cover {
+ flex: 0 1 auto;
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 50% 50% !important;
+ transition: none !important;
+ width: var(--mhg-context-rail-focal-cover-cap, min(var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)), 100%)) !important;
+ max-width: var(--mhg-context-rail-focal-cover-cap, min(var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)), 100%)) !important;
+ aspect-ratio: 3 / 4 !important;
+ height: auto !important;
+}
+
+/* Context-rail games column (tag detail + collection-like): inherits .mhg-cover-scale-selected title wrap. */
+
+/*=============================================================================
+* Recommended section detail (compact + vertical covers): same shell as tag/collection.
+* Column 1 = Recommended library icon + section title; column 2 = fixed-focal games.
+* =============================================================================*/
+.recommended-section-detail-shell--context-rail {
+ --mhg-recommended-rail-icon-title-gap: 12px;
+ /* Column 2 lines up with the section title (not the icon row). */
+ --mhg-context-rail-cover-top: calc(
+  var(--mhg-detail-rail-top, 204px) + 96px + var(--mhg-recommended-rail-icon-title-gap, 12px)
+ );
+ /* Arrow keeps the original bridge row; games column uses focal nudge 0. */
+ --mhg-context-rail-bridge-offset: 28px;
+ --mhg-context-rail-focal-nudge-px: 0px;
+ /* Extra space between title rail and games column. */
+ --mhg-recommended-detail-layout-gap: 16px;
+ --mhg-recommended-detail-games-shift-x: 24px;
+ margin-top: calc(-1* var(--mhg-detail-dock-stack, 0px)) !important;
+ height: 100vh !important;
+ height: 100dvh !important;
+ max-height: 100vh !important;
+ max-height: 100dvh !important;
+ overflow: hidden !important;
+ position: relative;
+ box-sizing: border-box;
+}
+
+.recommended-section-libraries-bar-host--dock-only {
+ position: relative;
+}
+
+.recommended-section-libraries-bar-host--dock-only .mhg-libraries-container,
+.recommended-section-libraries-bar-host--dock-only .mhg-collections-shortcuts {
+ display: none !important;
+}
+
+.recommended-section-libraries-bar-host--dock-only
+ > .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] {
+ display: block !important;
+ margin-bottom: 0 !important;
+}
+
+.recommended-section-libraries-bar-host--dock-only .mhg-top-right-tool-dock {
+ min-width: 0;
+ width: 100%;
+}
+
+.recommended-section-libraries-bar-host--dock-only .mhg-top-right-tool-dock-inner {
+ gap: 12px;
+ padding: 0 12px;
+}
+
+.recommended-section-libraries-bar-host--dock-only .mhg-top-right-tool-dock-view,
+.recommended-section-libraries-bar-host--dock-only .mhg-top-right-tool-dock-main-games {
+ display: none !important;
+}
+
+.recommended-section-libraries-bar-host--dock-only .mhg-libraries-bar-container {
+ display: none !important;
+}
+
+.recommended-section-detail-shell--context-rail .recommended-section-detail-main-min-h,
+.recommended-section-detail-shell--context-rail .recommended-section-detail-layout-min-h,
+.recommended-section-detail-shell--context-rail .home-page-content-wrapper {
+ height: 100% !important;
+ min-height: 0 !important;
+ max-height: 100vh !important;
+ max-height: 100dvh !important;
+}
+
+.recommended-section-detail-shell--context-rail .recommended-section-detail-scroll {
+ display: flex !important;
+ flex-direction: column !important;
+ flex: 1 1 auto !important;
+ height: 100% !important;
+ max-height: 100vh !important;
+ max-height: 100dvh !important;
+ min-height: 0 !important;
+ overflow: hidden !important;
+}
+
+.recommended-section-detail-scroll--context-rail {
+ overflow: hidden !important;
+}
+
+.recommended-section-detail-scroll--context-rail.home-page-scroll-container:focus,
+.recommended-section-detail-scroll--context-rail.home-page-scroll-container:focus-visible {
+ outline: none !important;
+ border: none !important;
+ box-shadow: none !important;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-detail-section-full.recommended-section-context-layout {
+ flex: 1 1 auto;
+ min-height: 0;
+ height: 100%;
+}
+
+.recommended-section-context-layout {
+ display: flex;
+ flex-direction: row;
+ align-items: stretch;
+ justify-content: flex-start;
+ width: 100%;
+ height: 100%;
+ min-height: 100%;
+ box-sizing: border-box;
+ padding-left: calc(20px + 8px);
+ gap: 4px;
+}
+
+.recommended-section-detail-shell--context-rail .recommended-section-context-layout {
+ gap: var(--mhg-recommended-detail-layout-gap, 16px);
+}
+
+.recommended-section-context-rail {
+ flex: 0 0 auto;
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ align-self: flex-start;
+ flex-shrink: 0;
+ width: auto;
+ max-width: min(var(--lid-cover-size, 150px), 42vw);
+ padding-top: var(--mhg-detail-rail-top, 204px);
+ gap: var(--mhg-recommended-rail-icon-title-gap, 12px);
+ z-index: 2;
+}
+
+.recommended-section-context-rail-library.mhg-library-button,
+.recommended-section-context-rail-library.mhg-library-active {
+ width: 96px;
+ min-width: 96px;
+ height: 96px;
+}
+
+.recommended-section-context-rail-library.mhg-library-active .mhg-library-button-label {
+ display: block;
+}
+
+.recommended-section-context-rail-title-block {
+ width: 100%;
+ max-width: 100%;
+ box-sizing: border-box;
+}
+
+.recommended-section-detail-shell--context-rail .mhg-context-rail-bridge {
+ flex: 0 0 auto;
+ width: 8px;
+ min-width: 8px;
+ margin-left: 0;
+ margin-right: 0;
+}
+
+.recommended-section-context-rail-title {
+ margin: 0;
+ width: 100%;
+ text-align: left;
+ word-break: break-word;
+}
+
+.recommended-section-context-games {
+ flex: 1 1 auto;
+ min-width: 0;
+ min-height: 0;
+ height: 100%;
+ max-height: 100%;
+ overflow-y: auto !important;
+ overflow-x: hidden !important;
+ overscroll-behavior: contain;
+ -webkit-overflow-scrolling: touch;
+ align-self: stretch;
+ margin: 0 !important;
+ padding: 0 !important;
+ box-sizing: border-box;
+ outline: none !important;
+ border: none !important;
+ box-shadow: none !important;
+ scrollbar-width: none;
+ -ms-overflow-style: none;
+ --mhg-grid-top-inset: 0px;
+ --mhg-grid-top-inset-games: 0px;
+ --mhg-grid-top-inset-collections: 0px;
+ --mhg-grid-top-inset-tag: 0px;
+ --mhg-grid-bottom-inset: calc(100dvh - var(--mhg-context-rail-cover-top));
+ --mhg-grid-bottom-inset-games: var(--mhg-grid-bottom-inset);
+ --mhg-grid-bottom-inset-collections: 0px;
+ --mhg-grid-bottom-inset-tag: 0px;
+ --mhg-step-scroll-rows: 1;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ > .recommended-section-games-list {
+ padding-top: var(--mhg-context-rail-cover-top);
+ box-sizing: border-box;
+}
+
+.recommended-section-context-games:focus,
+.recommended-section-context-games:focus-visible,
+.recommended-section-context-games:focus-within {
+ outline: none !important;
+ border: none !important;
+ box-shadow: none !important;
+}
+
+.recommended-section-context-games::-webkit-scrollbar,
+.recommended-section-context-games *::-webkit-scrollbar {
+ width: 0 !important;
+ height: 0 !important;
+ display: none !important;
+ background: transparent !important;
+}
+
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games .games-list-container,
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games .games-list-container--virtualized,
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games .virtualized-games-grid,
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games .virtualized-list-fade,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .virtualized-games-grid,
+:root[data-mhg-vertical-cover-alignment="true"]
+ .recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .games-list-container:not(.games-list-container--virtualized) {
+ margin-left: 0 !important;
+ margin-right: 0 !important;
+ align-items: flex-start !important;
+}
+
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games .games-list-container,
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .games-list-container--virtualized,
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .games-list-container--virtualized
+ .virtualized-list-fade {
+ width: 100% !important;
+ min-height: 0 !important;
+ height: auto !important;
+ padding-left: 0 !important;
+ padding-right: 0 !important;
+}
+
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games .mhg-vertical-covers-page,
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .mhg-vertical-covers-page
+ .home-page-scroll-container {
+ --mhg-grid-bottom-inset: 0px !important;
+ padding-top: 0 !important;
+ padding-bottom: 0 !important;
+ margin-top: 0 !important;
+ margin-bottom: 0 !important;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games:has(.fixed-focal-games-list) {
+ --mhg-grid-top-inset: var(--mhg-context-rail-cover-top);
+ --mhg-grid-top-inset-games: var(--mhg-context-rail-cover-top);
+ --mhg-grid-bottom-inset: calc(100dvh - var(--mhg-context-rail-cover-top));
+ --mhg-grid-bottom-inset-games: var(--mhg-grid-bottom-inset);
+ overflow-x: hidden !important;
+ overflow-y: hidden !important;
+ overscroll-behavior: none;
+ touch-action: none;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games:has(.fixed-focal-games-list)
+ > .recommended-section-games-list {
+ padding-top: 0 !important;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .games-list-container--fixed-focal {
+ height: 100%;
+ min-height: 100%;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .games-list-container--fixed-focal
+ .fixed-focal-games-list {
+ position: relative;
+ display: block !important;
+ overflow: visible !important;
+ touch-action: none;
+ min-height: 100vh;
+ min-height: 100dvh;
+ height: 100%;
+ margin-left: 0 !important;
+ margin-right: auto !important;
+ gap: 0 !important;
+}
+
+.recommended-section-detail-scroll--context-rail .recommended-section-context-games {
+ margin-left: var(--mhg-recommended-detail-games-shift-x, 24px) !important;
+ padding-left: 0 !important;
+}
+
+.recommended-section-detail-scroll--context-rail .fixed-focal-games-item.virtualized-grid-cell-pad {
+ transform: none !important;
+}
+
+.recommended-section-detail-scroll--context-rail .fixed-focal-games-item {
+ position: absolute;
+ z-index: 1;
+}
+
+.recommended-section-detail-scroll--context-rail .fixed-focal-games-item.mhg-cover-scale-selected {
+ z-index: 3;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item:not(.mhg-cover-scale-selected) {
+ z-index: 0;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item
+ .games-list-item--cover-sized {
+ transform: none !important;
+ width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+ min-width: 0 !important;
+ max-width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+ margin: 0 !important;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .fixed-focal-games-item
+ .games-list-cover {
+ transform: scale(var(--mhg-cell-scale, 1)) !important;
+ transform-origin: 50% 50% !important;
+ transition: none !important;
+ width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
+ max-width: var(--mhg-fixed-focal-cover-size, var(--games-list-cover-size, 240px)) !important;
+ aspect-ratio: 3 / 4 !important;
+ height: auto !important;
+}
+
+.recommended-section-detail-scroll--context-rail
+ .recommended-section-context-games
+ .virtualized-grid-cell-pad
+ .games-list-item--cover-sized {
+ width: min(var(--mhg-vertical-column-width, 360px), 100%) !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ box-sizing: border-box !important;
+}
+
+/*=============================================================================
+* Vista Dettaglio (`viewMode.detail`): list rows under the active library icon.
+* Base row layout (PS3 bundle omits the full Plex component stylesheet).
+* ==========================================================================*/
+
+.games-list-detail-container {
+ max-width: 100%;
+ margin: 0 auto;
+ padding: 0 24px;
+ box-sizing: border-box;
+}
+
+.games-list-detail-item {
+ display: flex;
+ flex-direction: row;
+ gap: 20px;
+ border-radius: 8px;
+ transition: background-color 0.2s ease;
+ cursor: pointer;
+ position: relative;
+ margin-bottom: var(--mhg-detail-view-row-gap, 24px);
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-list-detail-container:not(.games-list-detail-container--virtualized) {
+ display: flex;
+ flex-direction: column;
+ gap: var(--mhg-detail-view-row-gap, 24px);
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .games-list-detail-container:not(.games-list-detail-container--virtualized)
+ .games-list-detail-item {
+ margin-bottom: 0;
+}
+
+.virtualized-games-list-detail .games-list-detail-item {
+ margin-bottom: 0;
+}
+
+.games-list-detail-item.even {
+ background-color: transparent;
+}
+
+.games-list-detail-item.odd {
+ background-color: rgba(255, 255, 255, 0.02);
+}
+
+.games-list-detail-item:hover,
+.games-list-detail-item.detail-dropdown-open {
+ background-color: rgba(255, 255, 255, 0.05);
+}
+
+.games-list-detail-item .games-list-cover {
+ flex-shrink: 0;
+}
+
+.games-list-detail-content {
+ flex: 1;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ min-width: 0;
+ padding-right: 80px;
+}
+
+.games-list-detail-title-row {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: baseline;
+ gap: 8px 12px;
+}
+
+.games-list-detail-title {
+ font-size: 0.9rem;
+ font-weight: 600;
+ color: #f8f8f8;
+}
+
+.games-list-detail-meta-row {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ flex-wrap: wrap;
+}
+
+/* StarRating (missing from PS3 bundle; without flex stars stack vertically). */
+.star-rating {
+ display: flex;
+ flex-direction: row;
+ flex-wrap: nowrap;
+ align-items: center;
+ gap: var(--sr-gap, 4px);
+}
+
+.star-rating-star {
+ position: relative;
+ flex: 0 0 auto;
+ width: var(--sr-star-size, 16px);
+ height: var(--sr-star-size, 16px);
+ cursor: default;
+}
+
+.star-rating-star--interactive {
+ cursor: pointer;
+ touch-action: manipulation;
+ -webkit-tap-highlight-color: transparent;
+}
+
+.star-rating-star-svg-bg,
+.star-rating-star-svg-overlay {
+ position: absolute;
+ top: 0;
+ left: 0;
+ pointer-events: none;
+}
+
+.star-rating-star-half-hit {
+ position: absolute;
+ top: 0;
+ width: calc(var(--sr-star-size, 16px) / 2);
+ height: var(--sr-star-size, 16px);
+ cursor: pointer;
+ z-index: 10;
+}
+
+.star-rating-star-half-hit--left {
+ left: 0;
+}
+
+.star-rating-star-half-hit--right {
+ right: 0;
+}
+
+/* Summary truncation (line-clamp); missing from PS3 bundle. */
+.summary-root {
+ margin-top: 8px;
+ min-width: 0;
+}
+
+.games-list-detail-content .summary-root {
+ margin-top: 4px;
+}
+
+.summary-text {
+ opacity: 0.8;
+ color: rgba(255, 255, 255, 0.85);
+ font-size: var(--summary-font-size, 0.85rem);
+ line-height: 1.4;
+ display: -webkit-box;
+ -webkit-box-orient: vertical;
+ -webkit-line-clamp: var(--summary-max-lines, 4);
+ line-clamp: var(--summary-max-lines, 4);
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: pre-line;
+ word-break: break-word;
+}
+
+.summary-text--expanded {
+ -webkit-line-clamp: unset;
+ line-clamp: unset;
+ overflow: visible;
+ text-overflow: clip;
+}
+
+.summary-toggle {
+ margin-top: 8px;
+ background-color: transparent;
+ border: none;
+ color: var(--mhg-primary, #22c55e);
+ cursor: pointer;
+ padding: 0;
+ font-size: 0.85rem;
+ line-height: 1.4;
+ display: flex;
+ align-items: center;
+ gap: 4px;
+}
+
+.summary-toggle-chevron {
+ transform: rotate(0deg);
+ transition: transform 0.2s ease;
+}
+
+.summary-toggle-chevron--expanded {
+ transform: rotate(180deg);
+}
+
+.games-list-detail-year {
+ font-size: 0.85rem;
+}
+
+.games-list-detail-type {
+ flex-shrink: 0;
+ font-size: 0.72rem;
+ font-weight: 500;
+ color: rgba(255, 255, 255, 0.55);
+ padding: 2px 8px;
+ border-radius: 4px;
+ background-color: rgba(255, 255, 255, 0.08);
+}
+
+.games-list-detail-actions {
+ position: absolute;
+ top: 50%;
+ right: 16px;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ opacity: 0;
+ transition: opacity 0.2s ease;
+ z-index: 3;
+ transform: translateY(-50%);
+}
+
+.games-list-detail-item:hover .games-list-detail-actions,
+.games-list-detail-item.detail-dropdown-open .games-list-detail-actions {
+ opacity: 1;
+}
+
+.games-list-detail-container--virtualized {
+ height: 100%;
+ min-height: 0;
+}
+
+.virtualized-games-list-detail {
+ overflow-x: hidden !important;
+ padding: 0 24px 0 0;
+ box-sizing: border-box;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container.detail-view:not(.table-view) {
+ padding-top: var(
+  --mhg-detail-view-padding-top,
+  var(--mhg-grid-top-inset-games, var(--mhg-grid-top-inset))
+ ) !important;
+ padding-bottom: 48px !important;
+ box-sizing: border-box;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container.detail-view:not(.table-view):not(
+  :has(.games-list-detail-container--virtualized)
+ ) {
+ overflow-y: auto !important;
+ overflow-x: hidden !important;
+ overscroll-behavior: auto;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container.detail-view:not(.table-view):has(
+  .games-list-detail-container--virtualized
+ ) {
+ overflow-y: hidden !important;
+ overflow-x: hidden !important;
+ display: flex !important;
+ flex-direction: column !important;
+ min-height: 0 !important;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .home-page-scroll-container.detail-view
+ .games-list-detail-container--virtualized {
+ flex: 1 1 auto;
+ min-height: 0;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"] .games-list-detail-container,
+:root[data-mhg-vertical-cover-alignment="true"] .virtualized-games-list-detail {
+ max-width: none;
+ margin-left: max(
+  0px,
+  var(
+   --mhg-detail-view-align-x,
+   calc(
+    var(--mhg-active-library-icon-center-x, 180px) -
+    var(--mhg-vertical-rail-align-half-width, 180px) +
+    var(--mhg-vertical-column-shift-x, 0px)
+   )
+  )
+ ) !important;
+ margin-right: auto !important;
+ margin-top: 0 !important;
+ margin-bottom: 0 !important;
+ padding-left: 0 !important;
+ padding-right: 24px !important;
+ box-sizing: border-box;
+}
+
+:root[data-mhg-vertical-cover-alignment="true"]
+ .mhg-library-vertical-covers
+ .home-page-scroll-container.detail-view:not(.table-view) {
+ height: 100vh !important;
+ min-height: 0 !important;
+}
+
+/* Beat library fixed-focal scroll lock (padding-top: 0 / overflow: hidden). */
+.mhg-library-vertical-covers
+ .home-page-content-wrapper.games-list-page-fade
+ .home-page-scroll-container.detail-view:not(.table-view),
+.mhg-library-vertical-covers
+ .mhg-vertical-covers-page
+ .home-page-scroll-container.detail-view:not(.table-view) {
+ padding-top: var(
+  --mhg-detail-view-padding-top,
+  var(--mhg-grid-top-inset-games, var(--mhg-grid-top-inset))
+ ) !important;
+ padding-bottom: 48px !important;
+}
+
+.mhg-library-vertical-covers
+ .home-page-scroll-container.detail-view:not(.table-view):not(
+  :has(.games-list-detail-container--virtualized)
+ ) {
+ overflow-y: auto !important;
+ overflow-x: hidden !important;
+}
+
+.mhg-library-vertical-covers
+ .home-page-scroll-container.detail-view:not(.table-view):has(
+  .games-list-detail-container--virtualized
+ ) {
+ overflow-y: hidden !important;
+ display: flex !important;
+ flex-direction: column !important;
+}
+
+.virtualized-list-fill {
+ width: 100%;
+ height: 100%;
+ min-height: 200px;
+}
+
+/* ==========================================================================
+ * Vista Tabella (viewMode.table) — base styles + PS3 / vertical-covers layout
+ * ========================================================================== */

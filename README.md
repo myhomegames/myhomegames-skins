@@ -36,7 +36,7 @@ The dev server lists skins from the **latest GitHub release** (same as the publi
 Every skin folder under `skins/<id>/` ships only:
 
 - **`skin.json`** — metadata shown in the web app after install.
-- **`bundle.css`** — **complete** theme for that skin. Nothing is merged with the web default at zip time.
+- **`bundle.css`** — shell / tokens / layout (required for authoring). Optional companions: **`components/`**, **`pages/`**, **`phone.css`**, **`smarttv.css`**. The server concatenates them for `GET …/bundle.css`.
 
 To add a skin, create `skins/<your-id>/` with those two files, then publish with **`npm run release`**.
 

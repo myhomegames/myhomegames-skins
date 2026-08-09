@@ -1,0 +1,109 @@
+/* --- ./components/games/GameDetail.css --- */
+/* Game & collection-like detail — responsive layout foundation (wide). */
+
+.game-detail-scroll-container,
+.catalog-game-detail-scroll-container,
+.library-item-detail-scroll {
+  container-type: inline-size;
+  container-name: mhg-detail-scroll;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.game-detail-info-primary,
+.game-detail-summary,
+.library-item-detail-summary {
+  display: contents;
+}
+
+.game-detail-title,
+.catalog-game-detail-title,
+.library-item-detail-title {
+  overflow-wrap: anywhere;
+}
+
+/* Narrow / phone layout (detail scroll + related breakpoints). */
+@container mhg-detail-scroll (max-width: 720px) {
+  .game-detail-scroll-container,
+  .catalog-game-detail-scroll-container,
+  .library-item-detail-scroll {
+    overflow-x: hidden !important;
+    padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
+  }
+
+  .game-detail-header,
+  .catalog-game-detail-header,
+  .library-item-detail-hero {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    row-gap: 24px;
+    width: 100%;
+  }
+
+  .game-detail-cover-wrapper,
+  .catalog-game-detail-cover-wrapper,
+  .library-item-detail-hero-cover {
+    grid-row: 1;
+    justify-self: center;
+    width: min(256px, 100%);
+  }
+
+  .game-detail-cover-wrapper .games-list-cover,
+  .catalog-game-detail-cover-wrapper .games-list-cover,
+  .library-item-detail-hero-cover .games-list-cover {
+    width: min(256px, 100%) !important;
+  }
+
+  .game-detail-info-panel,
+  .catalog-game-detail-info-panel,
+  .game-detail-info-content,
+  .catalog-game-detail-info-content,
+  .library-item-detail-meta {
+    display: contents;
+  }
+
+  .game-detail-info-primary,
+  .library-item-detail-meta-primary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    grid-row: 2;
+    width: 100%;
+    min-height: 0 !important;
+  }
+
+  .library-item-detail-title-row,
+  .library-item-detail-title-row--with-company-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .game-detail-summary,
+  .library-item-detail-summary {
+    display: block;
+    grid-row: 3;
+    width: 100%;
+  }
+
+  .game-info-block {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+@container mhg-detail-scroll (max-width: 560px) {
+  .game-detail-cover-wrapper,
+  .catalog-game-detail-cover-wrapper,
+  .library-item-detail-hero-cover {
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  .game-detail-cover-wrapper .games-list-cover,
+  .catalog-game-detail-cover-wrapper .games-list-cover,
+  .library-item-detail-hero-cover .games-list-cover {
+    width: 100% !important;
+  }
+}

@@ -1,0 +1,174 @@
+/* --- ./components/common/ScrollableGamesSection.css --- */
+
+
+.scrollable-section {
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollable-section > .scrollable-section-nav {
+  align-self: flex-end;
+  margin-right: 64px;
+  margin-bottom: 12px;
+  position: static;
+  transform: none;
+}
+
+.scrollable-section-header {
+  padding-left: 64px;
+  padding-right: 64px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.scrollable-section-title {
+  font-family: var(--font-heading-2-font-family);
+  font-size: var(--font-heading-2-font-size);
+  line-height: var(--font-heading-2-line-height);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.scrollable-section-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.scrollable-section-title-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Smart TV: make collection strip titles focusable / visible under D-pad. */
+html[data-mhg-tv="1"] .scrollable-section-title-link:is(:focus, :focus-visible, [data-mhg-tv-hover]) {
+  outline: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: #e5a00d;
+}
+
+.scrollable-section-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-right: 64px;
+  -webkit-overflow-scrolling: touch;
+}
+
+html:not([data-mhg-tv="1"]) .scrollable-section-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) #1a1a1a;
+}
+
+html:not([data-mhg-tv="1"]) .scrollable-section-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+html:not([data-mhg-tv="1"]) .scrollable-section-scroll::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+html:not([data-mhg-tv="1"]) .scrollable-section-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+html:not([data-mhg-tv="1"]) .scrollable-section-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.scrollable-section-scroll .games-list-container:not(.games-list-container--virtualized-strip) {
+  display: -webkit-box !important;
+  flex-direction: row !important;
+  gap: 24px;
+  padding-bottom: 8px;
+  padding-left: 0;
+  grid-template-columns: none !important;
+  /* Override GamesList max-width:100% so the strip can overflow and scroll. */
+  max-width: none;
+  width: max-content;
+  margin: 0;
+}
+
+.scrollable-section-scroll .games-list-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scrollable-section-scroll.restoring {
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.scrollable-section-scroll:not(.restoring) {
+  opacity: 1;
+  transition: opacity 0.1s;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/* Smart TV Recommended (and other horizontal strips): larger section + cover titles. */
+html[data-mhg-tv="1"] .scrollable-section-title {
+  font-size: 1.75rem;
+  line-height: 1.25;
+}
+
+html[data-mhg-tv="1"] .scrollable-section-scroll .games-list-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* Room for focused tile scale (keep overflow-y hidden so D-pad Up/Down does
+ * not trap vertical scroll inside the horizontal strip). Edge padding matters:
+ * scale(1.14) grows past the scrollport on the first tile and along the top. */
+html[data-mhg-tv="1"] .scrollable-section-scroll {
+  padding-top: calc(var(--games-list-cover-size, 150px) * 0.14) !important;
+  padding-bottom: calc(var(--games-list-cover-size, 150px) * 0.14 + 12px) !important;
+  padding-left: calc(var(--games-list-cover-size, 150px) * 0.12) !important;
+  padding-right: max(
+    64px,
+    calc(var(--games-list-cover-size, 150px) * 0.12 + 40px)
+  ) !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+html[data-mhg-tv="1"]
+  .scrollable-section-scroll
+  .games-list-container:not(.games-list-container--virtualized-strip) {
+  align-items: flex-start;
+  overflow: visible;
+  /* Keep strip spacing; do not inherit catalog-grid TV gap/padding. */
+  gap: 24px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 4px;
+}
+
+/* Recommended TV rail: cover-only row; never create a nested Y scrollport. */
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .scrollable-section-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-top: calc(var(--games-list-cover-size, 150px) * 0.14) !important;
+  padding-bottom: calc(var(--games-list-cover-size, 150px) * 0.14) !important;
+  padding-left: calc(var(--games-list-cover-size, 150px) * 0.14) !important;
+  min-height: calc(var(--games-list-cover-size, 150px) * 1.28 + 0.5rem);
+}
+
+/* Keep keyword titles aligned with the inset cover rail. */
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .scrollable-section-header {
+  padding-left: calc(
+    20px + var(--games-list-cover-size, 150px) * 0.14
+  );
+}

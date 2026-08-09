@@ -2,5 +2,15 @@
   "name": "Plex",
   "description": "Default MyHomeGames theme (moved from myhomegames-web). The web app uploads this archive when the server has no skins yet.",
   "version": "1.0.1",
-  "snapshot": "snapshot.jpg"
+  "snapshot": "snapshot.jpg",
+  "web": {
+    "detailBackdropLayout": true,
+    "staticInlineTagListOnTvPhone": true,
+    "tvSummaryOverlay": true,
+    "tvStarRatingOverlay": true,
+    "tvDetailSummaryBeforeActions": true,
+    "tvRecommendedBrowsePreview": true,
+    "tvHideAppHeader": true,
+    "phoneDetailBackBesideBackground": true
+  }
 }

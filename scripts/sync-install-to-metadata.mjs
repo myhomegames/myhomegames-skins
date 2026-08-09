@@ -54,11 +54,35 @@ function findExistingSkinIdByName(skinsDir, displayName) {
 }
 
 function readBundleCssFromSkinDir(skinDir) {
-  const bundlePath = path.join(skinDir, "bundle.css");
-  if (fs.existsSync(bundlePath)) {
-    return fs.readFileSync(bundlePath, "utf8");
+  /** @type {{ abs: string; rel: string }[]} */
+  const files = [];
+  function walk(dir, base = "") {
+    if (!fs.existsSync(dir)) return;
+    for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (ent.name.startsWith(".")) continue;
+      const abs = path.join(dir, ent.name);
+      const rel = base ? `${base}/${ent.name}` : ent.name;
+      if (ent.isDirectory()) walk(abs, rel);
+      else if (ent.isFile() && ent.name.toLowerCase().endsWith(".css")) files.push({ abs, rel });
+    }
   }
-  return null;
+  walk(skinDir);
+  if (files.length === 0) return null;
+  const rank = (rel) => {
+    const n = String(rel || "").replace(/\\/g, "/");
+    if (n === "bundle.css") return [0, n];
+    if (n === "components.css" || n.startsWith("components/")) return [1, n];
+    if (n === "pages.css" || n.startsWith("pages/")) return [2, n];
+    return [3, n];
+  };
+  files.sort((a, b) => {
+    const ra = rank(a.rel);
+    const rb = rank(b.rel);
+    if (ra[0] !== rb[0]) return ra[0] - rb[0];
+    return ra[1].localeCompare(rb[1]);
+  });
+  const css = files.map((f) => fs.readFileSync(f.abs, "utf8")).join("\n\n");
+  return String(css).trim() ? css : null;
 }
 
 function syncSkinFolder(contentRoot, skinsDir) {
@@ -70,7 +94,7 @@ function syncSkinFolder(contentRoot, skinsDir) {
 
   const cssProbe = readBundleCssFromSkinDir(contentRoot);
   if (cssProbe == null || !String(cssProbe).trim()) {
-    console.warn(`Skip ${path.basename(contentRoot)}: missing or empty bundle.css`);
+    console.warn(`Skip ${path.basename(contentRoot)}: missing or empty CSS`);
     return;
   }
 
@@ -135,8 +159,10 @@ function main() {
     if (!ent.isDirectory() || ent.name.startsWith(".")) continue;
     const dir = path.join(skinsSource, ent.name);
     const jsonPath = path.join(dir, "skin.json");
-    const bundlePath = path.join(dir, "bundle.css");
-    if (!fs.existsSync(jsonPath) || !fs.existsSync(bundlePath)) {
+    if (!fs.existsSync(jsonPath)) {
+      continue;
+    }
+    if (!readBundleCssFromSkinDir(dir)) {
       continue;
     }
     syncSkinFolder(dir, skinsDir);

@@ -1,0 +1,70 @@
+/* --- ./components/toolbar/SortPopup.css --- */
+
+
+.sort-popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  background-color: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.sort-popup-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sort-popup-item:hover,
+.sort-popup-item[data-mhg-tv-hover],
+.sort-popup-item:focus {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  outline: none;
+}
+
+.sort-popup-item.selected {
+  color: #E5A00D;
+}
+
+.sort-popup-sort-direction {
+  color: #E5A00D;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+/*
+ * Top dock (`web.topRightToolDock`): when `GamesListToolbar` uses
+ * `dockToolbarPopups`, it sets `data-mhg-toolbar-popup-fixed` and
+ * `--mhg-toolbar-popup-*` on the filter/sort row; these rules pin panels to
+ * the viewport under that row.
+ */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+  .filter-popup,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+  .sort-popup {
+  position: fixed;
+  top: var(--mhg-toolbar-popup-top);
+  left: var(--mhg-toolbar-popup-left);
+  margin-top: 0;
+  right: auto;
+  bottom: auto;
+  z-index: 10020;
+}

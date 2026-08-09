@@ -1,0 +1,136 @@
+/* --- ./components/common/StarRating.css --- */
+
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--sr-gap, 4px);
+}
+
+.star-rating-star {
+  position: relative;
+  width: var(--sr-star-size, 16px);
+  height: var(--sr-star-size, 16px);
+  cursor: default;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  display: inline-block;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.star-rating-star--interactive {
+  cursor: pointer;
+  /* Comfortable touch target without changing visual star size. */
+  touch-action: manipulation;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.star-rating-star--interactive:is(:hover, [data-mhg-tv-hover], :focus-visible) {
+  outline: none;
+  transform: scale(1.28);
+  filter: drop-shadow(0 0 5px rgba(229, 160, 13, 0.95));
+  z-index: 1;
+}
+
+.star-rating-star-svg-bg,
+.star-rating-star-svg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* Legacy half-hit layers (unused): keep harmless if an old bundle references them. */
+.star-rating-star-half-hit {
+  position: absolute;
+  top: 0;
+  width: calc(var(--sr-star-size, 16px) / 2);
+  height: var(--sr-star-size, 16px);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.star-rating-star-half-hit--left {
+  left: 0;
+}
+
+.star-rating-star-half-hit--right {
+  right: 0;
+}
+
+@media (max-width: 720px) {
+  .star-rating-star--interactive {
+    min-width: 28px;
+    min-height: 28px;
+    width: max(28px, var(--sr-star-size, 16px));
+    height: max(28px, var(--sr-star-size, 16px));
+  }
+
+  .star-rating-star--interactive .star-rating-star-svg-bg,
+  .star-rating-star--interactive .star-rating-star-svg-overlay {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .star-rating-star--interactive:is(:hover, [data-mhg-tv-hover], :focus-visible) {
+    transform: scale(1.18);
+  }
+
+  .star-rating-star--interactive:is(:hover, [data-mhg-tv-hover], :focus-visible)
+    .star-rating-star-svg-bg,
+  .star-rating-star--interactive:is(:hover, [data-mhg-tv-hover], :focus-visible)
+    .star-rating-star-svg-overlay {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/*
+ * Smart TV detail (overlay trigger): hover/focus on the whole control —
+ * white floating panel; filled star parts black, empty stars white + black outline.
+ */
+html[data-mhg-tv="1"] .star-rating--overlay-trigger {
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin: -8px -10px;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+html[data-mhg-tv="1"]
+  .star-rating--overlay-trigger:is(:hover, [data-mhg-tv-hover], :focus-visible) {
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* Empty star silhouette: white body, black border. */
+html[data-mhg-tv="1"]
+  .star-rating--overlay-trigger:is(:hover, [data-mhg-tv-hover], :focus-visible)
+  .star-rating-star-svg-bg {
+  fill: #fff !important;
+  stroke: #111 !important;
+  stroke-width: 1.5;
+  filter: none;
+}
+
+/* Filled / half-filled overlays → black (transparent half stays empty). */
+html[data-mhg-tv="1"]
+  .star-rating--overlay-trigger:is(:hover, [data-mhg-tv-hover], :focus-visible)
+  .star-rating-star-svg-overlay {
+  filter: brightness(0);
+  stroke: #111;
+}
+
+html[data-mhg-tv="1"]
+  .star-rating--overlay-trigger
+  .star-rating-star--interactive:is(:hover, [data-mhg-tv-hover], :focus-visible),
+html[data-mhg-tv="1"]
+  .star-rating--overlay-trigger
+  .star-rating-star:is(:hover, [data-mhg-tv-hover], :focus-visible) {
+  transform: none;
+  filter: none;
+}

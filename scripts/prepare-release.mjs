@@ -85,20 +85,67 @@ function resolveManifestSnapshot(snapshotValue, skinId, skinDir) {
   return `snapshots/${outName}`;
 }
 
+function collectCssFilesRecursive(dir, base = "") {
+  /** @type {{ abs: string; rel: string }[]} */
+  const out = [];
+  if (!fs.existsSync(dir)) return out;
+  for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (ent.name.startsWith(".")) continue;
+    const abs = path.join(dir, ent.name);
+    const rel = base ? `${base}/${ent.name}` : ent.name;
+    if (ent.isDirectory()) out.push(...collectCssFilesRecursive(abs, rel));
+    else if (ent.isFile() && ent.name.toLowerCase().endsWith(".css")) out.push({ abs, rel });
+  }
+  return out;
+}
+
+function cssLoadRank(rel) {
+  const n = String(rel || "").replace(/\\/g, "/");
+  if (n === "bundle.css") return [0, n];
+  if (n === "components.css" || n.startsWith("components/")) return [1, n];
+  if (n === "pages.css" || n.startsWith("pages/")) return [2, n];
+  return [3, n];
+}
+
+function compareSkinCssRel(a, b) {
+  const ra = cssLoadRank(a);
+  const rb = cssLoadRank(b);
+  if (ra[0] !== rb[0]) return ra[0] - rb[0];
+  return ra[1].localeCompare(rb[1]);
+}
+
+/** Concatenate skin CSS in load order (same rules as the server GET /bundle.css). */
+function readBundleCssFromSkinDir(skinDir) {
+  const files = collectCssFilesRecursive(skinDir);
+  if (files.length === 0) return null;
+  files.sort((a, b) => compareSkinCssRel(a.rel, b.rel));
+  const css = files.map((f) => fs.readFileSync(f.abs, "utf8")).join("\n\n");
+  return String(css).trim() ? css : null;
+}
+
+function addSkinDirToZip(zip, skinDir, prefix = "") {
+  for (const ent of fs.readdirSync(skinDir, { withFileTypes: true })) {
+    if (ent.name.startsWith(".")) continue;
+    const abs = path.join(skinDir, ent.name);
+    const rel = prefix ? `${prefix}/${ent.name}` : ent.name;
+    if (ent.isDirectory()) {
+      addSkinDirToZip(zip, abs, rel);
+      continue;
+    }
+    if (!ent.isFile()) continue;
+    zip.addFile(rel, fs.readFileSync(abs));
+  }
+}
+
 function zipSkinFolder(skinId, skinDir) {
   const skinJsonPath = path.join(skinDir, "skin.json");
-  const bundlePath = path.join(skinDir, "bundle.css");
   if (!fs.existsSync(skinJsonPath)) {
     console.warn(`Skip ${skinId}: no skin.json`);
     return null;
   }
-  if (!fs.existsSync(bundlePath)) {
-    console.warn(`Skip ${skinId}: no bundle.css (each skin must ship a full stylesheet)`);
-    return null;
-  }
-  const bundleCss = fs.readFileSync(bundlePath, "utf8");
-  if (!String(bundleCss).trim()) {
-    console.warn(`Skip ${skinId}: bundle.css is empty`);
+  const bundleCss = readBundleCssFromSkinDir(skinDir);
+  if (!bundleCss) {
+    console.warn(`Skip ${skinId}: no CSS (need bundle.css and/or other .css files)`);
     return null;
   }
 
@@ -110,24 +157,14 @@ function zipSkinFolder(skinId, skinDir) {
   }
 
   const zip = new AdmZip();
-  zip.addFile("skin.json", Buffer.from(fs.readFileSync(skinJsonPath, "utf8"), "utf8"));
-  zip.addFile("bundle.css", Buffer.from(bundleCss, "utf8"));
-  if (typeof skinJson.snapshot === "string" && skinJson.snapshot.trim()) {
-    const snapshotPath = path.resolve(skinDir, skinJson.snapshot.trim());
-    if (fs.existsSync(snapshotPath)) {
-      const snapshotZipPath = skinJson.snapshot.trim().replace(/^\.?\//, "");
-      zip.addFile(snapshotZipPath, fs.readFileSync(snapshotPath));
-    } else {
-      console.warn(`Skip zip snapshot for ${skinId}: ${skinJson.snapshot} not found`);
-    }
-  }
+  addSkinDirToZip(zip, skinDir);
 
   fs.mkdirSync(OUT_ZIPS, { recursive: true });
   const zipName = buildSkinZipFileName(skinId, skinVersion);
   const outFile = path.join(OUT_ZIPS, zipName);
   zip.writeZip(outFile);
   const kb = (bundleCss.length / 1024).toFixed(1);
-  console.log(`Wrote ${outFile} (${kb} KB CSS)`);
+  console.log(`Wrote ${outFile} (${kb} KB CSS concatenated)`);
   const title = readSkinTitle(skinJsonPath) || skinId;
   const snapshot = resolveManifestSnapshot(skinJson.snapshot, skinId, skinDir);
   const base = { id: skinId, name: title, version: skinVersion, zip: zipName };

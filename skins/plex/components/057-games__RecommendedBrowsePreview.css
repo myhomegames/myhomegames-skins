@@ -1,0 +1,108 @@
+/* Smart TV Recommended: detail panel on top, cover rail pinned at the bottom. */
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview-host {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+  height: 100%;
+}
+
+/*
+ * Detail panel = half the viewport; cover rail fills the bottom half.
+ * Overflow hidden so summary length never pushes the strips.
+ */
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview {
+  flex: 0 0 50vh;
+  height: 50vh;
+  max-height: 50vh;
+  min-height: 50vh;
+  padding: 8px 24px 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+  pointer-events: none;
+  --font-heading-1-font-size: clamp(2.75rem, 4.5vw, 3.75rem);
+  --font-heading-1-line-height: 1.12;
+  --font-body-1-font-size: clamp(1.45rem, 2.3vw, 1.85rem);
+  --font-body-1-line-height: 1.4;
+  --font-body-2-font-size: clamp(1.2rem, 1.9vw, 1.5rem);
+  --font-body-2-line-height: 1.35;
+  --summary-font-size: clamp(1.45rem, 2.3vw, 1.85rem);
+}
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview--empty {
+  min-height: 50vh;
+}
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview-info {
+  width: 50vw;
+  max-width: 50vw;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview .game-detail-summary {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 8px 0 0;
+  pointer-events: none;
+}
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview .summary-toggle {
+  display: none !important;
+}
+
+/*
+ * Cover rail in the bottom half — height follows leftover space under the 50vh detail.
+ * Keyword snap keeps the active strip aligned so D-pad Up/Down does not bounce the slide.
+ */
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview-host > .recommended-page-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
+  max-height: none;
+  /* Room above the snapped keyword so scale(1.14) covers are not clipped. */
+  padding-top: calc(var(--games-list-cover-size, 150px) * 0.1) !important;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+html[data-mhg-tv="1"] .mhg-recommended-browse-preview-title {
+  font-size: var(--font-heading-1-font-size);
+  line-height: var(--font-heading-1-line-height);
+  margin: 0;
+}
+
+/* Tighter strip chrome inside the pinned rail so one keyword row fits cleanly. */
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .scrollable-section {
+  margin-bottom: 28px;
+}
+
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .scrollable-section-header {
+  margin-bottom: 12px;
+}
+
+/* Recommended TV: no title/subtitle under covers (detail panel already shows the name). */
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .games-list-title-wrapper,
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .games-list-title,
+html[data-mhg-tv="1"]
+  .mhg-recommended-browse-preview-host
+  .recommended-page-scroll
+  .games-list-year {
+  display: none !important;
+}

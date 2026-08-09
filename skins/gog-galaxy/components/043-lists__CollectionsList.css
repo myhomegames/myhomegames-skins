@@ -1,0 +1,50 @@
+/*--- ./components/lists/CollectionsList.css ---*/
+
+
+.collections-list-container {
+ max-width: 100%;
+ margin: 0 auto;
+ display: grid;
+ gap: 40px;
+ justify-content: flex-start;
+ padding-left: var(--vgrid-side-gutter-left, var(--vgrid-side-gutter, 16px));
+ padding-right: var(--vgrid-side-gutter-right, var(--vgrid-side-gutter, 16px));
+ box-sizing: border-box;
+ grid-template-columns: repeat(auto-fill, var(--collections-list-cover-size, 150px));
+}
+
+.collections-list-container--virtualized {
+ display: block;
+ height: 100%;
+}
+
+.collections-list-item {
+ flex-shrink: 0;
+}
+
+.collections-list-item--sized {
+ width: var(--collections-list-cover-size, 150px);
+ min-width: var(--collections-list-cover-size, 150px);
+}
+
+/*Collections cards: align edit and three-dots with game covers*/
+.collections-list-item .games-list-edit-button-bottom-right {
+ right: 8px;
+}
+
+.collections-list-item .games-list-dropdown-wrapper-bottom-right {
+ right: 8px;
+}
+
+/*Collections in detail rows: keep edit + three-dots cluster more left*/
+.collections-list-item .games-list-detail-actions {
+ right: 28px;
+}
+
+.collections-list-empty {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ height: 100%;
+ min-height: 400px;
+}

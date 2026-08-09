@@ -1,0 +1,28 @@
+/* --- ./components/games/GameInfoBlock.css --- */
+
+.game-info-block {
+  min-width: 0;
+}
+
+.game-info-field {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.game-info-list {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.game-info-list-item,
+.game-info-list-link {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.game-info-list-link {
+  text-align: left;
+}

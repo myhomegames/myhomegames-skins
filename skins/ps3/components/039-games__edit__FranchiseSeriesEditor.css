@@ -1,0 +1,768 @@
+/* --- ./components/games/edit/FranchiseSeriesEditor.css --- */
+
+
+.franchise-series-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.franchise-series-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.franchise-series-chip-label {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.franchise-series-chip-remove {
+  padding: 0 2px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.franchise-series-chip-remove:hover {
+  color: #fff;
+}
+
+.franchise-series-add {
+  position: relative;
+}
+
+.franchise-series-add-button {
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.franchise-series-add-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.franchise-series-add-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.franchise-series-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  z-index: 10;
+  min-width: 200px;
+}
+
+.franchise-series-dropdown-empty {
+  padding: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.franchise-series-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.franchise-series-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
+/*--- Popups / menus (from Plex skin bundle; ships a full stylesheet only) ---*/
+
+/*=============================================================================
+ * PS3 — all popups/menus: right slide-in sheet (~40% viewport), not centered boxes.
+ *============================================================================= */
+
+@keyframes mhg-ps3-sheet-in {
+ from {
+  transform: translateX(100%);
+ }
+ to {
+  transform: none;
+ }
+}
+
+/* Full-screen overlays → dim + align panel to the right */
+.add-game-overlay,
+.dropdown-menu-confirm-overlay,
+.launch-modal-overlay,
+.add-to-collection-modal-overlay,
+.manage-installation-modal-overlay,
+.game-search-modal-overlay,
+.edit-game-modal-overlay,
+.edit-collection-modal-overlay {
+ align-items: stretch !important;
+ justify-content: flex-end !important;
+ background-color: rgba(0, 0, 0, 0.55) !important;
+ padding: 0 !important;
+}
+
+/* Full-viewport overlay blocks the page underneath (dim + sheet). */
+.add-game-overlay {
+ pointer-events: auto !important;
+}
+
+/* Above dropdown sheet (10100) and portaled submenus (10101) */
+.add-to-collection-modal-overlay {
+ z-index: 10102 !important;
+}
+
+/* Sidebar search: centered panel; results drop below the input (not a right sheet). */
+.game-search-modal-overlay.mhg-sidebar-search-overlay {
+ align-items: flex-start !important;
+ justify-content: center !important;
+ padding: 3.5rem 1.5rem 1.5rem !important;
+}
+
+.mhg-sidebar-search-modal.game-search-modal {
+ position: relative !important;
+ top: auto !important;
+ right: auto !important;
+ left: auto !important;
+ bottom: auto !important;
+ width: min(900px, calc(100vw - 48px)) !important;
+ min-width: 0 !important;
+ max-width: min(900px, calc(100vw - 48px)) !important;
+ height: auto !important;
+ min-height: var(--mhg-sidebar-search-modal-min-height, 520px) !important;
+ max-height: var(--mhg-sidebar-search-modal-max-height, min(92vh, 860px)) !important;
+ margin: 0 auto !important;
+ border: 1px solid rgba(255, 255, 255, 0.12) !important;
+ border-radius: 0 !important;
+ box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55) !important;
+ display: flex !important;
+ flex-direction: column !important;
+ overflow: hidden !important;
+}
+
+.mhg-sidebar-search-modal-list.game-search-modal-list {
+ flex: 1 1 auto !important;
+ min-height: 0 !important;
+ overflow: hidden !important;
+ display: flex !important;
+ flex-direction: column !important;
+}
+
+[data-mhg-sidebar-search-dialog] .search-bar-container {
+ position: relative;
+ width: 100%;
+ flex: 1 1 auto;
+ min-height: 0;
+ display: flex;
+ flex-direction: column;
+}
+
+[data-mhg-sidebar-search-dialog] .search-bar-wrapper {
+ flex: 0 0 auto;
+}
+
+[data-mhg-sidebar-search-dialog] .search-dropdown,
+[data-mhg-sidebar-search-dialog] .search-no-results {
+ position: relative !important;
+ top: auto !important;
+ left: 0 !important;
+ right: auto !important;
+ bottom: auto !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-width: none !important;
+ flex: 1 1 auto !important;
+ min-height: 0 !important;
+ height: auto !important;
+ max-height: none !important;
+ margin-top: 8px !important;
+ box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
+ z-index: 1 !important;
+}
+
+[data-mhg-sidebar-search-dialog] .search-dropdown-scroll {
+ flex: 1 1 0 !important;
+ min-height: var(--mhg-sidebar-search-results-min-height, 420px) !important;
+ max-height: none !important;
+ overflow-y: auto !important;
+ padding-bottom: 16px !important;
+}
+
+[data-mhg-sidebar-search-dialog] .search-dropdown-footer {
+ flex-shrink: 0 !important;
+}
+
+/*
+ * Sidebar search overlay uses z-index 22100 (web). Portaled ⋮ sheets must stack above it.
+ */
+body:has([data-mhg-sidebar-search-dialog]) > .dropdown-menu-popup,
+body[data-mhg-sidebar-search-open] > .dropdown-menu-popup {
+ z-index: 22200 !important;
+}
+
+body:has([data-mhg-sidebar-search-dialog]) > .add-to-collection-dropdown-menu,
+body:has([data-mhg-sidebar-search-dialog]) > .additional-executables-dropdown-menu,
+body[data-mhg-sidebar-search-open] > .add-to-collection-dropdown-menu,
+body[data-mhg-sidebar-search-open] > .additional-executables-dropdown-menu {
+ z-index: 22201 !important;
+}
+
+body:has([data-mhg-sidebar-search-dialog]) > .dropdown-menu-confirm-overlay,
+body[data-mhg-sidebar-search-open] > .dropdown-menu-confirm-overlay {
+ z-index: 22202 !important;
+}
+
+body:has([data-mhg-sidebar-search-dialog]) > .edit-game-modal-overlay,
+body:has([data-mhg-sidebar-search-dialog]) > .edit-collection-modal-overlay,
+body:has([data-mhg-sidebar-search-dialog]) > .add-to-collection-modal-overlay,
+body:has([data-mhg-sidebar-search-dialog]) > .manage-installation-modal-overlay,
+body[data-mhg-sidebar-search-open] > .edit-game-modal-overlay,
+body[data-mhg-sidebar-search-open] > .edit-collection-modal-overlay,
+body[data-mhg-sidebar-search-open] > .add-to-collection-modal-overlay,
+body[data-mhg-sidebar-search-open] > .manage-installation-modal-overlay {
+ z-index: 22203 !important;
+}
+
+/*
+ * Sidebar search: block interaction with the popup while a portaled sheet/menu is above it.
+ * Web sets data-mhg-sidebar-search-stack-active; these rules are a skin fallback.
+ */
+body[data-mhg-sidebar-search-stack-active] .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-stack-active] [data-mhg-sidebar-search-dialog],
+body[data-mhg-sidebar-search-modal-action] .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-modal-action] [data-mhg-sidebar-search-dialog],
+body:has([data-mhg-sidebar-search-dialog]):has(> .dropdown-menu-popup) .mhg-sidebar-search-overlay,
+body:has([data-mhg-sidebar-search-dialog]):has(> .dropdown-menu-popup) [data-mhg-sidebar-search-dialog],
+body:has([data-mhg-sidebar-search-dialog]):has(> [data-mhg-sidebar-search-menu-stack]) .mhg-sidebar-search-overlay,
+body:has([data-mhg-sidebar-search-dialog]):has(> [data-mhg-sidebar-search-menu-stack]) [data-mhg-sidebar-search-dialog],
+body:has([data-mhg-sidebar-search-dialog]):has(> .add-to-collection-dropdown-menu) .mhg-sidebar-search-overlay,
+body:has([data-mhg-sidebar-search-dialog]):has(> .add-to-collection-dropdown-menu) [data-mhg-sidebar-search-dialog],
+body:has([data-mhg-sidebar-search-dialog]):has(> .additional-executables-dropdown-menu) .mhg-sidebar-search-overlay,
+body:has([data-mhg-sidebar-search-dialog]):has(> .additional-executables-dropdown-menu) [data-mhg-sidebar-search-dialog],
+body[data-mhg-sidebar-search-open]:has(> .dropdown-menu-confirm-overlay) .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-open]:has(> .dropdown-menu-confirm-overlay) [data-mhg-sidebar-search-dialog],
+body[data-mhg-sidebar-search-open]:has(> .edit-game-modal-overlay) .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-open]:has(> .edit-game-modal-overlay) [data-mhg-sidebar-search-dialog],
+body[data-mhg-sidebar-search-open]:has(> .edit-collection-modal-overlay) .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-open]:has(> .edit-collection-modal-overlay) [data-mhg-sidebar-search-dialog],
+body[data-mhg-sidebar-search-open]:has(> .add-to-collection-modal-overlay) .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-open]:has(> .add-to-collection-modal-overlay) [data-mhg-sidebar-search-dialog],
+body[data-mhg-sidebar-search-open]:has(> .manage-installation-modal-overlay) .mhg-sidebar-search-overlay,
+body[data-mhg-sidebar-search-open]:has(> .manage-installation-modal-overlay) [data-mhg-sidebar-search-dialog] {
+ pointer-events: none !important;
+}
+
+/*
+ * Sidebar search: freeze result paints while a portaled menu/sheet is open.
+ */
+body[data-mhg-sidebar-search-stack-active] [data-mhg-sidebar-search-dialog] .search-dropdown,
+body[data-mhg-sidebar-search-stack-active] [data-mhg-sidebar-search-dialog] .search-dropdown-scroll {
+ contain: paint;
+}
+
+body[data-mhg-sidebar-search-stack-active] [data-mhg-sidebar-search-dialog] .search-dropdown-item .games-list-cover img {
+ transition: none !important;
+}
+
+/*
+ * Sidebar search ⋮ menu: same full-screen overlay as Edit Game (not ::before dim).
+ */
+[data-mhg-sidebar-search-menu-stack] .edit-game-modal-overlay > .dropdown-menu-popup::before {
+ background: transparent !important;
+}
+
+[data-mhg-sidebar-search-interaction-shield].edit-game-modal-overlay {
+ z-index: 22150 !important;
+ pointer-events: auto !important;
+}
+
+body:has([data-mhg-sidebar-search-dialog]) > [data-mhg-sidebar-search-menu-stack],
+body[data-mhg-sidebar-search-open] > [data-mhg-sidebar-search-menu-stack] {
+ z-index: 22200 !important;
+}
+
+/* Panel inside an overlay */
+.add-game-container,
+.dropdown-menu-confirm-container,
+.launch-modal-container,
+.add-to-collection-modal,
+.manage-installation-modal-container,
+.game-search-modal:not(.mhg-sidebar-search-modal),
+.edit-game-modal-container,
+.edit-collection-modal-container {
+ width: 40% !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ height: 100% !important;
+ max-height: 100dvh !important;
+ margin: 0 !important;
+ border-radius: 0 !important;
+ border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+ box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55) !important;
+ animation: mhg-ps3-sheet-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.add-game-container {
+ max-width: 100% !important;
+}
+
+.launch-modal-container {
+ width: 40% !important;
+ max-width: 100% !important;
+ align-items: stretch !important;
+}
+
+/*
+ * Menus → full-viewport blocker (dim left + panel right).
+ * Root must cover 100% so pointer events never reach the page; content sits in
+ * the right 40% via padding. Clicks on the dim (padding) hit the root and close
+ * via bindSheetBackdropClose (target === currentTarget).
+ */
+.filter-popup,
+.sort-popup,
+.dropdown-menu-popup,
+.games-list-toolbar-popup,
+.view-mode-dropdown,
+.view-mode-dropdown.view-mode-dropdown--portaled,
+.games-table-column-menu-popup,
+.profile-dropdown-popup,
+.franchise-series-dropdown {
+ position: fixed !important;
+ inset: 0 !important;
+ top: 0 !important;
+ right: 0 !important;
+ left: 0 !important;
+ bottom: 0 !important;
+ margin: 0 !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ height: 100% !important;
+ max-height: 100dvh !important;
+ padding-left: 60% !important;
+ box-sizing: border-box !important;
+ border: none !important;
+ border-radius: 0 !important;
+ box-shadow: none !important;
+ background:
+  linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)) left 60% top 0 / 1px 100% no-repeat,
+  linear-gradient(
+   to right,
+   rgba(0, 0, 0, 0.55) 0 60%,
+   #1a1a1a 60% 100%
+  ) !important;
+ z-index: 10100 !important;
+ overflow: hidden !important;
+ display: flex !important;
+ flex-direction: column !important;
+ isolation: isolate !important;
+ pointer-events: auto !important;
+ animation: mhg-ps3-sheet-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Panel edge shadow (visual only; root already blocks the page). */
+.filter-popup::after,
+.sort-popup::after,
+.dropdown-menu-popup::after,
+.games-list-toolbar-popup::after,
+.view-mode-dropdown::after,
+.view-mode-dropdown.view-mode-dropdown--portaled::after,
+.games-table-column-menu-popup::after,
+.profile-dropdown-popup::after,
+.franchise-series-dropdown::after,
+body > .add-to-collection-dropdown-menu::after,
+body > .additional-executables-dropdown-menu::after {
+ content: '';
+ position: absolute;
+ top: 0;
+ right: 0;
+ bottom: 0;
+ width: 40%;
+ box-shadow: -12px 0 40px rgba(0, 0, 0, 0.55);
+ pointer-events: none;
+ z-index: 0;
+}
+
+/* Legacy ::before dim — root gradient covers the page now. */
+.filter-popup::before,
+.sort-popup::before,
+.dropdown-menu-popup::before,
+.games-list-toolbar-popup::before,
+.view-mode-dropdown::before,
+.view-mode-dropdown.view-mode-dropdown--portaled::before,
+.games-table-column-menu-popup::before,
+.profile-dropdown-popup::before,
+.franchise-series-dropdown::before,
+body > .add-to-collection-dropdown-menu::before,
+body > .additional-executables-dropdown-menu::before {
+ content: none !important;
+}
+
+.filter-popup-scrollable,
+.games-list-toolbar-popup-scrollable {
+ flex: 1 !important;
+ max-height: none !important;
+ overflow-y: auto !important;
+}
+
+.dropdown-menu-popup {
+ overflow-y: auto !important;
+ padding-top: 8px !important;
+ padding-bottom: 8px !important;
+}
+
+.profile-dropdown-popup .filter-popup-header {
+ flex-shrink: 0;
+ padding: 12px 16px;
+ border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+ background: rgba(0, 0, 0, 0.2);
+}
+
+.profile-dropdown-popup .filter-popup-header-title {
+ font-weight: 600;
+ color: rgba(255, 255, 255, 0.5);
+ font-size: 0.875rem;
+ text-transform: uppercase;
+ letter-spacing: 0.04em;
+}
+
+/* Update right sheet — inner content only; panel chrome from rule above. */
+.update-notification-popup {
+ padding: 0 !important;
+}
+
+.update-notification-header {
+ flex-shrink: 0;
+ margin: 0;
+ padding: 12px 16px;
+ border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+ background: rgba(0, 0, 0, 0.2);
+ font-weight: 600;
+ color: rgba(255, 255, 255, 0.5);
+ font-size: 0.875rem;
+ text-transform: uppercase;
+ letter-spacing: 0.04em;
+}
+
+.update-notification-changelog {
+ flex: 1;
+ min-height: 0;
+ display: flex;
+ flex-direction: column;
+ margin: 0;
+ padding: 12px 16px;
+ border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+ overflow: hidden;
+}
+
+.update-notification-changelog-title {
+ flex-shrink: 0;
+ margin-bottom: 8px;
+ font-weight: 600;
+ color: rgba(255, 255, 255, 0.5);
+ font-size: 0.875rem;
+ text-transform: uppercase;
+}
+
+.update-notification-changelog-body {
+ flex: 1;
+ min-height: 0;
+ overflow-y: auto;
+ font-size: 0.875rem;
+ line-height: 1.45;
+ color: rgba(255, 255, 255, 0.8);
+ white-space: pre-wrap;
+ word-break: break-word;
+}
+
+.update-notification-downloads {
+ flex-shrink: 0;
+ display: flex;
+ flex-direction: column;
+ padding: 8px 0 12px;
+}
+
+.update-notification-download-primary,
+.update-notification-download-item {
+ display: block;
+ width: 100%;
+ padding: 8px 24px;
+ text-align: left;
+ background: none;
+ border: none;
+ color: rgba(255, 255, 255, 0.7);
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+  "Helvetica Neue", sans-serif;
+ font-size: 13px;
+ cursor: pointer;
+ transition: background-color 0.2s ease, color 0.2s ease;
+ box-sizing: border-box;
+}
+
+.update-notification-download-primary {
+ color: var(--mhg-primary, #22c55e);
+ font-weight: 600;
+}
+
+.update-notification-download-primary:hover,
+.update-notification-download-item:hover {
+ background-color: rgba(255, 255, 255, 0.05);
+ color: #ffffff;
+}
+
+.update-notification-download-primary:hover {
+ color: #4ade80;
+}
+
+.games-list-dropdown-menu .dropdown-menu-popup,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-menu-dropdown
+ .dropdown-menu-popup {
+ top: 0 !important;
+ bottom: 0 !important;
+ left: auto !important;
+ right: 0 !important;
+ margin: 0 !important;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+ .filter-popup,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .games-list-toolbar-item[data-mhg-toolbar-popup-fixed="true"]
+ .sort-popup {
+ top: 0 !important;
+ right: 0 !important;
+ left: auto !important;
+ bottom: 0 !important;
+ margin: 0 !important;
+ max-height: 100dvh !important;
+}
+
+.edit-collection-modal-content,
+.edit-game-modal-content,
+.add-to-collection-modal-collections,
+.manage-installation-modal-content {
+ flex: 1 !important;
+ min-height: 0 !important;
+ overflow-y: auto !important;
+}
+
+.add-game-container {
+ overflow: hidden !important;
+}
+
+.add-game-container .add-game-content {
+ flex: 1 !important;
+ min-height: 0 !important;
+ overflow-y: auto !important;
+}
+
+/* Portaled dropdown submenus: full-viewport blocker + right panel (above parent sheet) */
+body > .add-to-collection-dropdown-menu,
+body > .additional-executables-dropdown-menu {
+ position: fixed !important;
+ inset: 0 !important;
+ top: 0 !important;
+ right: 0 !important;
+ left: 0 !important;
+ bottom: 0 !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-width: 100% !important;
+ height: 100% !important;
+ max-height: 100dvh !important;
+ margin: 0 !important;
+ padding: 8px 0 8px 60% !important;
+ box-sizing: border-box !important;
+ border: none !important;
+ border-radius: 0 !important;
+ box-shadow: none !important;
+ background:
+  linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)) left 60% top 0 / 1px 100% no-repeat,
+  linear-gradient(
+   to right,
+   rgba(0, 0, 0, 0.55) 0 60%,
+   #1a1a1a 60% 100%
+  ) !important;
+ z-index: 10101 !important;
+ overflow-x: hidden !important;
+ overflow-y: auto !important;
+ pointer-events: auto !important;
+ animation: mhg-ps3-sheet-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item,
+body > .additional-executables-dropdown-menu .additional-executables-dropdown-item {
+ display: flex !important;
+ align-items: center !important;
+ font-size: 13px !important;
+ padding: 8px 24px !important;
+ margin: 2px 0 !important;
+ width: 100% !important;
+ background: none !important;
+ border: none !important;
+ cursor: pointer !important;
+ color: rgba(255, 255, 255, 0.7) !important;
+ white-space: nowrap !important;
+ box-sizing: border-box !important;
+}
+
+body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item:hover,
+body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item[data-mhg-tv-hover],
+body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-item:focus,
+body > .additional-executables-dropdown-menu .additional-executables-dropdown-item:hover,
+body > .additional-executables-dropdown-menu .additional-executables-dropdown-item[data-mhg-tv-hover],
+body > .additional-executables-dropdown-menu .additional-executables-dropdown-item:focus {
+ background-color: rgba(255, 255, 255, 0.05) !important;
+ color: #ffffff !important;
+ outline: none !important;
+}
+
+body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-divider {
+ height: 1px !important;
+ background-color: rgba(255, 255, 255, 0.1) !important;
+ margin: 4px 0 !important;
+}
+
+body > .add-to-collection-dropdown-menu .add-to-collection-dropdown-section-title {
+ padding: 8px 24px 4px 24px !important;
+ font-size: 11px !important;
+ font-weight: 600 !important;
+ color: rgba(255, 255, 255, 0.5) !important;
+ text-transform: uppercase !important;
+ letter-spacing: 0.5px !important;
+ text-align: left !important;
+}
+
+/* Collection-like "Add to" submenu rendered inside the dropdown sheet */
+.dropdown-menu-popup .dropdown-menu-collectionlike-submenu {
+ position: absolute !important;
+ top: 0 !important;
+ right: 0 !important;
+ left: 0 !important;
+ bottom: 0 !important;
+ width: 100% !important;
+ min-width: 0 !important;
+ max-height: none !important;
+ margin: 0 !important;
+ border-radius: 0 !important;
+ border: none !important;
+ box-shadow: none !important;
+ z-index: 5 !important;
+ overflow-y: auto !important;
+ animation: mhg-ps3-sheet-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Narrow viewport: right slide-in sheets span the full page. */
+@media (max-width: 720px) {
+ .add-game-container,
+ .dropdown-menu-confirm-container,
+ .launch-modal-container,
+ .add-to-collection-modal,
+ .manage-installation-modal-container,
+ .game-search-modal:not(.mhg-sidebar-search-modal),
+ .edit-game-modal-container,
+ .edit-collection-modal-container,
+ .filter-popup,
+ .sort-popup,
+ .dropdown-menu-popup,
+ .games-list-toolbar-popup,
+ .view-mode-dropdown,
+ .view-mode-dropdown.view-mode-dropdown--portaled,
+ .games-table-column-menu-popup,
+ .profile-dropdown-popup,
+ .franchise-series-dropdown,
+ body > .add-to-collection-dropdown-menu,
+ body > .additional-executables-dropdown-menu {
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  border-left: none !important;
+  box-shadow: none !important;
+  background: #1a1a1a !important;
+ }
+
+ .filter-popup::after,
+ .sort-popup::after,
+ .dropdown-menu-popup::after,
+ .games-list-toolbar-popup::after,
+ .view-mode-dropdown::after,
+ .view-mode-dropdown.view-mode-dropdown--portaled::after,
+ .games-table-column-menu-popup::after,
+ .profile-dropdown-popup::after,
+ .franchise-series-dropdown::after,
+ body > .add-to-collection-dropdown-menu::after,
+ body > .additional-executables-dropdown-menu::after {
+  width: 100% !important;
+  box-shadow: none !important;
+ }
+
+ body > .update-notification-popup {
+  grid-template-columns: 1fr !important;
+ }
+
+ body > .update-notification-popup > .update-notification-header,
+ body > .update-notification-popup > .update-notification-changelog,
+ body > .update-notification-popup > .update-notification-downloads {
+  grid-column: 1 !important;
+  border-left: none !important;
+  box-shadow: none !important;
+ }
+}
+
+@media (prefers-reduced-motion: reduce) {
+ .add-game-container,
+ .dropdown-menu-confirm-container,
+ .launch-modal-container,
+ .add-to-collection-modal,
+ .manage-installation-modal-container,
+ .game-search-modal,
+ .mhg-sidebar-search-modal.game-search-modal,
+ .edit-game-modal-container,
+ .edit-collection-modal-container,
+ .filter-popup,
+ .sort-popup,
+ .dropdown-menu-popup,
+ .games-list-toolbar-popup,
+ .view-mode-dropdown,
+ .view-mode-dropdown.view-mode-dropdown--portaled,
+ body > .add-to-collection-dropdown-menu,
+ body > .additional-executables-dropdown-menu,
+ .dropdown-menu-popup .dropdown-menu-collectionlike-submenu,
+ .games-table-column-menu-popup,
+ .profile-dropdown-popup,
+ body > .update-notification-popup,
+ .franchise-series-dropdown {
+  animation: none !important;
+ }
+}

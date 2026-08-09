@@ -1,0 +1,75 @@
+/*--- ./components/common/Summary.css ---*/
+
+
+.summary-root {
+ margin-top: 16px;
+}
+
+.summary-text {
+ opacity: 0.8;
+ font-family: var(--font-body-1-font-family);
+ font-size: var(--summary-font-size, var(--font-body-1-font-size));
+ line-height: var(--font-body-1-line-height);
+ display: -webkit-box;
+ -webkit-line-clamp: var(--summary-max-lines, 4);
+ -webkit-box-orient: vertical;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: pre-line;
+}
+
+.summary-text--expanded {
+ -webkit-line-clamp: unset;
+ overflow: visible;
+ text-overflow: clip;
+}
+
+.summary-text--toggleable {
+ cursor: pointer;
+ border-radius: 4px;
+ transition: opacity 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.summary-text--toggleable:hover {
+ opacity: 1;
+}
+
+/* Smart TV focus mirror only — gold ring not used on desktop/phone mouse. */
+html[data-mhg-tv="1"] .summary-text--toggleable[data-mhg-tv-hover] {
+ opacity: 1;
+ outline: none;
+ box-shadow: 0 0 0 2px rgba(229, 160, 13, 0.9);
+}
+
+.summary-toggle {
+ margin-top: 8px;
+ background-color: transparent;
+ border: none;
+ color: #e5a00d;
+ cursor: pointer;
+ padding: 0;
+ font-family: var(--font-body-1-font-family);
+ font-size: var(--font-body-1-font-size);
+ line-height: var(--font-body-1-line-height);
+ display: flex;
+ align-items: center;
+ gap: 4px;
+}
+
+.summary-toggle:hover {
+ color: #f5b041;
+}
+
+html[data-mhg-tv="1"] .summary-toggle[data-mhg-tv-hover] {
+ color: #f5b041;
+ outline: none;
+}
+
+.summary-toggle-chevron {
+ transform: rotate(0deg);
+ transition: transform 0.2s ease;
+}
+
+.summary-toggle-chevron--expanded {
+ transform: rotate(180deg);
+}

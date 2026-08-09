@@ -1,0 +1,107 @@
+/* --- ./pages/HomePage.css --- */
+
+
+.home-page-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Same net offset as former padding-top: 128px + margin-top: -30px, without negative margin */
+  padding-top: 128px;
+}
+
+/* Fixed libraries bar is taller when the tool dock sits above the strip — keep content from sliding under it. */
+:root:has(.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"])
+  .app-main-container:not([data-mhg-persistent-library-shell="true"])
+  .home-page-main-container
+  .home-page-content {
+  padding-top: calc(128px + var(--mhg-top-tool-dock-band-height, 52px));
+}
+
+.app-main-container[data-mhg-persistent-library-shell="true"]:has(
+    .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+  )
+  .home-page-main-container
+  .home-page-content {
+  padding-top: calc(64px + var(--mhg-top-tool-dock-band-height, 52px));
+}
+
+.home-page-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.home-page-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.home-page-content-wrapper.has-toolbar {
+  margin-top: -8px;
+}
+
+.home-page-content-wrapper.has-toolbar .home-page-scroll-container.table-view {
+  padding-top: 16px;
+}
+
+/* List pages: extra space above grid/table body (collections, tags, library, recommended, etc.) */
+.home-page-content-wrapper.home-page-fade-in .home-page-scroll-container {
+  padding-top: 32px;
+}
+
+.home-page-content-wrapper.games-list-page-fade .home-page-scroll-container:not(.table-view) {
+  padding-top: 32px;
+}
+
+.home-page-scroll-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+html:not([data-mhg-tv="1"]) .home-page-scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) #1a1a1a;
+}
+
+html:not([data-mhg-tv="1"]) .home-page-scroll-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+html:not([data-mhg-tv="1"]) .home-page-scroll-container::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+html:not([data-mhg-tv="1"]) .home-page-scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+html:not([data-mhg-tv="1"]) .home-page-scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+html:not([data-mhg-tv="1"]) .home-page-scroll-container::-webkit-scrollbar-thumb:active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.home-page-scroll-container.table-view {
+  padding-bottom: 0;
+  overflow: hidden;
+  overflow-x: hidden !important;
+}
+
+.home-page-scroll-container:not(.table-view) {
+  padding-bottom: 32px;
+}
+
+.home-page-main-container {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}

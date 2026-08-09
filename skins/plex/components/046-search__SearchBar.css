@@ -1,0 +1,217 @@
+/* --- ./components/search/SearchBar.css --- */
+
+
+.search-bar-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-bar-wrapper {
+  position: relative;
+  z-index: 10002;
+}
+
+.search-bar-wrapper.search-focused {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.search-bar-wrapper.search-focused .mhg-search-input {
+  color: #000000 !important;
+}
+
+.search-bar-wrapper.search-focused .mhg-search-input::placeholder {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.search-icon-focused {
+  color: #000000 !important;
+}
+
+.search-input-with-padding {
+  position: relative;
+  z-index: 101;
+}
+
+.search-input-with-padding.has-query {
+  padding-right: 36px;
+}
+
+.search-clear-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 102;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.2s ease;
+}
+
+.search-clear-button:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.search-bar-wrapper.search-focused .search-clear-button {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.search-bar-wrapper.search-focused .search-clear-button:hover {
+  color: rgba(0, 0, 0, 1);
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0px;
+  z-index: 10003;
+  pointer-events: auto;
+  /* Left edge aligned with search bar; a bit narrower than before */
+  width: min(640px, calc(100vw - 32px));
+  max-height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Hide results dropdown while a child modal is open (legacy; search keeps dropdown visible during stacked actions). */
+.search-dropdown.search-dropdown--modal-hidden {
+  display: none;
+}
+
+/*
+ * Header search dropdown: action sheets above portaled ⋮ stack (10105) and menu.
+ */
+body[data-mhg-search-dropdown-modal-action] .search-dropdown {
+  pointer-events: none !important;
+}
+
+body[data-mhg-search-dropdown-modal-action] > [data-mhg-sidebar-search-menu-stack] {
+  z-index: 10105 !important;
+}
+
+/* Header search ⋮ menu: no dim, background stays interactive (stack is pointer-events: none). */
+[data-mhg-sidebar-search-menu-stack-permeable] .dropdown-menu-popup,
+[data-mhg-sidebar-search-menu-stack-permeable] .dropdown-menu-popup-in-search {
+  pointer-events: auto !important;
+}
+
+body[data-mhg-search-dropdown-modal-action] > .edit-game-modal-overlay,
+body[data-mhg-search-dropdown-modal-action] > .edit-collection-modal-overlay,
+body[data-mhg-search-dropdown-modal-action] > .dropdown-menu-confirm-overlay,
+body[data-mhg-search-dropdown-modal-action] > .add-to-collection-modal-overlay,
+body[data-mhg-search-dropdown-modal-action] > .manage-installation-modal-overlay,
+body[data-mhg-search-dropdown-modal-action] > [data-mhg-sidebar-search-menu-stack]:has(.edit-game-modal-overlay),
+body[data-mhg-search-dropdown-modal-action] > [data-mhg-sidebar-search-menu-stack]:has(.edit-collection-modal-overlay),
+body[data-mhg-search-dropdown-modal-action] > [data-mhg-sidebar-search-menu-stack]:has(.dropdown-menu-confirm-overlay) {
+  z-index: 10125 !important;
+}
+
+body[data-mhg-search-dropdown-modal-action] > .dropdown-menu-popup,
+body[data-mhg-search-dropdown-modal-action] > .add-to-collection-dropdown-menu,
+body[data-mhg-search-dropdown-modal-action] > .additional-executables-dropdown-menu {
+  z-index: 10105 !important;
+}
+
+.search-dropdown-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.search-recent-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  cursor: pointer;
+}
+
+.search-recent-icon {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.6);
+  width: 20px;
+  height: 20px;
+}
+
+.search-recent-remove {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  margin-left: auto;
+}
+
+.search-recent-remove:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.search-dropdown-footer {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #1a1a1a;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.search-view-all-button {
+  padding: 10px 20px;
+  background-color: #E5A00D;
+  border: 1px solid #E5A00D;
+  border-radius: 6px;
+  color: #000000;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.search-view-all-button:is(:hover, [data-mhg-tv-hover]) {
+  background-color: #F5B041;
+  border-color: #F5B041;
+}
+
+.search-no-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0px;
+  z-index: 10003;
+  pointer-events: auto;
+  width: min(640px, calc(100vw - 32px));
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+}
+
+.search-dropdown-header {
+  padding: 16px 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #1a1a1a;
+  flex-shrink: 0;
+}
