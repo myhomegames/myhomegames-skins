@@ -49,16 +49,16 @@
   overflow-y: hidden;
 }
 
+/*
+ * Smart TV: vertical room for focused scale(1.14) is applied in the Grid
+ * rowHeight / cell pad (see VirtualizedHorizontalGamesStrip). Horizontal edge
+ * inset for the first/last columns is also applied in cell layout — CSS
+ * padding on this scroller does not move absolutely positioned cells, and
+ * overflow here would clip the first cover’s left outline/border.
+ * scroll-padding keeps L/R focus alignment inset when scrolling.
+ */
 html[data-mhg-tv="1"] .virtualized-horizontal-games-strip {
   scroll-padding-inline: max(
-    var(--mhg-tv-cover-scale-pad, 36px),
-    calc(var(--games-list-cover-size, 150px) * 0.14)
-  );
-  padding-left: max(
-    var(--mhg-tv-cover-scale-pad, 36px),
-    calc(var(--games-list-cover-size, 150px) * 0.14)
-  );
-  padding-right: max(
     var(--mhg-tv-cover-scale-pad, 36px),
     calc(var(--games-list-cover-size, 150px) * 0.14)
   );
