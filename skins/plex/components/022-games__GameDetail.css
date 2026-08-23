@@ -678,7 +678,7 @@ html[data-mhg-tv="1"] .library-item-detail-summary {
   text-align: left;
 }
 
-/* Smart TV: no Edit on game detail; ⋮ menu keeps Delete only. */
+/* Smart TV: no Edit on game detail. Other ⋮ entries are trimmed in DropdownMenu (TV game detail branch). */
 html[data-mhg-tv="1"] .game-detail-edit-button {
   display: none !important;
 }
@@ -728,12 +728,6 @@ html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-backgrou
 html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-main-games-toggle .main-games-toggle-button svg {
   width: 1.35em;
   height: 1.35em;
-}
-
-html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-item:not(.dropdown-menu-item-danger),
-html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-divider,
-html[data-mhg-tv="1"] .dropdown-menu-popup.game-detail-dropdown-menu .dropdown-menu-collectionlike-submenu {
-  display: none !important;
 }
 
 /*
