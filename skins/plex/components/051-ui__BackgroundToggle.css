@@ -41,3 +41,8 @@
   width: 24px;
   height: 24px;
 }
+
+/* Visible label only on Smart TV when the action chip is focused (see GameDetail.css). */
+.background-toggle-button .mhg-tv-action-label {
+  display: none;
+}
