@@ -735,32 +735,28 @@ html[data-mhg-tv="1"] .library-item-detail-scroll {
   --summary-font-size: clamp(1.65rem, 2.6vw, 2.05rem);
 }
 
-html[data-mhg-tv="1"] .library-item-detail-play-btn {
-  font-size: clamp(1.65rem, 2.4vw, 2rem);
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 14px;
-  padding-right: 18px;
-  gap: 10px;
-}
-
 /*
- * Smart TV: play-row action chips — white circles (icon only), expand to a
- * rounded pill with label when focused / TV-hover mirrored.
+ * Smart TV: play-row action chips — dark circles (icon only), expand to a
+ * white pill with label when focused / TV-hover mirrored.
+ * Shared by game detail and collection-like (library item) detail.
  */
-html[data-mhg-tv="1"] .game-detail-actions {
+html[data-mhg-tv="1"] .game-detail-actions,
+html[data-mhg-tv="1"] .library-item-detail-actions {
   gap: 8px;
 }
 
 /* Empty / hidden hosts still take flex gap — remove them so spacing is even. */
 html[data-mhg-tv="1"] .game-detail-actions > .add-to-collection-dropdown,
 html[data-mhg-tv="1"] .game-detail-actions > .additional-executables-dropdown,
-html[data-mhg-tv="1"] .game-detail-actions > .tooltip-wrapper:has(.game-detail-edit-button) {
+html[data-mhg-tv="1"] .game-detail-actions > .tooltip-wrapper:has(.game-detail-edit-button),
+html[data-mhg-tv="1"] .library-item-detail-actions > .tooltip-wrapper:has(.library-item-detail-edit-button) {
   display: none !important;
 }
 
 html[data-mhg-tv="1"] .game-detail-actions > .game-detail-background-toggle,
-html[data-mhg-tv="1"] .game-detail-actions > .game-detail-dropdown-menu {
+html[data-mhg-tv="1"] .game-detail-actions > .game-detail-dropdown-menu,
+html[data-mhg-tv="1"] .library-item-detail-actions > .library-item-detail-background-toggle,
+html[data-mhg-tv="1"] .library-item-detail-actions > .library-item-detail-main-games-toggle {
   display: flex;
   align-items: center;
   margin: 0;
@@ -770,7 +766,10 @@ html[data-mhg-tv="1"] .game-detail-actions > .game-detail-dropdown-menu {
 
 html[data-mhg-tv="1"] .game-detail-actions .game-detail-play-button,
 html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-button,
-html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button {
+html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-play-btn,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-background-toggle .background-toggle-button,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-main-games-toggle .main-games-toggle-button {
   --mhg-tv-action-size: clamp(3.25rem, 5vw, 3.75rem);
   background-color: #2a2a2a;
   color: #ffffff;
@@ -789,6 +788,9 @@ html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button {
   box-sizing: border-box;
   transform: none;
   opacity: 1 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition:
     max-width 0.22s ease,
     padding 0.22s ease,
@@ -800,7 +802,10 @@ html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button {
 
 html[data-mhg-tv="1"] .game-detail-actions .game-detail-play-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]),
 html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]):not(:disabled),
-html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) {
+html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]),
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-play-btn:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]),
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-background-toggle .background-toggle-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]):not(:disabled),
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-main-games-toggle .main-games-toggle-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]):not(:disabled) {
   background-color: #ffffff;
   color: #000000;
   width: auto;
@@ -813,7 +818,12 @@ html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button:is(:hover, :foc
 html[data-mhg-tv="1"] .game-detail-actions .game-detail-play-button-icon,
 html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-button svg,
 html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-icon,
-html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button svg {
+html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button svg,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-play-btn-icon,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-background-toggle .background-toggle-button svg,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-background-toggle .background-toggle-icon,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-main-games-toggle .main-games-toggle-button svg,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-main-games-toggle .main-games-toggle-icon {
   width: 1.45em;
   height: 1.45em;
   flex-shrink: 0;
@@ -823,11 +833,17 @@ html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button svg {
 html[data-mhg-tv="1"] .game-detail-actions .game-detail-play-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) .game-detail-play-button-icon,
 html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) svg,
 html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) .background-toggle-icon,
-html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) svg {
+html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) svg,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-play-btn:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) .library-item-detail-play-btn-icon,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-background-toggle .background-toggle-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) svg,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-background-toggle .background-toggle-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) .background-toggle-icon,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-main-games-toggle .main-games-toggle-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) svg,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-main-games-toggle .main-games-toggle-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) .main-games-toggle-icon {
   color: #000000;
 }
 
-html[data-mhg-tv="1"] .game-detail-actions .mhg-tv-action-label {
+html[data-mhg-tv="1"] .game-detail-actions .mhg-tv-action-label,
+html[data-mhg-tv="1"] .library-item-detail-actions .mhg-tv-action-label {
   display: inline-block;
   max-width: 0;
   margin: 0;
@@ -843,7 +859,10 @@ html[data-mhg-tv="1"] .game-detail-actions .mhg-tv-action-label {
 
 html[data-mhg-tv="1"] .game-detail-actions .game-detail-play-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) .mhg-tv-action-label,
 html[data-mhg-tv="1"] .game-detail-actions .game-detail-background-toggle .background-toggle-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) .mhg-tv-action-label,
-html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) .mhg-tv-action-label {
+html[data-mhg-tv="1"] .game-detail-actions .dropdown-menu-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) .mhg-tv-action-label,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-play-btn:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) .mhg-tv-action-label,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-background-toggle .background-toggle-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) .mhg-tv-action-label,
+html[data-mhg-tv="1"] .library-item-detail-actions .library-item-detail-main-games-toggle .main-games-toggle-button:is(:hover, :focus, :focus-visible, [data-mhg-tv-hover]) .mhg-tv-action-label {
   max-width: 14em;
   opacity: 1;
 }
