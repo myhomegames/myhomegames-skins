@@ -5,6 +5,7 @@
   "snapshot": "snapshot.jpg",
   "web": {
     "detailBackdropLayout": true,
+    "tvDetailBackdropAmbient": true,
     "staticInlineTagListOnTvPhone": true,
     "tvSummaryOverlay": true,
     "tvStarRatingOverlay": true,
