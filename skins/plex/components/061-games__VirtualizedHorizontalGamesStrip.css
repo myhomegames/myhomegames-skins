@@ -43,10 +43,15 @@
   width: 100%;
 }
 
-/* When the strip Grid owns scrollLeft, keep the section host from nested-scrolling. */
+/* When the strip Grid owns scrollLeft, keep the section host from nested-scrolling.
+ * Clear classic padding-right (64px) — VirtualizedHorizontalGamesStrip measures
+ * clientWidth minus padding, so that gutter permanently shrunk the rail viewport
+ * (covers stopped short of the 20px section margins). End spacing is restored on
+ * the last Grid column instead. TV keeps its !important edge padding. */
 .scrollable-section-scroll:has(.games-list-container--virtualized-strip) {
   overflow-x: hidden;
   overflow-y: hidden;
+  padding-right: 0;
 }
 
 /*

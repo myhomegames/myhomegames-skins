@@ -44,9 +44,12 @@ body .search-dropdown-item .additional-executables-dropdown-menu,
   white-space: nowrap;
 }
 
-.additional-executables-dropdown-item:hover {
+.additional-executables-dropdown-item:hover,
+.additional-executables-dropdown-item[data-mhg-tv-hover],
+.additional-executables-dropdown-item:focus {
   background-color: rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 1);
+  outline: none;
 }
 
 .additional-executables-dropdown-menu--positioning {

@@ -87,6 +87,10 @@ html:not([data-mhg-tv="1"]) .scrollable-section-scroll::-webkit-scrollbar-thumb:
  padding-bottom: 8px;
  padding-left: 0;
  grid-template-columns: none !important;
+ /* Override GamesList max-width:100% so the strip can overflow and scroll. */
+ max-width: none;
+ width: max-content;
+ margin: 0;
 }
 
 .scrollable-section-scroll .games-list-title {
