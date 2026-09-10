@@ -1142,10 +1142,45 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  transform: translateY(0);
 }
 
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games .main-games-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
+ color: #ffffff;
+}
+
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games .main-games-toggle-button svg {
  display: block;
  width: 24px;
  height: 24px;
+}
+
+/* Match ⋮ hover: background / edit / cover slider inside the white dock. */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner
+ .background-toggle-button,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner
+ .library-item-detail-edit-button,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-slider
+ .cover-size-slider,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-slider
+ .cover-size-slider-container {
+ cursor: pointer;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner
+ .background-toggle-button {
+ color: rgba(255, 255, 255, 0.75);
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner
+ .background-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled),
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner
+ .library-item-detail-edit-button:is(:hover, [data-mhg-tv-hover]) {
+ color: #ffffff;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view .view-mode-button {

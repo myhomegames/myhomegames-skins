@@ -1,0 +1,60 @@
+/* --- ./components/ui/CoverSizeSlider.css --- */
+
+.cover-size-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 0;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.cover-size-slider {
+  width: 60px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background-color 0.2s ease;
+}
+
+.cover-size-slider:is(:hover, [data-mhg-tv-hover]),
+.cover-size-slider-container:hover .cover-size-slider {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.cover-size-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.cover-size-slider:is(:hover, [data-mhg-tv-hover])::-webkit-slider-thumb,
+.cover-size-slider-container:hover .cover-size-slider::-webkit-slider-thumb {
+  background: #ffffff;
+  transform: scale(1.08);
+}
+
+.cover-size-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.cover-size-slider:is(:hover, [data-mhg-tv-hover])::-moz-range-thumb,
+.cover-size-slider-container:hover .cover-size-slider::-moz-range-thumb {
+  background: #ffffff;
+  transform: scale(1.08);
+}

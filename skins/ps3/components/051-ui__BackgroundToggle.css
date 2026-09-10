@@ -1,5 +1,44 @@
 /* --- ./components/ui/BackgroundToggle.css --- */
 
+.background-toggle-button {
+  padding: 6px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+.background-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
+  color: #ffffff;
+}
+
+.background-toggle-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.background-toggle-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.background-toggle-button svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
 /* Visible label only on Smart TV when the action chip is focused. */
 .background-toggle-button .mhg-tv-action-label {
   display: none;
