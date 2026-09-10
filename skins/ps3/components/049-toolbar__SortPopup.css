@@ -3093,12 +3093,30 @@ html.mhg-context-rail-activation-lock-global #root * {
  width: var(--sr-star-size, 16px);
  height: var(--sr-star-size, 16px);
  cursor: default;
+ padding: 0;
+ border: none;
+ background: transparent;
+ color: inherit;
+ font: inherit;
+ display: inline-block;
+ -webkit-tap-highlight-color: transparent;
 }
 
 .star-rating-star--interactive {
  cursor: pointer;
  touch-action: manipulation;
- -webkit-tap-highlight-color: transparent;
+ transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.star-rating-star--interactive:is(:hover, [data-mhg-tv-hover], :focus-visible) {
+ outline: none;
+ transform: scale(1.28);
+ filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.85));
+ z-index: 1;
+}
+
+.star-rating--overlay-trigger {
+ cursor: pointer;
 }
 
 .star-rating-star-svg-bg,
