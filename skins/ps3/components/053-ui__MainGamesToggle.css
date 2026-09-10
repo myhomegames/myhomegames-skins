@@ -1,0 +1,6 @@
+/* --- ./components/ui/MainGamesToggle.css --- */
+
+/* Visible label only on Smart TV when the action chip is focused. */
+.main-games-toggle-button .mhg-tv-action-label {
+  display: none;
+}

@@ -103,6 +103,11 @@
  color: #ffffff;
 }
 
+/* Visible label only on Smart TV when the action chip is focused. */
+.dropdown-menu-button .mhg-tv-action-label {
+ display: none;
+}
+
 .dropdown-menu-popup {
  position: absolute;
  top: 100%;

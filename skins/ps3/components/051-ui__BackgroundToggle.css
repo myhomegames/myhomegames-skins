@@ -1,0 +1,6 @@
+/* --- ./components/ui/BackgroundToggle.css --- */
+
+/* Visible label only on Smart TV when the action chip is focused. */
+.background-toggle-button .mhg-tv-action-label {
+  display: none;
+}
