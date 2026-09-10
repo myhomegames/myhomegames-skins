@@ -1913,6 +1913,20 @@ body > .additional-executables-dropdown-menu {
  z-index: 2;
 }
 
+/*
+ * Tag franchise/series: BackgroundManager mounts inside column 2 only.
+ * Keep the solid no-backdrop fill inside that column so it cannot cover the context rail.
+ */
+.tag-games-context-games .background-manager-root,
+.tag-games-context-games .background-manager-root--solid {
+ position: absolute;
+ inset: 0;
+ width: 100%;
+ height: 100%;
+ max-width: none;
+ max-height: none;
+}
+
 .library-item-detail-context-layout,
 .tag-games-context-layout {
  overflow-x: hidden !important;
@@ -2390,13 +2404,13 @@ html.mhg-context-rail-activation-lock-global #root * {
 }
 
 .tag-games-context-rail {
- flex: 0 1 auto;
+ flex: 0 0 auto;
  display: flex;
  flex-direction: column;
  align-items: flex-start;
  align-self: flex-start;
- flex-shrink: 1;
- min-width: 0;
+ flex-shrink: 0;
+ min-width: var(--mhg-context-rail-col1-icon, 96px);
  max-width: calc(
   max(
    var(--mhg-context-rail-col1-icon, 96px),
@@ -2405,7 +2419,8 @@ html.mhg-context-rail-activation-lock-global #root * {
  );
  padding-top: var(--mhg-tag-rail-top, 204px);
  gap: var(--mhg-tag-rail-icon-cover-gap, 12px);
- z-index: 2;
+ /* Above .tag-games-context-games (z-index 2): solid BM fill lives in col2 and must not paint over col1. */
+ z-index: 4;
 }
 
 .tag-games-context-rail-library.mhg-library-button,
