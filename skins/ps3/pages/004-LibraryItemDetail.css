@@ -1,0 +1,29 @@
+/* --- ./pages/LibraryItemDetail.css --- */
+
+.library-item-detail-edit-button {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.library-item-detail-edit-button:is(:hover, [data-mhg-tv-hover]) {
+  color: #ffffff;
+}
+
+.library-item-detail-edit-button svg {
+  display: block;
+}
+
+.library-item-detail-dropdown-menu {
+  position: relative;
+}
+
+.library-item-detail-dropdown-menu .dropdown-menu-button {
+  opacity: 1 !important;
+}

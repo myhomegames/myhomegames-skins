@@ -1142,10 +1142,76 @@ html[data-mhg-background-visible="true"] .background-manager-foreground {
  transform: translateY(0);
 }
 
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games .main-games-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
+ color: #ffffff;
+}
+
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-main-games .main-games-toggle-button svg {
  display: block;
  width: 24px;
  height: 24px;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-new-games .new-games-toggle-button {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ padding: 0;
+ margin: 0;
+ border: 0;
+ background: transparent;
+ cursor: pointer;
+ color: rgba(255, 255, 255, 0.78);
+ transform: translateY(0);
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-new-games
+ .new-games-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
+ color: #ffffff;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-new-games .new-games-toggle-button svg {
+ display: block;
+ width: 24px;
+ height: 24px;
+}
+
+/* Match ⋮ hover: background / edit / cover slider / new-games inside the white dock. */
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner
+ .background-toggle-button,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner
+ .library-item-detail-edit-button,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner
+ .new-games-toggle-button,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-slider
+ .cover-size-slider,
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-slider
+ .cover-size-slider-container {
+ cursor: pointer;
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner
+ .background-toggle-button {
+ color: rgba(255, 255, 255, 0.75);
+}
+
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner
+ .background-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled),
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner
+ .library-item-detail-edit-button:is(:hover, [data-mhg-tv-hover]),
+.mhg-libraries-bar[data-mhg-top-right-tool-dock="true"]
+ .mhg-top-right-tool-dock-inner
+ .new-games-toggle-button:is(:hover, [data-mhg-tv-hover]):not(:disabled) {
+ color: #ffffff;
 }
 
 .mhg-libraries-bar[data-mhg-top-right-tool-dock="true"] .mhg-top-right-tool-dock-view .view-mode-button {

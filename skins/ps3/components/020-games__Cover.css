@@ -1,0 +1,46 @@
+/* --- ./components/games/Cover.css --- */
+
+/* Remove media button (edit modal: local cover / background / logo). */
+.cover-remove-media-button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  background-color: rgba(220, 38, 38, 0.9);
+  border: none;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  z-index: 100;
+  padding: 0;
+  margin: 0;
+  line-height: 24px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.cover-remove-media-button::before {
+  content: "×";
+  display: block;
+  line-height: 1;
+  transform: translateY(0px);
+}
+
+.cover-remove-media-button:hover:not(:disabled) {
+  background-color: rgba(220, 38, 38, 1);
+  transform: scale(1.1);
+}
+
+.cover-remove-media-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
