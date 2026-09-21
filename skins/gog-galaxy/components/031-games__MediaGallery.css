@@ -116,17 +116,24 @@ html:not([data-mhg-tv="1"]) .media-gallery-strip {
  cursor: pointer;
 }
 
+/* Fill the backdrop so prev/next/close/counter stay inside the viewport
+   (negative offsets used to push them outside the image and off-screen). */
 .media-gallery-lightbox-inner {
  position: relative;
- max-width: 90vw;
- max-height: 90vh;
+ width: 100%;
+ height: 100%;
+ max-width: none;
+ max-height: none;
  display: flex;
  align-items: center;
  justify-content: center;
+ box-sizing: border-box;
+ padding: 64px 72px 48px;
 }
 
 .media-gallery-lightbox-icon-btn {
  position: absolute;
+ z-index: 1;
  background-color: rgba(255, 255, 255, 0.2);
  border: none;
  border-radius: 50%;
@@ -152,36 +159,38 @@ html:not([data-mhg-tv="1"]) .media-gallery-strip {
 }
 
 .media-gallery-lightbox-icon-btn--prev {
- left: -60px;
+ left: 16px;
 }
 
 .media-gallery-lightbox-icon-btn--next {
- right: -60px;
+ right: 16px;
 }
 
 .media-gallery-lightbox-icon-btn--close {
- top: -60px;
- right: 0;
+ top: 16px;
+ right: 16px;
 }
 
 .media-gallery-lightbox-img {
  max-width: 100%;
- max-height: 90vh;
+ max-height: 100%;
  border-radius: 4px;
  object-fit: contain;
 }
 
 .media-gallery-lightbox-iframe {
- width: 90vw;
+ width: 100%;
  max-width: 1600px;
+ max-height: 100%;
  aspect-ratio: 16 / 9;
  border-radius: 4px;
  border: none;
 }
 
 .media-gallery-lightbox-youtube {
- width: 90vw;
+ width: 100%;
  max-width: 1600px;
+ max-height: 100%;
  aspect-ratio: 16 / 9;
  border-radius: 4px;
  overflow: hidden;
@@ -197,7 +206,7 @@ html:not([data-mhg-tv="1"]) .media-gallery-strip {
 
 .media-gallery-lightbox-counter {
  position: absolute;
- bottom: -40px;
+ bottom: 16px;
  left: 50%;
  transform: translateX(-50%);
  color: white;
