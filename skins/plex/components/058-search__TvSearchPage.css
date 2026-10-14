@@ -258,20 +258,46 @@ html[data-mhg-tv="1"] .tv-search-page-right .search-results-list-container {
   box-sizing: border-box;
 }
 
-/* Search result covers omit cover-hover-effect — make D-pad focus visible.
-   Draw the ring inside the row so overflow parents cannot clip left/top/bottom. */
+/* Cover focus = this result (OK opens detail). Draw the ring on the row. */
 html[data-mhg-tv="1"] .tv-search-page-right .search-results-list-item:has(
   .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover])
-),
-html[data-mhg-tv="1"] .tv-search-page-right .search-results-list-item:has(
-  .search-result-play-button:is(:focus, :focus-visible, [data-mhg-tv-hover])
 ) {
   background-color: rgba(255, 255, 255, 0.08);
   outline: 2px solid #e5a00d;
   outline-offset: -2px;
 }
 
-html[data-mhg-tv="1"] .tv-search-page-right .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover]),
+html[data-mhg-tv="1"] .tv-search-page-right .games-list-cover:is(:focus, :focus-visible, [data-mhg-tv-hover]) {
+  outline: none;
+}
+
+/* Play and ⋮ are their own D-pad stops. Box-shadow survives the TV focus-ring wipe. */
+html[data-mhg-tv="1"] .tv-search-page-right .search-result-actions .dropdown-menu-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  box-sizing: border-box;
+}
+
 html[data-mhg-tv="1"] .tv-search-page-right .search-result-play-button:is(:focus, :focus-visible, [data-mhg-tv-hover]) {
   outline: none;
+  box-shadow: none;
+  background: none;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+html[data-mhg-tv="1"] .tv-search-page-right .search-result-play-button:is(:focus, :focus-visible, [data-mhg-tv-hover]) svg,
+html[data-mhg-tv="1"] .tv-search-page-right .search-result-play-button:is(:focus, :focus-visible, [data-mhg-tv-hover]) svg path {
+  color: #ffffff;
+  fill: #ffffff;
+}
+
+html[data-mhg-tv="1"] .tv-search-page-right .search-result-actions .dropdown-menu-button:is(:focus, :focus-visible, [data-mhg-tv-hover]) {
+  outline: none;
+  box-shadow: 0 0 0 3px #e5a00d;
+  border-color: #e5a00d;
+  background: rgba(229, 160, 13, 0.28);
+  color: #ffffff;
 }
