@@ -1706,7 +1706,7 @@ body:has(.app-main-container[data-mhg-persistent-library-shell="true"] .settings
  .catalog-game-detail-main-container
  )
  .home-page-scroll-container:not(.table-view)
- > .tag-list-container {
+ > .tag-list-container:not(.tag-list-container--virtualized):not(.fixed-focal-tag-list) {
  padding-top: var(--mhg-grid-top-inset-tag, var(--mhg-scroll-top-inset, 64px));
  box-sizing: border-box;
 }
