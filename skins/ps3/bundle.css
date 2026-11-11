@@ -4526,6 +4526,30 @@ html[data-mhg-tv="1"] .add-game-create-btn[data-mhg-tv-hover] {
  margin-bottom: 0;
 }
 
+.add-game-import-summary {
+ margin-top: 10px;
+ font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+ font-size: 0.8125rem;
+ color: rgba(255, 255, 255, 0.65);
+ line-height: 1.4;
+}
+
+.add-game-import-folder-row {
+ flex-wrap: wrap;
+}
+
+.add-game-browse-folder-btn {
+ background: rgba(255, 255, 255, 0.08);
+ color: rgba(255, 255, 255, 0.92);
+ box-shadow: none;
+}
+
+.add-game-browse-folder-btn:hover:not(:disabled) {
+ background: rgba(255, 255, 255, 0.14);
+ transform: none;
+ box-shadow: none;
+}
+
 .add-game-search-container {
  margin-bottom: 24px;
 }
