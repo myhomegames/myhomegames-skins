@@ -159,7 +159,21 @@ html[data-mhg-tv="1"] .add-game-create-btn[data-mhg-tv-hover] {
 }
 
 .add-game-import-folder-row {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.add-game-import-progress {
+  flex: 1;
+  min-width: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .add-game-browse-folder-btn {
