@@ -150,20 +150,14 @@ html[data-mhg-tv="1"] .add-game-create-btn[data-mhg-tv-hover] {
   margin-bottom: 0;
 }
 
-.add-game-import-summary {
-  margin-top: 10px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.65);
-  line-height: 1.4;
-}
-
 .add-game-import-folder-row {
   flex-wrap: nowrap;
   align-items: center;
 }
 
-.add-game-import-progress {
+.add-game-import-status,
+.add-game-import-progress,
+.add-game-import-summary {
   flex: 1;
   min-width: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -174,6 +168,11 @@ html[data-mhg-tv="1"] .add-game-create-btn[data-mhg-tv-hover] {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.add-game-import-status-error {
+  color: #ff6b6b;
+  font-weight: 600;
 }
 
 .add-game-browse-folder-btn {
