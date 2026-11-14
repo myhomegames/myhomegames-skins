@@ -182,6 +182,11 @@ html[data-mhg-tv="1"] .add-game-create-btn[data-mhg-tv-hover] {
   font-weight: 600;
 }
 
+.add-game-import-status-notice {
+  color: #ffc266;
+  font-weight: 600;
+}
+
 .add-game-browse-folder-btn {
   background: rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.92);
