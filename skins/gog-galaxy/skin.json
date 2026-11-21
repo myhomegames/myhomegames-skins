@@ -1,7 +1,7 @@
 {
   "name": "GOG Galaxy",
   "description": "Skin for GOG Galaxy",
-  "version": "1.0.7",
+  "version": "1.0.6",
   "snapshot": "snapshot.jpg",
   "web": {
     "persistentLibraryShell": true,
