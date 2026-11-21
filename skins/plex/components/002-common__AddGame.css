@@ -150,6 +150,55 @@ html[data-mhg-tv="1"] .add-game-create-btn[data-mhg-tv-hover] {
   margin-bottom: 0;
 }
 
+.add-game-import-folder-row {
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px 12px;
+}
+
+.add-game-import-folder-row > .add-game-create-btn {
+  flex: 0 0 auto;
+}
+
+.add-game-import-status,
+.add-game-import-progress,
+.add-game-import-summary {
+  flex: 1 1 12rem;
+  min-width: min(100%, 12rem);
+  max-width: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.35;
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.add-game-import-status-error {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+.add-game-import-status-notice {
+  color: #ffc266;
+  font-weight: 600;
+}
+
+.add-game-browse-folder-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
+  box-shadow: none;
+}
+
+.add-game-browse-folder-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.14);
+  transform: none;
+  box-shadow: none;
+}
+
 .add-game-search-container {
   margin-bottom: 24px;
 }

@@ -595,8 +595,24 @@ html[data-mhg-tv="1"] .game-detail-similar-section .scrollable-section-header {
   .game-detail-actions,
   .catalog-game-detail-actions,
   .library-item-detail-actions {
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
+    gap: 8px;
+  }
+
+  /* Phone: Play as a white rounded bar that fills the action row. */
+  .game-detail-play-button {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 9999px;
+    padding: 10px 16px;
+  }
+
+  .game-detail-play-button:is(:hover, [data-mhg-tv-hover]) {
+    background-color: #f2f2f2;
   }
 
   .catalog-game-detail-mark-owned-button {
